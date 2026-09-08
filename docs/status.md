@@ -32,3 +32,6 @@ Update this file at each sprint review with completed PR links, verification res
 - Teammate-machine onboarding and production deployment are still pending.
 
 [Task backlog](https://github.com/seavens3nt/url-pattern-recognition/issues) · [Sprint milestones](https://github.com/seavens3nt/url-pattern-recognition/milestones)
+
+## Detailed execution guide update
+The Google Docs guide and repository phase guides now provide exact numbered tasks, file targets, named coordination partners, inputs, deadlines and handoff acceptance for all 32 member-week assignments. The starter separates the React feature/API boundary and Flask factory/routes/service. The real automata model remains pending. These changes are submitted through a reviewed PR.

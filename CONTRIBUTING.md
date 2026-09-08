@@ -14,3 +14,8 @@ Use the DFA transition logic for acceptance decisions. Document changes to the l
 
 ## Four-week phase workflow
 All changes go through a reviewed PR; no direct commits to main. Use phase-specific branches such as `phase-2/nfa-construction`. Coordinate cross-area changes with the relevant owner before implementation. See [weekly delegation](docs/roadmap.md).
+
+## Coordination evidence
+Before cross-area changes, name the affected owner and record agreement in the issue/PR. API changes require Sean and Jared to agree, with Paul updating contract tests. Automata changes require the originating designer and receiving designer to review. See docs/architecture.md for actual and planned file ownership.
+
+CODEOWNERS requests eligible reviewers where GitHub supports it; it does not itself block merges. The PR-first rule is a team policy unless repository branch rules enforce it. Ranee is responsible for confirming required review settings.

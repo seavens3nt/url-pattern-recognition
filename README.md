@@ -10,6 +10,10 @@ The starter connects React to Flask. The URL validator is deliberately not imple
 
 ## Project hub
 
+- [Google Docs team execution guide](https://docs.google.com/document/d/1sjPsqJnhULjnTyqZo2iaPqDlImX-l2sUmqY9-tPVNsQ/edit)
+- [Repository copy of the execution guide](docs/team-execution-guide.md)
+- [File architecture and ownership](docs/architecture.md)
+
 - [How to run](docs/how-to-run.md)
 - [Roadmap and Agile sprints](docs/roadmap.md)
 - [Current status](docs/status.md)

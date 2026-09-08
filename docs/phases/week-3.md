@@ -27,87 +27,269 @@ Run real DFA validation through Flask and React with accurate transition traces.
 - Coordinate shared language, state-table and API changes first; update affected tests and docs in the same handoff.
 - Use descriptive commits and PR descriptions with test evidence. Never silently relabel draft or sample data as an approved model.
 
-## Member assignments
+## Member assignments and coordination
 
 ### Ranee — Project Manager / Integration Lead (@seavens3nt)
 
-**Tasks:** Coordinate integration PRs; choose the demo hosting approach and rehearse setup from a clean checkout.
+**Focus:** Coordinate integration PRs; choose the demo hosting approach and rehearse setup from a clean checkout.
 
-**Expected output:** Integrated build candidate, environment plan and review log.
+**Before starting:** Week 2 model handoff; no paid hosting commitment assumed.
 
-**Dependency:** Week 2 model handoff; no paid hosting commitment assumed.
+**Owned files or artifacts:** docs/release/delivery-plan.md; docs/status.md; issue #16
 
-**Integration and review:** Paul receives the candidate for release testing.
+**Numbered tasks**
+1. Review the integration sequence and keep the API and frontend PRs small enough to diagnose independently.
+2. By Day 2, confirm Jared’s endpoint uses the approved model; by Day 3, confirm Sean’s UI uses that endpoint.
+3. Select hosting or local-delivery approach based on professor requirements and team resources; document commands and configuration without purchasing services.
+4. Day 5: demonstrate accepted and rejected examples, freeze features and list defects carried into Week 4.
+
+**Who to coordinate with and what to agree**
+- Jared and Sean: coordinate API/UI merge order.
+- Paul: verify candidate against the corpus.
+- Isaiah: approve scope conformance.
+- Cedric: prepare the demonstration evidence.
+- All owners: agree what is a release blocker.
+
+**Expected output and deadline:** Integrated build candidate, environment plan and review log.
+
+**Handoff package:** Link the issue, PR and commit; list changed files; include the artifact/data schema, worked example or screenshot, checks actually run, and unresolved questions. The receiving reviewer confirms usability in the issue before the task is closed.
+
+**Primary review and recipient:** Paul receives the candidate for release testing.
+
+**Done when**
+- [ ] Numbered tasks and named outputs are complete.
+- [ ] Required coordination decisions are recorded in the issue or PR.
+- [ ] The named reviewer checks the output and the recipient accepts the handoff.
+- [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
 ### Isaiah — Language Analyst / UI/UX (@m1nay3on)
 
-**Tasks:** Review accepted/rejected explanations and keyboard/mobile flows; compare the implementation with wireframes and language rules.
+**Focus:** Review accepted/rejected explanations and keyboard/mobile flows; compare the implementation with wireframes and language rules.
 
-**Expected output:** Prioritized UX and rule-conformance findings by Day 3.
+**Before starting:** Working candidate and approved specification.
 
-**Dependency:** Working candidate and approved specification.
+**Owned files or artifacts:** docs/ui/review-week-3.md; docs/language-spec.md (clarifications only)
 
-**Integration and review:** Sean fixes UI findings; Jared fixes response explanations.
+**Numbered tasks**
+1. Run the agreed cases through the integrated screen and compare verdict/explanation wording with the language specification.
+2. Review focus order, keyboard submission, error announcements, trace readability and narrow-screen layout.
+3. Write each finding with the screen state, expected behavior, screenshot and owner; separate correctness problems from optional styling.
+4. By Day 3 send final text/layout requirements so fixes can land before feature freeze.
+
+**Who to coordinate with and what to agree**
+- Sean: UI and accessibility fixes.
+- Jared: API explanation fixes.
+- Paul: reproduce findings and add regressions.
+- Ranee: resolve priority disputes before Day 4.
+
+**Expected output and deadline:** Prioritized UX and rule-conformance findings by Day 3.
+
+**Handoff package:** Link the issue, PR and commit; list changed files; include the artifact/data schema, worked example or screenshot, checks actually run, and unresolved questions. The receiving reviewer confirms usability in the issue before the task is closed.
+
+**Primary review and recipient:** Sean fixes UI findings; Jared fixes response explanations.
+
+**Done when**
+- [ ] Numbered tasks and named outputs are complete.
+- [ ] Required coordination decisions are recorded in the issue or PR.
+- [ ] The named reviewer checks the output and the recipient accepts the handoff.
+- [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
 ### Ralph — Regular Expression / NFA Designer (@rlken)
 
-**Tasks:** Trace selected accepted and rejected strings through the RE/NFA; investigate disagreements with the simulator.
+**Focus:** Trace selected accepted and rejected strings through the RE/NFA; investigate disagreements with the simulator.
 
-**Expected output:** Worked examples and resolved theory discrepancies.
+**Before starting:** Integrated simulator plus shared corpus.
 
-**Dependency:** Integrated simulator plus shared corpus.
+**Owned files or artifacts:** docs/automata/worked-examples.md; docs/automata/nfa.md (reviewed fixes)
 
-**Integration and review:** Paul cross-checks examples; Cedric adds them to the report.
+**Numbered tasks**
+1. Select reviewed accepted/rejected inputs that cover different RE branches and optional parts.
+2. Show their NFA paths and compare them with the runtime verdict; document first divergence, if any.
+3. Fix only reviewed RE/NFA artifact mistakes through a PR; a grammar change requires Isaiah and Ranee approval.
+4. Supply final worked examples with diagrams and a short verbal explanation.
+
+**Who to coordinate with and what to agree**
+- Pamela: map NFA paths into DFA states.
+- Jared: compare runtime verdicts.
+- Paul: independently reproduce discrepancies.
+- Cedric: use reviewed examples in the report and demo.
+
+**Expected output and deadline:** Worked examples and resolved theory discrepancies.
+
+**Handoff package:** Link the issue, PR and commit; list changed files; include the artifact/data schema, worked example or screenshot, checks actually run, and unresolved questions. The receiving reviewer confirms usability in the issue before the task is closed.
+
+**Primary review and recipient:** Paul cross-checks examples; Cedric adds them to the report.
+
+**Done when**
+- [ ] Numbered tasks and named outputs are complete.
+- [ ] Required coordination decisions are recorded in the issue or PR.
+- [ ] The named reviewer checks the output and the recipient accepts the handoff.
+- [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
 ### Pamela — DFA Designer (@Qiuyuan26)
 
-**Tasks:** Audit runtime state IDs and transitions against the DFA/minimized-state mapping; check sink and accepting behavior.
+**Focus:** Audit runtime state IDs and transitions against the DFA/minimized-state mapping; check sink and accepting behavior.
 
-**Expected output:** State mapping audit and reviewed transition-data changes.
+**Before starting:** Jared’s implemented model and Sean’s minimization artifacts.
 
-**Dependency:** Jared’s implemented model and Sean’s minimization artifacts.
+**Owned files or artifacts:** docs/qa/state-mapping-audit.md; docs/automata/dfa.md; docs/automata/minimization.md (joint review)
 
-**Integration and review:** Jared resolves engine mismatches; Sean confirms equivalence.
+**Numbered tasks**
+1. Compare the runtime model’s state IDs, accepting set and each transition against the reviewed minimized mapping.
+2. Audit sink behavior and consumption of the final character; check that character classes are disjoint or have an explicit deterministic rule.
+3. For any mismatch, record input/state/symbol and expected next state before asking Jared for a fix.
+4. Review the corrected model with Sean and approve the mapping evidence for the release candidate.
+
+**Who to coordinate with and what to agree**
+- Sean: confirm original-to-minimized mapping.
+- Jared: correct encoded model or traversal.
+- Paul: add a reproducing test.
+- Ralph: resolve upstream DFA-input questions.
+- Cedric: receive final mapping explanation.
+
+**Expected output and deadline:** State mapping audit and reviewed transition-data changes.
+
+**Handoff package:** Link the issue, PR and commit; list changed files; include the artifact/data schema, worked example or screenshot, checks actually run, and unresolved questions. The receiving reviewer confirms usability in the issue before the task is closed.
+
+**Primary review and recipient:** Jared resolves engine mismatches; Sean confirms equivalence.
+
+**Done when**
+- [ ] Numbered tasks and named outputs are complete.
+- [ ] Required coordination decisions are recorded in the issue or PR.
+- [ ] The named reviewer checks the output and the recipient accepts the handoff.
+- [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
 ### Sean — Automata Optimizer / Frontend (@bonkbonkboomeykwkwkw)
 
-**Tasks:** Connect React to the real endpoint; show verdict, rejection explanation and ordered transition table; handle loading and API failures.
+**Focus:** Connect React to the real endpoint; show verdict, rejection explanation and ordered transition table; handle loading and API failures.
 
-**Expected output:** Responsive validator and trace UI by Day 3; component tests.
+**Before starting:** Jared’s real API and Isaiah’s UX feedback.
 
-**Dependency:** Jared’s real API and Isaiah’s UX feedback.
+**Owned files or artifacts:** frontend/src/features/validator/ValidatorPage.jsx; frontend/src/features/validator/api.js; frontend/src/App.test.jsx; frontend/src/style.css
 
-**Integration and review:** Paul reviews browser behavior; Ranee reviews integration PR.
+**Numbered tasks**
+1. Replace sample UI data with validateUrl responses only after Jared provides real-model acceptance evidence.
+2. Display boolean verdict, readable message, final state and an ordered table of position/symbol/from_state/to_state using the approved contract.
+3. Keep accepted:null and transport errors separate from rejected strings; prevent duplicate submission and handle retries after errors.
+4. Add component tests for accepted, rejected, invalid-request and offline outcomes; submit the integrated screen by Day 3.
+
+**Who to coordinate with and what to agree**
+- Jared: provide exact success/error JSON and confirm the model is real.
+- Isaiah: review labels and responsive layout.
+- Pamela: confirm displayed state IDs match documentation.
+- Paul: review behavior tests and browser cases.
+- Ranee: coordinate integration PR.
+
+**Expected output and deadline:** Responsive validator and trace UI by Day 3; component tests.
+
+**Handoff package:** Link the issue, PR and commit; list changed files; include the artifact/data schema, worked example or screenshot, checks actually run, and unresolved questions. The receiving reviewer confirms usability in the issue before the task is closed.
+
+**Primary review and recipient:** Paul reviews browser behavior; Ranee reviews integration PR.
+
+**Done when**
+- [ ] Numbered tasks and named outputs are complete.
+- [ ] Required coordination decisions are recorded in the issue or PR.
+- [ ] The named reviewer checks the output and the recipient accepts the handoff.
+- [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
 ### Jared — Simulator Programmer / Backend (@AshenDary)
 
-**Tasks:** Load the approved minimized DFA; implement real acceptance, final state and per-symbol trace; replace the 501 placeholder only when ready.
+**Focus:** Load the approved minimized DFA; implement real acceptance, final state and per-symbol trace; replace the 501 placeholder only when ready.
 
-**Expected output:** Working validation API by Day 2 with passing corpus and contract tests.
+**Before starting:** Reviewed minimized table and agreed API contract.
 
-**Dependency:** Reviewed minimized table and agreed API contract.
+**Owned files or artifacts:** backend/automata/url_dfa.json; backend/automata/simulator.py; backend/services/validation.py; backend/routes/validation.py; tests/test_api.py
 
-**Integration and review:** Sean integrates on Days 2–3; Paul independently verifies outputs.
+**Numbered tasks**
+1. Integrate the reviewed url_dfa.json model and validate its referenced states and deterministic transitions at load time.
+2. Return acceptance only after consuming the complete input; record actual per-symbol transitions and final state using the agreed convention.
+3. Map valid simulated requests to HTTP 200 for either accepted or rejected; preserve request errors and keep unready-model handling explicit.
+4. By Day 2, provide Sean sample real-model responses and Paul corpus results; replace validator_ready:false only when the engine is actually ready.
+
+**Who to coordinate with and what to agree**
+- Sean and Pamela: sign off on model encoding.
+- Sean: review response compatibility before field changes.
+- Paul: verify corpus and negative paths independently.
+- Ranee: review model-readiness evidence before integration.
+
+**Expected output and deadline:** Working validation API by Day 2 with passing corpus and contract tests.
+
+**Handoff package:** Link the issue, PR and commit; list changed files; include the artifact/data schema, worked example or screenshot, checks actually run, and unresolved questions. The receiving reviewer confirms usability in the issue before the task is closed.
+
+**Primary review and recipient:** Sean integrates on Days 2–3; Paul independently verifies outputs.
+
+**Done when**
+- [ ] Numbered tasks and named outputs are complete.
+- [ ] Required coordination decisions are recorded in the issue or PR.
+- [ ] The named reviewer checks the output and the recipient accepts the handoff.
+- [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
 ### Paul — Tester / QA (@paulccampos)
 
-**Tasks:** Run end-to-end accepted/rejected cases through UI and API; test invalid requests and unavailable backend; retest fixes.
+**Focus:** Run end-to-end accepted/rejected cases through UI and API; test invalid requests and unavailable backend; retest fixes.
 
-**Expected output:** Integration test report and severity-ranked bug list by Day 4.
+**Before starting:** Working API/UI candidate.
 
-**Dependency:** Working API/UI candidate.
+**Owned files or artifacts:** tests/test_api.py; tests/test_simulator.py; frontend/src/App.test.jsx; docs/qa/integration-report.md
 
-**Integration and review:** Assign defects to Sean/Jared or automata owner; Ranee prioritizes.
+**Numbered tasks**
+1. Exercise the same accepted/rejected corpus through the simulator and HTTP API; sample representative cases through React.
+2. Test missing/malformed input, length limits, double submission, backend offline, error recovery and narrow screens.
+3. Compare trace rows to the model rather than checking only verdict text; report reproducible defects with severity and owner.
+4. By Day 4, publish the integration report; retest fixes against the same case IDs before recommending feature freeze.
+
+**Who to coordinate with and what to agree**
+- Jared: API and engine defects.
+- Sean: UI defects.
+- Isaiah: disputed expected behavior.
+- Ralph/Pamela: model discrepancies.
+- Ranee: prioritize critical issues.
+- Cedric: include only observed pass/fail evidence.
+
+**Expected output and deadline:** Integration test report and severity-ranked bug list by Day 4.
+
+**Handoff package:** Link the issue, PR and commit; list changed files; include the artifact/data schema, worked example or screenshot, checks actually run, and unresolved questions. The receiving reviewer confirms usability in the issue before the task is closed.
+
+**Primary review and recipient:** Assign defects to Sean/Jared or automata owner; Ranee prioritizes.
+
+**Done when**
+- [ ] Numbered tasks and named outputs are complete.
+- [ ] Required coordination decisions are recorded in the issue or PR.
+- [ ] The named reviewer checks the output and the recipient accepts the handoff.
+- [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
 ### Cedric — Documentation / Presentation (@cedricsigue)
 
-**Tasks:** Write implementation and architecture sections; add actual screenshots and a draft demo script; verify the run guide.
+**Focus:** Write implementation and architecture sections; add actual screenshots and a draft demo script; verify the run guide.
 
-**Expected output:** Code-aligned report draft and demo sequence.
+**Before starting:** Integrated behavior and verified screenshots.
 
-**Dependency:** Integrated behavior and verified screenshots.
+**Owned files or artifacts:** docs/report/implementation.md; docs/presentation/demo-script.md; docs/report/evidence-index.md; docs/how-to-run.md (corrections)
 
-**Integration and review:** All owners review technical statements; Ranee checks reproducibility.
+**Numbered tasks**
+1. Document the actual path from ValidatorPage through api.js, Flask route, service and simulator; check it against code.
+2. Capture current screenshots showing one accepted, one rejected and one error case after the real engine is ready.
+3. Write a step-by-step demo script and tag which teammate explains each part.
+4. Run the README instructions independently and record missing setup details before report freeze.
+
+**Who to coordinate with and what to agree**
+- Jared: verify backend flow.
+- Sean: verify UI flow and screenshots.
+- Ralph/Pamela: verify example paths.
+- Paul: supply integration evidence.
+- Ranee: review reproducibility and demo length.
+
+**Expected output and deadline:** Code-aligned report draft and demo sequence.
+
+**Handoff package:** Link the issue, PR and commit; list changed files; include the artifact/data schema, worked example or screenshot, checks actually run, and unresolved questions. The receiving reviewer confirms usability in the issue before the task is closed.
+
+**Primary review and recipient:** All owners review technical statements; Ranee checks reproducibility.
+
+**Done when**
+- [ ] Numbered tasks and named outputs are complete.
+- [ ] Required coordination decisions are recorded in the issue or PR.
+- [ ] The named reviewer checks the output and the recipient accepts the handoff.
+- [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
 ## Shared integration points
 The language specification governs every model and test. Automata designers hand off state identifiers, transition tables and accepting states to Jared; Jared and Sean agree the JSON contract; Paul verifies the same examples independently; Cedric records only reviewed behavior. Ranee resolves cross-owner blockers.
@@ -118,3 +300,6 @@ The language specification governs every model and test. Automata designers hand
 - [ ] Critical integration defects are resolved and report draft matches the candidate.
 - [ ] Required PRs are reviewed; tests and documentation are updated.
 - [ ] The team demonstrates the output and records one retrospective improvement.
+
+## File architecture for this phase
+Follow docs/architecture.md. Paths marked planned are tasks to create, not claims that the implementation already exists. Use docs/api-contract.md for current and proposed response shapes.
