@@ -1,52 +1,55 @@
 # URL Pattern Recognition
 
-An Automata Theory web application that recognizes supported URL patterns using a deterministic finite automaton (DFA).
+An Automata Theory web app using React + Vite and Python + Flask.
 
-## Project status
+## Start here
 
-Initial project repository. The team roles, technology choices, and development workflow are documented. Application code and the formal URL language are not implemented yet.
+**New to running a project? Follow [How to run the project](docs/how-to-run.md).** It explains installations, folders, two terminals, and common errors.
 
-## Planned workflow
+The starter connects React to Flask. The URL validator is deliberately not implemented yet: submitting a URL returns a clear pending-implementation message, never a fabricated acceptance result.
 
-1. Define the supported URL language and alphabet.
-2. Design the regular expression and equivalent NFA.
-3. Convert the NFA to a DFA using subset construction.
-4. Minimize the DFA and document equivalence.
-5. Implement the Python simulator and Flask API.
-6. Connect the React frontend and display acceptance results and state traces.
-7. Test, document, and demonstrate the complete web application.
+## Project hub
 
-## Tech stack
+- [How to run](docs/how-to-run.md)
+- [Roadmap and Agile sprints](docs/roadmap.md)
+- [Current status](docs/status.md)
+- [Project context and decisions](docs/context.md)
+- [Team roles](docs/team-roles.md)
+- [Skills and learning responsibilities](docs/skills.md)
+- [Tech stack](docs/tech-stack.md)
+- [API contract](docs/api-contract.md)
+- [Contributing](CONTRIBUTING.md)
+- [Shared Google Doc](https://docs.google.com/document/d/1d69DL9JlwwhTE8vPeQ9kBaWEzZUrey_OtatF9RUvFCk/edit)
 
-| Area | Technology |
-| --- | --- |
-| Frontend | React + Vite |
-| Styling | CSS |
-| UI/UX design | Figma |
-| Backend API | Python + Flask |
-| Automata logic | Custom Python modules |
-| Diagrams | Graphviz |
-| Testing | pytest, Vitest, React Testing Library |
-| Collaboration | Git + GitHub |
+## Quick start for returning developers
 
-The browser sends a URL to the Flask API. The Python DFA simulator processes it and returns acceptance status and a transition trace for React to display. A database is not required for the core project.
+From the repository root, after completing the first-time setup:
 
-## Repository structure
+Terminal 1 (Windows):
+```powershell
+.\.venv\Scripts\python.exe -m flask --app backend.app:create_app run --host 127.0.0.1 --port 5000
+```
+Terminal 2:
+```text
+cd frontend
+npm run dev
+```
+Open http://localhost:5173. Keep both terminals running.
+
+## Structure
 
 ```text
-frontend/          React web application
-backend/           Flask API
-backend/automata/  Automata definitions and simulator
-tests/             Shared test cases and integration tests
-docs/              Language specification, diagrams, roles, and stack
+frontend/src/          React app and UI tests
+backend/app.py         Flask API factory
+backend/automata/      Future automata definitions and simulator
+tests/                 Backend and future shared behavior tests
+docs/                  Setup, roadmap, context, status, and team references
+.agents/skills/        Repository-specific Codex skills
+.github/               CI checks and contribution templates
 ```
 
-These folders are starting points; runtime dependencies and setup commands will be added with the first implementation.
+## Checks
 
-## Team and documentation
-
-- [Team roles and responsibilities](docs/team-roles.md)
-- [Detailed tech stack](docs/tech-stack.md)
-- [Contribution workflow](CONTRIBUTING.md)
-- [Shared project document](https://docs.google.com/document/d/1d69DL9JlwwhTE8vPeQ9kBaWEzZUrey_OtatF9RUvFCk/edit)
-
+From the root: `.venv\Scripts\python.exe -m pytest` and `.venv\Scripts\python.exe -m ruff check backend tests`.
+From `frontend`: `npm run lint`, `npm test`, and `npm run build`.
+CI runs the same checks on pushes and pull requests. Deployment is a later sprint; development servers are for local use.
