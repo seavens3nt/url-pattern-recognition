@@ -11,3 +11,6 @@ Never commit credentials, `.env` files, dependency folders, or generated build o
 
 Use the DFA transition logic for acceptance decisions. Document changes to the language, state definitions, or API contract so frontend, backend, and tests remain consistent.
 
+
+## Four-week phase workflow
+All changes go through a reviewed PR; no direct commits to main. Use phase-specific branches such as `phase-2/nfa-construction`. Coordinate cross-area changes with the relevant owner before implementation. See [weekly delegation](docs/roadmap.md).

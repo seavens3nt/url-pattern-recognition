@@ -1,9 +1,10 @@
 # Project context
 
 ## Purpose
-Build a web application for an Automata Theory project. The academic focus is a documented regular expression → NFA → DFA → minimized DFA → simulator pipeline. React is the browser frontend; Flask exposes the Python simulator through an API.
+Build a web application for an Automata Theory project. The academic focus is a documented regular expression -> NFA -> DFA -> minimized DFA -> simulator pipeline. React is the browser frontend; Flask exposes the Python simulator through an API.
 
 ## Agreed decisions
+- Project duration: four weeks total, confirmed 2026-09-09. Week 1 includes remaining onboarding; calendar dates are still to be set.
 - React + Vite, CSS, Python + Flask, Graphviz, and the testing tools in the tech stack.
 - Eight roles with UI/UX, frontend, backend, QA, and documentation work distributed as listed in team-roles.md.
 - No database, account system, or AI/ML is needed for the core scope.

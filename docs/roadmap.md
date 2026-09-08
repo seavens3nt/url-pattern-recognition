@@ -1,49 +1,43 @@
-# Roadmap and Agile workflow
+# Four-week roadmap and delegation
 
-## Planning assumptions
-Proposed schedule: a short setup Sprint 0 followed by five one-week sprints. These are relative planning windows, not committed calendar dates. Ranee should align them with the professor's deadline and team availability. Re-estimate after Sprint 1; do not trade formal correctness for the proposed schedule.
+The project lasts **four weeks total**, with one Agile sprint per week. Setup is included in Week 1; there is no additional Sprint 0 or fifth week. Calendar start/end dates remain to be confirmed by Ranee.
 
-| Sprint | Goal | Owners | Exit criteria |
+The phase format follows the supplied [phase example](https://docs.google.com/document/d/1Qpj0AeXr7mD2jqXJLeSe6rae7hYeflvG9eApdSm2kNg/edit): meeting agenda, GitHub rules, member tasks, expected outputs, integration points and completion checklist. The example's unrelated marine-project features and technologies are not part of this project.
+
+| Week | Phase | Required outcome | Detailed delegation |
 | --- | --- | --- | --- |
-| 0 — Team setup | Repository, invitations, runnable starter, run guide, checks, workflow | Ranee; Paul checks onboarding | A teammate can clone and run React + Flask; starter checks pass; invitations and onboarding confirmed |
-| 1 — Scope and design | Approve URL language, alphabet, valid/invalid corpus, Figma wireframes, API contract | Isaiah; Jared and Sean on API; Paul on corpus | Each syntax rule has examples; UI states defined; unresolved language decisions resolved |
-| 2 — Automata construction | RE and NFA, subset construction, complete DFA | Ralph then Pamela; Paul reviews examples | RE/NFA/DFA diagrams and tables agree; accepting and sink states explicit; construction explanation reviewed |
-| 3 — Optimization and implementation | Minimized DFA, Python simulator, React result and trace screens | Sean and Jared; Paul tests | Equivalence justified; simulator walks explicit transitions; API and UI integrate using reviewed artifacts |
-| 4 — Verification and release candidate | End-to-end, boundary, accessibility, responsive and deployment checks | Paul leads; all fix defects; Ranee integrates | Tests pass; release candidate runs in target environment; no unresolved critical defects |
-| 5 — Report and defense | Final report, slides, demo script, rehearsal, submission | Cedric leads; all explain assigned work | Diagrams match code; README reproduces setup; demo and fallback rehearsed; release tagged and submission checked |
+| 1 | Foundation and specification | Team setup, approved URL language, RE draft, wireframes, API contract and corpus | [Phase 1](phases/week-1.md) |
+| 2 | Automata construction and core development | Reviewed RE/NFA/DFA/minimized DFA plus UI and API shells | [Phase 2](phases/week-2.md) |
+| 3 | Integrated web application | Real validation and trace from React through Flask | [Phase 3](phases/week-3.md) |
+| 4 | Verification deployment and defense | Tested release, final report/slides, rehearsal and submission | [Phase 4](phases/week-4.md) |
 
-## Initial backlog
+## Each member's four-week responsibility
 
-| ID | Deliverable | Owner | Sprint | Dependency | Acceptance |
-| --- | --- | --- | --- | --- | --- |
-| SETUP | Starter and onboarding | Ranee | 0 | Repository | Run guide verified and CI passes |
-| LANG | Formal language specification | Isaiah | 1 | None | Scheme, alphabet and component rules plus examples approved |
-| UX | Responsive wireframes | Isaiah | 1 | Draft scope | Input/loading/result/error/trace states documented |
-| API | Request and result contract | Jared, Sean | 1 | Draft scope | Both sides review accepted/rejected/error examples |
-| CORPUS | Shared accepted/rejected cases | Paul | 1 | LANG | Each rule and boundary represented with expected outcome |
-| NFA | Regular expression and NFA | Ralph | 2 | LANG | Diagram, transition table and construction explanation |
-| DFA | Subset construction and DFA | Pamela | 2 | NFA | Complete transition table, state mapping and accepting states |
-| MIN | Minimized DFA | Sean | 3 | DFA | Partition steps and language-equivalence evidence |
-| ENGINE | Simulator and validation endpoint | Jared | 3 | MIN, API | Actual DFA results and complete traces; corpus passes |
-| WEB | React validator UI | Sean | 3 | UX, API | Responsive result/trace UI and error states; connects to engine |
-| QA | Release candidate verification | Paul | 4 | ENGINE, WEB | API/UI tests and manual browser checks pass; defects retested |
-| DEPLOY | Deployment and smoke check | Ranee | 4 | QA | Hosting selected, configuration documented, live flow checked |
-| REPORT | Report, slides and defense | Cedric | 5 | Automata and QA | Code-aligned report and rehearsed demo; all explain their work |
+| Member | Week 1 | Week 2 | Week 3 | Week 4 |
+| --- | --- | --- | --- | --- |
+| Ranee | Access, setup, calendar and scope approval | Handoffs, PR review and blockers | Integration and delivery plan | Release, submission and go/no-go |
+| Isaiah | Language specification and Figma | Rule clarifications and UI review | UX and scope-conformance review | Limitations and language defense |
+| Ralph | RE draft and regularity review | Final RE and NFA by Day 2 | Worked traces and discrepancy fixes | Final RE/NFA explanation |
+| Pamela | State conventions and RE review | DFA/subset construction by Day 3 | Runtime state mapping audit | Final DFA explanation |
+| Sean | UI plan and API review | UI shell Days 1–2; minimization Days 4–5 | React result/trace integration | UI fixes and minimization defense |
+| Jared | API contract and simulator interface | Simulator plumbing with test automata | Real validation API by Day 2 | Backend fixes and configuration |
+| Paul | Corpus and onboarding verification | Automata checks and regression cases | End-to-end integration tests | Release report and retests |
+| Cedric | Report outline and decision log | Theory chapter and diagrams | Implementation chapter and demo draft | Report, slides and rehearsal |
 
-## Sprint routine
-- Planning: choose a small sprint goal, review dependencies, assign one accountable owner to each task, and agree acceptance criteria.
-- Daily asynchronous update: each member posts completed work, next work, and blockers in their task issue. Raise blockers to Ranee promptly.
-- Board states: Backlog → Ready → In progress → In review → Done. Use Blocked with a named dependency when needed.
-- Keep at most one implementation task in progress per person, unless the team agrees otherwise.
-- Review: demonstrate completed behavior and academic artifacts at sprint end.
-- Retrospective: record one improvement for the next sprint.
+## Handoff schedule and workload
+The critical path is Week 1 language approval → Week 2 Day 2 NFA → Day 3 DFA → Day 5 minimized DFA → Week 3 Day 2 backend → Day 3 frontend → Week 4 QA and defense. Later stages cannot claim correctness before their upstream artifacts are reviewed. Jared can build the generic engine and tests in parallel; Sean uses only early Week 2 for UI shell work so minimization has protected time. Documentation and QA start in Week 1.
 
-## Ready and done
-A ready task has an owner, clear acceptance criteria, and available dependencies. Done means a reviewed PR is merged, relevant checks pass, related docs are updated, and the deliverable can be demonstrated. A coding task that only works on its author's machine is not done.
+If a gate slips, Ranee reduces optional polish and reassigns support work; the team must not skip formal conversion or correctness checks. No new features after Week 3 review. Hosting follows professor requirements and available resources; a local reproducible demo remains available as fallback.
 
-## Risk handling
-Language changes affect every automata artifact and test; review their impact before accepting them. Sean owns both minimization and frontend work, so UI shell work can happen early with sample data while formal work takes priority. Reserve Sprint 4 for integration and defect fixes. Keep a local demo and screenshots as a defense fallback.
+## Agile routine
+- Start-of-week planning: agree one sprint goal, owner, dependency and acceptance criteria for each task.
+- Daily async update in the issue: completed work, next step, blocker. Raise blocked dependencies immediately.
+- Track Backlog → Ready → In progress → In review → Done; label the blocking dependency when needed.
+- One implementation task in progress per member unless agreed otherwise.
+- End-of-week review: demonstrate outputs; record one retrospective improvement.
+- Done requires a reviewed PR, passing relevant checks, updated docs and a demonstrable deliverable. A phase checklist remains unchecked until there is evidence.
 
 ## GitHub tracking
+The original issues #1–#13 remain the deliverable records and are remapped to these four milestones. Four phase coordination issues collect the eight weekly member checklists. Original milestones 5 and 6 are closed as superseded, not completed work.
 
-[Open the task backlog](https://github.com/seavens3nt/url-pattern-recognition/issues) and [sprint milestones](https://github.com/seavens3nt/url-pattern-recognition/milestones). Issues #1�#13 correspond to the initial backlog rows in order. Owners awaiting invitation acceptance are recorded in issue descriptions.
+[Task backlog](https://github.com/seavens3nt/url-pattern-recognition/issues) · [Milestones](https://github.com/seavens3nt/url-pattern-recognition/milestones)
