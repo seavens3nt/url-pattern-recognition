@@ -1,4 +1,4 @@
-# URL Pattern Recognition PROJECT
+# URL Pattern Recognition PROJECT AUTOMATA
 
 An Automata Theory web app using React + Vite and Python + Flask.
 
