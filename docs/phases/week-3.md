@@ -6,8 +6,8 @@
 Run real DFA validation through Flask and React with accurate transition traces.
 
 ## Phase meeting agenda
-1. Review the previous handoff and blockers (Week 1: check setup and scope).
-2. Each member explains their changes, evidence and next task.
+1. Review the previous week’s accepted handoffs and unresolved blockers.
+2. Backend members explain committed changes, model decisions, tests and blockers in detail. Frontend members show wireframes or working screens. QA and paper leads show evidence and missing inputs.
 3. Confirm owners, acceptance criteria and within-week deadlines below.
 4. Review shared interfaces and cross-area changes.
 5. Agree the phase demonstration and exit checklist.
@@ -19,6 +19,13 @@ Run real DFA validation through Flask and React with accurate transition traces.
 - Day 5: demonstrate the complete local flow; freeze new features.
 
 ## GitHub and coding rules
+
+### Common bad habits to avoid
+- Direct pushes to main; unclear branch names; large unrelated changes.
+- Installing dependencies in the wrong directory or committing .env, .venv, node_modules or build outputs.
+- Editing another member’s files without coordination or changing API/model fields without agreement.
+
+### Rule list
 - Every change goes through a small reviewed pull request. No direct commits to main.
 - Use phase-specific branches such as `phase-2/nfa-construction` or `phase-3/react-trace`.
 - Keep frontend dependencies in frontend/package.json and backend dependencies in backend/requirements*.txt. Follow the existing isolated Python environment in how-to-run.md.
@@ -27,9 +34,14 @@ Run real DFA validation through Flask and React with accurate transition traces.
 - Coordinate shared language, state-table and API changes first; update affected tests and docs in the same handoff.
 - Use descriptive commits and PR descriptions with test evidence. Never silently relabel draft or sample data as an approved model.
 
+## GitHub Desktop reminder for Week 3
+Follow docs/github-desktop-guide.md: update main, create a branch such as phase-3/task-name, check changes, commit, publish, and open a PR into main. Link the task issue and request @seavens3nt. Push review fixes to the same branch. Technical peer review does not replace Ranee’s required approval.
+
 ## Member assignments and coordination
 
-### Ranee — Project Manager / Integration Lead (@seavens3nt)
+## Project Manager / Setup
+
+### Ranee — Project Manager / Project Setup (@seavens3nt)
 
 **Focus:** Coordinate integration PRs; choose the demo hosting approach and rehearse setup from a clean checkout.
 
@@ -62,19 +74,23 @@ Run real DFA validation through Flask and React with accurate transition traces.
 - [ ] The named reviewer checks the output and the recipient accepts the handoff.
 - [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
-### Isaiah — Language Analyst / UI/UX (@m1nay3on)
+## Phase work for frontend
+
+### Isaiah — Frontend Developer / UI/UX (@m1nay3on)
 
 **Focus:** Review accepted/rejected explanations and keyboard/mobile flows; compare the implementation with wireframes and language rules.
 
 **Before starting:** Working candidate and approved specification.
 
-**Owned files or artifacts:** docs/ui/review-week-3.md; docs/language-spec.md (clarifications only)
+**Owned files or artifacts:** frontend/src/style.css; agreed presentation components in frontend/src/features/validator/; docs/ui/review-week-3.md; docs/language-spec.md (clarifications only)
 
 **Numbered tasks**
 1. Run the agreed cases through the integrated screen and compare verdict/explanation wording with the language specification.
 2. Review focus order, keyboard submission, error announcements, trace readability and narrow-screen layout.
 3. Write each finding with the screen state, expected behavior, screenshot and owner; separate correctness problems from optional styling.
 4. By Day 3 send final text/layout requirements so fixes can land before feature freeze.
+
+5. Implement remaining mobile, keyboard-focus, readable-label and layout fixes in the frontend. Coordinate shared ValidatorPage edits with Sean before coding and send screenshots to Paul by Day 4.
 
 **Who to coordinate with and what to agree**
 - Sean: UI and accessibility fixes.
@@ -86,7 +102,7 @@ Run real DFA validation through Flask and React with accurate transition traces.
 
 **Handoff package:** Link the issue, PR and commit; list changed files; include the artifact/data schema, worked example or screenshot, checks actually run, and unresolved questions. The receiving reviewer confirms usability in the issue before the task is closed.
 
-**Primary review and recipient:** Sean fixes UI findings; Jared fixes response explanations.
+**Primary review and recipient:** Isaiah fixes layout/accessibility; Sean reviews component integration; Jared fixes API explanations; Paul retests.
 
 **Done when**
 - [ ] Numbered tasks and named outputs are complete.
@@ -94,72 +110,7 @@ Run real DFA validation through Flask and React with accurate transition traces.
 - [ ] The named reviewer checks the output and the recipient accepts the handoff.
 - [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
-### Ralph — Regular Expression / NFA Designer (@rlken)
-
-**Focus:** Trace selected accepted and rejected strings through the RE/NFA; investigate disagreements with the simulator.
-
-**Before starting:** Integrated simulator plus shared corpus.
-
-**Owned files or artifacts:** docs/automata/worked-examples.md; docs/automata/nfa.md (reviewed fixes)
-
-**Numbered tasks**
-1. Select reviewed accepted/rejected inputs that cover different RE branches and optional parts.
-2. Show their NFA paths and compare them with the runtime verdict; document first divergence, if any.
-3. Fix only reviewed RE/NFA artifact mistakes through a PR; a grammar change requires Isaiah and Ranee approval.
-4. Supply final worked examples with diagrams and a short verbal explanation.
-
-**Who to coordinate with and what to agree**
-- Pamela: map NFA paths into DFA states.
-- Jared: compare runtime verdicts.
-- Paul: independently reproduce discrepancies.
-- Cedric: use reviewed examples in the report and demo.
-
-**Expected output and deadline:** Worked examples and resolved theory discrepancies.
-
-**Handoff package:** Link the issue, PR and commit; list changed files; include the artifact/data schema, worked example or screenshot, checks actually run, and unresolved questions. The receiving reviewer confirms usability in the issue before the task is closed.
-
-**Primary review and recipient:** Paul cross-checks examples; Cedric adds them to the report.
-
-**Done when**
-- [ ] Numbered tasks and named outputs are complete.
-- [ ] Required coordination decisions are recorded in the issue or PR.
-- [ ] The named reviewer checks the output and the recipient accepts the handoff.
-- [ ] Relevant checks pass and the reviewed PR updates affected docs.
-
-### Pamela — DFA Designer (@Qiuyuan26)
-
-**Focus:** Audit runtime state IDs and transitions against the DFA/minimized-state mapping; check sink and accepting behavior.
-
-**Before starting:** Jared’s implemented model and Sean’s minimization artifacts.
-
-**Owned files or artifacts:** docs/qa/state-mapping-audit.md; docs/automata/dfa.md; docs/automata/minimization.md (joint review)
-
-**Numbered tasks**
-1. Compare the runtime model’s state IDs, accepting set and each transition against the reviewed minimized mapping.
-2. Audit sink behavior and consumption of the final character; check that character classes are disjoint or have an explicit deterministic rule.
-3. For any mismatch, record input/state/symbol and expected next state before asking Jared for a fix.
-4. Review the corrected model with Sean and approve the mapping evidence for the release candidate.
-
-**Who to coordinate with and what to agree**
-- Sean: confirm original-to-minimized mapping.
-- Jared: correct encoded model or traversal.
-- Paul: add a reproducing test.
-- Ralph: resolve upstream DFA-input questions.
-- Cedric: receive final mapping explanation.
-
-**Expected output and deadline:** State mapping audit and reviewed transition-data changes.
-
-**Handoff package:** Link the issue, PR and commit; list changed files; include the artifact/data schema, worked example or screenshot, checks actually run, and unresolved questions. The receiving reviewer confirms usability in the issue before the task is closed.
-
-**Primary review and recipient:** Jared resolves engine mismatches; Sean confirms equivalence.
-
-**Done when**
-- [ ] Numbered tasks and named outputs are complete.
-- [ ] Required coordination decisions are recorded in the issue or PR.
-- [ ] The named reviewer checks the output and the recipient accepts the handoff.
-- [ ] Relevant checks pass and the reviewed PR updates affected docs.
-
-### Sean — Automata Optimizer / Frontend (@bonkbonkboomeykwkwkw)
+### Sean — Frontend Developer — API Integration (@bonkbonkboomeykwkwkw)
 
 **Focus:** Connect React to the real endpoint; show verdict, rejection explanation and ordered transition table; handle loading and API failures.
 
@@ -192,7 +143,74 @@ Run real DFA validation through Flask and React with accurate transition traces.
 - [ ] The named reviewer checks the output and the recipient accepts the handoff.
 - [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
-### Jared — Simulator Programmer / Backend (@AshenDary)
+## Phase work for backend
+
+### Ralph — Backend Developer — RE and NFA (@rlken)
+
+**Focus:** Trace selected accepted and rejected strings through the RE/NFA; investigate disagreements with the simulator.
+
+**Before starting:** Integrated simulator plus shared corpus.
+
+**Owned files or artifacts:** docs/automata/worked-examples.md; docs/automata/nfa.md (reviewed fixes)
+
+**Numbered tasks**
+1. Select reviewed accepted/rejected inputs that cover different RE branches and optional parts.
+2. Show their NFA paths and compare them with the runtime verdict; document first divergence, if any.
+3. Fix only reviewed RE/NFA artifact mistakes through a PR; a grammar change requires Isaiah and Ranee approval.
+4. Supply final worked examples with diagrams and a short verbal explanation.
+
+**Who to coordinate with and what to agree**
+- Pamela: map NFA paths into DFA states.
+- Jared: compare runtime verdicts.
+- Paul: independently reproduce discrepancies.
+- Cedric: use reviewed examples in the report and demo.
+
+**Expected output and deadline:** Worked examples and resolved theory discrepancies.
+
+**Handoff package:** Link the issue, PR and commit; list changed files; include the artifact/data schema, worked example or screenshot, checks actually run, and unresolved questions. The receiving reviewer confirms usability in the issue before the task is closed.
+
+**Primary review and recipient:** Paul cross-checks examples; Cedric adds them to the report.
+
+**Done when**
+- [ ] Numbered tasks and named outputs are complete.
+- [ ] Required coordination decisions are recorded in the issue or PR.
+- [ ] The named reviewer checks the output and the recipient accepts the handoff.
+- [ ] Relevant checks pass and the reviewed PR updates affected docs.
+
+### Pamela — Backend Developer — DFA and Minimization (@Qiuyuan26)
+
+**Focus:** Audit runtime state IDs and transitions against the DFA/minimized-state mapping; check sink and accepting behavior.
+
+**Before starting:** Jared’s implemented model and Pamela’s reviewed minimization artifacts.
+
+**Owned files or artifacts:** docs/qa/state-mapping-audit.md; docs/automata/dfa.md; docs/automata/minimization.md (joint review)
+
+**Numbered tasks**
+1. Compare the runtime model’s state IDs, accepting set and each transition against the reviewed minimized mapping.
+2. Audit sink behavior and consumption of the final character; check that character classes are disjoint or have an explicit deterministic rule.
+3. For any mismatch, record input/state/symbol and expected next state before asking Jared for a fix.
+4. Review the corrected model with Ralph and Jared and approve the mapping evidence for the release candidate.
+
+**Who to coordinate with and what to agree**
+- Ralph: independently review the original-to-minimized mapping.
+- Jared: correct encoded model or traversal.
+- Paul: add a reproducing test.
+- Ralph: resolve upstream DFA-input questions.
+- Cedric: receive final mapping explanation.
+
+**Expected output and deadline:** State mapping audit and reviewed transition-data changes.
+
+**Handoff package:** Link the issue, PR and commit; list changed files; include the artifact/data schema, worked example or screenshot, checks actually run, and unresolved questions. The receiving reviewer confirms usability in the issue before the task is closed.
+
+**Primary review and recipient:** Jared resolves engine mismatches; Ralph reviews equivalence.
+
+**Done when**
+- [ ] Numbered tasks and named outputs are complete.
+- [ ] Required coordination decisions are recorded in the issue or PR.
+- [ ] The named reviewer checks the output and the recipient accepts the handoff.
+- [ ] Relevant checks pass and the reviewed PR updates affected docs.
+
+### Jared — Backend Developer — Simulator and API (@AshenDary)
 
 **Focus:** Load the approved minimized DFA; implement real acceptance, final state and per-symbol trace; replace the 501 placeholder only when ready.
 
@@ -207,7 +225,7 @@ Run real DFA validation through Flask and React with accurate transition traces.
 4. By Day 2, provide Sean sample real-model responses and Paul corpus results; replace validator_ready:false only when the engine is actually ready.
 
 **Who to coordinate with and what to agree**
-- Sean and Pamela: sign off on model encoding.
+- Pamela and Ralph: review model encoding with Jared.
 - Sean: review response compatibility before field changes.
 - Paul: verify corpus and negative paths independently.
 - Ranee: review model-readiness evidence before integration.
@@ -224,7 +242,9 @@ Run real DFA validation through Flask and React with accurate transition traces.
 - [ ] The named reviewer checks the output and the recipient accepts the handoff.
 - [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
-### Paul — Tester / QA (@paulccampos)
+## QA / Testing
+
+### Paul — QA / Tester (@paulccampos)
 
 **Focus:** Run end-to-end accepted/rejected cases through UI and API; test invalid requests and unavailable backend; retest fixes.
 
@@ -258,7 +278,9 @@ Run real DFA validation through Flask and React with accurate transition traces.
 - [ ] The named reviewer checks the output and the recipient accepts the handoff.
 - [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
-### Cedric — Documentation / Presentation (@cedricsigue)
+## Paper & Presentation
+
+### Cedric — Paper & Presentation Lead (@cedricsigue)
 
 **Focus:** Write implementation and architecture sections; add actual screenshots and a draft demo script; verify the run guide.
 
@@ -302,4 +324,4 @@ The language specification governs every model and test. Automata designers hand
 - [ ] The team demonstrates the output and records one retrospective improvement.
 
 ## File architecture for this phase
-Follow docs/architecture.md. Paths marked planned are tasks to create, not claims that the implementation already exists. Use docs/api-contract.md for current and proposed response shapes.
+Follow docs/architecture.md. Frontend dependencies belong in frontend/package.json; backend dependencies in backend/requirements*.txt. Ranee owns setup for both, Isaiah owns layout/CSS, Sean owns interaction/API UI, Ralph owns RE/NFA, Pamela owns DFA/minimization, and Jared owns simulator/API implementation. Paths marked planned are tasks to create, not claims that the implementation already exists. Use docs/api-contract.md for current and proposed response shapes.

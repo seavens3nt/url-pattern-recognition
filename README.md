@@ -14,6 +14,7 @@ The starter connects React to Flask. The URL validator is deliberately not imple
 - [Repository copy of the execution guide](docs/team-execution-guide.md)
 - [File architecture and ownership](docs/architecture.md)
 
+- [GitHub Desktop: clone, branch and PR](docs/github-desktop-guide.md)
 - [How to run](docs/how-to-run.md)
 - [Roadmap and Agile sprints](docs/roadmap.md)
 - [Current status](docs/status.md)
