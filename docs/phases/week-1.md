@@ -6,8 +6,8 @@
 Approve a small URL language and make every member ready to contribute.
 
 ## Phase meeting agenda
-1. Review the previous handoff and blockers (Week 1: check setup and scope).
-2. Each member explains their changes, evidence and next task.
+1. Review setup and scope blockers.
+2. Backend members explain committed changes, model decisions, tests and blockers in detail. Frontend members show wireframes or working screens. QA and paper leads show evidence and missing inputs.
 3. Confirm owners, acceptance criteria and within-week deadlines below.
 4. Review shared interfaces and cross-area changes.
 5. Agree the phase demonstration and exit checklist.
@@ -19,6 +19,13 @@ Approve a small URL language and make every member ready to contribute.
 - Day 5: demonstrate setup and review the foundation checklist.
 
 ## GitHub and coding rules
+
+### Common bad habits to avoid
+- Direct pushes to main; unclear branch names; large unrelated changes.
+- Installing dependencies in the wrong directory or committing .env, .venv, node_modules or build outputs.
+- Editing another member’s files without coordination or changing API/model fields without agreement.
+
+### Rule list
 - Every change goes through a small reviewed pull request. No direct commits to main.
 - Use phase-specific branches such as `phase-2/nfa-construction` or `phase-3/react-trace`.
 - Keep frontend dependencies in frontend/package.json and backend dependencies in backend/requirements*.txt. Follow the existing isolated Python environment in how-to-run.md.
@@ -27,42 +34,51 @@ Approve a small URL language and make every member ready to contribute.
 - Coordinate shared language, state-table and API changes first; update affected tests and docs in the same handoff.
 - Use descriptive commits and PR descriptions with test evidence. Never silently relabel draft or sample data as an approved model.
 
+## GitHub Desktop reminder for Week 1
+Follow docs/github-desktop-guide.md: update main, create a branch such as phase-1/task-name, check changes, commit, publish, and open a PR into main. Link the task issue and request @seavens3nt. Push review fixes to the same branch. Technical peer review does not replace Ranee’s required approval.
+
 ## Member assignments and coordination
 
-### Ranee — Project Manager / Integration Lead (@seavens3nt)
+## Project Manager / Setup
 
-**Focus:** Confirm deadline and weekly availability; verify all eight members can run the starter; split tasks and resolve scope questions.
+### Ranee — Project Manager / Project Setup (@seavens3nt)
 
-**Before starting:** Existing starter; each member reports setup result.
+**Focus:** Prepare both frontend and backend so members can begin feature work; coordinate scope and onboarding.
 
-**Owned files or artifacts:** docs/status.md; docs/roadmap.md; docs/release/onboarding.md; issue #1
+**Before starting:** Existing starter and current repository configuration.
+
+**Owned files or artifacts:** frontend/package.json; frontend/vite.config.js; backend/app.py; backend/requirements*.txt; docs/how-to-run.md; docs/github-desktop-guide.md; docs/release/onboarding.md; docs/roadmap.md
 
 **Numbered tasks**
-1. Day 1: ask every member to comment on issue #1 with OS, frontend URL, health-check result and any blocker; verify missing access in GitHub Settings.
-2. Day 1: confirm the submission date and each member’s available workdays; map Week 1–4 to calendar dates in docs/roadmap.md.
-3. Day 2: chair the language review; record the accepted scope and unresolved questions; do not approve NFA work until acceptance rules are clear.
-4. Day 5: review phase evidence and move only completed deliverables through the PR review process.
+1. Day 1: verify React + Vite dependencies, the entry page and /api proxy. Start from the existing starter; fix setup gaps instead of recreating the project.
+2. Day 1: verify the Python environment, Flask factory, route/service folders and health endpoint. Confirm frontend-to-backend communication with both servers running.
+3. Give Sean and Isaiah the working frontend starting point and Jared the backend starting point. Agree dependency and shared-file changes before implementation.
+4. Walk all eight members through GitHub Desktop cloning, creating a task branch, running both servers and opening a PR. Ask each to record setup evidence or a blocker on #1.
+5. Confirm availability and calendar dates; chair the Day 2 URL scope review. Record scope decisions and review Week 1 PRs.
+6. Ask Paul to independently follow the run guide. Help Cedric write the project/setup overview. Agree any backend support task with Jared before coding.
 
 **Who to coordinate with and what to agree**
-- Isaiah: agree the language scope by Day 2.
-- Paul: compare all setup results with the run guide.
-- Jared and Sean: confirm API ownership.
-- Cedric: publish meeting decisions.
-- Escalate unresolved blockers in the phase issue before the next workday.
+- Isaiah and Sean: verify frontend setup and component boundaries on Day 1.
+- Jared: verify backend setup, API proxy and responsibility boundaries on Day 1.
+- Paul: verify a fresh clone and report exact errors; Ranee resolves setup gaps.
+- Cedric: collect the verified setup and architecture explanation.
+- Ralph and Pamela: check formal-language feasibility before scope approval.
 
-**Expected output and deadline:** Onboarding checklist, four-week calendar, issue owners and approval record.
+**Expected output and deadline:** Working starter and setup guide on Day 1; scope approval by Day 2; all-member onboarding evidence and calendar by Day 5.
 
-**Handoff package:** Link the issue, PR and commit; list changed files; include the artifact/data schema, worked example or screenshot, checks actually run, and unresolved questions. The receiving reviewer confirms usability in the issue before the task is closed.
+**Handoff package:** Link the issue, PR, changed files, checks and any screenshots or worked examples. Record unresolved questions. The recipient confirms the package is usable before closure.
 
-**Primary review and recipient:** Review Isaiah’s scope with the team; unblock access on Day 1.
+**Primary review and recipient:** Paul verifies onboarding; frontend and backend recipients accept the starter. Ranee gives final PR approval.
 
 **Done when**
-- [ ] Numbered tasks and named outputs are complete.
-- [ ] Required coordination decisions are recorded in the issue or PR.
-- [ ] The named reviewer checks the output and the recipient accepts the handoff.
-- [ ] Relevant checks pass and the reviewed PR updates affected docs.
+- [ ] Named artifacts and behavior are delivered.
+- [ ] Coordination decisions and technical review are recorded.
+- [ ] Relevant checks pass and documentation matches the deliverable.
+- [ ] The recipient accepts the handoff and the PR is merged.
 
-### Isaiah — Language Analyst / UI/UX (@m1nay3on)
+## Phase work for frontend
+
+### Isaiah — Frontend Developer / UI/UX (@m1nay3on)
 
 **Focus:** Specify schemes, alphabet, domain rules and supported optional URL parts; create Figma input, loading, accepted, rejected and error wireframes.
 
@@ -74,7 +90,7 @@ Approve a small URL language and make every member ready to contribute.
 1. Write a component-by-component rule table for scheme, hostname, subdomains, port, path, query, fragment, case, whitespace and non-ASCII input; mark each supported or excluded.
 2. Define the alphabet and state whether multi-character character-class labels are notation only; give accepted and rejected examples for each included rule.
 3. Send the rule table to Ralph and Paul by Day 2; resolve every contradictory example before Ranee records approval.
-4. Create Figma desktop/mobile wireframes and list input, submitting, accepted, rejected, empty, invalid-request and offline states. Add the Figma link and decisions to docs/ui/wireframes.md.
+4. Create Figma desktop/mobile wireframes and list input, submitting, accepted, rejected, empty, invalid-request and offline states. Add the Figma link and decisions to docs/ui/wireframes.md. Agree with Sean that Isaiah owns layout/CSS and Sean owns form/API behavior; record shared component interfaces before coding.
 
 **Who to coordinate with and what to agree**
 - Ranee: approve scope Day 2.
@@ -95,7 +111,41 @@ Approve a small URL language and make every member ready to contribute.
 - [ ] The named reviewer checks the output and the recipient accepts the handoff.
 - [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
-### Ralph — Regular Expression / NFA Designer (@rlken)
+### Sean — Frontend Developer — API Integration (@bonkbonkboomeykwkwkw)
+
+**Focus:** Review wireframes; split React into input, result and trace components; agree JSON responses with Jared.
+
+**Before starting:** Isaiah’s scope/wireframes; Jared’s API proposal.
+
+**Owned files or artifacts:** docs/ui/component-plan.md; frontend/src/features/validator/; docs/api-contract.md (joint review)
+
+**Numbered tasks**
+1. Review Figma with Isaiah and list the React pieces: input form, submission state, verdict message and trace table.
+2. Map each UI state to the API contract; no boolean verdict should be shown for a 400, 501 or unreachable backend.
+3. Review api.js with Jared and agree accepted, rejected, invalid-request and not-implemented response examples.
+4. Record component responsibilities and CSS breakpoints in docs/ui/component-plan.md; leave final UI implementation for the assigned weeks.
+
+**Who to coordinate with and what to agree**
+- Isaiah: confirm labels, layout and mobile behavior before coding.
+- Jared: agree exact JSON keys and status handling by Day 4.
+- Paul: agree accessible labels and test cases.
+- Isaiah: agree layout/component file boundaries before either frontend member edits shared components.
+
+**Expected output and deadline:** UI component plan and approved API response examples by Day 4.
+
+**Handoff package:** Link the issue, PR and commit; list changed files; include the artifact/data schema, worked example or screenshot, checks actually run, and unresolved questions. The receiving reviewer confirms usability in the issue before the task is closed.
+
+**Primary review and recipient:** Isaiah reviews UX; Jared reviews API usage.
+
+**Done when**
+- [ ] Numbered tasks and named outputs are complete.
+- [ ] Required coordination decisions are recorded in the issue or PR.
+- [ ] The named reviewer checks the output and the recipient accepts the handoff.
+- [ ] Relevant checks pass and the reviewed PR updates affected docs.
+
+## Phase work for backend
+
+### Ralph — Backend Developer — RE and NFA (@rlken)
 
 **Focus:** Review whether the proposed language is regular and practical; draft the regular expression and explain each component.
 
@@ -126,7 +176,7 @@ Approve a small URL language and make every member ready to contribute.
 - [ ] The named reviewer checks the output and the recipient accepts the handoff.
 - [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
-### Pamela — DFA Designer (@Qiuyuan26)
+### Pamela — Backend Developer — DFA and Minimization (@Qiuyuan26)
 
 **Focus:** Agree state naming, alphabet classes, accepting/sink conventions and transition-table format; review the RE draft.
 
@@ -142,7 +192,7 @@ Approve a small URL language and make every member ready to contribute.
 
 **Who to coordinate with and what to agree**
 - Ralph: agree NFA state naming before his construction.
-- Sean: agree original-to-minimized mapping format.
+- Ralph and Jared: review the original-to-minimized mapping format.
 - Jared: agree machine-readable transition representation; distinguish proposed model shape from an implemented model.
 - Paul: confirm sink/out-of-alphabet examples.
 
@@ -158,39 +208,7 @@ Approve a small URL language and make every member ready to contribute.
 - [ ] The named reviewer checks the output and the recipient accepts the handoff.
 - [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
-### Sean — Automata Optimizer / Frontend (@bonkbonkboomeykwkwkw)
-
-**Focus:** Review wireframes; split React into input, result and trace components; agree JSON responses with Jared.
-
-**Before starting:** Isaiah’s scope/wireframes; Jared’s API proposal.
-
-**Owned files or artifacts:** docs/ui/component-plan.md; frontend/src/features/validator/; docs/api-contract.md (joint review)
-
-**Numbered tasks**
-1. Review Figma with Isaiah and list the React pieces: input form, submission state, verdict message and trace table.
-2. Map each UI state to the API contract; no boolean verdict should be shown for a 400, 501 or unreachable backend.
-3. Review api.js with Jared and agree accepted, rejected, invalid-request and not-implemented response examples.
-4. Record component responsibilities and CSS breakpoints in docs/ui/component-plan.md; leave final UI implementation for the assigned weeks.
-
-**Who to coordinate with and what to agree**
-- Isaiah: confirm labels, layout and mobile behavior before coding.
-- Jared: agree exact JSON keys and status handling by Day 4.
-- Paul: agree accessible labels and test cases.
-- Pamela: reserve Week 2 Day 3 DFA handoff; tell Ranee if UI scope threatens minimization time.
-
-**Expected output and deadline:** UI component plan and approved API response examples by Day 4.
-
-**Handoff package:** Link the issue, PR and commit; list changed files; include the artifact/data schema, worked example or screenshot, checks actually run, and unresolved questions. The receiving reviewer confirms usability in the issue before the task is closed.
-
-**Primary review and recipient:** Isaiah reviews UX; Jared reviews API usage.
-
-**Done when**
-- [ ] Numbered tasks and named outputs are complete.
-- [ ] Required coordination decisions are recorded in the issue or PR.
-- [ ] The named reviewer checks the output and the recipient accepts the handoff.
-- [ ] Relevant checks pass and the reviewed PR updates affected docs.
-
-### Jared — Simulator Programmer / Backend (@AshenDary)
+### Jared — Backend Developer — Simulator and API (@AshenDary)
 
 **Focus:** Finalize the request/result schema, trace positions and error cases; keep routes thin and plan a separate simulator module.
 
@@ -206,7 +224,7 @@ Approve a small URL language and make every member ready to contribute.
 
 **Who to coordinate with and what to agree**
 - Sean: sign off on all sample JSON before either side changes field names.
-- Pamela and Sean: agree model format and state naming.
+- Pamela and Ralph: agree model format and state naming.
 - Paul: confirm error codes and trace assertions.
 - Ranee: review unresolved interface decisions by Day 4.
 
@@ -222,7 +240,9 @@ Approve a small URL language and make every member ready to contribute.
 - [ ] The named reviewer checks the output and the recipient accepts the handoff.
 - [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
-### Paul — Tester / QA (@paulccampos)
+## QA / Testing
+
+### Paul — QA / Tester (@paulccampos)
 
 **Focus:** Turn language rules into accepted/rejected and boundary examples; independently follow the run guide.
 
@@ -255,7 +275,9 @@ Approve a small URL language and make every member ready to contribute.
 - [ ] The named reviewer checks the output and the recipient accepts the handoff.
 - [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
-### Cedric — Documentation / Presentation (@cedricsigue)
+## Paper & Presentation
+
+### Cedric — Paper & Presentation Lead (@cedricsigue)
 
 **Focus:** Create report outline, glossary and evidence folders; record scope/architecture decisions and meeting notes.
 
@@ -272,7 +294,7 @@ Approve a small URL language and make every member ready to contribute.
 **Who to coordinate with and what to agree**
 - Ranee: validate meeting decisions and scope.
 - Isaiah: supply approved language rules.
-- Ralph/Pamela/Sean: agree notation and diagram captions.
+- Ralph/Pamela: agree notation and diagram captions.
 - Jared: verify architecture explanation.
 - Paul: distinguish passed checks from planned tests.
 
@@ -299,4 +321,4 @@ The language specification governs every model and test. Automata designers hand
 - [ ] The team demonstrates the output and records one retrospective improvement.
 
 ## File architecture for this phase
-Follow docs/architecture.md. Paths marked planned are tasks to create, not claims that the implementation already exists. Use docs/api-contract.md for current and proposed response shapes.
+Follow docs/architecture.md. Frontend dependencies belong in frontend/package.json; backend dependencies in backend/requirements*.txt. Ranee owns setup for both, Isaiah owns layout/CSS, Sean owns interaction/API UI, Ralph owns RE/NFA, Pamela owns DFA/minimization, and Jared owns simulator/API implementation. Paths marked planned are tasks to create, not claims that the implementation already exists. Use docs/api-contract.md for current and proposed response shapes.

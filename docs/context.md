@@ -18,7 +18,7 @@ Supported schemes, character alphabet, domain rules, ports, paths, query strings
 The 2048-character API input limit is a transport constraint, not the formal language specification. The current API returns 501 for a well-shaped request because automata validation is not implemented. A successful health check proves connectivity only.
 
 ## Handoffs
-Isaiah defines language rules and UI flow. Ralph creates RE/NFA artifacts. Pamela constructs DFA artifacts. Sean minimizes the DFA and implements React screens; plan these two workloads separately. Jared implements the simulator and Flask contract. Paul verifies behavior against the shared examples. Cedric maintains the report and demo. Ranee coordinates dependencies, integration, and releases.
+Isaiah defines language rules and UI flow. Ralph creates RE/NFA artifacts. Pamela constructs DFA artifacts. Pamela also minimizes the DFA, with Ralph reviewing. Isaiah implements frontend layout/CSS; Sean implements frontend behavior and API integration. Jared implements the simulator and Flask contract. Paul verifies behavior against the shared examples. Cedric maintains the report and demo. Ranee owns frontend/backend setup, coordinates dependencies, integration and releases, and supports agreed backend and paper tasks.
 
 ## Maintenance
 Record approved decisions here with the decision date and related issue or PR. Keep current status in status.md, planned work in roadmap.md, and API details in api-contract.md. The shared Google Doc remains linked from the README for coordination.

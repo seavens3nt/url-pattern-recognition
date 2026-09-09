@@ -6,8 +6,8 @@
 Deliver a tested, reproducible project and prepare all eight members to defend it.
 
 ## Phase meeting agenda
-1. Review the previous handoff and blockers (Week 1: check setup and scope).
-2. Each member explains their changes, evidence and next task.
+1. Review the previous week’s accepted handoffs and unresolved blockers.
+2. Backend members explain committed changes, model decisions, tests and blockers in detail. Frontend members show wireframes or working screens. QA and paper leads show evidence and missing inputs.
 3. Confirm owners, acceptance criteria and within-week deadlines below.
 4. Review shared interfaces and cross-area changes.
 5. Agree the phase demonstration and exit checklist.
@@ -19,6 +19,13 @@ Deliver a tested, reproducible project and prepare all eight members to defend i
 - Day 5: final package check, tag and submission buffer.
 
 ## GitHub and coding rules
+
+### Common bad habits to avoid
+- Direct pushes to main; unclear branch names; large unrelated changes.
+- Installing dependencies in the wrong directory or committing .env, .venv, node_modules or build outputs.
+- Editing another member’s files without coordination or changing API/model fields without agreement.
+
+### Rule list
 - Every change goes through a small reviewed pull request. No direct commits to main.
 - Use phase-specific branches such as `phase-2/nfa-construction` or `phase-3/react-trace`.
 - Keep frontend dependencies in frontend/package.json and backend dependencies in backend/requirements*.txt. Follow the existing isolated Python environment in how-to-run.md.
@@ -27,9 +34,14 @@ Deliver a tested, reproducible project and prepare all eight members to defend i
 - Coordinate shared language, state-table and API changes first; update affected tests and docs in the same handoff.
 - Use descriptive commits and PR descriptions with test evidence. Never silently relabel draft or sample data as an approved model.
 
+## GitHub Desktop reminder for Week 4
+Follow docs/github-desktop-guide.md: update main, create a branch such as phase-4/task-name, check changes, commit, publish, and open a PR into main. Link the task issue and request @seavens3nt. Push review fixes to the same branch. Technical peer review does not replace Ranee’s required approval.
+
 ## Member assignments and coordination
 
-### Ranee — Project Manager / Integration Lead (@seavens3nt)
+## Project Manager / Setup
+
+### Ranee — Project Manager / Project Setup (@seavens3nt)
 
 **Focus:** Freeze features; coordinate release fixes, deployment or approved local delivery; tag reviewed release and verify submission materials.
 
@@ -62,19 +74,23 @@ Deliver a tested, reproducible project and prepare all eight members to defend i
 - [ ] The named reviewer checks the output and the recipient accepts the handoff.
 - [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
-### Isaiah — Language Analyst / UI/UX (@m1nay3on)
+## Phase work for frontend
+
+### Isaiah — Frontend Developer / UI/UX (@m1nay3on)
 
 **Focus:** Perform final scope/UX review and document limitations; prepare the language-definition portion of the defense.
 
 **Before starting:** Release candidate.
 
-**Owned files or artifacts:** docs/language-spec.md; docs/ui/final-checklist.md; docs/report/limitations.md
+**Owned files or artifacts:** frontend/src/style.css; agreed presentation components in frontend/src/features/validator/; docs/language-spec.md; docs/ui/final-checklist.md; docs/report/limitations.md
 
 **Numbered tasks**
 1. Check the final UI and every documented language limitation against the frozen specification.
 2. Recheck priority usability fixes and sign off on the final text and mobile behavior.
 3. Prepare a short explanation of why the supported URL language is intentionally scoped and which inputs are outside it.
 4. Send final scope/limitation text to Cedric before Day 4 rehearsal.
+
+5. Fix release-blocking layout/accessibility defects assigned by Paul by Day 2, pair with Sean on shared components, and send verified final UI screenshots to Cedric by Day 3.
 
 **Who to coordinate with and what to agree**
 - Sean: recheck UI fixes.
@@ -95,7 +111,44 @@ Deliver a tested, reproducible project and prepare all eight members to defend i
 - [ ] The named reviewer checks the output and the recipient accepts the handoff.
 - [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
-### Ralph — Regular Expression / NFA Designer (@rlken)
+### Sean — Frontend Developer — API Integration (@bonkbonkboomeykwkwkw)
+
+
+**Focus:** Complete frontend behavior fixes and prepare the UI/API demonstration.
+
+**Before starting:** Paul’s defect list; feature freeze.
+
+**Owned files or artifacts:** frontend/src/features/validator/; frontend/src/App.test.jsx; docs/presentation/ui-demo.md
+
+
+**Numbered tasks**
+1. Fix only prioritized UI regressions; rerun component checks after each behavior change.
+2. Verify keyboard and narrow-screen behavior with Isaiah and Paul, including long traces and error messages.
+3. Capture final screenshots from the approved candidate, not development fixtures.
+4. Rehearse the input-to-result UI walkthrough and explain API/error handling with Jared.
+
+**Who to coordinate with and what to agree**
+- Paul: reproduce and retest fixes.
+- Isaiah: approve final UX.
+- Jared: verify API compatibility after fixes.
+- Cedric: receive final screenshots by Day 3.
+
+**Expected output and deadline:** Verified frontend behavior fixes by Day 2; final screenshots and UI demo notes by Day 3; rehearsal on Day 4.
+
+
+**Handoff package:** Link the issue, PR and commit; list changed files; include the artifact/data schema, worked example or screenshot, checks actually run, and unresolved questions. The receiving reviewer confirms usability in the issue before the task is closed.
+
+**Primary review and recipient:** Isaiah/Paul verify fixes; Ranee integrates.
+
+**Done when**
+- [ ] Numbered tasks and named outputs are complete.
+- [ ] Required coordination decisions are recorded in the issue or PR.
+- [ ] The named reviewer checks the output and the recipient accepts the handoff.
+- [ ] Relevant checks pass and the reviewed PR updates affected docs.
+
+## Phase work for backend
+
+### Ralph — Backend Developer — RE and NFA (@rlken)
 
 **Focus:** Proofread RE/NFA artifacts against final code; rehearse construction with one accepted and one rejected string.
 
@@ -127,7 +180,7 @@ Deliver a tested, reproducible project and prepare all eight members to defend i
 - [ ] The named reviewer checks the output and the recipient accepts the handoff.
 - [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
-### Pamela — DFA Designer (@Qiuyuan26)
+### Pamela — Backend Developer — DFA and Minimization (@Qiuyuan26)
 
 **Focus:** Verify final subset construction and state tables; rehearse determinization and accepting/sink-state explanations.
 
@@ -138,12 +191,12 @@ Deliver a tested, reproducible project and prepare all eight members to defend i
 **Numbered tasks**
 1. Check each final DFA transition and accepting/sink state against the approved subset table.
 2. Rehearse epsilon closure, subset creation and why a subset is accepting.
-3. Prepare a clear explanation of one original-state-to-minimized-state mapping with Sean.
+3. Prepare a clear explanation of one original-state-to-minimized-state mapping with Ralph.
 4. Submit the final DFA appendix and speaking notes by Day 3.
 
 **Who to coordinate with and what to agree**
 - Ralph: verify source NFA.
-- Sean: verify minimization mapping.
+- Ralph: independently verify minimization mapping.
 - Jared: verify release model state IDs.
 - Cedric: validate appendix references.
 - Paul: confirm no unresolved transition discrepancy.
@@ -152,7 +205,7 @@ Deliver a tested, reproducible project and prepare all eight members to defend i
 
 **Handoff package:** Link the issue, PR and commit; list changed files; include the artifact/data schema, worked example or screenshot, checks actually run, and unresolved questions. The receiving reviewer confirms usability in the issue before the task is closed.
 
-**Primary review and recipient:** Sean cross-reviews minimization mapping; Cedric checks report consistency.
+**Primary review and recipient:** Ralph cross-reviews minimization mapping; Cedric checks report consistency.
 
 **Done when**
 - [ ] Numbered tasks and named outputs are complete.
@@ -160,40 +213,7 @@ Deliver a tested, reproducible project and prepare all eight members to defend i
 - [ ] The named reviewer checks the output and the recipient accepts the handoff.
 - [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
-### Sean — Automata Optimizer / Frontend (@bonkbonkboomeykwkwkw)
-
-**Focus:** Fix priority frontend defects; check mobile and keyboard use; rehearse UI and minimization explanations.
-
-**Before starting:** Paul’s defect list; feature freeze.
-
-**Owned files or artifacts:** frontend/src/features/validator/; frontend/src/style.css; docs/presentation/ui-minimization-notes.md
-
-**Numbered tasks**
-1. Fix only prioritized UI regressions; rerun component checks after each behavior change.
-2. Verify keyboard and narrow-screen behavior with Isaiah and Paul, including long traces and error messages.
-3. Capture final screenshots from the approved candidate, not development fixtures.
-4. Rehearse both the UI walkthrough and the partition-refinement explanation.
-
-**Who to coordinate with and what to agree**
-- Paul: reproduce and retest fixes.
-- Isaiah: approve final UX.
-- Jared: verify API compatibility after fixes.
-- Pamela: cross-review minimization explanation.
-- Cedric: receive final screenshots by Day 3.
-
-**Expected output and deadline:** Reviewed UI fixes, final screenshots and minimization demo.
-
-**Handoff package:** Link the issue, PR and commit; list changed files; include the artifact/data schema, worked example or screenshot, checks actually run, and unresolved questions. The receiving reviewer confirms usability in the issue before the task is closed.
-
-**Primary review and recipient:** Isaiah/Paul verify fixes; Ranee integrates.
-
-**Done when**
-- [ ] Numbered tasks and named outputs are complete.
-- [ ] Required coordination decisions are recorded in the issue or PR.
-- [ ] The named reviewer checks the output and the recipient accepts the handoff.
-- [ ] Relevant checks pass and the reviewed PR updates affected docs.
-
-### Jared — Simulator Programmer / Backend (@AshenDary)
+### Jared — Backend Developer — Simulator and API (@AshenDary)
 
 **Focus:** Fix backend defects; verify deployment configuration and error responses; rehearse simulator and API explanations.
 
@@ -210,7 +230,7 @@ Deliver a tested, reproducible project and prepare all eight members to defend i
 **Who to coordinate with and what to agree**
 - Paul: retest defects and setup.
 - Sean: verify response compatibility.
-- Pamela/Sean: review any transition-data change.
+- Pamela/Ralph: review any transition-data change.
 - Ranee: coordinate environment configuration.
 - Cedric: confirm technical explanation.
 
@@ -226,7 +246,9 @@ Deliver a tested, reproducible project and prepare all eight members to defend i
 - [ ] The named reviewer checks the output and the recipient accepts the handoff.
 - [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
-### Paul — Tester / QA (@paulccampos)
+## QA / Testing
+
+### Paul — QA / Tester (@paulccampos)
 
 **Focus:** Run final regression, browser and clean-setup checks; verify deployed flow if hosting is used; document residual defects.
 
@@ -259,7 +281,9 @@ Deliver a tested, reproducible project and prepare all eight members to defend i
 - [ ] The named reviewer checks the output and the recipient accepts the handoff.
 - [ ] Relevant checks pass and the reviewed PR updates affected docs.
 
-### Cedric — Documentation / Presentation (@cedricsigue)
+## Paper & Presentation
+
+### Cedric — Paper & Presentation Lead (@cedricsigue)
 
 **Focus:** Finalize report, slides and references; organize timed rehearsals with all members and capture a demo fallback.
 
@@ -274,7 +298,7 @@ Deliver a tested, reproducible project and prepare all eight members to defend i
 4. Deliver report, slides, references, demo script and fallback location to Ranee before Day 5 submission checks.
 
 **Who to coordinate with and what to agree**
-- Ralph/Pamela/Sean: approve theory sections.
+- Ralph/Pamela: review theory sections; Ranee gives final PR approval.
 - Jared: approve architecture/API section.
 - Isaiah: approve scope and limitations.
 - Paul: approve test claims.
@@ -303,4 +327,4 @@ The language specification governs every model and test. Automata designers hand
 - [ ] The team demonstrates the output and records one retrospective improvement.
 
 ## File architecture for this phase
-Follow docs/architecture.md. Paths marked planned are tasks to create, not claims that the implementation already exists. Use docs/api-contract.md for current and proposed response shapes.
+Follow docs/architecture.md. Frontend dependencies belong in frontend/package.json; backend dependencies in backend/requirements*.txt. Ranee owns setup for both, Isaiah owns layout/CSS, Sean owns interaction/API UI, Ralph owns RE/NFA, Pamela owns DFA/minimization, and Jared owns simulator/API implementation. Paths marked planned are tasks to create, not claims that the implementation already exists. Use docs/api-contract.md for current and proposed response shapes.

@@ -5,10 +5,10 @@ These are skills each role needs for its tasks, not claims about a member's curr
 | Owner | Skills to prepare | First practical outcome |
 | --- | --- | --- |
 | Ranee | Git branches and PRs, sprint planning, integration, environment setup, release coordination | Help another member clone and run the starter |
-| Isaiah | Formal languages and alphabets, URL scope analysis, Figma, responsive UI/UX | Draft the specification and screen flow |
+| Isaiah | React layout, CSS, accessibility, Figma, URL scope analysis | Draft the specification and screen flow |
 | Ralph | Regular expressions, epsilon transitions, NFA construction | Explain the RE-to-NFA mapping |
-| Pamela | Epsilon closure, subset construction, DFA transition tables | Trace NFA subsets into DFA states |
-| Sean | State partitioning and equivalence; React components, CSS, fetch and UI states | Plan minimization and build UI against the API contract |
+| Pamela | Epsilon closure, subset construction, DFA tables, partition refinement and equivalence | Construct and minimize the DFA with independent review |
+| Sean | React components, fetch, UI states, testing and coordination with the layout owner | Build form/result/trace behavior against the API contract |
 | Jared | Python data structures, deterministic simulation, Flask, JSON and HTTP | Add a simulator interface behind the endpoint |
 | Paul | Boundary analysis, pytest, React Testing Library, browser and accessibility checks | Create expected outcomes for language rules |
 | Cedric | Technical writing, diagrams, architecture explanation, presentation and rehearsal | Keep the report structure aligned with implementation |

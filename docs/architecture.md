@@ -9,9 +9,9 @@ frontend/
     main.jsx                               React entry point
     App.jsx                                Application composition
     features/validator/
-      ValidatorPage.jsx                    Sean: input, loading, message and layout
+      ValidatorPage.jsx                    Sean: interaction/results; Isaiah: layout via agreed components
       api.js                               Sean + Jared: HTTP boundary
-    style.css                              Sean: styles, reviewed by Isaiah
+    style.css                              Isaiah: layout/styles, coordinated with Sean
     App.test.jsx                           Paul: browser-component behavior tests
 backend/
   app.py                                   Jared: Flask factory and global errors
@@ -32,11 +32,11 @@ These paths are delivery targets; their absence does not mean the task is finish
 - `docs/automata/notation.md` — Pamela; state naming and character-class conventions.
 - `docs/automata/regular-expression.md` and `nfa.md` — Ralph; RE and epsilon-NFA construction.
 - `docs/automata/dfa.md` — Pamela; epsilon closures and subset construction.
-- `docs/automata/minimization.md` — Sean; partitions and original-to-minimized mapping.
+- `docs/automata/minimization.md` — Pamela; partitions and original-to-minimized mapping.
 - `docs/automata/diagrams/*.dot` — artifact owner; editable Graphviz diagram sources.
-- `backend/automata/model.py` — Jared implements data structures agreed with Pamela and Sean.
+- `backend/automata/model.py` — Jared implements data structures agreed with Pamela and Ralph.
 - `backend/automata/simulator.py` — Jared; deterministic traversal independent of Flask.
-- `backend/automata/url_dfa.json` — Sean supplies reviewed transitions; Jared integrates. No approved model exists yet.
+- `backend/automata/url_dfa.json` — Pamela supplies reviewed transitions; Jared integrates. No approved model exists yet.
 - `tests/fixtures/url_cases.json` — Paul, expected outcomes reviewed by Isaiah.
 - `tests/test_simulator.py` — Paul with Jared; real transitions, acceptance and trace behavior.
 - `docs/qa/` — Paul; case coverage, findings and release evidence.
@@ -49,4 +49,4 @@ Browser input -> ValidatorPage -> api.js -> Flask route -> validation service ->
 Today the service ends with HTTP 501 and `accepted: null`. The model and simulator are future work. The refactor preserves the existing endpoint behavior; it does not claim real URL validation.
 
 ## Coordination rules
-Sean owns the React feature; Jared owns backend route/service changes. API field changes require both to agree in the linked issue before implementation; Paul updates contract tests with the same PR. Formal model changes require the originating designer and the next recipient to review. Cross-area edits require coordination with the owner first. Ranee manages integration and resolves unresolved ownership conflicts.
+Isaiah owns layout/CSS; Sean owns React interactions/API integration; Jared owns backend route/service changes. API field changes require both to agree in the linked issue before implementation; Paul updates contract tests with the same PR. Formal model changes require the originating designer and the next recipient to review. Cross-area edits require coordination with the owner first. Ranee prepares both frontend and backend setup, agrees support tasks with Jared, manages integration and resolves unresolved ownership conflicts.

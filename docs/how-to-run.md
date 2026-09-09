@@ -24,6 +24,8 @@ Each should print a version. If Python is not found but `py --version` works, us
 
 ## 3. Download the project once
 
+Prefer buttons? Follow [the GitHub Desktop cloning steps](github-desktop-guide.md), then continue at step 4 here. Do not clone again if you already used Desktop.
+
 Open PowerShell in a folder where you keep school projects, then run:
 ```powershell
 git clone https://github.com/seavens3nt/url-pattern-recognition.git

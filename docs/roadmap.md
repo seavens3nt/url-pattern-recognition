@@ -15,17 +15,17 @@ The phase format follows the supplied [phase example](https://docs.google.com/do
 
 | Member | Week 1 | Week 2 | Week 3 | Week 4 |
 | --- | --- | --- | --- | --- |
-| Ranee | Access, setup, calendar and scope approval | Handoffs, PR review and blockers | Integration and delivery plan | Release, submission and go/no-go |
-| Isaiah | Language specification and Figma | Rule clarifications and UI review | UX and scope-conformance review | Limitations and language defense |
-| Ralph | RE draft and regularity review | Final RE and NFA by Day 2 | Worked traces and discrepancy fixes | Final RE/NFA explanation |
-| Pamela | State conventions and RE review | DFA/subset construction by Day 3 | Runtime state mapping audit | Final DFA explanation |
-| Sean | UI plan and API review | UI shell Days 1–2; minimization Days 4–5 | React result/trace integration | UI fixes and minimization defense |
+| Ranee | Frontend/backend setup, onboarding, calendar and scope approval | Handoffs, PR review and blockers | Integration and delivery plan | Release, submission and go/no-go |
+| Isaiah | Language specification and Figma | Build responsive layout/CSS | Implement accessibility/layout fixes | UI fixes and scope explanation |
+| Ralph | RE draft and regularity review | Final RE/NFA by Day 2; review DFA/minimization | Worked traces and discrepancy fixes | Final RE/NFA explanation |
+| Pamela | State/model conventions and RE review | DFA by Day 3; minimization by Day 5 | Runtime model and equivalence audit | DFA/minimization defense |
+| Sean | Component/API plan | Form/result/trace shell | React API integration | Frontend fixes and demo |
 | Jared | API contract and simulator interface | Simulator plumbing with test automata | Real validation API by Day 2 | Backend fixes and configuration |
 | Paul | Corpus and onboarding verification | Automata checks and regression cases | End-to-end integration tests | Release report and retests |
 | Cedric | Report outline and decision log | Theory chapter and diagrams | Implementation chapter and demo draft | Report, slides and rehearsal |
 
 ## Handoff schedule and workload
-The critical path is Week 1 language approval → Week 2 Day 2 NFA → Day 3 DFA → Day 5 minimized DFA → Week 3 Day 2 backend → Day 3 frontend → Week 4 QA and defense. Later stages cannot claim correctness before their upstream artifacts are reviewed. Jared can build the generic engine and tests in parallel; Sean uses only early Week 2 for UI shell work so minimization has protected time. Documentation and QA start in Week 1.
+The critical path is Week 1 language approval → Week 2 Day 2 NFA → Day 3 DFA → Day 5 minimized DFA → Week 3 Day 2 backend → Day 3 frontend → Week 4 QA and defense. Later stages cannot claim correctness before their upstream artifacts are reviewed. Jared can build the generic engine and tests in parallel; Pamela has protected Days 4–5 for minimization with Ralph reviewing; Isaiah and Sean build the frontend in parallel. Documentation and QA start in Week 1.
 
 If a gate slips, Ranee reduces optional polish and reassigns support work; the team must not skip formal conversion or correctness checks. No new features after Week 3 review. Hosting follows professor requirements and available resources; a local reproducible demo remains available as fallback.
 
@@ -38,6 +38,6 @@ If a gate slips, Ranee reduces optional polish and reassigns support work; the t
 - Done requires a reviewed PR, passing relevant checks, updated docs and a demonstrable deliverable. A phase checklist remains unchecked until there is evidence.
 
 ## GitHub tracking
-The original issues #1–#13 remain the deliverable records and are remapped to these four milestones. Four phase coordination issues collect the eight weekly member checklists. Original milestones 5 and 6 are closed as superseded, not completed work.
+The original issues #1–#13 remain the deliverable records and are remapped to these four milestones. Four phase coordination issues link deliverables and weekly checkpoints without repeating the full member instructions. Original milestones 5 and 6 are closed as superseded, not completed work.
 
 [Task backlog](https://github.com/seavens3nt/url-pattern-recognition/issues) · [Milestones](https://github.com/seavens3nt/url-pattern-recognition/milestones)
