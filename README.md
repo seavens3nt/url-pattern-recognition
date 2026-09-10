@@ -1,60 +1,41 @@
-# URL Pattern Recognition PROJECT AUTOMATA
+# URL Pattern Recognition
 
-An Automata Theory web app using React + Vite and Python + Flask.
+An Automata Theory web application built with React and Flask. It will decide whether an input URL belongs to the team-approved language and show the DFA transition trace used to reach the result.
+
+The starter runs, but URL recognition is still pending. The formal language and automata must be reviewed before the app returns accepted or rejected verdicts.
 
 ## Start here
 
-**New to running a project? Follow [How to run the project](docs/how-to-run.md).** It explains installations, folders, two terminals, and common errors.
+| Need | Read |
+| --- | --- |
+| Use the shared team document | [Google Docs execution guide](https://docs.google.com/document/d/1sjPsqJnhULjnTyqZo2iaPqDlImX-l2sUmqY9-tPVNsQ/edit) |
+| Understand the project | [Project guide](docs/team-execution-guide.md) |
+| See this week's work | [Current status](docs/status.md) |
+| Find your role | [Team roles](docs/team-roles.md) |
+| Follow the four-week plan | [Roadmap](docs/roadmap.md) |
+| Run the project | [How to run](docs/how-to-run.md) |
+| Clone, branch and open a PR | [GitHub Desktop guide](docs/github-desktop-guide.md) |
+| Follow contribution rules | [Contributing](CONTRIBUTING.md) |
 
-The starter connects React to Flask. The URL validator is deliberately not implemented yet: submitting a URL returns a clear pending-implementation message, never a fabricated acceptance result.
+The active phase guide is linked from [Current status](docs/status.md). Future phase guides are planning references; their GitHub issues are opened only when that phase starts.
 
-## Project hub
-
-- [Google Docs team execution guide](https://docs.google.com/document/d/1sjPsqJnhULjnTyqZo2iaPqDlImX-l2sUmqY9-tPVNsQ/edit)
-- [Repository copy of the execution guide](docs/team-execution-guide.md)
-- [File architecture and ownership](docs/architecture.md)
-
-- [GitHub Desktop: clone, branch and PR](docs/github-desktop-guide.md)
-- [How to run](docs/how-to-run.md)
-- [Roadmap and Agile sprints](docs/roadmap.md)
-- [Current status](docs/status.md)
-- [Project context and decisions](docs/context.md)
-- [Team roles](docs/team-roles.md)
-- [Skills and learning responsibilities](docs/skills.md)
-- [Tech stack](docs/tech-stack.md)
-- [API contract](docs/api-contract.md)
-- [Contributing](CONTRIBUTING.md)
-- [Shared Google Doc](https://docs.google.com/document/d/1d69DL9JlwwhTE8vPeQ9kBaWEzZUrey_OtatF9RUvFCk/edit)
-
-## Quick start for returning developers
-
-From the repository root, after completing the first-time setup:
-
-Terminal 1 (Windows):
-```powershell
-.\.venv\Scripts\python.exe -m flask --app backend.app:create_app run --host 127.0.0.1 --port 5000
-```
-Terminal 2:
-```text
-cd frontend
-npm run dev
-```
-Open http://localhost:5173. Keep both terminals running.
-
-## Structure
+## Project structure
 
 ```text
-frontend/src/          React app and UI tests
-backend/app.py         Flask API factory
-backend/automata/      Future automata definitions and simulator
-tests/                 Backend and future shared behavior tests
-docs/                  Setup, roadmap, context, status, and team references
-.agents/skills/        Repository-specific Codex skills
-.github/               CI checks and contribution templates
+frontend/src/          React interface and frontend tests
+backend/               Flask API, services and automata code
+tests/                 Backend and simulator tests
+docs/                  Project, phase and academic documentation
+.github/               CI, PR template and ownership rules
 ```
 
-## Checks
+See [File architecture and ownership](docs/architecture.md) for the full map and shared-file coordination rules.
 
-From the root: `.venv\Scripts\python.exe -m pytest` and `.venv\Scripts\python.exe -m ruff check backend tests`.
-From `frontend`: `npm run lint`, `npm test`, and `npm run build`.
-CI runs the same checks on pushes and pull requests. Deployment is a later sprint; development servers are for local use.
+## Quick verification
+
+After completing the first-time setup in [How to run](docs/how-to-run.md):
+
+- Start Flask in one terminal.
+- Start React in a second terminal.
+- Open `http://localhost:5173`.
+- Run the checks listed in the run guide before submitting a PR.
