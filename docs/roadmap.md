@@ -1,43 +1,42 @@
-# Four-week roadmap and delegation
+# Four-week roadmap
 
-The project lasts **four weeks total**, with one Agile sprint per week. Setup is included in Week 1; there is no additional Sprint 0 or fifth week. Calendar start/end dates remain to be confirmed by Ranee.
+The project uses one one-week sprint per phase. Calendar dates and the final submission deadline remain for Ranee to confirm.
 
-The phase format follows the supplied [phase example](https://docs.google.com/document/d/1Qpj0AeXr7mD2jqXJLeSe6rae7hYeflvG9eApdSm2kNg/edit): meeting agenda, GitHub rules, member tasks, expected outputs, integration points and completion checklist. The example's unrelated marine-project features and technologies are not part of this project.
+| Phase | Gate at the end of the week | Detailed guide |
+| --- | --- | --- |
+| 1. Foundation and specification | Scope and alphabet approved; RE draft, wireframes, API contract, test corpus and setup evidence reviewed | [Week 1](phases/week-1.md) |
+| 2. Automata and shells | RE/NFA/DFA/minimized DFA reviewed; frontend and API shells ready for integration | [Week 2](phases/week-2.md) |
+| 3. Integrated application | React displays real simulator verdicts and traces; end-to-end tests pass; features freeze | [Week 3](phases/week-3.md) |
+| 4. Verification and defense | Release candidate, clean-run evidence, report, slides and rehearsal accepted | [Week 4](phases/week-4.md) |
 
-| Week | Phase | Required outcome | Detailed delegation |
-| --- | --- | --- | --- |
-| 1 | Foundation and specification | Team setup, approved URL language, RE draft, wireframes, API contract and corpus | [Phase 1](phases/week-1.md) |
-| 2 | Automata construction and core development | Reviewed RE/NFA/DFA/minimized DFA plus UI and API shells | [Phase 2](phases/week-2.md) |
-| 3 | Integrated web application | Real validation and trace from React through Flask | [Phase 3](phases/week-3.md) |
-| 4 | Verification deployment and defense | Tested release, final report/slides, rehearsal and submission | [Phase 4](phases/week-4.md) |
+## Critical handoffs
 
-## Each member's four-week responsibility
+```text
+Isaiah language rules
+  → Ralph RE/NFA
+  → Pamela DFA/minimization
+  → Jared simulator/API
+  → Sean frontend integration
+  → Paul end-to-end verification
+  → Cedric evidence and presentation
+  → Ranee release approval
+```
 
-| Member | Week 1 | Week 2 | Week 3 | Week 4 |
-| --- | --- | --- | --- | --- |
-| Ranee | Frontend/backend setup, onboarding, calendar and scope approval | Handoffs, PR review and blockers | Integration and delivery plan | Release, submission and go/no-go |
-| Isaiah | Language specification and Figma | Build responsive layout/CSS | Implement accessibility/layout fixes | UI fixes and scope explanation |
-| Ralph | RE draft and regularity review | Final RE/NFA by Day 2; review DFA/minimization | Worked traces and discrepancy fixes | Final RE/NFA explanation |
-| Pamela | State/model conventions and RE review | DFA by Day 3; minimization by Day 5 | Runtime model and equivalence audit | DFA/minimization defense |
-| Sean | Component/API plan | Form/result/trace shell | React API integration | Frontend fixes and demo |
-| Jared | API contract and simulator interface | Simulator plumbing with test automata | Real validation API by Day 2 | Backend fixes and configuration |
-| Paul | Corpus and onboarding verification | Automata checks and regression cases | End-to-end integration tests | Release report and retests |
-| Cedric | Report outline and decision log | Theory chapter and diagrams | Implementation chapter and demo draft | Report, slides and rehearsal |
+Frontend layout work, test planning and paper preparation run in parallel from Week 1. If a formal gate slips, Ranee reduces optional interface polish; the team does not skip conversion or correctness checks.
 
-## Handoff schedule and workload
-The critical path is Week 1 language approval → Week 2 Day 2 NFA → Day 3 DFA → Day 5 minimized DFA → Week 3 Day 2 backend → Day 3 frontend → Week 4 QA and defense. Later stages cannot claim correctness before their upstream artifacts are reviewed. Jared can build the generic engine and tests in parallel; Pamela has protected Days 4–5 for minimization with Ralph reviewing; Isaiah and Sean build the frontend in parallel. Documentation and QA start in Week 1.
+## Weekly routine
 
-If a gate slips, Ranee reduces optional polish and reassigns support work; the team must not skip formal conversion or correctness checks. No new features after Week 3 review. Hosting follows professor requirements and available resources; a local reproducible demo remains available as fallback.
+1. **Planning:** confirm the sprint goal, one accountable owner per task, dependencies, coordination partner and acceptance criteria.
+2. **Daily update:** write completed, next and blocked in the active issue.
+3. **Handoff:** link the PR and evidence; the named recipient checks the output.
+4. **Review:** demonstrate the week’s gate and record unresolved items.
+5. **Retrospective:** choose one process improvement for the next week.
 
-## Agile routine
-- Start-of-week planning: agree one sprint goal, owner, dependency and acceptance criteria for each task.
-- Daily async update in the issue: completed work, next step, blocker. Raise blocked dependencies immediately.
-- Track Backlog → Ready → In progress → In review → Done; label the blocking dependency when needed.
-- One implementation task in progress per member unless agreed otherwise.
-- End-of-week review: demonstrate outputs; record one retrospective improvement.
-- Done requires a reviewed PR, passing relevant checks, updated docs and a demonstrable deliverable. A phase checklist remains unchecked until there is evidence.
+## Issue release policy
 
-## GitHub tracking
-The original issues #1–#13 remain the deliverable records and are remapped to these four milestones. Four phase coordination issues link deliverables and weekly checkpoints without repeating the full member instructions. Original milestones 5 and 6 are closed as superseded, not completed work.
+- Keep the active phase tracker and its member tasks open.
+- Keep later work in these phase guides until its sprint begins.
+- At sprint review, close completed active issues, move unfinished work deliberately, and then open the next phase’s issues.
+- Do not create all four weeks of member issues in advance.
 
-[Task backlog](https://github.com/seavens3nt/url-pattern-recognition/issues) · [Milestones](https://github.com/seavens3nt/url-pattern-recognition/milestones)
+The active phase and evidence are recorded in [Current status](status.md). GitHub contains the live issue state; this file defines the schedule and activation rule.

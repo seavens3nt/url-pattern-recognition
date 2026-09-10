@@ -1,42 +1,40 @@
 # Current status
 
-Updated: 2026-09-10. This is a maintained project snapshot, not a live GitHub dashboard.
+| Status field | Value |
+| --- | --- |
+| Evidence date | 2026-09-10 |
+| Active sprint | Phase 1 — Foundation and specification |
+| Active guide | [Phase 1 assignments](phases/week-1.md) |
 
-## Current phase
-Week 1 of the four-week plan - foundation and specification. The repository is private under seavens3nt. Seven teammate collaborator invitations were sent. All seven teammates have accepted their collaborator invitations.
+This is a reviewed snapshot. GitHub issues and PRs contain the live task state.
 
-## Included in the starter
-- React + Vite input page and backend connection indicator.
-- Flask health endpoint and honest pending-implementation validation endpoint.
-- Frontend and backend checks, GitHub Actions, and contribution templates.
-- Beginner run guide, sprint roadmap, project context, team roles and skills.
-- Repository-local Codex instructions and two reusable skills.
+## Ready
 
-## Not implemented or approved
-Formal URL language, RE/NFA/DFA artifacts, minimization, real acceptance simulation, final UI, production deployment, and defense deliverables remain pending. No claim of URL validation correctness is made by this starter.
+- React and Flask starter with a visible connection check.
+- Beginner run and GitHub Desktop guides.
+- Backend and frontend automated checks in GitHub Actions.
+- Private repository access accepted by all seven teammates.
+- Main-branch PR rule and Ranee’s required code-owner approval.
+- Four-week roadmap, file ownership and active Phase 1 assignments.
 
-## Next actions
-1. Each teammate accepts their invite and follows how-to-run.md on their computer.
-2. Ranee sets sprint dates and confirms the submission deadline.
-3. Isaiah proposes the language specification and responsive wireframes.
-4. Jared and Sean review the draft API contract; Paul begins the shared corpus.
+## Pending in Phase 1
 
-Update this file at each sprint review with completed PR links, verification results, blockers, and the next milestone. Do not mark a deliverable done based on a plan alone.
+- Ranee confirms calendar dates and submission requirements.
+- Isaiah proposes the supported URL language and wireframes.
+- Ralph reviews regularity and drafts the RE.
+- Pamela defines automata notation and worksheets.
+- Jared and Sean agree the API/UI boundary.
+- Paul prepares the shared accepted/rejected corpus and verifies setup.
+- Cedric creates the report structure and decision log.
 
-## Setup verification
-- Backend: 10 pytest cases passed; Ruff passed.
-- Frontend: 2 Vitest cases passed; ESLint and production build passed.
-- Browser: desktop and mobile layouts inspected; React reached Flask; submitting a URL displayed the intentional not-implemented message.
-- Both repository-local Codex skills passed their validator.
-- GitHub: four active weekly milestones with the original 13 deliverable issues remapped and four phase coordination issues. Issue assignments are maintained on GitHub.
-- Teammate-machine onboarding and production deployment are still pending.
+## Current boundary
 
-[Task backlog](https://github.com/seavens3nt/url-pattern-recognition/issues) · [Sprint milestones](https://github.com/seavens3nt/url-pattern-recognition/milestones)
+The validator endpoint still reports that recognition is pending. The language, RE, NFA, DFA, minimized model, real simulator, final interface, deployment and defense materials do not have completion evidence yet.
 
-## Detailed execution guide update
-The Google Docs guide and repository phase guides now provide exact numbered tasks, file targets, named coordination partners, inputs, deadlines and handoff acceptance for all 32 member-week assignments. The starter separates the React feature/API boundary and Flask factory/routes/service. The real automata model remains pending. The starter-boundary changes are on main. Current work refreshes the team allocation, phase instructions and GitHub Desktop guide through a PR.
+## Verified starter checks
 
-## Revised team allocation
-Three backend: Ralph (RE/NFA), Pamela (DFA/minimization), Jared (simulator/API). Two frontend: Isaiah (layout/UI/UX), Sean (behavior/API integration). Paul is QA; Cedric leads the paper. Ranee owns both frontend/backend setup, project coordination and final PR approval, with backend and paper support.
+- Backend: 10 pytest tests and Ruff passed.
+- Frontend: 2 Vitest tests, ESLint and production build passed.
+- Browser: React reached Flask on desktop and mobile layouts; form submission showed the intentional pending message.
 
-The main ruleset is active; CODEOWNERS requires @seavens3nt, with an account-specific PR-only bypass for her own changes. Grammar and delivery decisions remain pending until reviewed.
+At the Phase 1 review, update this page with PR links, check results, blockers and the Phase 2 activation decision.
