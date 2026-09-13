@@ -1,169 +1,114 @@
-# Regular Expression Draft — URL Pattern Recognition
+# Regular-expression design — core URL language
 
-## 1. Regularity check
+**Owner:** Ralph Punzalan
 
-Every rule in the language spec is still expressible as a regular expression.
-Bounded ranges (port 0-65535, hostname labels 1-63 chars, total hostname
-253 chars), repetition (path segments, query pairs), and character-class
-restrictions are all finite and regular. Nothing requires unbounded counting
-or nested matching, so nothing is flagged as non-regular.
+**Construction reviewer:** Pamela
 
-Two items from the spec are flagged as needing a team decision rather than
-being resolved here, since the spec itself leaves them open:
+**Authoritative scope:** [`docs/language-spec.md`](../language-spec.md)
 
-- Whether underscores are allowed in hostname labels (spec lists `exa_mple.com`
-  as a rejected example but notes some browsers tolerate it and says to
-  "decide explicitly").
-- Mixed-script homograph hostnames (e.g. Cyrillic characters mixed with Latin
-  ones to spoof a known domain). This is checkable with a regex against a
-  finite confusables list, but no such list is defined in the spec yet, so it
-  isn't built into this draft.
+**Shared examples:** [`tests/fixtures/url_cases.json`](../../tests/fixtures/url_cases.json)
 
-As before, case normalization (rule 8) and Punycode/percent-encoding
-normalization (rule 10) are treated as preprocessing steps applied before the
-string reaches the automaton, not as part of the accept/reject grammar
-itself.
+## 1. Regularity decision
+
+The approved URL language is regular. Each component uses a finite character
+alphabet, concatenation, finite alternatives, and repetition. Hostname and path
+rules do not require recursive nesting, matching counts across distant parts of
+the input, DNS access, or any other memory beyond a finite state. Therefore the
+complete language can be recognized by a regular expression and converted to an
+NFA and DFA.
+
+This construction recognizes the submitted string exactly as written. It does
+not trim, lowercase, decode, normalize, resolve, or open the URL.
 
 ## 2. Named components
 
-Character classes:
+The notation below is the formal design input for the NFA. `|` means choice,
+juxtaposition means concatenation, `*` means zero or more, `+` means one or more,
+and `?` means optional.
 
-```
-ALPHA        = [A-Za-z]
-DIGIT        = [0-9]
-NONZERO-DIGIT = [1-9]
-HEXDIG       = [0-9A-Fa-f]
-ALPHANUM     = [A-Za-z0-9]
-UNRESERVED   = ALPHANUM | "-" | "." | "_" | "~"
-PCT-ENCODED  = "%" HEXDIG HEXDIG
-```
+```text
+LOWER       = [a-z]
+DIGIT       = [0-9]
+ALNUM       = LOWER | DIGIT
 
-Scheme (matched case-insensitively):
+SCHEME      = http | https
 
-```
-SCHEME = "http" | "https" | "ftp"
-```
+LABEL       = ALNUM | ALNUM (ALNUM | -)* ALNUM
+TLD         = LOWER LOWER LOWER*
+HOST        = LABEL (. LABEL)* . TLD
 
-Hostname labels are now bounded at 1-63 characters and cannot start or end
-with a hyphen:
+PATH_CHAR   = ALNUM | - | _ | . | ~
+SEGMENT     = PATH_CHAR+
+PATH        = / | / SEGMENT (/ SEGMENT)* /?
 
-```
-LABEL     = ALPHANUM
-          | ALPHANUM (ALPHANUM | "-"){0,61} ALPHANUM
-HOSTNAME  = LABEL ("." LABEL)*   (total length bounded to 253 chars)
+URL         = SCHEME :// HOST PATH?
 ```
 
-A double dot (`www..example.com`) is rejected because it would require an
-empty label between the dots, and LABEL requires at least one character.
+Dots in `HOST` and punctuation shown as URL separators are literal characters.
+The entire input must match `URL`; no prefix or substring match is accepted.
 
-IP literals:
+An equivalent implementation-oriented full-match expression is:
 
-```
-IPv4        = DIGIT{1,3} "." DIGIT{1,3} "." DIGIT{1,3} "." DIGIT{1,3}
-              (each octet additionally bounded to 0-255)
-IPv6-LITERAL = "[" HEXDIG{1,4} (":" HEXDIG{1,4})* "]"
+```regex
+^(?:http|https)://[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)*\.[a-z]{2,}(?:/(?:[a-z0-9._~-]+(?:/[a-z0-9._~-]+)*/?)?)?$
 ```
 
-Authority, with the port now excluding leading zeros and requiring at least
-one digit (an empty port after `:` is invalid):
+## 3. Mapping to the approved rules
 
-```
-AUTHORITY = (HOSTNAME | IPv4 | IPv6-LITERAL) PORT?
-PORT      = ":" ("0" | NONZERO-DIGIT DIGIT{0,4})
-            (value additionally bounded to 0-65535)
-```
+| Approved rule | Expression component | How the expression enforces it |
+| --- | --- | --- |
+| Lowercase `http` or `https` only | `SCHEME` | It has exactly two literal alternatives. |
+| Required `://` delimiter | `URL` | The delimiter is concatenated directly after `SCHEME`. |
+| At least two hostname labels | `HOST` | At least one `LABEL` must occur before the final `. TLD`. |
+| Labels start and end with a letter or digit | `LABEL` | The first and last symbols are `ALNUM`; hyphens can occur only between them. |
+| Final label has at least two lowercase letters | `TLD` | Two `LOWER` symbols are required, followed by zero or more `LOWER` symbols. |
+| Optional simple path | `PATH`, `SEGMENT` | A path begins with `/`; nonempty segments use only approved path characters, with single `/` separators and at most one trailing `/`. |
+| No port, query, fragment, IP literal, Unicode, uppercase, percent escape, or whitespace | `URL` and its character classes | No component provides syntax or characters for these excluded forms. A full-input match therefore rejects them. |
 
-Path, with segments required to be non-empty so that a double slash
-(`//users`) cannot occur mid-path:
+## 4. Worked cases
 
-```
-PATH         = "/" (PATH-SEGMENT ("/" PATH-SEGMENT)*)?
-PATH-SEGMENT = (UNRESERVED | PCT-ENCODED)+
-```
+### Accepted: `https://example.com/`
 
-Because PCT-ENCODED requires exactly two hex digits after `%`, a dangling
-percent (`/users/123%`) already fails to match without any extra rule.
+`https` matches `SCHEME`; `example` matches `LABEL`; `com` matches `TLD`;
+and `/` matches the root alternative of `PATH`. The complete string matches,
+so the result is **ACCEPT**.
 
-Query, with keys required to be non-empty so an empty pair between double
-delimiters (`id=123&&sort=asc`) is rejected, while a valueless key (`?flag`)
-still matches:
+### Accepted: `https://shop2.example.com/products/item-1/`
 
-```
-QUERY      = "?" QUERY-PAIR (("&" | ";") QUERY-PAIR)*
-QUERY-PAIR = QUERY-KEY ("=" QUERY-VALUE)?
-QUERY-KEY  = (UNRESERVED | PCT-ENCODED)+
-QUERY-VALUE = (UNRESERVED | PCT-ENCODED)*
-```
+`https` matches `SCHEME`. `shop2` and `example` match `LABEL`, while `com`
+matches `TLD`. The path contains two nonempty segments using approved
+characters and one trailing slash. The result is **ACCEPT**.
 
-An empty query string (`?` alone) is rejected, since QUERY requires at least
-one QUERY-PAIR.
+### Rejected: `https://localhost`
 
-Fragment (excluding `#` from the allowed characters is what rejects a second
-`#` delimiter, and also rejects a bare trailing `##` once the full URL is
-required to match end to end):
+`localhost` supplies only one hostname label. `HOST` requires at least one
+`LABEL`, a literal dot, and a final `TLD`, so the result is **REJECT**.
 
-```
-FRAGMENT = "#" (UNRESERVED | PCT-ENCODED)*
-```
+### Rejected: `https://example.com/search?q=test`
 
-Full URL:
+The scheme and hostname match, and `/search` can match a path segment. The `?`
+and following query text cannot match `PATH` or any later component because the
+core language has no query component. Full-input matching therefore produces
+**REJECT**.
 
-```
-URL = SCHEME "://" AUTHORITY PATH? QUERY? FRAGMENT?
-```
+## 5. Fixture verification
 
-Raw whitespace, raw non-ASCII characters, and other control characters are
-rejected implicitly: no character class in this draft includes them, so a URL
-containing any of them fails to match rather than needing a separate negative
-rule.
+The expression was checked against the shared fixture. All 10 accepted cases
+match and all 10 rejected cases fail to match.
 
-## 3. Worked cases
+| Cases | Expected | Expression result | Outcome |
+| --- | --- | --- | --- |
+| A01–A10 | Accepted | All match | Pass |
+| R01–R10 | Rejected | None match | Pass |
 
-**Accepted — `https://example.com/users/123`**
-SCHEME matches `https`. AUTHORITY matches `example.com` as a single-dot
-HOSTNAME, each label within the 1-63 char bound. PATH matches `/users/123` as
-two non-empty segments. Full match, ACCEPT.
+## 6. Construction handoff
 
-**Accepted — `http://my-site.co.uk:8080/search?q=hello%20world`**
-SCHEME matches `http`. AUTHORITY matches `my-site.co.uk` (three labels) plus
-PORT `:8080`, which has no leading zero and is within range. PATH matches
-`/search`. QUERY matches `?q=hello%20world`, with QUERY-KEY `q` non-empty and
-the space correctly given as a PCT-ENCODED sequence inside QUERY-VALUE. Full
-match, ACCEPT.
+Pamela should use the named components in Section 2 as the input boundary for
+the NFA/DFA construction. The construction must preserve full-input matching
+and the stricter final-label rule. If a later automaton disagrees with any
+shared fixture, compare it with this expression and `docs/language-spec.md`
+before changing the accepted language.
 
-**Rejected — `htp://example.com/`**
-SCHEME must match `http`, `https`, or `ftp`. `htp` does not match any
-alternative, so the match fails at the SCHEME component before authority is
-even considered. REJECT.
-
-**Rejected — `https://example.com/?id=1&&sort=asc`**
-SCHEME and AUTHORITY match normally. QUERY matches the first pair `id=1`, then
-`&`, then attempts to match the next QUERY-PAIR starting at the second `&`.
-QUERY-KEY requires one or more characters, but the next character is `&`
-itself, so QUERY-KEY cannot match. The empty pair fails, and the match fails
-partway through QUERY. REJECT.
-
-## 4. Open questions / ambiguity log
-
-- Spec lists scheme as "an allowed set (e.g., http, https, ftp)" — still
-  unclear whether other schemes are permitted. Need a closed list.
-- Underscore in hostname labels: spec explicitly says "decide explicitly" —
-  this needs a team decision, not just a reading of the doc.
-- Mixed-script homograph hostnames are flagged as a security concern in the
-  spec but no confusables list or rule is defined. Needs a decision on
-  whether this is in scope for Phase 1 at all, since it would require a
-  separate reference list, not just grammar rules.
-- Malformed multi-byte UTF-8 in percent-encoded sequences (e.g. `%C3` alone,
-  without a valid continuation byte) is called out in the spec. The current
-  PCT-ENCODED rule validates each `%XX` independently but does not enforce
-  valid multi-byte UTF-8 continuation structure across sequences. This is
-  still regular to check (UTF-8 byte validity is itself a regular language),
-  but is more involved than the current draft models. Need to confirm whether
-  that level of validation is required for Phase 1 or can be deferred.
-- Subdomain depth limit: spec says "up to you (e.g., max 5 levels)" — needs an
-  explicit number if the team wants a limit enforced.
-- Fragment "well-formedness" beyond a second `#` isn't otherwise defined, and
-  the spec notes `##` (empty fragment with malformed delimiter) as ambiguous.
-  Under this draft, a bare `#` with no content is accepted, but a trailing
-  stray `##` is rejected once the full string must match end to end.
-  Confirming that's the intended behavior.
+There are no unresolved grammar questions in this Phase 1 draft. Expanding the
+language requires Ranee's approval and synchronized changes to the language
+specification, fixture, formal artifacts, simulator, API, UI messages, and tests.
