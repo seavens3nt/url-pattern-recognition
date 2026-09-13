@@ -17,6 +17,7 @@ This is a reviewed snapshot. GitHub issues and PRs contain the live task state.
 - Main-branch PR rule and Ranee’s required code-owner approval.
 - Four-week roadmap, file ownership and active Phase 1 assignments.
 - Deadline-safe core URL language, 10 accepted cases, 10 rejected cases, and the required Figma states.
+- Working DFA simulator, Flask integration, React verdict states, and transition trace display on the integration branch.
 
 ## Pending in Phase 1
 
@@ -30,11 +31,11 @@ This is a reviewed snapshot. GitHub issues and PRs contain the live task state.
 
 ## Current boundary
 
-The validator endpoint still reports that recognition is pending. The core language is approved, but the RE, NFA, DFA, minimized model, real simulator, final interface, deployment and defense materials do not have completion evidence yet.
+The core simulator is integrated on the active PR branch. The formal RE, NFA, subset-construction DFA, minimized model, final visual review, deployment and defense materials still need their assigned evidence and reviews.
 
 ## Verified starter checks
 
-- Backend: 10 pytest tests and Ruff passed.
+- Backend: 34 pytest tests and Ruff passed.
 - Frontend: 2 Vitest tests, ESLint and production build passed.
 - Browser: React reached Flask on desktop and mobile layouts; form submission showed the intentional pending message.
 

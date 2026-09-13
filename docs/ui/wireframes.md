@@ -14,7 +14,6 @@ The reviewed Figma file contains the home, recognizer, accepted, rejected, loadi
 | Rejected | API returns HTTP 200 with `accepted: false`. | Show the rejected verdict, reason or failure position, final state, and available trace. |
 | Invalid request | API returns HTTP 400 or 413. | Explain how to correct the input. Do not label it as a DFA rejection. |
 | Backend offline | The request cannot reach Flask. | Explain that the server is unavailable and allow retry. Do not display accepted or rejected. |
-| Pending implementation | API returns HTTP 501 during development. | State that the DFA is not implemented. Do not display accepted or rejected. |
 
 ## Implementation handoff
 

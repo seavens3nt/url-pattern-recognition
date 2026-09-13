@@ -16,8 +16,9 @@ frontend/
 backend/
   app.py                                   Jared: Flask factory and global errors
   routes/validation.py                     Jared: HTTP routes and status codes
-  services/validation.py                   Jared: payload checks and pending engine boundary
-  automata/                                Formal model and simulator destination
+    services/validation.py                   Jared: payload checks and simulator handoff
+  automata/
+    simulator.py                           Explicit DFA transition function and trace generation
   requirements.txt and requirements-dev.txt Backend dependencies only
 tests/test_api.py                          Paul: API contract and boundary tests
 docs/phases/week-1.md through week-4.md     Weekly work and named coordination
@@ -46,7 +47,7 @@ These paths are delivery targets; their absence does not mean the task is finish
 ## Request flow
 Browser input -> ValidatorPage -> api.js -> Flask route -> validation service -> future simulator -> future approved DFA model -> JSON result -> React result and trace.
 
-Today the service ends with HTTP 501 and `accepted: null`. The model and simulator are future work. The refactor preserves the existing endpoint behavior; it does not claim real URL validation.
+The service now runs the approved core language through the DFA simulator and returns a verdict and trace. The formal RE, NFA, subset construction, minimization evidence, and reviewed machine-readable minimized model remain Phase 2 deliverables.
 
 ## Coordination rules
 Isaiah owns layout/CSS; Sean owns React interactions/API integration; Jared owns backend route/service changes. API field changes require both to agree in the linked issue before implementation; Paul updates contract tests with the same PR. Formal model changes require the originating designer and the next recipient to review. Cross-area edits require coordination with the owner first. Ranee prepares both frontend and backend setup, agrees support tasks with Jared, manages integration and resolves unresolved ownership conflicts.
