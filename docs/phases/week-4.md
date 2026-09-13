@@ -2,7 +2,9 @@
 
 **Sprint goal:** stabilize the frozen candidate, prove that it runs cleanly and prepare every member for submission and defense.
 
-**End-of-week gate:** Ranee has a reviewed release commit, verification report, reproducible run instructions, final report/slides and demonstrated fallback.
+**Dates:** September 26–28, 2026. Submit on September 29.
+
+**End-of-phase gate:** Ranee has a reviewed release commit, verification report, reproducible run instructions, final report/slides and demonstrated fallback.
 
 Only release-blocking fixes enter this phase. Open Phase 4 issues after the Phase 3 feature-freeze review.
 

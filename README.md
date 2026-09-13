@@ -2,7 +2,7 @@
 
 An Automata Theory web application built with React and Flask. It will decide whether an input URL belongs to the team-approved language and show the DFA transition trace used to reach the result.
 
-The starter runs, but URL recognition is still pending. The formal language and automata must be reviewed before the app returns accepted or rejected verdicts.
+The application runs the approved core language through an explicit DFA and returns accepted or rejected verdicts with a transition trace. The team must still finish and review the full RE → NFA → DFA → minimized-DFA academic evidence before submission.
 
 ## Start here
 
@@ -10,6 +10,7 @@ The starter runs, but URL recognition is still pending. The formal language and 
 | --- | --- |
 | Use the shared team document | [Google Docs execution guide](https://docs.google.com/document/d/1sjPsqJnhULjnTyqZo2iaPqDlImX-l2sUmqY9-tPVNsQ/edit) |
 | Understand the project | [Project guide](docs/team-execution-guide.md) |
+| Use the approved URL rules | [Core language specification](docs/language-spec.md) |
 | See this week's work | [Current status](docs/status.md) |
 | Find your role | [Team roles](docs/team-roles.md) |
 | Follow the four-week plan | [Roadmap](docs/roadmap.md) |

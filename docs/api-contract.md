@@ -2,15 +2,15 @@
 
 ## Implemented starter endpoints
 
-`GET /api/health` returns HTTP 200 with `{"status":"ok","validator_ready":false}`.
+`GET /api/health` returns HTTP 200 with `{"status":"ok","validator_ready":true}`.
 
 `POST /api/validate` takes a JSON body such as `{"url":"https://example.com"}`. A missing, non-string, blank, or over-2048-character URL returns HTTP 400 with `code: invalid_request` and a readable `message`. Bodies over 16 KiB return 413. The service never fetches the supplied URL.
 
-A well-shaped request currently returns HTTP 501:
+A well-shaped request returns HTTP 200 with a DFA result:
 ```json
-{"code":"not_implemented","message":"DFA validation is not implemented yet.","accepted":null,"trace":[]}
+{"accepted":true,"message":"Accepted: the URL matches the approved core language.","final_state":"TLD_MANY","trace":[{"position":0,"symbol":"h","symbol_class":"letter","from_state":"START","to_state":"H"}]}
 ```
-This is an intentional implementation status, not a rejected URL.
+A rejected URL also returns HTTP 200 with `accepted: false`, its final state, and the trace produced before rejection.
 
 ## Final response for Sprint 1 review — sign-off details pending
 

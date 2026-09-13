@@ -11,6 +11,6 @@ export async function validateUrl(url) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ url }),
   });
-  // Validation errors and the intentional 501 carry user-facing JSON messages.
+  // Completed simulations and malformed-request errors carry user-facing JSON messages.
   return response.json();
 }

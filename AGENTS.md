@@ -2,7 +2,7 @@
 
 Read docs/context.md and docs/status.md before substantial project work. Use docs/roadmap.md for planned dependencies and docs/api-contract.md for interface decisions.
 
-Do not invent an approved URL grammar. The current endpoint is deliberately unimplemented; preserve that distinction until the formal artifacts support acceptance decisions. Input URLs are strings to simulate, never network destinations to fetch.
+Use the approved core grammar in `docs/language-spec.md`. Keep the DFA, fixture expectations, API behavior and UI messages aligned when that scope changes. Input URLs are strings to simulate, never network destinations to fetch.
 
 Keep frontend code in frontend/src, API code in backend, automata logic in backend/automata, and backend tests in tests. Use the setup and checks in docs/how-to-run.md. Keep personal credentials and dependency folders out of commits.
 

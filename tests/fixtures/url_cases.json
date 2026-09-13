@@ -1,0 +1,22 @@
+[
+  {"id":"A01","url":"http://example.com","accepted":true,"reason":"Lowercase HTTP scheme and two valid hostname labels."},
+  {"id":"A02","url":"https://example.com/","accepted":true,"reason":"Valid HTTPS hostname with an allowed root path."},
+  {"id":"A03","url":"https://www.example.com","accepted":true,"reason":"Valid subdomain and hostname labels."},
+  {"id":"A04","url":"https://api.example.com/users","accepted":true,"reason":"Valid hostname and one lowercase path segment."},
+  {"id":"A05","url":"http://my-site.example.org/docs","accepted":true,"reason":"Internal hostname hyphen and lowercase path are allowed."},
+  {"id":"A06","url":"https://v2.api.example.net/users/123","accepted":true,"reason":"Valid nested subdomains and two path segments."},
+  {"id":"A07","url":"https://example.co.uk/about-us","accepted":true,"reason":"Valid multi-label hostname and hyphenated path segment."},
+  {"id":"A08","url":"http://docs.example.edu/file_name","accepted":true,"reason":"Underscore is allowed inside a path segment."},
+  {"id":"A09","url":"https://shop2.example.com/products/item-1/","accepted":true,"reason":"Digits and hyphens are allowed with one trailing slash."},
+  {"id":"A10","url":"https://a.b.example.com/~user/read.me","accepted":true,"reason":"Valid subdomains and allowed tilde and dot path characters."},
+  {"id":"R01","url":"ftp://example.com","accepted":false,"reason":"FTP is outside the approved scheme set."},
+  {"id":"R02","url":"HTTP://example.com","accepted":false,"reason":"The language is case-sensitive and accepts lowercase only."},
+  {"id":"R03","url":"example.com","accepted":false,"reason":"The required scheme and delimiter are missing."},
+  {"id":"R04","url":"https://localhost","accepted":false,"reason":"A hostname requires at least two labels."},
+  {"id":"R05","url":"https://-example.com","accepted":false,"reason":"A hostname label cannot begin with a hyphen."},
+  {"id":"R06","url":"https://example..com","accepted":false,"reason":"The hostname contains an empty label."},
+  {"id":"R07","url":"https://example.com:8080/","accepted":false,"reason":"Ports are outside the core language."},
+  {"id":"R08","url":"https://example.com/search?q=test","accepted":false,"reason":"Queries are outside the core language."},
+  {"id":"R09","url":"https://example.com/page#top","accepted":false,"reason":"Fragments are outside the core language."},
+  {"id":"R10","url":"https://192.168.1.1/","accepted":false,"reason":"IP address hostnames are outside the core language."}
+]
