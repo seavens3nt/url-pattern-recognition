@@ -2,9 +2,11 @@
 
 **Sprint goal:** give every member a working project and approve the language, interfaces and evidence needed for construction.
 
-**Dates:** September 9–14, 2026
+**Dates:** September 9–16, 2026
 
-**End-of-phase gate:** Ranee accepts the scope package containing the language rules, RE draft, notation, wireframes, API examples, test corpus, report outline and setup evidence.
+**Deadline:** Wednesday, September 16, 2026
+
+**End-of-phase gate:** Ranee accepts the scope package containing the language rules, RE draft, notation, wireframes, API examples, test corpus, report outline and setup evidence. Phase 2 issues remain unopened until this gate is accepted.
 
 Use [Contributing](../../CONTRIBUTING.md) for GitHub rules, [GitHub Desktop guide](../github-desktop-guide.md) for PR steps, [How to run](../how-to-run.md) for setup and [Architecture](../architecture.md) for file ownership.
 

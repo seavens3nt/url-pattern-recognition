@@ -4,7 +4,7 @@
 Build a web application for an Automata Theory project. The academic focus is a documented regular expression -> NFA -> DFA -> minimized DFA -> simulator pipeline. React is the browser frontend; Flask exposes the Python simulator through an API.
 
 ## Agreed decisions
-- Final deadline: 2026-09-29. The recovery schedule is Phase 1 through 2026-09-14, Phase 2 from 2026-09-15 to 2026-09-20, Phase 3 from 2026-09-21 to 2026-09-25, and Phase 4 from 2026-09-26 to 2026-09-28. September 29 is reserved for submission.
+- Final deadline: 2026-09-29. Phase 1 assignments are due Wednesday, 2026-09-16; Phase 2 runs 2026-09-17 through 2026-09-20; Phase 3 runs 2026-09-21 through 2026-09-25; and Phase 4 runs 2026-09-26 through 2026-09-28. September 29 is reserved for submission.
 - React + Vite, CSS, Python + Flask, Graphviz, and the testing tools in the tech stack.
 - Eight roles with UI/UX, frontend, backend, QA, and documentation work distributed as listed in team-roles.md.
 - No database, account system, or AI/ML is needed for the core scope.

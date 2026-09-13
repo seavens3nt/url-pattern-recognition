@@ -5,8 +5,11 @@
 | Evidence date | 2026-09-13 |
 | Active sprint | Phase 1 — Foundation and specification |
 | Active guide | [Phase 1 assignments](phases/week-1.md) |
+| Phase 1 deadline | Wednesday, September 16, 2026 |
 
 This is a reviewed snapshot. GitHub issues and PRs contain the live task state.
+
+Phase 2 is planned in the repository guide only. Its GitHub tracker and member issues must remain unopened until Ranee accepts the Phase 1 gate.
 
 ## Ready
 
