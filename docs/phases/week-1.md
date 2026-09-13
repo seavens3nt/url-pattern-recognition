@@ -31,6 +31,14 @@ Use [Contributing](../../CONTRIBUTING.md) for GitHub rules, [GitHub Desktop guid
 | **Paul** @paulccampos | Follow the run guide on a clean clone; create uniquely identified accepted/rejected/boundary cases from the approved language rules. | Ranee fixes setup gaps; Isaiah confirms expectations; Ralph and Pamela cover formal boundaries; Jared agrees fixture format. | Setup evidence plus shared corpus with reason, source rule and expected verdict for every case. |
 | **Cedric** @cedricsigue | Create report outline, reference list, evidence index and decision log; write the verified project/setup overview. | Each member supplies their own explanation; Ranee verifies structure; Paul supplies actual check results. | Report skeleton maps rubric sections to owners and evidence without claiming unfinished work. |
 
+### Recorded progress
+
+- **Complete — Ranee:** React and Flask setup, frontend/backend connection, run instructions, calendar and scope review are complete. Ranee confirmed that all eight members cloned and ran both servers and that no setup blocker remains. See [issue #1](https://github.com/seavens3nt/url-pattern-recognition/issues/1).
+- **Complete — Isaiah:** the approved language specification and wireframe evidence were reviewed and merged. See [issue #2](https://github.com/seavens3nt/url-pattern-recognition/issues/2).
+- **Complete — Jared:** the validation API contract was reviewed and merged. See [issue #4](https://github.com/seavens3nt/url-pattern-recognition/issues/4).
+- **Complete — Ralph:** the regular-expression draft was aligned with the approved scope, verified against all 20 shared cases, reviewed and merged. See [issue #6](https://github.com/seavens3nt/url-pattern-recognition/issues/6).
+- **Active:** Sean, Pamela, Paul and Cedric retain their own Phase 1 issues. The phase tracker stays open until those handoffs are accepted.
+
 ## Required handoffs
 
 1. Isaiah sends the approved language rules to Ralph and Paul by September 14.
@@ -42,8 +50,8 @@ Use [Contributing](../../CONTRIBUTING.md) for GitHub rules, [GitHub Desktop guid
 
 ## Completion checklist
 
-- [ ] Calendar, deadline and core scope recorded.
-- [ ] All eight members can clone and run both servers.
+- [x] Calendar, deadline and core scope recorded.
+- [x] All eight members can clone and run both servers.
 - [ ] Language specification and examples reviewed.
 - [ ] RE draft and automata notation reviewed.
 - [ ] Wireframes, component plan and API examples agree.
