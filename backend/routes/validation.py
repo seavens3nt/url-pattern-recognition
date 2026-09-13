@@ -7,7 +7,7 @@ api = Blueprint('api', __name__, url_prefix='/api')
 
 @api.get('/health')
 def health():
-    return jsonify(status='ok', validator_ready=False)
+    return jsonify(status='ok', validator_ready=True)
 
 
 @api.post('/validate')

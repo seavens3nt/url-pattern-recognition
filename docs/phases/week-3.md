@@ -2,7 +2,9 @@
 
 **Sprint goal:** connect the reviewed minimized DFA to Flask and React so the browser shows real verdicts and traces.
 
-**End-of-week gate:** representative corpus cases pass through simulator, API and UI; trace rows match the reviewed model; new features freeze.
+**Dates:** September 21–25, 2026
+
+**End-of-phase gate:** representative corpus cases pass through simulator, API and UI; trace rows match the reviewed model; new features freeze.
 
 This phase starts only after Phase 2 acceptance. Open only Phase 3 issues at kickoff.
 
