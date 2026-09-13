@@ -2,7 +2,9 @@
 
 **Sprint goal:** finish the reviewed formal conversion and prepare frontend/backend shells that accept the final model without pretending validation is complete.
 
-**End-of-week gate:** the RE, NFA, DFA and minimized DFA agree on the shared corpus; application shells and tests are ready for Week 3 integration.
+**Dates:** September 15–20, 2026
+
+**End-of-phase gate:** the RE, NFA, DFA and minimized DFA agree on the shared corpus; application shells and tests are ready for Phase 3 integration.
 
 This phase starts only after the Phase 1 review. Its GitHub issues are opened at that time. Shared workflow and setup rules remain in [Contributing](../../CONTRIBUTING.md) and [How to run](../how-to-run.md).
 

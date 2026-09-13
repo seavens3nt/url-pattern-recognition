@@ -2,7 +2,7 @@
 
 | Status field | Value |
 | --- | --- |
-| Evidence date | 2026-09-10 |
+| Evidence date | 2026-09-13 |
 | Active sprint | Phase 1 — Foundation and specification |
 | Active guide | [Phase 1 assignments](phases/week-1.md) |
 
@@ -16,11 +16,12 @@ This is a reviewed snapshot. GitHub issues and PRs contain the live task state.
 - Private repository access accepted by all seven teammates.
 - Main-branch PR rule and Ranee’s required code-owner approval.
 - Four-week roadmap, file ownership and active Phase 1 assignments.
+- Deadline-safe core URL language, 10 accepted cases, 10 rejected cases, and the required Figma states.
 
 ## Pending in Phase 1
 
-- Ranee confirms calendar dates and submission requirements.
-- Isaiah proposes the supported URL language and wireframes.
+- Ranee obtains the required handoff reviews and links the approved scope PR to the Phase 1 issues.
+- Isaiah transfers the approved language and Figma evidence through a linked PR and obtains handoff reviews.
 - Ralph reviews regularity and drafts the RE.
 - Pamela defines automata notation and worksheets.
 - Jared and Sean agree the API/UI boundary.
@@ -29,7 +30,7 @@ This is a reviewed snapshot. GitHub issues and PRs contain the live task state.
 
 ## Current boundary
 
-The validator endpoint still reports that recognition is pending. The language, RE, NFA, DFA, minimized model, real simulator, final interface, deployment and defense materials do not have completion evidence yet.
+The validator endpoint still reports that recognition is pending. The core language is approved, but the RE, NFA, DFA, minimized model, real simulator, final interface, deployment and defense materials do not have completion evidence yet.
 
 ## Verified starter checks
 

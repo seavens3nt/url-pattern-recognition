@@ -1,13 +1,13 @@
 # Four-week roadmap
 
-The project uses one one-week sprint per phase. Calendar dates and the final submission deadline remain for Ranee to confirm.
+The final deadline is **September 29, 2026**. Because fewer than four full weeks remain, the four phases use a compressed recovery schedule. September 29 is reserved for the final upload and submission check.
 
-| Phase | Gate at the end of the week | Detailed guide |
+| Phase | Dates | Gate | Detailed guide |
 | --- | --- | --- |
-| 1. Foundation and specification | Scope and alphabet approved; RE draft, wireframes, API contract, test corpus and setup evidence reviewed | [Week 1](phases/week-1.md) |
-| 2. Automata and shells | RE/NFA/DFA/minimized DFA reviewed; frontend and API shells ready for integration | [Week 2](phases/week-2.md) |
-| 3. Integrated application | React displays real simulator verdicts and traces; end-to-end tests pass; features freeze | [Week 3](phases/week-3.md) |
-| 4. Verification and defense | Release candidate, clean-run evidence, report, slides and rehearsal accepted | [Week 4](phases/week-4.md) |
+| 1. Foundation and specification | Sep 9–14 | Scope and alphabet approved; RE draft, wireframes, API contract, test corpus and setup evidence reviewed | [Week 1](phases/week-1.md) |
+| 2. Automata and shells | Sep 15–20 | RE/NFA/DFA/minimized DFA reviewed; frontend and API shells ready for integration | [Week 2](phases/week-2.md) |
+| 3. Integrated application | Sep 21–25 | React displays real simulator verdicts and traces; end-to-end tests pass; features freeze | [Week 3](phases/week-3.md) |
+| 4. Verification and defense | Sep 26–28 | Release candidate, clean-run evidence, report, slides and rehearsal accepted | [Week 4](phases/week-4.md) |
 
 ## Critical handoffs
 

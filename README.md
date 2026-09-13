@@ -10,6 +10,7 @@ The starter runs, but URL recognition is still pending. The formal language and 
 | --- | --- |
 | Use the shared team document | [Google Docs execution guide](https://docs.google.com/document/d/1sjPsqJnhULjnTyqZo2iaPqDlImX-l2sUmqY9-tPVNsQ/edit) |
 | Understand the project | [Project guide](docs/team-execution-guide.md) |
+| Use the approved URL rules | [Core language specification](docs/language-spec.md) |
 | See this week's work | [Current status](docs/status.md) |
 | Find your role | [Team roles](docs/team-roles.md) |
 | Follow the four-week plan | [Roadmap](docs/roadmap.md) |

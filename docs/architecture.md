@@ -27,8 +27,8 @@ docs/phases/week-1.md through week-4.md     Weekly work and named coordination
 ## Planned artifacts and files
 These paths are delivery targets; their absence does not mean the task is finished. Do not create fabricated academic outputs just to fill a path.
 
-- `docs/language-spec.md` — Isaiah; approved schemes, alphabet and component rules.
-- `docs/ui/wireframes.md` — Isaiah; Figma link, screen behavior and accessibility notes.
+- `docs/language-spec.md` — approved core schemes, alphabet and component rules; Isaiah maintains it through reviewed PRs.
+- `docs/ui/wireframes.md` — reviewed Figma link and screen behavior; Isaiah maintains accessibility and responsive notes.
 - `docs/automata/notation.md` — Pamela; state naming and character-class conventions.
 - `docs/automata/regular-expression.md` and `nfa.md` — Ralph; RE and epsilon-NFA construction.
 - `docs/automata/dfa.md` — Pamela; epsilon closures and subset construction.
@@ -37,7 +37,7 @@ These paths are delivery targets; their absence does not mean the task is finish
 - `backend/automata/model.py` — Jared implements data structures agreed with Pamela and Ralph.
 - `backend/automata/simulator.py` — Jared; deterministic traversal independent of Flask.
 - `backend/automata/url_dfa.json` — Pamela supplies reviewed transitions; Jared integrates. No approved model exists yet.
-- `tests/fixtures/url_cases.json` — Paul, expected outcomes reviewed by Isaiah.
+- `tests/fixtures/url_cases.json` — shared approved corpus; Paul maintains boundary coverage with Isaiah reviewing expected outcomes.
 - `tests/test_simulator.py` — Paul with Jared; real transitions, acceptance and trace behavior.
 - `docs/qa/` — Paul; case coverage, findings and release evidence.
 - `docs/report/`, `docs/presentation/` — Cedric; report, slides outline, demo and defense material.
