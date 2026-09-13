@@ -2,7 +2,11 @@
 
 **Sprint goal:** give every member a working project and approve the language, interfaces and evidence needed for construction.
 
-**End-of-week gate:** Ranee accepts the scope package containing the language rules, RE draft, notation, wireframes, API examples, test corpus, report outline and setup evidence.
+**Dates:** September 9–16, 2026
+
+**Deadline:** Wednesday, September 16, 2026
+
+**End-of-phase gate:** Ranee accepts the scope package containing the language rules, RE draft, notation, wireframes, API examples, test corpus, report outline and setup evidence. Phase 2 issues remain unopened until this gate is accepted.
 
 Use [Contributing](../../CONTRIBUTING.md) for GitHub rules, [GitHub Desktop guide](../github-desktop-guide.md) for PR steps, [How to run](../how-to-run.md) for setup and [Architecture](../architecture.md) for file ownership.
 
@@ -19,7 +23,7 @@ Use [Contributing](../../CONTRIBUTING.md) for GitHub rules, [GitHub Desktop guid
 | Owner | Specific work | Coordinate with | Deliverable and acceptance |
 | --- | --- | --- | --- |
 | **Ranee** @seavens3nt | Verify React, Flask, proxy and health endpoint; onboard all members; confirm calendar and chair scope review. | Isaiah and Sean on frontend boundaries; Jared on backend; Paul on clean setup; Ralph and Pamela on scope feasibility; Cedric on project explanation. | Starter runs from a clean guide; every member records setup evidence or blocker; scope decisions and dates are written down. |
-| **Isaiah** @m1nay3on | Define scheme, hostname, subdomain, port, path, query, fragment, case, whitespace and non-ASCII rules; make desktop/mobile wireframes for input, loading, accepted, rejected and errors. | Ralph checks regularity; Paul checks expected outcomes; Sean agrees components and responsive behavior; Jared confirms API errors; Ranee approves scope. | `docs/language-spec.md` and wireframe link with accepted/rejected examples and no unresolved contradictions. |
+| **Isaiah** @m1nay3on | Maintain the approved rules in `docs/language-spec.md`; keep the desktop/mobile wireframes for input, loading, accepted, rejected, invalid request and offline behavior aligned with them. | Ralph checks regularity; Paul checks expected outcomes; Sean agrees components and responsive behavior; Jared confirms API errors; Ranee approves scope. | PR containing the approved language file plus the Figma link, with no unresolved wording or contradictory examples. |
 | **Sean** @bonkbonkboomeykwkwkw | Plan input, result and trace components; map loading, verdict, request-error and offline states to API responses. | Isaiah owns layout and labels; Jared agrees JSON fields/status codes; Paul reviews testable behavior. | `docs/ui/component-plan.md` and reviewed API examples; shared frontend file boundaries are agreed before coding. |
 | **Ralph** @rlken | Check that the proposed language is regular; draft and explain the RE in named components; walk through two accepted and two rejected examples. | Isaiah resolves grammar ambiguity; Pamela agrees epsilon/state notation; Paul uses the same expected outcomes. | `docs/automata/regular-expression.md` reviewed by Pamela with ambiguity list resolved or explicitly blocked. |
 | **Pamela** @Qiuyuan26 | Define state names, start/accept/sink conventions, epsilon notation, character classes and transition-table/subset worksheet formats. | Ralph aligns NFA notation; Jared agrees machine-readable representation; Paul reviews sink and out-of-alphabet cases. | `docs/automata/notation.md` plus DFA worksheet template, reviewed by Ralph and Jared. |
@@ -29,10 +33,10 @@ Use [Contributing](../../CONTRIBUTING.md) for GitHub rules, [GitHub Desktop guid
 
 ## Required handoffs
 
-1. Isaiah sends language rules to Ralph and Paul by Day 2.
-2. Ralph sends the RE draft to Pamela and Paul by Day 4.
+1. Isaiah sends the approved language rules to Ralph and Paul by September 14.
+2. Ralph sends the RE draft to Pamela and Paul by September 16.
 3. Pamela sends notation/model format to Jared before simulator work.
-4. Jared and Sean approve response examples by Day 4.
+4. Jared and Sean approve response examples by September 15.
 5. Paul reports setup problems immediately and gives corpus review results before the sprint review.
 6. All members send their explanation and evidence link to Cedric; Cedric compiles rather than invents technical content.
 
