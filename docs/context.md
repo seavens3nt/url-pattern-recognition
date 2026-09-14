@@ -16,7 +16,7 @@ Build a web application for an Automata Theory project. The academic focus is a 
 The hosting destination remains to be confirmed. The URL-language decisions and sprint dates are approved; do not expand them from examples or browser behavior.
 
 ## Boundaries
-The 2048-character API input limit is a transport constraint, not the formal language specification. The current API returns 501 for a well-shaped request because automata validation is not implemented. A successful health check proves connectivity only.
+The 2048-character API input limit is a transport constraint, not the formal language specification. A well-shaped request is simulated by the current DFA and returns HTTP 200 with either verdict; malformed requests remain HTTP errors. A successful health check proves connectivity only.
 
 ## Handoffs
 The canonical owner and deliverable list is in [Team roles](team-roles.md). The dependency order and phase gates are in the [Roadmap](roadmap.md); the active week’s exact coordination is in its phase guide. This file records project decisions rather than repeating assignments.
