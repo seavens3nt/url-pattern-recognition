@@ -58,7 +58,7 @@ From the repository root:
 ```powershell
 .\.venv\Scripts\python.exe -m flask --app backend.app:create_app run --host 127.0.0.1 --port 5000
 ```
-Success includes `Running on http://127.0.0.1:5000`. Leave this terminal open. Open http://127.0.0.1:5000/api/health in your browser: you should see `status` equal to `ok` and `validator_ready` equal to `false`. A 404 at the backend root `/` is normal; it is an API, not the web page.
+Success includes `Running on http://127.0.0.1:5000`. Leave this terminal open. Open http://127.0.0.1:5000/api/health in your browser: you should see `status` equal to `ok` and `validator_ready` equal to `true`. A 404 at the backend root `/` is normal; it is an API, not the web page.
 
 ## 7. Start the frontend in terminal 2
 
@@ -74,7 +74,7 @@ Success includes `Local: http://127.0.0.1:5173/` or `http://localhost:5173/`. Ke
 - The page title is URL Pattern Recognition.
 - The connection message becomes **Backend connected**.
 - Enter `https://example.com` and press **Send to backend**.
-- You should see **DFA validation is not implemented yet.** This is the expected starter response, not a setup error. No URLs are accepted or rejected yet.
+- You should see an accepted result for `https://example.com`, including its final DFA state and transition trace.
 
 ## Each time you work
 
@@ -98,7 +98,7 @@ If the dependency files changed, repeat the Python installation command and `npm
 | Backend unavailable | Start terminal 1, check `/api/health`, then refresh the page. |
 | Port 5000 or 5173 in use | Stop the project's old server terminal with Ctrl+C; do not stop unrelated apps blindly. Vite requires port 5173. |
 | Flask cannot use port 5000 | Choose another port in the Flask command and change the matching proxy target in `frontend/vite.config.js`, then restart Vite. |
-| 501 from /api/validate | Expected while the DFA is unimplemented. A 400 means the request input was missing or malformed. |
+| 501 from /api/validate | The working validator returns HTTP 200 for a well-formed request, whether the URL is accepted or rejected. Restart the backend from the checked-out project revision; a stale server may still be running. A 400 means the request input was missing or malformed. |
 
 ## macOS or Linux
 
