@@ -1,8 +1,8 @@
 # Shared fixture contract
 
-url_cases.json is the source corpus for the formal simulator, Flask
-accept/reject responses, and UI verdict tests. It is a JSON array so each
-consumer can parameterize directly over the same cases.
+url_cases.json is the source corpus for the formal simulator. It is structured
+so that future Flask accept/reject-response and UI verdict tests can
+parameterize directly over the same cases.
 
 | Field | Meaning |
 | --- | --- |
@@ -13,9 +13,10 @@ consumer can parameterize directly over the same cases.
 | source_rule | Exact rule heading(s) from docs/language-spec.md. |
 | reason | Short explanation suitable for a parameterized-test failure or UI assertion. |
 
-For every row, simulator tests call simulate_url(url); API tests post the raw
-URL and expect HTTP 200 plus the same accepted value; UI tests submit that raw
-URL and assert the matching verdict state. Malformed transport requests
+For every row, simulator tests call simulate_url(url). Future API tests should
+post the raw URL and expect HTTP 200 plus the same accepted value; future UI
+tests should submit that raw URL and assert the matching verdict state.
+Malformed transport requests
 (missing, non-string, blank, too long, or too large) are not language rows:
 they expect HTTP 400 or 413 before the DFA and belong in API request-validation
 tests.

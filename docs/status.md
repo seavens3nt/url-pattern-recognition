@@ -29,7 +29,7 @@ Phase 2 is planned in the repository guide only. Its GitHub tracker and member i
 
 - Pamela defines automata notation and worksheets.
 - Sean completes the component and API interaction plan against the reviewed API contract.
-- Paul submitted the clean-setup evidence and 32-case shared corpus; Isaiah, Ralph, Pamela, and Jared still need to record their acceptance of the expectations and fixture contract.
+- Paul submitted the clean-setup evidence and 20-case shared corpus; Isaiah, Ralph, Pamela, and Jared still need to record their acceptance of the expectations and fixture contract.
 - Cedric creates the report structure and decision log.
 
 ## Current boundary
@@ -44,7 +44,7 @@ formal and API testing are documented separately for the receiving reviewers.
 
 - Backend: 34 pytest tests and Ruff passed.
 - Frontend: 2 Vitest tests, ESLint and production build passed.
-- Browser: React reached Flask on desktop and mobile layouts; form submission showed the intentional pending message.
+- Browser: React reached Flask on desktop and mobile layouts; submitting a URL showed the current DFA verdict, final state, and ordered transition trace.
 
 At the Phase 1 review, update this page with PR links, check results, blockers and the Phase 2 activation decision.
 

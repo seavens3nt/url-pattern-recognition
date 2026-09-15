@@ -98,7 +98,7 @@ If the dependency files changed, repeat the Python installation command and `npm
 | Backend unavailable | Start terminal 1, check `/api/health`, then refresh the page. |
 | Port 5000 or 5173 in use | Stop the project's old server terminal with Ctrl+C; do not stop unrelated apps blindly. Vite requires port 5173. |
 | Flask cannot use port 5000 | Choose another port in the Flask command and change the matching proxy target in `frontend/vite.config.js`, then restart Vite. |
-| 501 from /api/validate | Expected while the DFA is unimplemented. A 400 means the request input was missing or malformed. |
+| 501 from /api/validate | The working validator returns HTTP 200 for a well-formed request, whether the URL is accepted or rejected. Restart the backend from the checked-out project revision; a stale server may still be running. A 400 means the request input was missing or malformed. |
 
 ## macOS or Linux
 
