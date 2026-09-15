@@ -26,6 +26,10 @@ It covers the conventions needed for:
 
 The actual NFA and DFA states and transitions will be filled in during construction.
 
+The construction input is the named component grammar in
+`docs/automata/regular-expression.md`. This document defines how that grammar is
+recorded as automata; it does not approve additional URL syntax.
+
 ---
 
 ## 2. State Naming Convention
@@ -171,17 +175,38 @@ The actual closure depends on the NFA transitions produced during construction.
 
 ---
 
-## 7. Character-Class Notation
+## 7. Character-Class and Alphabet Notation
 
-The automaton uses the following character classes from the approved regular-expression components:
+The automaton uses the following named classes from the approved
+regular-expression components:
 
 | Name          | Notation       | Meaning                              |
 | ------------- | -------------- | ------------------------------------ |
 | `LOWER`       | `[a-z]`        | Lowercase letters                    |
 | `DIGIT`       | `[0-9]`        | Digits                               |
 | `ALNUM`       | `[a-z0-9]`     | Lowercase letters or digits          |
-| `LABEL_INNER` | `[a-z0-9-]`    | Lowercase letters, digits, or hyphen |
+| `SCHEME`      | `http \| https` | The two lowercase scheme literals    |
+| `LABEL`       | `ALNUM` with internal `-` | Hostname label; starts and ends with `ALNUM` |
+| `TLD`         | `[a-z]{2,}`     | Final hostname label                 |
 | `PATH_CHAR`   | `[a-z0-9._~-]` | Allowed path characters              |
+| `SEGMENT`     | `PATH_CHAR+`   | One or more path characters          |
+
+`LOWER`, `DIGIT`, `ALNUM`, and `PATH_CHAR` are character predicates. `SCHEME`,
+`LABEL`, `TLD`, and `SEGMENT` are named grammar components and must not be
+treated as single input symbols in a transition table. Literal punctuation is
+recorded separately even when it appears in a component rule.
+
+The input alphabet used by a complete DFA is the set of supported literal
+characters and class members needed by the grammar. A transition label must be
+either a literal (`:`, `/`, `.` and so on), a disjoint character class, or
+`OTHER`; labels must not overlap. `OTHER` represents every input character not
+covered by a supported label, including uppercase letters, query/fragment
+markers, ports, whitespace, and raw non-ASCII characters.
+
+When a worksheet groups equivalent symbols under a class, record the class name
+in the table and expand it to its member characters when producing a
+machine-readable DFA. This keeps `LOWER` transitions distinct from the literal
+sequence `http`/`https` while keeping tables readable.
 
 These classes are used as grouped transition labels where appropriate.
 
@@ -336,6 +361,15 @@ After subset construction, record the resulting DFA in a transition table.
 | D_sink    | D_sink  | D_sink  | D_sink | D_sink | D_sink | D_sink | D_sink | D_sink | D_sink  | No         |
 
 The actual transitions are filled in after subset construction.
+
+### Transition Audit
+
+| DFA State | Missing labels? | Overlapping labels? | Unreachable? | Notes |
+| --------- | --------------- | ------------------- | ------------ | ----- |
+| D__       | No              | No                  | No           |       |
+
+Every row must have exactly one destination for each supported label. Any
+undefined transition is completed with `D_sink` before minimization.
 
 ---
 
