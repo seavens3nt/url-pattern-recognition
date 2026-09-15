@@ -1,40 +1,87 @@
-# Phase 4 — Verification, delivery and defense
-
-**Sprint goal:** stabilize the frozen candidate, prove that it runs cleanly and prepare every member for submission and defense.
+# Phase 4 — Independent release and defense packages
 
 **Dates:** September 26–28, 2026. Submit on September 29.
 
-**End-of-phase gate:** Ranee has a reviewed release commit, verification report, reproducible run instructions, final report/slides and demonstrated fallback.
+**Sprint goal:** verify the frozen candidate, correct only release blockers, and prepare the final academic package.
 
-Only release-blocking fixes enter this phase. Open Phase 4 issues after the Phase 3 feature-freeze review.
+**Activation rule:** Ranee records the frozen release-candidate commit before opening Phase 4 issues. Only Ranee approves PRs and decides whether a reported defect is release-blocking.
 
-## Assignments
+The independent workflow and issue structure are defined in [Independent work-package template](../work-package-template.md).
 
-| Owner | Specific work | Coordinate with | Deliverable and acceptance |
-| --- | --- | --- | --- |
-| **Ranee** | Triage blockers with Paul; verify delivery environment and commit; chair rehearsal; check the professor’s submission list; tag the approved release. | All members on fixes and speaking parts; Cedric on package; Jared/Sean on environment. | Release checklist, exact commit/tag and complete submission package; no unresolved critical correctness issue. |
-| **Isaiah** | Check final scope text, mobile layout and accessibility; fix assigned release blockers; prepare the language/scope explanation. | Sean on shared UI; Paul retests; Jared aligns unsupported-input messages; Cedric receives limitations/screenshots. | Final UI checklist, limitations text and verified screenshots by Day 3. |
-| **Sean** | Fix prioritized frontend regressions, rerun component checks and rehearse input-to-result/error handling. | Paul reproduces/retests; Isaiah approves UX; Jared protects API compatibility; Cedric receives demo notes. | Verified frontend fixes by Day 2 and final UI demo notes by Day 3. |
-| **Ralph** | Proofread final RE/NFA against the release; prepare accepted/rejected walkthroughs and editable diagrams. | Pamela cross-checks handoff; Paul confirms examples; Cedric receives final versions. | Final RE/NFA appendix and rehearsed explanation by Day 3. |
-| **Pamela** | Verify final DFA/minimized tables and runtime state IDs; prepare determinization/minimization explanation. | Ralph checks source NFA/mapping; Jared checks release model; Paul confirms no open discrepancy. | Final DFA/minimization appendix and rehearsed explanation by Day 3. |
-| **Jared** | Fix backend defects with reproducing tests; verify model/configuration after restart and clean setup; rehearse simulator/API flow. | Paul retests; Sean checks responses; formal owners review transition changes; Ranee verifies environment. | Backend release candidate and configuration/demo notes by Day 3. |
-| **Paul** | Run full regression on the exact release commit; test clean clone, mobile/keyboard and target environment; document residual risks. | Developers fix assigned defects; Ranee receives go/no-go; Cedric uses exact results. | Release report with commit ID, commands, cases and Day 4 retest evidence. |
-| **Cedric** | Finalize report, references, slides, evidence index, speaking order, timed rehearsal and local/demo fallback. | Every owner signs off their section; Paul signs test claims; Ranee approves package. | Final academic package and fallback ready before Day 5 submission review. |
+## Work packages
 
-## Coordination checkpoints
+### Ranee — release control and submission
 
-- **Day 1:** feature freeze confirmed; Paul and Ranee assign blocking defects.
-- **Day 2:** code fixes complete and focused checks pass.
-- **Day 3:** exact release candidate passes clean-run and regression review; all final artifacts reach Cedric.
-- **Day 4:** full timed rehearsal and final retest.
-- **Day 5:** Ranee verifies submission, tags the release and records delivery evidence.
+**Owned paths:** `docs/release/`, `docs/status.md`, `.github/workflows/checks.yml`, release tag and submission records.
 
-## Completion checklist
+**Expected outputs:** frozen commit; blocker decisions; release checklist; clean-run record; rehearsal schedule; final tag and submission evidence.
 
-- [ ] Full corpus, API, UI and clean-setup checks pass on the final commit.
+### Isaiah — final visual verification
+
+**Owned paths:** `frontend/src/style.css`, `frontend/src/ui/`, `docs/ui/accessibility-checklist.md`.
+
+**Expected outputs:** mobile/desktop and keyboard checks; assigned visual blocker fixes; final screenshots; scope/limitations explanation.
+
+**Do not touch:** `backend/`, validator logic, automata files, or backend tests.
+
+### Sean — final frontend verification
+
+**Owned paths:** `frontend/src/features/validator/` and its feature tests.
+
+**Expected outputs:** assigned frontend blocker fixes; component regression results; final input-to-verdict/error demo notes.
+
+**Do not touch:** `backend/`, formal automata, global CSS, or QA-owned tests.
+
+### Ralph — RE/NFA defense package
+
+**Owned paths:** `docs/automata/regular-expression.md`, `docs/automata/nfa.md`, `docs/automata/diagrams/nfa.dot`, `docs/presentation/re-nfa-notes.md`.
+
+**Expected outputs:** release-aligned appendix; two accepted/two rejected walkthroughs; editable final diagram; rehearsed explanation notes.
+
+**Do not touch:** DFA/model, backend, frontend, or QA files.
+
+### Pamela — DFA/minimization defense package
+
+**Owned paths:** DFA/minimization documents and diagrams, `backend/automata/url_dfa.json`, `docs/presentation/dfa-notes.md`.
+
+**Expected outputs:** release-aligned tables/mapping; editable final diagrams; determinization/minimization explanation notes.
+
+**Do not touch:** simulator/API code, frontend, or QA tests.
+
+### Jared — backend release verification
+
+**Owned paths:** `backend/`, `tests/test_api.py`, `tests/test_simulator.py`.
+
+**Expected outputs:** assigned backend blocker fixes with reproducing tests; restart/model validation; backend demo notes.
+
+**Do not touch:** `frontend/`, formal documents, shared fixture expectations, or QA reports.
+
+### Paul — final QA report
+
+**Owned paths:** QA-owned tests, `tests/fixtures/`, `docs/qa/release-report.md`.
+
+**Expected outputs:** full regression on the exact frozen commit; clean-clone, mobile/keyboard, and delivery-environment evidence; residual-risk list; retest results.
+
+**Do not touch:** implementation or formal-model files. Report defects for Ranee to assign.
+
+### Cedric — final paper, slides, and fallback
+
+**Owned paths:** `docs/report/`, `docs/presentation/`, final evidence index and submission-copy checklist assigned by Ranee.
+
+**Expected outputs:** final report and references; slides; speaking order; timed demo; local fallback; evidence package.
+
+**Do not touch:** application code, formal source artifacts, or tests.
+
+## Independent release rule
+
+Each owner checks the frozen commit and works only on an assigned package. A member does not wait for another member's approval. If a blocker crosses an ownership boundary, the member reports it in their own issue; Ranee creates or assigns the corrective task.
+
+## Phase 4 completion
+
+- [ ] Full corpus, API, UI, and clean-setup checks pass on the frozen commit.
 - [ ] Residual defects and limitations are documented accurately.
 - [ ] Formal diagrams/tables match runtime state IDs.
-- [ ] Run guide works for a clean machine.
-- [ ] Report, slides, references and demo fallback are complete.
-- [ ] All eight members rehearse their own contribution.
-- [ ] Ranee approves and records the submitted release.
+- [ ] The run guide works from a clean clone.
+- [ ] Report, slides, references, demo, and fallback are complete.
+- [ ] Every member can explain their own contribution.
+- [ ] Ranee approves, tags, and records the submitted release.

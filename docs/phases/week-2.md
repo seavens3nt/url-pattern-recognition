@@ -1,67 +1,225 @@
-# Phase 2 — Automata construction and owned feature packages
+# Phase 2 — Independent construction packages
 
 **Dates:** September 17–20, 2026
 
-**Sprint goal:** complete the formal automata pipeline and prepare independently owned frontend, backend, QA, and paper packages for final integration.
+**Sprint goal:** complete the formal automata and independently owned frontend, backend, QA, and paper packages needed for integration.
 
-**Activation rule:** Phase 1 remains active through Wednesday, September 16. Do not create Phase 2 GitHub issues yet. Ranee opens them only after the Phase 1 gate is accepted.
+**Activation rule:** Ranee locks the Phase 2 input files and opens one self-contained issue per member. Phase 1 records and issues are not rewritten by this workflow.
 
-**End-of-phase gate:** the RE, NFA, DFA, minimized DFA, runtime model, interface states, tests, and theory chapter use the same approved language and state names.
+## How members work
 
-## How work is divided
+- Start immediately when every authoritative input for the package is already on `main`.
+- Work only in the owned paths listed below. Frontend owners must not edit `backend/`; backend owners must not edit `frontend/`.
+- Pull `main`, create one task branch, complete the package, run its checks, and open one PR.
+- Do not request another member's approval. Only Ranee reviews and approves PRs.
+- If an input is missing or contradictory, comment on the owner's issue. Ranee decides and updates the locked input.
+- A later package uses merged files from `main`; its owner does not need a personal handoff or approval from the earlier owner.
 
-- One member owns each complete package and all closely related files inside it.
-- Members work independently from the approved scope, API contract, fixtures, and Figma handoff.
-- Coordination happens only for one required input, one completed handoff, or one review.
-- A receiver reviews the completed package; they do not share ownership of its routine work.
-- If a shared-file change is unavoidable, Ranee assigns one editor before work begins.
+The required issue shape and PR checklist are in [Independent work-package template](../work-package-template.md).
 
-## Member work packages
+## Locked inputs
 
-| Owner | Complete package | Work that owner completes independently | Required handoff only | Deliverable and acceptance |
-| --- | --- | --- | --- | --- |
-| **Ranee** @seavens3nt | Phase gate and integration control | Confirm the Phase 1 gate, open one Phase 2 issue per package after activation, assign shared files, review PRs, and decide whether Phase 3 can start. | Receives the final readiness report from Paul on September 20. | Phase tracker, reviewed PR links, blockers, and a written Phase 3 go/no-go decision. |
-| **Isaiah** @m1nay3on | Complete visual interface package | Implement the visual system, layout, navigation, responsive behavior, accessible labels, and the idle, loading, accepted, rejected, invalid-request, and offline appearances. Own CSS and presentational UI files assigned by Ranee. | Gives Sean the finished presentational components and their props once, by September 19. | Figma-aligned desktop/mobile interface; keyboard-visible focus; lint and build pass; no API or DFA logic in visual files. |
-| **Sean** @bonkbonkboomeykwkwkw | Complete frontend interaction package | Own form state, API calls, loading control, result/error selection, trace rendering, retry behavior, and frontend component tests inside the validator feature. | Receives Isaiah’s presentational components, then gives the completed browser flow to Paul by September 19. | Accepted, rejected, invalid-request, loading, and offline flows render from real API responses; frontend tests pass. |
-| **Ralph** @rlken | Complete RE and NFA package | Finalize the regular expression; construct and explain the epsilon-NFA; produce the transition table, editable diagram, and worked accepted/rejected traces using the approved corpus. | Hands one reviewed RE/NFA package to Pamela by September 17. | `regular-expression.md`, `nfa.md`, editable diagram source, transition table, and examples agree with the approved language. |
-| **Pamela** @Qiuyuan26 | Complete DFA and minimization package | Perform epsilon closures and subset construction; build the complete DFA; minimize it; map original states to minimized states; produce diagrams and the machine-readable transition model. | Receives Ralph’s final NFA, then hands one deterministic model package to Jared by September 19. | DFA table, partition history, minimized table, state mapping, editable diagrams, and model file are internally consistent and complete. |
-| **Jared** @AshenDary | Complete simulator and API package | Own model validation/loading, deterministic traversal, sink behavior, full-input consumption, trace creation, Flask responses, and backend unit/API tests. Reconcile the existing prototype simulator with Pamela’s reviewed model. | Receives Pamela’s model once, then gives the tested API package to Paul by September 19. | Approved corpus passes through the reviewed model; API keeps DFA rejection separate from malformed request and offline errors; backend tests pass. |
-| **Paul** @paulccampos | Complete QA and verification package | Own the 10 accepted/10 rejected fixture, boundary additions, formal comparison matrix, simulator/API/UI regression, defect log, and clean-run evidence. Route a defect to its package owner without co-owning the fix. | Receives completed formal, backend, and frontend packages and gives one readiness report to Ranee on September 20. | Every case has an ID, expected result, source rule, actual result, and evidence; critical mismatches are resolved or explicitly block Phase 3. |
-| **Cedric** @cedricsigue | Complete Phase 2 paper package | Write the RE→NFA→DFA→minimized-DFA theory section, insert reviewed tables/diagrams, maintain references and figure captions, and record each owner’s supplied explanation. | Receives final artifacts after their owner’s review; gives the complete theory section to Ranee on September 20. | Theory chapter uses the exact approved notation and state names and makes no claims beyond checked evidence. |
+- `docs/language-spec.md`
+- `docs/automata/regular-expression.md`
+- `docs/automata/notation.md` after its Phase 1 PR is accepted
+- `docs/api-contract.md`
+- `docs/ui/wireframes.md`
+- `tests/fixtures/url_cases.json`
 
-## Required handoffs
+Only Ranee may approve a change to these inputs during the phase.
 
-| Date | Sender → Receiver | Package |
-| --- | --- | --- |
-| **Sep 16** | Ranee → Team | Phase 1 gate decision and Phase 2 activation. |
-| **Sep 17** | Ralph → Pamela | Final RE/NFA package. |
-| **Sep 19** | Pamela → Jared | Reviewed DFA, minimized DFA, mapping, and model file. |
-| **Sep 19** | Isaiah → Sean | Finished visual components and fixed props. |
-| **Sep 19** | Jared and Sean → Paul | Testable backend and browser packages. |
-| **Sep 20** | Paul and Cedric → Ranee | QA readiness report and theory chapter. |
+## Independent work packages
 
-These are handoff points, not recurring meetings. Owners ask for help only when an input is missing, an interface contradicts the approved contract, or a blocker cannot be solved inside their package.
+### Ranee — phase control
 
-## File ownership during Phase 2
+**Owned paths:** `docs/status.md`, `docs/roadmap.md`, `docs/release/`, GitHub Phase 2 issues.
 
-| Package | Primary paths |
-| --- | --- |
-| Visual interface | `frontend/src/ui/`, assigned presentational components, `frontend/src/style.css` |
-| Frontend interaction | `frontend/src/features/validator/`, frontend tests |
-| RE/NFA | `docs/automata/regular-expression.md`, `docs/automata/nfa.md`, related `.dot` sources |
-| DFA/minimization | `docs/automata/dfa.md`, `docs/automata/minimization.md`, `backend/automata/url_dfa.json` |
-| Simulator/API | `backend/automata/`, `backend/routes/`, `backend/services/`, backend tests |
-| QA evidence | `tests/fixtures/`, `tests/test_*`, `docs/qa/` |
-| Paper | `docs/report/`, figure captions and reference list |
+**Tasks and expected outputs:**
 
-## Completion checklist
+- Lock the Phase 2 input files and record their commit.
+- Open one issue per member with exact owned paths and checks.
+- Review and merge PRs; record blockers and scope decisions.
+- Record the Phase 3 go/no-go decision.
 
-- [ ] Phase 1 gate accepted and Phase 2 issues activated by Ranee.
-- [ ] Ralph’s RE/NFA package is complete and handed to Pamela.
-- [ ] Pamela’s DFA/minimization package is complete and handed to Jared.
-- [ ] Jared’s reviewed-model simulator/API package passes backend tests.
-- [ ] Isaiah’s complete visual package matches every required Figma state.
-- [ ] Sean’s frontend interaction package passes component tests with real responses.
-- [ ] Paul’s corpus and cross-layer verification report have no unresolved critical mismatch.
-- [ ] Cedric’s theory chapter matches the reviewed artifacts.
+**Verify:** every active issue follows the work-package template; no two packages own the same editable file; all merged PR checks pass.
+
+### Ralph — RE and NFA
+
+**Start:** immediately after Phase 2 opens; the approved language, RE, notation, and fixture are sufficient.
+
+**Owned paths:**
+
+```text
+docs/automata/regular-expression.md
+docs/automata/nfa.md
+docs/automata/diagrams/nfa.dot
+```
+
+**Tasks and expected outputs:**
+
+- Finalize the named RE without expanding the approved language.
+- Construct the epsilon-NFA with numbered states, start/accepting states, and transitions.
+- Add a complete transition table and editable Graphviz source.
+- Trace at least two accepted and two rejected fixture cases.
+
+**Boundary:** do not edit `frontend/`, `backend/`, Pamela's DFA/minimization files, or QA fixtures.
+
+**Verify:** render the diagram, check every transition against the RE, run `git diff --check`, and confirm all worked cases use the shared fixture.
+
+### Pamela — DFA and minimization
+
+**Start:** prepare the symbol partition, worksheet structure, and model schema immediately. Fill the final NFA-state sets as soon as `docs/automata/nfa.md` appears on `main`; no approval or message from Ralph is required.
+
+**Owned paths:**
+
+```text
+docs/automata/notation.md
+docs/automata/dfa.md
+docs/automata/minimization.md
+docs/automata/diagrams/dfa.dot
+docs/automata/diagrams/minimized-dfa.dot
+backend/automata/url_dfa.json
+```
+
+**Tasks and expected outputs:**
+
+- Calculate epsilon closures and every reachable subset.
+- Build a complete DFA with a sink state and disjoint symbol columns.
+- Minimize the DFA and record every partition refinement.
+- Map DFA states to minimized states.
+- Produce editable diagrams and the machine-readable model.
+
+**Boundary:** do not edit Flask routes/services, simulator code, React files, Ralph's NFA, or QA tests.
+
+**Verify:** every DFA row is total and deterministic; accepting sets contain an NFA accepting state; minimized transitions preserve the language; JSON parses; `git diff --check` passes.
+
+### Jared — simulator and API
+
+**Start:** implement request validation, model validation, simulator interfaces, and tests immediately from the locked API contract. Connect the final JSON model when it appears on `main`; no approval or message from Pamela is required.
+
+**Owned paths:**
+
+```text
+backend/app.py
+backend/routes/
+backend/services/
+backend/automata/model.py
+backend/automata/simulator.py
+tests/test_api.py
+tests/test_simulator.py
+```
+
+**Tasks and expected outputs:**
+
+- Validate and load the machine-readable DFA.
+- Consume the complete input with deterministic transitions and sink behavior.
+- Return `accepted`, `message`, `final_state`, and ordered `trace` fields.
+- Keep HTTP rejection separate from malformed requests.
+- Add backend unit and API tests.
+
+**Boundary:** do not edit `frontend/`, formal construction documents, Figma/wireframe files, or the shared fixture expectations.
+
+**Verify:** run Ruff and pytest; all 20 shared cases pass; malformed-body and size-limit tests pass; the backend never fetches submitted URLs.
+
+### Isaiah — visual interface
+
+**Start:** immediately from the locked Figma handoff and UI-state document.
+
+**Owned paths:**
+
+```text
+frontend/src/style.css
+frontend/src/ui/
+docs/ui/accessibility-checklist.md
+```
+
+**Tasks and expected outputs:**
+
+- Implement the visual system and responsive desktop/mobile layout.
+- Style idle, loading, accepted, rejected, invalid-request, and offline states.
+- Add visible keyboard focus, readable labels, and accessible contrast notes.
+- Record the final visual/accessibility checklist.
+
+**Boundary:** do not edit `backend/`, API helpers, validator state logic, automata files, or backend tests.
+
+**Verify:** run ESLint and the production build; inspect desktop/mobile layouts and keyboard focus; attach screenshots to the PR.
+
+### Sean — frontend interaction
+
+**Start:** immediately from the locked API contract and UI-state document. Use simple existing markup until Isaiah's optional presentational components appear on `main`; do not wait for them.
+
+**Owned paths:**
+
+```text
+frontend/src/features/validator/ValidatorPage.jsx
+frontend/src/features/validator/api.js
+frontend/src/features/validator/ValidatorPage.test.jsx
+```
+
+**Tasks and expected outputs:**
+
+- Implement one URL input and request submission.
+- Render loading, accepted, rejected, invalid-request, offline, and unexpected-response states.
+- Display `message`, `final_state`, and the ordered transition table.
+- Prevent duplicate submission and support retry.
+- Add component tests for every interface state.
+
+**Boundary:** do not edit `backend/`, the approved language/API documents, automata files, global CSS, or QA-owned tests.
+
+**Verify:** run frontend tests, ESLint, and the production build; use mocked responses for every state; confirm React never opens the submitted URL.
+
+### Paul — QA corpus and independent verification
+
+**Start:** immediately from the locked language, API contract, and shared fixture. Add later model/API/UI results when those PRs reach `main`; do not wait to prepare the cases.
+
+**Owned paths:**
+
+```text
+tests/fixtures/url_cases.json
+tests/test_language_cases.py
+frontend/src/App.test.jsx
+docs/qa/phase-2-report.md
+```
+
+**Tasks and expected outputs:**
+
+- Verify the 10 accepted and 10 rejected expectations against the locked rules.
+- Add boundary cases without changing approved results.
+- Run formal, backend, and frontend checks available on `main`.
+- Record defects with reproduction steps and actual/expected results.
+- Produce a Phase 2 QA report.
+
+**Boundary:** do not fix frontend, backend, or automata implementation files. Report defects in the responsible issue for Ranee to assign.
+
+**Verify:** every case has an ID, rule, expected result, actual result, and evidence; all commands and commit IDs are recorded.
+
+### Cedric — theory chapter
+
+**Start:** immediately from the locked language, RE, notation, architecture, and existing evidence. Insert final NFA/DFA figures only after they appear on `main`; do not wait to draft the stable sections.
+
+**Owned paths:**
+
+```text
+docs/report/phase-2-theory.md
+docs/report/references.md
+docs/report/evidence-index.md
+```
+
+**Tasks and expected outputs:**
+
+- Explain the RE-to-NFA, subset-construction, and minimization methods.
+- Insert merged tables/diagrams with captions and source links.
+- Maintain references and the evidence index.
+- Attribute each technical artifact to its owner.
+
+**Boundary:** do not edit application code, automata source artifacts, tests, or another member's explanation.
+
+**Verify:** every claim points to a merged artifact or test result; terminology matches the locked notation; no unfinished result is described as complete.
+
+## Phase 2 completion
+
+- [ ] Every package has one owner, non-overlapping paths, expected outputs, and checks.
+- [ ] RE/NFA, DFA/minimization, simulator/API, visual, interaction, QA, and paper PRs are merged.
+- [ ] No frontend PR edits backend files and no backend PR edits frontend files.
+- [ ] All automated checks pass on `main`.
 - [ ] Ranee records the Phase 3 activation decision.

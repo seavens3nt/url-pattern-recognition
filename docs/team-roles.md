@@ -13,4 +13,4 @@ Three backend developers, two frontend developers, one QA tester, one paper lead
 | Paul Joshua R. Campos | @paulccampos | QA / Tester | Prepare corpus, test API/UI/automata, report defects and verify fixes and clean setup. | Tests; defect reports; release verification. |
 | Cedric Kristoff R. Sigue | @cedricsigue | Paper & Presentation Lead | Compile each member’s explanation; maintain report and evidence; prepare slides and demo with Ranee’s support. | Paper; references; slides; demo script. |
 
-Everyone writes the explanation for their own work. Cedric compiles and edits it. Technical peer review remains required; Ranee is the final PR approver.
+Everyone writes the explanation for their own work, and Cedric compiles and edits it. Phase 1 keeps its existing review history. From Phase 2 onward, members complete independently owned packages and Ranee is the only required reviewer and PR approver.
