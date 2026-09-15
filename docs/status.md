@@ -2,7 +2,7 @@
 
 | Status field | Value |
 | --- | --- |
-| Evidence date | 2026-09-14 |
+| Evidence date | 2026-09-16 |
 | Active sprint | Phase 1 — Foundation and specification |
 | Active guide | [Phase 1 assignments](phases/week-1.md) |
 | Phase 1 deadline | Wednesday, September 16, 2026 |
@@ -27,18 +27,16 @@ Phase 2 is planned in the repository guide only. Its GitHub tracker and member i
 
 ## Pending in Phase 1
 
-- Pamela defines automata notation and worksheets.
-- Sean completes the component and API interaction plan against the reviewed API contract.
-- Paul submitted the clean-setup evidence and 20-case shared corpus; Isaiah, Ralph, Pamela, and Jared still need to record their acceptance of the expectations and fixture contract.
-- Cedric creates the report structure and decision log.
+- Cedric creates the report structure, evidence index and decision log in Issue #13.
+- Ranee keeps the Phase 1 tracker open until Cedric's deliverable is reviewed and merged.
 
 ## Current boundary
 
-The core language, regular expression, API contract and starter integration are reviewed on `main`. The automata notation, NFA, subset-construction DFA, minimized model, final UI review, deployment and defense materials still need their assigned evidence and reviews.
+The core language, regular expression, API contract, automata notation, shared corpus, component plan and starter integration are reviewed on `main`. The NFA, subset-construction DFA, minimized model, final UI review, deployment and defense materials still need their assigned evidence and reviews.
 
-Paul's clean-setup and corpus handoff is recorded in
+Paul's clean-setup and corpus evidence is recorded in
 [clean-setup evidence](qa/clean-setup-evidence.md). Follow-up scenarios for
-formal and API testing are documented separately for the receiving reviewers.
+formal and API testing are documented separately.
 
 ## Verified starter checks
 
@@ -54,3 +52,6 @@ At the Phase 1 review, update this page with PR links, check results, blockers a
 - Isaiah: language specification and wireframes ([issue #2](https://github.com/seavens3nt/url-pattern-recognition/issues/2)).
 - Jared: validation API contract ([issue #4](https://github.com/seavens3nt/url-pattern-recognition/issues/4)).
 - Ralph: regular-expression draft and regularity review ([issue #6](https://github.com/seavens3nt/url-pattern-recognition/issues/6)).
+- Sean: component and API interaction plan ([issue #3](https://github.com/seavens3nt/url-pattern-recognition/issues/3), [PR #30](https://github.com/seavens3nt/url-pattern-recognition/pull/30)).
+- Pamela: automata notation and DFA/minimization worksheet structure ([issue #7](https://github.com/seavens3nt/url-pattern-recognition/issues/7), [PR #29](https://github.com/seavens3nt/url-pattern-recognition/pull/29)).
+- Paul: clean-setup evidence and 10 accepted/10 rejected shared corpus ([issue #5](https://github.com/seavens3nt/url-pattern-recognition/issues/5), [PR #28](https://github.com/seavens3nt/url-pattern-recognition/pull/28)).
