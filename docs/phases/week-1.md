@@ -37,7 +37,10 @@ Use [Contributing](../../CONTRIBUTING.md) for GitHub rules, [GitHub Desktop guid
 - **Complete — Isaiah:** the approved language specification and wireframe evidence were reviewed and merged. See [issue #2](https://github.com/seavens3nt/url-pattern-recognition/issues/2).
 - **Complete — Jared:** the validation API contract was reviewed and merged. See [issue #4](https://github.com/seavens3nt/url-pattern-recognition/issues/4).
 - **Complete — Ralph:** the regular-expression draft was aligned with the approved scope, verified against all 20 shared cases, reviewed and merged. See [issue #6](https://github.com/seavens3nt/url-pattern-recognition/issues/6).
-- **Active:** Sean, Pamela, Paul and Cedric retain their own Phase 1 issues. The phase tracker stays open until those handoffs are accepted.
+- **Complete — Sean:** the component plan, response examples, state mapping and frontend file boundaries were reviewed and merged in [PR #30](https://github.com/seavens3nt/url-pattern-recognition/pull/30). See [issue #3](https://github.com/seavens3nt/url-pattern-recognition/issues/3).
+- **Complete — Pamela:** the automata notation and DFA/minimization worksheet structure were reviewed and merged in [PR #29](https://github.com/seavens3nt/url-pattern-recognition/pull/29). See [issue #7](https://github.com/seavens3nt/url-pattern-recognition/issues/7).
+- **Complete — Paul:** the clean-setup evidence and 10 accepted/10 rejected corpus were reviewed and merged in [PR #28](https://github.com/seavens3nt/url-pattern-recognition/pull/28). See [issue #5](https://github.com/seavens3nt/url-pattern-recognition/issues/5).
+- **Active — Cedric:** the report outline and evidence index remain in [issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13). The Phase 1 tracker stays open until this deliverable is accepted.
 
 ## Required handoffs
 
@@ -52,9 +55,9 @@ Use [Contributing](../../CONTRIBUTING.md) for GitHub rules, [GitHub Desktop guid
 
 - [x] Calendar, deadline and core scope recorded.
 - [x] All eight members can clone and run both servers.
-- [ ] Language specification and examples reviewed.
-- [ ] RE draft and automata notation reviewed.
-- [ ] Wireframes, component plan and API examples agree.
+- [x] Language specification and examples reviewed.
+- [x] RE draft and automata notation reviewed.
+- [x] Wireframes, component plan and API examples agree.
 - [ ] Shared test corpus and report outline exist.
-- [ ] Phase 1 issues contain PR/evidence links and receiving-reviewer acceptance.
+- [ ] Phase 1 issues contain PR/evidence links and Ranee's acceptance.
 - [ ] Ranee records the Phase 2 activation decision.
