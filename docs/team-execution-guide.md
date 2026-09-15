@@ -60,9 +60,11 @@ The frontend must display backend results rather than implement a separate regex
 
 ## Working agreement
 
-Each member works from an issue for the **current phase only**. The issue names the owner, required output, dependency, coordination partner and acceptance criteria. Later-phase issues are opened after the previous sprint review, so the open backlog stays focused.
+Phase 1 keeps its existing issues and completion history. From Phase 2 onward, each member receives one self-contained work package with authoritative inputs, exact owned paths, specific tasks, bullet-form outputs, verification steps and acceptance criteria. Members start in parallel whenever their locked inputs already exist on `main`.
 
-Use one task branch and PR per issue. Post a short daily update in the issue: completed, next, blocked. A task is done after its output is reviewed, relevant checks pass, documentation is current and its recipient accepts the handoff.
+Use one task branch and PR per issue. Members do not request peer approval or personal handoffs. Only Ranee reviews and approves PRs. If an input is missing or contradictory, the owner comments on the issue and Ranee decides. Dependent work continues as soon as the required file is merged to `main`; no separate message or approval is required.
+
+Frontend packages must not edit `backend/`, and backend packages must not edit `frontend/`. Formal, QA and paper packages stay inside their assigned paths. Exact rules and the required issue structure are in [Independent work-package template](work-package-template.md).
 
 All GitHub rules live in [Contributing](../CONTRIBUTING.md). Beginner clone, branch and PR steps live in the [GitHub Desktop guide](github-desktop-guide.md). Installation and two-terminal startup steps live in [How to run](how-to-run.md).
 

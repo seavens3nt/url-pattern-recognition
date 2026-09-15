@@ -9,29 +9,31 @@ The final deadline is **September 29, 2026**. Because fewer than four full weeks
 | 3. Integrated application | Sep 21–25 | React displays real simulator verdicts and traces; end-to-end tests pass; features freeze | [Week 3](phases/week-3.md) |
 | 4. Verification and defense | Sep 26–28 | Release candidate, clean-run evidence, report, slides and rehearsal accepted | [Week 4](phases/week-4.md) |
 
-## Critical handoffs
+## Phase 2 onward start order
 
 ```text
-Isaiah language rules
-  → Ralph RE/NFA
-  → Pamela DFA/minimization
-  → Jared simulator/API
-  → Sean frontend integration
-  → Paul end-to-end verification
-  → Cedric evidence and presentation
-  → Ranee release approval
+Locked language + RE + notation
+  ├─ Ralph completes NFA
+  ├─ Jared prepares simulator/API independently
+  ├─ Isaiah builds visual presentation independently
+  ├─ Sean builds frontend interaction independently
+  ├─ Paul prepares verification cases independently
+  └─ Cedric drafts stable report sections independently
+
+Merged NFA → Pamela completes DFA/minimization
+Merged DFA model → Jared completes model integration
+Merged application packages → Paul completes end-to-end verification
+All packages → Ranee gives the phase decision
 ```
 
-Frontend layout work, test planning and paper preparation run in parallel from Week 1. If a formal gate slips, Ranee reduces optional interface polish; the team does not skip conversion or correctness checks.
-
-Within a phase, closely related work stays with one accountable owner. Coordination is limited to required inputs, completed handoffs, and reviews so routine work does not wait on another member.
+Members begin every task that the locked files already allow. A dependency blocks only the part that truly requires the missing file. The owner does not need to contact or obtain approval from the person who created the input; merging to `main` makes the input available.
 
 ## Weekly routine
 
-1. **Planning:** confirm the sprint goal, one accountable owner per task, dependencies, coordination partner and acceptance criteria.
+1. **Planning:** Ranee locks inputs and assigns one accountable owner, exact editable paths, expected outputs and acceptance criteria.
 2. **Daily update:** write completed, next and blocked in the active issue.
-3. **Handoff:** link the PR and evidence; the named recipient checks the output.
-4. **Review:** demonstrate the week’s gate and record unresolved items.
+3. **Independent delivery:** the owner tests the complete package and opens one linked PR.
+4. **PM review:** only Ranee approves or requests changes and records unresolved items.
 5. **Retrospective:** choose one process improvement for the next week.
 
 ## Issue release policy
@@ -42,3 +44,5 @@ Within a phase, closely related work stays with one accountable owner. Coordinat
 - Do not create all four weeks of member issues in advance.
 
 The active phase and evidence are recorded in [Current status](status.md). GitHub contains the live issue state; this file defines the schedule and activation rule.
+
+Phase 2 onward issues use the [Independent work-package template](work-package-template.md). Phase 1 issues are preserved as completed project history.

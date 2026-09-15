@@ -1,39 +1,101 @@
-# Phase 3 — Integrated web application
-
-**Sprint goal:** connect the reviewed minimized DFA to Flask and React so the browser shows real verdicts and traces.
+# Phase 3 — Independent integration packages
 
 **Dates:** September 21–25, 2026
 
-**End-of-phase gate:** representative corpus cases pass through simulator, API and UI; trace rows match the reviewed model; new features freeze.
+**Sprint goal:** integrate the locked Phase 2 outputs while each member remains inside one owned area.
 
-This phase starts only after Phase 2 acceptance. Open only Phase 3 issues at kickoff.
+**Activation rule:** Ranee records the exact Phase 2 model, API, UI-state, and fixture commits before opening Phase 3 issues. Members start immediately when their listed inputs exist on `main`.
 
-## Assignments
+The independent workflow and issue structure are defined in [Independent work-package template](../work-package-template.md). Only Ranee approves PRs.
 
-| Owner | Specific work | Coordinate with | Deliverable and acceptance |
-| --- | --- | --- | --- |
-| **Ranee** | Open/assign Phase 3 work, coordinate integration order, decide local or hosted delivery and freeze features after review. | Jared supplies backend by Day 2; Sean integrates by Day 3; Paul gives risk evidence; Cedric records actual flow. | Integrated candidate and delivery decision with no unresolved critical correctness defect. |
-| **Isaiah** | Apply reviewed layout, responsive and accessibility fixes to the working validator; keep content aligned with scope. | Sean pairs on shared components; Paul reproduces UX defects; Ranee approves changes. | Desktop/mobile validator is readable, keyboard usable and consistent across all response states. |
-| **Sean** | Connect the form to the real API; render verdict, message, final state and ordered transition rows; handle transport/request errors separately. | Jared confirms exact JSON; Isaiah reviews UI; Pamela confirms state labels; Paul checks behavior. | Integrated React flow and component tests pass for accepted, rejected, invalid and offline cases by Day 3. |
-| **Ralph** | Trace selected cases through RE/NFA and investigate the first point of divergence from runtime results. | Pamela maps NFA/DFA states; Jared compares runtime; Paul reproduces issues; Cedric records reviewed examples. | Worked examples agree with runtime or produce a precisely documented correction. |
-| **Pamela** | Audit runtime state IDs, accepting/sink states and transitions against the minimized mapping. | Ralph reviews mapping; Jared fixes encoding/traversal; Paul adds reproducing tests. | State-mapping audit approves the encoded model or lists exact state/symbol mismatches. |
-| **Jared** | Load and validate the reviewed DFA model; consume the whole input; return actual verdict, final state and per-symbol trace by Day 2. | Pamela and Ralph approve model encoding; Sean checks response compatibility; Paul checks corpus; Ranee approves readiness flag. | Real validation API returns 200 for valid accepted/rejected requests and keeps request/availability errors distinct. |
-| **Paul** | Run the same corpus through simulator, API and representative browser flows; test malformed input, limits, offline behavior, retries and traces. | Route defects to Jared/Sean/Isaiah or formal discrepancies to Ralph/Pamela; Ranee prioritizes. | Integration report lists case IDs, environment, severity and retest evidence by Day 4. |
-| **Cedric** | Write code-aligned implementation/architecture sections; capture reviewed screenshots and prepare the demo sequence. | Jared verifies backend flow; Sean verifies UI; Ralph/Pamela verify traces; Paul supplies check evidence. | Implementation draft and demo script describe the actual candidate and contain no placeholder claims. |
+## Locked inputs
 
-## Coordination checkpoints
+- `backend/automata/url_dfa.json`
+- `docs/api-contract.md`
+- `docs/language-spec.md`
+- `docs/ui/wireframes.md`
+- `tests/fixtures/url_cases.json`
 
-- **Day 2:** Jared provides real-model API evidence and sample responses.
-- **Day 3:** Sean demonstrates the complete browser flow; Isaiah reviews layout.
-- **Day 4:** Paul publishes integration results; formal owners resolve any trace mismatch.
-- **Day 5:** Ranee holds feature-freeze review and confirms delivery method.
+## Work packages
 
-## Completion checklist
+### Ranee — integration and feature freeze
 
-- [ ] Runtime model matches the reviewed minimized mapping.
-- [ ] Full-input acceptance and actual trace are verified.
-- [ ] React clearly separates rejection, bad request and connection failure.
-- [ ] Shared corpus agrees across simulator/API/UI.
-- [ ] Critical defects are fixed and retested.
-- [ ] Implementation chapter and demo draft match the candidate.
-- [ ] Feature freeze and Phase 4 activation are recorded.
+**Owned paths:** `docs/status.md`, `docs/release/integration-gate.md`, GitHub Phase 3 issues.
+
+**Expected outputs:** locked commit list; independently owned issues; merged-PR record; blocker decisions; feature-freeze and Phase 4 activation decision.
+
+### Jared — backend integration
+
+**Owned paths:** `backend/`, `tests/test_api.py`, `tests/test_simulator.py`.
+
+**Expected outputs:** validated model loading; complete-input traversal; accurate verdict/final-state/trace responses; backend regression tests.
+
+**Do not touch:** `frontend/`, `docs/automata/*.md`, Figma/UI documents, or QA reports.
+
+**Verify:** Ruff and pytest pass; all fixture cases produce the expected API verdict; traces use the locked model.
+
+### Sean — frontend integration
+
+**Owned paths:** `frontend/src/features/validator/` and its feature tests.
+
+**Expected outputs:** real API submission; complete loading/verdict/error rendering; final-state and trace display; retry and component tests.
+
+**Do not touch:** `backend/`, automata files, API/language contracts, global CSS, or QA-owned tests.
+
+**Verify:** frontend tests, ESLint, and production build pass for accepted, rejected, invalid-request, and offline flows.
+
+### Isaiah — responsive and accessible presentation
+
+**Owned paths:** `frontend/src/style.css`, `frontend/src/ui/`, `docs/ui/accessibility-checklist.md`.
+
+**Expected outputs:** desktop/mobile layout; all state appearances; keyboard focus; accessible labels/contrast evidence; screenshots.
+
+**Do not touch:** `backend/`, validator request/state logic, automata files, or tests owned by other packages.
+
+**Verify:** ESLint/build pass; keyboard and responsive inspection evidence is attached.
+
+### Ralph — NFA trace audit
+
+**Owned paths:** `docs/qa/nfa-trace-audit.md`, `docs/automata/diagrams/nfa.dot` only when a correction is assigned by Ranee.
+
+**Expected outputs:** selected fixture traces through the RE/NFA; exact mismatch records; corrected NFA source only when required.
+
+**Do not touch:** DFA/model, backend, frontend, or QA test files.
+
+### Pamela — DFA model audit
+
+**Owned paths:** `docs/qa/dfa-model-audit.md`, DFA/minimization artifacts only when a correction is assigned by Ranee.
+
+**Expected outputs:** state-ID, accepting/sink, transition, and minimized-mapping comparison against `url_dfa.json`; exact mismatch records.
+
+**Do not touch:** backend loader/simulator, frontend, or QA test files.
+
+### Paul — end-to-end verification
+
+**Owned paths:** `tests/fixtures/`, QA-owned regression tests, `docs/qa/phase-3-report.md`.
+
+**Expected outputs:** simulator/API/UI result matrix; malformed/limit/offline/retry coverage; defect reports; retest evidence.
+
+**Do not touch:** implementation or formal-model files. Ranee assigns fixes to the owning package.
+
+### Cedric — implementation chapter and demo draft
+
+**Owned paths:** `docs/report/implementation.md`, `docs/presentation/demo-script.md`, `docs/report/evidence-index.md`.
+
+**Expected outputs:** code-aligned architecture explanation; verified screenshots; evidence links; timed demo sequence using actual behavior.
+
+**Do not touch:** application code, formal artifacts, or tests.
+
+## Parallel-progress rule
+
+Ralph, Pamela, Paul, and Cedric can begin their audits/evidence work from the locked files while Jared, Sean, and Isaiah work in their own areas. Nobody waits for a personal review. When a required new commit reaches `main`, the affected owner pulls it and continues.
+
+## Phase 3 completion
+
+- [ ] Runtime model matches the locked minimized DFA.
+- [ ] React displays real API verdicts, final states, and traces.
+- [ ] Rejection, malformed request, and connection failure remain distinct.
+- [ ] The shared corpus agrees across simulator, API, and UI.
+- [ ] Critical defects are fixed in their owning packages and retested.
+- [ ] Evidence and demo documents describe the actual candidate.
+- [ ] Ranee records feature freeze and Phase 4 activation.

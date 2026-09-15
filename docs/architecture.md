@@ -9,19 +9,19 @@ frontend/
     main.jsx                               React entry point
     App.jsx                                Application composition
     features/validator/
-      ValidatorPage.jsx                    Sean: interaction/results; Isaiah: layout via agreed components
-      api.js                               Sean + Jared: HTTP boundary
-    style.css                              Isaiah: layout/styles, coordinated with Sean
-    App.test.jsx                           Paul: browser-component behavior tests
+      ValidatorPage.jsx                    Sean: interaction/results
+      api.js                               Sean: frontend HTTP calls; contract is locked by Ranee
+    style.css                              Isaiah: layout/styles
+    App.test.jsx                           Paul: cross-feature regression tests
 backend/
   app.py                                   Jared: Flask factory and global errors
   routes/validation.py                     Jared: HTTP routes and status codes
-    services/validation.py                   Jared: payload checks and simulator handoff
+  services/validation.py                  Jared: payload checks and simulator call
   automata/
     simulator.py                           Explicit DFA transition function and trace generation
   requirements.txt and requirements-dev.txt Backend dependencies only
 tests/test_api.py                          Paul: API contract and boundary tests
-docs/phases/week-1.md through week-4.md     Weekly work and named coordination
+docs/phases/week-1.md through week-4.md     Weekly work packages and phase gates
 .github/workflows/checks.yml               Ranee: CI with Paul reviewing checks
 ```
 
@@ -38,8 +38,8 @@ These paths are delivery targets; their absence does not mean the task is finish
 - `backend/automata/model.py` — Jared implements data structures agreed with Pamela and Ralph.
 - `backend/automata/simulator.py` — Jared; deterministic traversal independent of Flask.
 - `backend/automata/url_dfa.json` — Pamela supplies reviewed transitions; Jared integrates. No approved model exists yet.
-- `tests/fixtures/url_cases.json` — shared approved corpus; Paul maintains boundary coverage with Isaiah reviewing expected outcomes.
-- `tests/test_simulator.py` — Paul with Jared; real transitions, acceptance and trace behavior.
+- `tests/fixtures/url_cases.json` — Paul maintains boundary coverage; changes to approved expectations require Ranee's decision.
+- `tests/test_simulator.py` — Jared owns simulator unit tests; Paul records cross-layer verification separately.
 - `docs/qa/` — Paul; case coverage, findings and release evidence.
 - `docs/report/`, `docs/presentation/` — Cedric; report, slides outline, demo and defense material.
 - `docs/release/` — Ranee; delivery plan, clean-setup record and release checklist.
@@ -49,5 +49,10 @@ Browser input -> ValidatorPage -> api.js -> Flask route -> validation service ->
 
 The service now runs the approved core language through the DFA simulator and returns a verdict and trace. The formal RE, NFA, subset construction, minimization evidence, and reviewed machine-readable minimized model remain Phase 2 deliverables.
 
-## Coordination rules
-Isaiah owns layout/CSS; Sean owns React interactions/API integration; Jared owns backend route/service changes. API field changes require both to agree in the linked issue before implementation; Paul updates contract tests with the same PR. Formal model changes require the originating designer and the next recipient to review. Cross-area edits require coordination with the owner first. Ranee prepares both frontend and backend setup, agrees support tasks with Jared, manages integration and resolves unresolved ownership conflicts.
+## Phase 2 onward ownership rules
+
+Ranee locks the authoritative inputs before opening a phase and is the only PR approver. Each issue lists non-overlapping editable paths. Isaiah owns global presentation/CSS; Sean owns validator interaction and frontend API calls; Jared owns backend routes, services, simulator, and backend unit/API tests; Ralph and Pamela own their separate formal artifacts; Paul owns fixtures, cross-layer QA evidence, and QA-specific tests; Cedric owns report and presentation files.
+
+Frontend owners must not edit `backend/`; backend owners must not edit `frontend/`. Formal, QA, and paper owners must not fix implementation files. When a necessary change falls outside an issue's paths, the member records the contradiction or blocker in their own issue and Ranee changes the decision, expands the owned paths, or creates a separate issue.
+
+Members start every portion supported by the locked files already on `main`. When a required dependency is later merged, the dependent owner pulls `main` and continues without seeking a message, peer review, or handoff acceptance. See [Independent work-package template](work-package-template.md).
