@@ -130,12 +130,14 @@ Once an input reaches `D_sink`, every subsequent input remains in `D_sink`.
 Example:
 
 ```text
-D_sink --a-z--> D_sink
-D_sink --0-9--> D_sink
+D_sink --each supported label--> D_sink
 D_sink --OTHER--> D_sink
 ```
 
-The complete transition table should include the sink state when a sink is required by the DFA construction.
+The complete transition table must include one self-loop for every supported
+literal or disjoint character-class label, plus `OTHER`. The sink state is
+non-accepting and is included whenever the complete DFA uses explicit sink
+completion.
 
 ---
 
@@ -503,3 +505,19 @@ This document defines the **notation and worksheet format** for Pamela's DFA and
 It does not contain the final NFA, DFA, or minimized DFA because those states and transitions must be derived during the automaton construction.
 
 The construction must use the approved regular-expression components and remain consistent with the project's approved URL language.
+
+---
+
+## 19. Review and Handoff
+
+This Phase 1 deliverable is ready for the required coordination reviews:
+
+* **Ralph:** confirm that `q`-state naming, epsilon notation, and transition
+        labels match the regular-expression and NFA construction boundaries.
+* **Jared:** confirm that DFA state sets, destination labels, accepting flags,
+        sink completion, and the machine-readable representation are unambiguous.
+* **Paul:** derive boundary cases for sink transitions, unsupported symbols,
+        full-input matching, and accepting versus non-accepting final states.
+
+These reviews validate the format; they do not claim that the final NFA, DFA,
+or minimized transitions have already been constructed.
