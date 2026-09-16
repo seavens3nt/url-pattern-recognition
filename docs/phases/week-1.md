@@ -29,7 +29,7 @@ Use [Contributing](../../CONTRIBUTING.md) for GitHub rules, [GitHub Desktop guid
 | **Pamela** @Qiuyuan26 | Define state names, start/accept/sink conventions, epsilon notation, character classes and transition-table/subset worksheet formats. | Ralph aligns NFA notation; Jared agrees machine-readable representation; Paul reviews sink and out-of-alphabet cases. | `docs/automata/notation.md` plus DFA worksheet template, reviewed by Ralph and Jared. |
 | **Jared** @AshenDary | Document current and proposed validation requests, responses, status codes, trace fields and simulator interface; label unimplemented behavior honestly. | Sean agrees UI needs; Pamela agrees model shape; Paul reviews negative cases; Ranee reviews readiness claims. | Updated `docs/api-contract.md` with accepted, rejected, bad request, offline and pending examples. |
 | **Paul** @paulccampos | Follow the run guide on a clean clone; create uniquely identified accepted/rejected/boundary cases from the approved language rules. | Ranee fixes setup gaps; Isaiah confirms expectations; Ralph and Pamela cover formal boundaries; Jared agrees fixture format. | Setup evidence plus shared corpus with reason, source rule and expected verdict for every case. |
-| **Cedric** @cedricsigue | Create report outline, reference list, evidence index and decision log; write the verified project/setup overview. | Each member supplies their own explanation; Ranee verifies structure; Paul supplies actual check results. | Report skeleton maps rubric sections to owners and evidence without claiming unfinished work. |
+| **Cedric** @cedricsigue | Build the 23-section course report structure in one shared Google Doc; keep references, contribution matrix, decision notes and presentation outline there. Write only the verified project/setup overview. | Use merged evidence independently; raise missing requirements with Ranee, who reviews both outputs. | Google Doc link plus only `docs/report/evidence-index.md` in GitHub. Map sections to owners, evidence and status. Full acceptance checklist: [Issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13). |
 
 ### Recorded progress
 
@@ -49,7 +49,7 @@ Use [Contributing](../../CONTRIBUTING.md) for GitHub rules, [GitHub Desktop guid
 3. Pamela sends notation/model format to Jared before simulator work.
 4. Jared and Sean approve response examples by September 15.
 5. Paul reports setup problems immediately and gives corpus review results before the sprint review.
-6. All members send their explanation and evidence link to Cedric; Cedric compiles rather than invents technical content.
+6. Cedric compiles existing merged explanations and evidence into the Google Doc and records missing items for Ranee. The GitHub evidence index links the paper to its sources.
 
 ## Completion checklist
 

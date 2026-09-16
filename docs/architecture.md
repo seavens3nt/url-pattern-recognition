@@ -41,7 +41,7 @@ These paths are delivery targets; their absence does not mean the task is finish
 - `tests/fixtures/url_cases.json` — Paul maintains boundary coverage; changes to approved expectations require Ranee's decision.
 - `tests/test_simulator.py` — Jared owns simulator unit tests; Paul records cross-layer verification separately.
 - `docs/qa/` — Paul; case coverage, findings and release evidence.
-- `docs/report/`, `docs/presentation/` — Cedric; report, slides outline, demo and defense material.
+- `docs/report/evidence-index.md` — Cedric's only report file in GitHub; links the shared Google Docs paper, section owners, real evidence and status. Report chapters, APA references, contribution matrix, decision notes and demo/presentation outline live in that Google Doc. Final slides and submission exports are linked from the index.
 - `docs/release/` — Ranee; delivery plan, clean-setup record and release checklist.
 
 ## Request flow
