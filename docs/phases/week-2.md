@@ -200,14 +200,12 @@ docs/qa/phase-2-report.md
 **Owned paths:**
 
 ```text
-docs/report/phase-2-theory.md
-docs/report/references.md
 docs/report/evidence-index.md
 ```
 
 **Tasks and expected outputs:**
 
-- Explain the RE-to-NFA, subset-construction, and minimization methods.
+- In the existing report Google Doc, explain the RE-to-NFA, subset-construction, and minimization methods; keep references in the same document.
 - Insert merged tables/diagrams with captions and source links.
 - Maintain references and the evidence index.
 - Attribute each technical artifact to its owner.
@@ -219,7 +217,7 @@ docs/report/evidence-index.md
 ## Phase 2 completion
 
 - [ ] Every package has one owner, non-overlapping paths, expected outputs, and checks.
-- [ ] RE/NFA, DFA/minimization, simulator/API, visual, interaction, QA, and paper PRs are merged.
+- [ ] RE/NFA, DFA/minimization, simulator/API, visual, interaction, QA, and evidence-index PRs are merged; Ranee accepts the Google Docs theory sections.
 - [ ] No frontend PR edits backend files and no backend PR edits frontend files.
 - [ ] All automated checks pass on `main`.
 - [ ] Ranee records the Phase 3 activation decision.

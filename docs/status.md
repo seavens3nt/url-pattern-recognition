@@ -27,7 +27,7 @@ Phase 2 is planned in the repository guide only. Its GitHub tracker and member i
 
 ## Pending in Phase 1
 
-- Cedric creates the report structure, evidence index and decision log in Issue #13.
+- Cedric prepares the course report structure in Google Docs, including references, contribution matrix, decision notes and presentation outline; only `docs/report/evidence-index.md` is submitted to GitHub in Issue #13.
 - Ranee keeps the Phase 1 tracker open until Cedric's deliverable is reviewed and merged.
 
 ## Current boundary

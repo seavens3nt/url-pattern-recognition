@@ -66,7 +66,7 @@ The independent workflow and issue structure are defined in [Independent work-pa
 
 ### Cedric — final paper, slides, and fallback
 
-**Owned paths:** `docs/report/`, `docs/presentation/`, final evidence index and submission-copy checklist assigned by Ranee.
+**Owned artifacts:** final paper, references, contribution matrix, demo/presentation outline and submission-copy checklist in the existing Google Doc; final slides and exports linked from `docs/report/evidence-index.md`, Cedric's only GitHub report file.
 
 **Expected outputs:** final report and references; slides; speaking order; timed demo; local fallback; evidence package.
 

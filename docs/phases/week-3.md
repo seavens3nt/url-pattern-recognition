@@ -80,7 +80,7 @@ The independent workflow and issue structure are defined in [Independent work-pa
 
 ### Cedric — implementation chapter and demo draft
 
-**Owned paths:** `docs/report/implementation.md`, `docs/presentation/demo-script.md`, `docs/report/evidence-index.md`.
+**Owned artifacts:** implementation chapter and demo draft in the existing report Google Doc; only `docs/report/evidence-index.md` in GitHub.
 
 **Expected outputs:** code-aligned architecture explanation; verified screenshots; evidence links; timed demo sequence using actual behavior.
 
