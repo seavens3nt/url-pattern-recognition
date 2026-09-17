@@ -4,7 +4,9 @@
 
 **Sprint goal:** integrate the locked Phase 2 outputs while each member remains inside one owned area.
 
-**Activation rule:** Ranee records the exact Phase 2 model, API, UI-state, and fixture commits before opening Phase 3 issues. Members start immediately when their listed inputs exist on `main`.
+**Activation rule:** Ranee records the exact Phase 2 model, API, UI-state,
+fixture, deployment, and report-evidence commits before opening Phase 3 issues.
+Members start immediately when their listed inputs exist on `main`.
 
 The independent workflow and issue structure are defined in [Independent work-package template](../work-package-template.md). Only Ranee approves PRs.
 
@@ -15,14 +17,23 @@ The independent workflow and issue structure are defined in [Independent work-pa
 - `docs/language-spec.md`
 - `docs/ui/wireframes.md`
 - `tests/fixtures/url_cases.json`
+- `docs/report/evidence-index.md` and the accepted report baseline from PR #33
 
 ## Work packages
 
 ### Ranee — integration and feature freeze
 
-**Owned paths:** `docs/status.md`, `docs/release/integration-gate.md`, GitHub Phase 3 issues.
+**Primary owned paths:** `scripts/`, `.github/workflows/checks.yml`, `compose.yaml`,
+`deployment/`, `docs/status.md`, `docs/release/integration-gate.md`, and GitHub
+Phase 3 issues.
 
-**Expected outputs:** locked commit list; independently owned issues; merged-PR record; blocker decisions; feature-freeze and Phase 4 activation decision.
+**Expected outputs:** integrated production-like build; CI/API smoke result;
+deployment and startup evidence; locked commit list; independently owned issues;
+merged-PR record; blocker decisions; feature-freeze and Phase 4 decision.
+
+**Authority:** member-owned paths reduce collisions but do not restrict Ranee.
+Ranee may edit any repository file for integration, urgent fixes, or deadline
+recovery and records the reason and affected issue in the PR.
 
 ### Jared — backend integration
 
@@ -78,17 +89,23 @@ The independent workflow and issue structure are defined in [Independent work-pa
 
 **Do not touch:** implementation or formal-model files. Ranee assigns fixes to the owning package.
 
-### Cedric — implementation chapter and demo draft
+### Cedric — integrated-system chapter and demo draft
 
-**Owned artifacts:** implementation chapter and demo draft in the existing report Google Doc; only `docs/report/evidence-index.md` in GitHub.
+**Owned artifacts:** the accepted report Google Doc from PR #33 and only
+`docs/report/evidence-index.md` in GitHub.
 
-**Expected outputs:** code-aligned architecture explanation; verified screenshots; evidence links; timed demo sequence using actual behavior.
+**Expected outputs:** code-aligned architecture and implementation explanation;
+verified Phase 2/3 screenshots and test evidence; updated contribution matrix;
+resolved evidence links; timed demo sequence using actual integrated behavior.
 
 **Do not touch:** application code, formal artifacts, or tests.
 
 ## Parallel-progress rule
 
-Ralph, Pamela, Paul, and Cedric can begin their audits/evidence work from the locked files while Jared, Sean, and Isaiah work in their own areas. Nobody waits for a personal review. When a required new commit reaches `main`, the affected owner pulls it and continues.
+Ralph, Pamela, Paul, and Cedric can begin their audits/evidence work from the
+locked files while Ranee, Jared, Sean, and Isaiah integrate their own areas.
+Nobody waits for a personal review. When a required new commit reaches `main`,
+the affected owner pulls it and continues.
 
 ## Phase 3 completion
 

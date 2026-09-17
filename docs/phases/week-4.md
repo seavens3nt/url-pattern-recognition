@@ -4,7 +4,10 @@
 
 **Sprint goal:** verify the frozen candidate, correct only release blockers, and prepare the final academic package.
 
-**Activation rule:** Ranee records the frozen release-candidate commit before opening Phase 4 issues. Only Ranee approves PRs and decides whether a reported defect is release-blocking.
+**Activation rule:** Ranee records the frozen release-candidate commit before
+opening Phase 4 issues. Only Ranee approves PRs and decides whether a reported
+defect is release-blocking. Ranee may edit any file for an assigned release fix
+and records the reason and affected issue in the PR.
 
 The independent workflow and issue structure are defined in [Independent work-package template](../work-package-template.md).
 
@@ -12,9 +15,12 @@ The independent workflow and issue structure are defined in [Independent work-pa
 
 ### Ranee — release control and submission
 
-**Owned paths:** `docs/release/`, `docs/status.md`, `.github/workflows/checks.yml`, release tag and submission records.
+**Primary owned paths:** `scripts/`, `.github/workflows/checks.yml`, `compose.yaml`,
+`deployment/`, `docs/release/`, `docs/status.md`, release tag and submission records.
 
-**Expected outputs:** frozen commit; blocker decisions; release checklist; clean-run record; rehearsal schedule; final tag and submission evidence.
+**Expected outputs:** deployed/restartable release candidate; final smoke and
+performance evidence; frozen commit; blocker decisions; release checklist;
+clean-run record; rehearsal schedule; final tag and submission evidence.
 
 ### Isaiah — final visual verification
 
@@ -66,7 +72,10 @@ The independent workflow and issue structure are defined in [Independent work-pa
 
 ### Cedric — final paper, slides, and fallback
 
-**Owned artifacts:** final paper, references, contribution matrix, demo/presentation outline and submission-copy checklist in the existing Google Doc; final slides and exports linked from `docs/report/evidence-index.md`, Cedric's only GitHub report file.
+**Owned artifacts:** the accepted report Google Doc from PR #33, final references,
+verified contribution matrix, demo/presentation outline and submission checklist;
+final slides and exports linked from `docs/report/evidence-index.md`, Cedric's
+only GitHub report file.
 
 **Expected outputs:** final report and references; slides; speaking order; timed demo; local fallback; evidence package.
 
@@ -74,7 +83,10 @@ The independent workflow and issue structure are defined in [Independent work-pa
 
 ## Independent release rule
 
-Each owner checks the frozen commit and works only on an assigned package. A member does not wait for another member's approval. If a blocker crosses an ownership boundary, the member reports it in their own issue; Ranee creates or assigns the corrective task.
+Each owner checks the frozen commit and works only on an assigned package. A
+member does not wait for another member's approval. If a blocker crosses an
+ownership boundary, the member reports it in their own issue; Ranee creates,
+assigns, or directly completes the corrective task under her integration authority.
 
 ## Phase 4 completion
 
