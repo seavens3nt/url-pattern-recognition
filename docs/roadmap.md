@@ -9,6 +9,27 @@ The final deadline is **September 29, 2026**. Because fewer than four full weeks
 | 3. Integrated application | Sep 21–25 | React displays real simulator verdicts and traces; end-to-end tests pass; features freeze | [Week 3](phases/week-3.md) |
 | 4. Verification and defense | Sep 26–28 | Release candidate, clean-run evidence, report, slides and rehearsal accepted | [Week 4](phases/week-4.md) |
 
+## Final deadline sequence
+
+All dates use Asia/Manila time. Phase gates close at 11:59 PM unless the course
+portal has an earlier cutoff.
+
+- **September 18–19:** Phase 2 owners complete their assigned construction,
+  implementation, tests, and evidence; blockers are recorded on the same day.
+- **September 20:** all Phase 2 PRs and evidence are due; Ranee records the
+  Phase 2 gate decision.
+- **September 21–24:** integrate the approved automaton, API, React interface,
+  automated tests, deployment configuration, and report evidence.
+- **September 25:** record the feature-freeze commit. Cedric's carried
+  [Issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13)
+  must be accepted or recorded as a final-release blocker.
+- **September 26–27:** run final regression and clean setup; finish the paper,
+  slides, demo script, citations, screenshots, and offline fallback.
+- **September 28:** tag the release candidate, finish one full timed rehearsal,
+  and prepare every submission file and link.
+- **September 29:** upload, verify every submitted file/link, and save the
+  submission receipt. No feature work is planned for submission day.
+
 ## Phase 2 onward start order
 
 ```text

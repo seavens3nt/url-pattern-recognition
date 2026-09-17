@@ -85,3 +85,16 @@ Each owner checks the frozen commit and works only on an assigned package. A mem
 - [ ] Report, slides, references, demo, and fallback are complete.
 - [ ] Every member can explain their own contribution.
 - [ ] Ranee approves, tags, and records the submitted release.
+
+## Final consolidated timeline
+
+All dates use Asia/Manila time. Phase gates close at 11:59 PM unless the course
+portal has an earlier cutoff.
+
+- **September 20:** Phase 2 PRs/evidence due and gate decision recorded.
+- **September 21–24:** Phase 3 integration and correction window.
+- **September 25:** feature-freeze commit recorded; Cedric's carried Issue #13
+  accepted or recorded as a final-release blocker.
+- **September 26–27:** final QA, clean run, paper, slides, demo, and fallback.
+- **September 28:** release candidate tagged and full timed rehearsal completed.
+- **September 29:** upload and verification only; submission receipt saved.
