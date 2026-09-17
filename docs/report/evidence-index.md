@@ -4,15 +4,15 @@ This file tracks the repo-backed evidence for the course report and keeps the sh
 
 ## Shared Google Doc
 
-- Google Doc link: https://docs.google.com/document/d/1qoo1uikbvgz3ryrP2cxPXJKNrFWNfft_6i-fbwAKvMg/edit?usp=sharing
+- Google Doc link: https://docs.google.com/document/d/1qoo1uikbvgz3ryrP2cxPXJKNrFWNfft_6i-fbwAKvMg/edit
 - Status: Active
 - Notes: The live report remains the final authoring location for the paper. This GitHub evidence index links each required section to the repository artifacts that are actually available and reviewed.
 
 ## Status key
 
-- Complete: verified in the repository and ready to cite
-- In progress: evidence exists but the final report wording or review is still pending
-- Pending: no verified artifact or final Google Doc section yet
+- Complete: the Phase 1 report structure and supporting evidence were verified
+- Pending: the required artifact or final evidence is not yet available
+- Blocked: work cannot continue until Ranee resolves a recorded issue
 
 ## Verified project overview
 
@@ -57,31 +57,31 @@ Sources consulted:
 
 ## Required course sections
 
-| Required section | Status | Responsible member | Evidence and notes |
+| Report Section | Responsible Member | Evidence Link | Status |
 | --- | --- | --- | --- |
-| Cover Page | Pending | Cedric | Final cover page still needs to be completed in the live Google Doc. |
-| Table of Contents | Pending | Cedric | Final TOC still needs to be finalized in the Google Doc. |
-| Introduction | Complete | Cedric / team | [README.md](../../README.md), [docs/context.md](../context.md) |
-| Project Objectives | Complete | Ranee / Cedric | [README.md](../../README.md), [docs/roadmap.md](../roadmap.md) |
-| Scope and Limitations | Complete | Isaiah / Ranee | [docs/context.md](../context.md), [docs/roadmap.md](../roadmap.md), [docs/status.md](../status.md) |
-| Formal Language Definition | Complete | Isaiah / Ralph | [docs/context.md](../context.md), [docs/roadmap.md](../roadmap.md) |
-| Alphabet and Strings | Complete | Isaiah / Ralph | [docs/context.md](../context.md), [docs/roadmap.md](../roadmap.md) |
-| Accepted and Rejected Input Examples | Complete | Paul / Jared | [tests/fixtures/url_cases.json](../../tests/fixtures/url_cases.json), [docs/qa/clean-setup-evidence.md](../qa/clean-setup-evidence.md) |
-| Regular Expression | Complete | Ralph | [docs/automata/regular-expression.md](../automata/regular-expression.md) |
-| NFA Formal Definition | Pending | Ralph | No final reviewed NFA artifact was verified in this workspace. |
-| NFA Transition Table and Diagram | Pending | Ralph | No final reviewed NFA table or diagram was verified in this workspace. |
-| NFA-to-DFA Conversion | Pending | Ralph / Pamela | Waiting for the reviewed subset-construction artifact. |
-| DFA Transition Table and Diagram | Pending | Pamela | Waiting for the reviewed DFA artifact and diagram. |
-| DFA Minimization | Pending | Pamela | Waiting for the minimized model evidence and review. |
-| Minimized DFA Diagram | Pending | Pamela | Waiting for the final reviewed minimized diagram. |
-| System Design | Complete | Ranee / Jared / Sean | [docs/architecture.md](../architecture.md), [README.md](../../README.md), [docs/how-to-run.md](../how-to-run.md) |
-| Implementation / Source Code | Complete | Jared / Sean | [backend/app.py](../../backend/app.py), [backend/automata/simulator.py](../../backend/automata/simulator.py), [backend/services/validation.py](../../backend/services/validation.py), [frontend/src/features/validator/ValidatorPage.jsx](../../frontend/src/features/validator/ValidatorPage.jsx) |
-| Test Cases and Results | Complete | Paul / Jared | [tests/test_api.py](../../tests/test_api.py), [tests/test_simulator.py](../../tests/test_simulator.py), [docs/qa/clean-setup-evidence.md](../qa/clean-setup-evidence.md) |
-| Screenshots of the Working System | Pending | Sean / Isaiah | No UI screenshots are present yet in the repo evidence set. |
-| Discussion of Results | Complete | Cedric / Paul | [docs/status.md](../status.md), [docs/roadmap.md](../roadmap.md), [docs/qa/clean-setup-evidence.md](../qa/clean-setup-evidence.md) |
-| Conclusion | Complete | Cedric / Ranee | [docs/status.md](../status.md), [docs/roadmap.md](../roadmap.md) |
-| References | Complete | Cedric | [README.md](../../README.md), [docs/context.md](../context.md), [docs/status.md](../status.md), [docs/roadmap.md](../roadmap.md), [docs/team-roles.md](../team-roles.md), [docs/architecture.md](../architecture.md) |
-| Individual Contribution Matrix | In progress | Cedric | Roles are documented in [docs/team-roles.md](../team-roles.md); the final matrix in the Google Doc still needs to be filled and checked against verified contributions. |
+| Cover Page | Cedric | Present in the shared Google Doc | Complete |
+| Table of Contents | Cedric | Present in the shared Google Doc; final page numbers remain a release task | Complete |
+| Introduction | Cedric / team | [README.md](../../README.md), [docs/context.md](../context.md) | Complete |
+| Project Objectives | Ranee / Cedric | [README.md](../../README.md), [docs/roadmap.md](../roadmap.md) | Complete |
+| Scope and Limitations | Isaiah / Ranee | [docs/language-spec.md](../language-spec.md), [docs/context.md](../context.md) | Complete |
+| Formal Language Definition | Isaiah / Ralph | [docs/language-spec.md](../language-spec.md) | Complete |
+| Alphabet and Strings | Isaiah / Ralph | [docs/language-spec.md](../language-spec.md), [docs/automata/notation.md](../automata/notation.md) | Complete |
+| Accepted and Rejected Input Examples | Paul / Jared | [tests/fixtures/url_cases.json](../../tests/fixtures/url_cases.json), [docs/qa/clean-setup-evidence.md](../qa/clean-setup-evidence.md) | Complete |
+| Regular Expression | Ralph | [docs/automata/regular-expression.md](../automata/regular-expression.md) | Complete |
+| NFA Formal Definition | Ralph | No final reviewed NFA artifact is available | Pending |
+| NFA Transition Table and Diagram | Ralph | No final reviewed NFA table or diagram is available | Pending |
+| NFA-to-DFA Conversion | Ralph / Pamela | Waiting for the reviewed subset-construction artifact | Pending |
+| DFA Transition Table and Diagram | Pamela | Waiting for the reviewed DFA artifact and diagram | Pending |
+| DFA Minimization | Pamela | Waiting for the minimized-model evidence and review | Pending |
+| Minimized DFA Diagram | Pamela | Waiting for the final reviewed minimized diagram | Pending |
+| System Design | Ranee / Jared / Sean | [docs/architecture.md](../architecture.md), [docs/api-contract.md](../api-contract.md) | Complete |
+| Implementation / Source Code | Jared / Sean | [backend/app.py](../../backend/app.py), [backend/automata/simulator.py](../../backend/automata/simulator.py), [frontend/src/features/validator/ValidatorPage.jsx](../../frontend/src/features/validator/ValidatorPage.jsx) | Complete |
+| Test Cases and Results | Paul / Jared | [tests/test_api.py](../../tests/test_api.py), [tests/test_simulator.py](../../tests/test_simulator.py), [docs/qa/clean-setup-evidence.md](../qa/clean-setup-evidence.md) | Complete |
+| Screenshots of the Working System | Sean / Isaiah | No final UI screenshots are available | Pending |
+| Discussion of Results | Cedric / Paul | [docs/status.md](../status.md), [docs/qa/clean-setup-evidence.md](../qa/clean-setup-evidence.md) | Complete |
+| Conclusion | Cedric / Ranee | Phase 1 conclusion is present in the shared Google Doc; the final conclusion remains a release task | Complete |
+| References | Cedric | Sources are listed, but two broken URLs and the missing course-brief entry still need correction in the shared Google Doc | Pending |
+| Individual Contribution Matrix | Cedric | All eight members are listed in the shared Google Doc; final contributions will be updated from merged evidence | Complete |
 
 ### APA reference entries for the Google Doc
 
@@ -128,11 +128,14 @@ URL Pattern Recognition Team. (n.d.-j). *URL pattern recognition* [Computer
 software]. GitHub. Retrieved September 17, 2026, from
 https://github.com/seavens3nt/url-pattern-recognition
 
+Caluya, S. S. (2026). *CCAUTOMA - 1st AY 2026 course project* [Course project
+brief].
+
 ## Additional planning sections
 
 | Section | Status | Responsible member | Evidence and notes |
 | --- | --- | --- | --- |
-| Presentation Planning | In progress | Cedric / Ranee | The project plan and phase schedule are in [docs/status.md](../status.md) and [docs/roadmap.md](../roadmap.md). The live Google Doc still needs the final speaking order, demo plan, timing, and Q&A flow. |
+| Presentation Planning | Pending | Cedric / Ranee | The approved 13-minute plan and eight-member speaking order are recorded below; the shared Google Doc still needs to be corrected to match. |
 | Deployment / performance / security evidence | Pending | Ranee / Paul | This should be documented later under system design and test results only as team quality evidence, not as extra course-imposed requirements. No verified deployment or security evidence exists yet in the repo. |
 
 ## Contribution matrix
@@ -154,18 +157,20 @@ The report should include a short presentation outline for the project demo and 
 
 ### Proposed timing
 
-- 12-15 minute total speaking time
-- 8-10 minutes: live demo and project walkthrough
-- 4-5 minutes: Q&A and brief technical discussion
+- 13-minute target within the required 12-15 minute total
+- 9 minutes: presentation and live demo
+- 4 minutes: Q&A and technical discussion
 
 ### Proposed speaking order
 
-1. Ranee: project overview and scope/PM context
-2. Sean and Isaiah: frontend experience and UI flow
-3. Jared: backend validation flow and simulator behavior
-4. Paul: verification and test evidence
-5. Ralph and Pamela: formal-language and automata model status, if the final artifacts are ready
-6. Cedric: report structure, evidence linkage, and discussion summary
+1. Ranee: project overview, scope and project decisions
+2. Isaiah: language rules and interface design
+3. Ralph: regular expression and NFA
+4. Pamela: subset construction and DFA minimization
+5. Jared: backend validation and simulator behavior
+6. Sean: frontend/API interaction and result states
+7. Paul: test cases, results, security and performance evidence
+8. Cedric: report evidence, discussion and conclusion
 
 ### Participation requirement
 
@@ -209,3 +214,5 @@ Evidence:
 ## PM note
 
 This evidence index intentionally separates the verified starter implementation from the later formal automata and report-writing deliverables. The NFA, DFA, minimized-DFA, screenshots, and final Google Doc report sections remain explicit follow-up work and should not be marked complete until they are reviewed and linked as final evidence.
+
+Before Issue #13 is closed, the shared Google Doc must also use the heading `NFA Formal Definition`, use the report's own Google Doc link in its evidence summary, include working source links in the PM decision section, repair the two broken reference URLs, add the course-project brief to References, and match the timing and speaking order in this index.
