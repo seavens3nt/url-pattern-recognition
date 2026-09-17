@@ -27,5 +27,17 @@ jobs:
         with:
           python-version: '3.11'
       - run: python -m pip install -r backend/requirements-dev.txt
-      - run: python -m ruff check backend tests
+      - run: python -m ruff check backend tests scripts
       - run: python -m pytest
+  api-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r backend/requirements.txt
+      - name: Start Flask API
+        run: python -m flask --app backend.app:create_app run --host 127.0.0.1 --port 5000 > flask.log 2>&1 &
+      - name: Verify health and validation responses
+        run: python scripts/smoke_api.py
