@@ -6,7 +6,7 @@
 
 **Deadline:** Wednesday, September 16, 2026
 
-**End-of-phase decision:** Ranee approved the technical scope package and activated Phase 2 on September 17, 2026. Cedric's report package remains open as [Issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13) and is carried as a documentation condition rather than marked complete.
+**End-of-phase decision:** Ranee approved the technical scope package and activated Phase 2 on September 17, 2026. Cedric's report package was subsequently accepted and merged in [PR #33](https://github.com/seavens3nt/url-pattern-recognition/pull/33); [Issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13) is closed.
 
 Use [Contributing](../../CONTRIBUTING.md) for GitHub rules, [GitHub Desktop guide](../github-desktop-guide.md) for PR steps, [How to run](../how-to-run.md) for setup and [Architecture](../architecture.md) for file ownership.
 
@@ -40,7 +40,7 @@ Use [Contributing](../../CONTRIBUTING.md) for GitHub rules, [GitHub Desktop guid
 - **Complete — Sean:** the component plan, response examples, state mapping and frontend file boundaries were reviewed and merged in [PR #30](https://github.com/seavens3nt/url-pattern-recognition/pull/30). See [issue #3](https://github.com/seavens3nt/url-pattern-recognition/issues/3).
 - **Complete — Pamela:** the automata notation and DFA/minimization worksheet structure were reviewed and merged in [PR #29](https://github.com/seavens3nt/url-pattern-recognition/pull/29). See [issue #7](https://github.com/seavens3nt/url-pattern-recognition/issues/7).
 - **Complete — Paul:** the clean-setup evidence and 10 accepted/10 rejected corpus were reviewed and merged in [PR #28](https://github.com/seavens3nt/url-pattern-recognition/pull/28). See [issue #5](https://github.com/seavens3nt/url-pattern-recognition/issues/5).
-- **Active — Cedric:** the report outline and evidence index remain in [issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13). Phase 2 may proceed, but Issue #13 stays open until Ranee accepts both outputs.
+- **Complete — Cedric:** the report outline, references, contribution matrix, presentation plan and evidence index were reviewed; [PR #33](https://github.com/seavens3nt/url-pattern-recognition/pull/33) was merged and [issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13) was closed.
 
 ## Required handoffs
 
@@ -59,6 +59,6 @@ Use [Contributing](../../CONTRIBUTING.md) for GitHub rules, [GitHub Desktop guid
 - [x] RE draft and automata notation reviewed.
 - [x] Wireframes, component plan and API examples agree.
 - [x] The shared test corpus exists and has 10 accepted and 10 rejected cases.
-- [ ] Cedric's report outline and evidence index are accepted in Issue #13.
+- [x] Cedric's report outline and evidence index are accepted in Issue #13 and PR #33.
 - [x] Completed Phase 1 issues contain PR/evidence links and Ranee's acceptance.
 - [x] Ranee recorded the conditional Phase 2 activation decision on September 17, 2026.

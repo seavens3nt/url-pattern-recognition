@@ -10,10 +10,10 @@
 
 This is a reviewed snapshot. GitHub issues and PRs contain the live task state.
 
-Ranee approved the Phase 1 gate with one carried condition: Cedric's
-[Issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13)
-remains open until its Google Docs and evidence-index requirements are accepted.
-That condition does not block the independently owned Phase 2 packages.
+Ranee accepted Cedric's Phase 1 Google Doc and merged evidence index in
+[PR #33](https://github.com/seavens3nt/url-pattern-recognition/pull/33).
+[Issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13) is
+closed. Phase 2 has no carried Phase 1 documentation condition.
 
 ## Ready
 
@@ -28,11 +28,6 @@ That condition does not block the independently owned Phase 2 packages.
 - Reviewed regular-expression draft aligned with the approved core language and shared fixture.
 - Reviewed validation API contract.
 - Working DFA simulator, Flask integration, React verdict states, and transition trace display on the integration branch.
-
-## Carried Phase 1 condition
-
-- Cedric prepares the course report structure in Google Docs, including references, contribution matrix, decision notes and presentation outline; only `docs/report/evidence-index.md` is submitted to GitHub in Issue #13.
-- Issue #13 stays open during Phase 2 and is not counted as completed until Ranee accepts both outputs.
 
 ## Current boundary
 
@@ -60,3 +55,4 @@ Only Ranee reviews and approves Phase 2 PRs.
 - Sean: component and API interaction plan ([issue #3](https://github.com/seavens3nt/url-pattern-recognition/issues/3), [PR #30](https://github.com/seavens3nt/url-pattern-recognition/pull/30)).
 - Pamela: automata notation and DFA/minimization worksheet structure ([issue #7](https://github.com/seavens3nt/url-pattern-recognition/issues/7), [PR #29](https://github.com/seavens3nt/url-pattern-recognition/pull/29)).
 - Paul: clean-setup evidence and 10 accepted/10 rejected shared corpus ([issue #5](https://github.com/seavens3nt/url-pattern-recognition/issues/5), [PR #28](https://github.com/seavens3nt/url-pattern-recognition/pull/28)).
+- Cedric: accepted report baseline and evidence index ([issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13), [PR #33](https://github.com/seavens3nt/url-pattern-recognition/pull/33)).

@@ -7,8 +7,8 @@
 **Activation rule:** Ranee locks the Phase 2 input files and opens one self-contained issue per member. Phase 1 records and issues are not rewritten by this workflow.
 
 **Activation decision:** Active from September 17, 2026. Inputs are locked at
-commit `770b761`. Cedric's Phase 1 [Issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13)
-remains open as a carried documentation condition and does not block other packages.
+commit `770b761`. Cedric's accepted Phase 1 report baseline and evidence index are
+available from merged [PR #33](https://github.com/seavens3nt/url-pattern-recognition/pull/33).
 
 ## How members work
 
@@ -67,8 +67,7 @@ comment on the issue. Continue every task in the package that is still possible.
 - [Cedric — Issue #42](https://github.com/seavens3nt/url-pattern-recognition/issues/42)
 
 Cedric's [Phase 1 Issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13)
-remains a separate open condition. Completing Issue #42 does not automatically
-close Issue #13.
+is closed. Issue #42 continues the accepted report with verified Phase 2 evidence.
 
 ## Independent work packages
 
@@ -273,9 +272,11 @@ docs/qa/phase-2-report.md
 
 **Verify:** every case has an ID, rule, expected result, actual result, and evidence; all commands and commit IDs are recorded.
 
-### Cedric — theory chapter and evidence
+### Cedric — integrate Phase 2 evidence into the accepted report
 
-**Start:** immediately from the locked language, RE, notation, architecture, and existing evidence. Insert final NFA/DFA figures only after they appear on `main`; do not wait to draft the stable sections.
+**Start:** from the accepted Google Doc and evidence index merged in PR #33.
+Draft stable explanations immediately. Insert final Phase 2 artifacts only after
+they appear on `main`; no personal handoff is required.
 
 **Owned paths:**
 
@@ -285,19 +286,22 @@ docs/report/evidence-index.md
 
 **Tasks and expected outputs:**
 
-- In the existing report Google Doc, explain the RE-to-NFA method, subset
-  construction, minimization, simulator, and web-application flow.
-- Insert only merged tables, diagrams, screenshots, and test results with
-  captions, source links, and owner attribution.
-- Maintain APA references, the presentation outline, and the evidence index
-  using only `Complete`, `Pending`, or `Blocked`.
-- Keep unmerged or untested claims marked `Pending`.
+- Replace Pending NFA/DFA/minimization sections with Ralph's and Pamela's merged
+  formal artifacts, tables, diagrams, mappings, and traces.
+- Update system design, implementation, testing, security, deployment, and
+  performance sections only from merged work and recorded evidence.
+- Add figure/table numbers, captions, source links, and verified ownership.
+- Update the contribution matrix and 9-minute presentation/demo sequence using
+  verified Phase 2 contributions.
+- Update every evidence-index status using only `Complete`, `Pending`, or `Blocked`.
+- Leave accepted Phase 1 sections unchanged unless Ranee assigns a factual correction.
 
 **Boundary:** do not edit application code, automata source artifacts, tests, or another member's explanation.
 
-**Verify:** every claim points to a merged artifact or test result; terminology
-matches the locked notation; figures have captions and source links; evidence
-links resolve; no unfinished result is described as complete.
+**Verify:** every `Complete` claim points to merged evidence; terminology and
+state names match the reviewed model; every figure/table has a number, caption,
+owner, and source; all eight members appear in the contribution matrix and
+presentation sequence; the PR changes only `docs/report/evidence-index.md`.
 
 ## Phase 2 completion
 

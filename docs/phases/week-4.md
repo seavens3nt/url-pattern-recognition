@@ -93,8 +93,8 @@ portal has an earlier cutoff.
 
 - **September 20:** Phase 2 PRs/evidence due and gate decision recorded.
 - **September 21–24:** Phase 3 integration and correction window.
-- **September 25:** feature-freeze commit recorded; Cedric's carried Issue #13
-  accepted or recorded as a final-release blocker.
+- **September 25:** feature-freeze commit recorded and verified Phase 2 evidence
+  integrated into the accepted report baseline.
 - **September 26–27:** final QA, clean run, paper, slides, demo, and fallback.
 - **September 28:** release candidate tagged and full timed rehearsal completed.
 - **September 29:** upload and verification only; submission receipt saved.

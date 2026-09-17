@@ -20,9 +20,8 @@ portal has an earlier cutoff.
   Phase 2 gate decision.
 - **September 21–24:** integrate the approved automaton, API, React interface,
   automated tests, deployment configuration, and report evidence.
-- **September 25:** record the feature-freeze commit. Cedric's carried
-  [Issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13)
-  must be accepted or recorded as a final-release blocker.
+- **September 25:** record the feature-freeze commit and finish integrating
+  verified Phase 2 evidence into the accepted report baseline.
 - **September 26–27:** run final regression and clean setup; finish the paper,
   slides, demo script, citations, screenshots, and offline fallback.
 - **September 28:** tag the release candidate, finish one full timed rehearsal,
