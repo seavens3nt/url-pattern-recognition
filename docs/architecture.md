@@ -22,7 +22,10 @@ backend/
   requirements.txt and requirements-dev.txt Backend dependencies only
 tests/test_api.py                          Paul: API contract and boundary tests
 docs/phases/week-1.md through week-4.md     Weekly work packages and phase gates
-.github/workflows/checks.yml               Ranee: CI with Paul reviewing checks
+.github/workflows/checks.yml               Ranee: CI and live API smoke job
+scripts/check_all.py                       Ranee: one-command project verification
+scripts/smoke_api.py                       Ranee: live API contract smoke test
+compose.yaml and deployment/               Ranee: production-like container setup
 ```
 
 ## Planned artifacts and files
@@ -51,8 +54,18 @@ The service now runs the approved core language through the DFA simulator and re
 
 ## Phase 2 onward ownership rules
 
-Ranee locks the authoritative inputs before opening a phase and is the only PR approver. Each issue lists non-overlapping editable paths. Isaiah owns global presentation/CSS; Sean owns validator interaction and frontend API calls; Jared owns backend routes, services, simulator, and backend unit/API tests; Ralph and Pamela own their separate formal artifacts; Paul owns fixtures, cross-layer QA evidence, and QA-specific tests; Cedric owns report and presentation files.
+Ranee owns project-wide verification, CI smoke testing, deployment configuration,
+integration, and phase control. Member-owned paths reduce collisions; they do not
+limit Ranee's authority to modify any file for integration, urgent fixes, or
+deadline recovery when the reason is recorded in the PR. Isaiah owns global presentation/CSS; Sean owns validator
+interaction and frontend API calls; Jared owns backend routes, services,
+simulator, and backend unit/API tests; Ralph and Pamela own their separate formal
+artifacts; Paul owns fixtures, cross-layer QA evidence, and QA-specific tests;
+Cedric owns report and presentation files.
 
-Frontend owners must not edit `backend/`; backend owners must not edit `frontend/`. Formal, QA, and paper owners must not fix implementation files. When a necessary change falls outside an issue's paths, the member records the contradiction or blocker in their own issue and Ranee changes the decision, expands the owned paths, or creates a separate issue.
+Frontend owners must not edit `backend/`; backend owners must not edit `frontend/`.
+Formal, QA, and paper owners must stay within their listed implementation and
+evidence files. These restrictions apply to members; Ranee may make cross-cutting
+integration or deadline fixes and records the affected issue in the PR.
 
 Members start every portion supported by the locked files already on `main`. When a required dependency is later merged, the dependent owner pulls `main` and continues without seeking a message, peer review, or handoff acceptance. See [Independent work-package template](work-package-template.md).

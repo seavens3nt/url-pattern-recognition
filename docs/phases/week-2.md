@@ -6,10 +6,16 @@
 
 **Activation rule:** Ranee locks the Phase 2 input files and opens one self-contained issue per member. Phase 1 records and issues are not rewritten by this workflow.
 
+**Activation decision:** Active from September 17, 2026. Inputs are locked at
+commit `770b761`. Cedric's accepted Phase 1 report baseline and evidence index are
+available from merged [PR #33](https://github.com/seavens3nt/url-pattern-recognition/pull/33).
+
 ## How members work
 
 - Start immediately when every authoritative input for the package is already on `main`.
 - Work only in the owned paths listed below. Frontend owners must not edit `backend/`; backend owners must not edit `frontend/`.
+- Ranee may edit any repository file for integration, urgent fixes, or deadline
+  recovery. The reason and affected member issue must be recorded in the PR.
 - Pull `main`, create one task branch, complete the package, run its checks, and open one PR.
 - Do not request another member's approval. Only Ranee reviews and approves PRs.
 - If an input is missing or contradictory, comment on the owner's issue. Ranee decides and updates the locked input.
@@ -28,20 +34,76 @@ The required issue shape and PR checklist are in [Independent work-package templ
 
 Only Ranee may approve a change to these inputs during the phase.
 
+## Required check before opening a PR
+
+Every member must complete this checklist inside the PR description:
+
+- Pull the latest `main` before starting and again before the final test run.
+- Run `git diff --name-only origin/main...HEAD`. Members confirm that every
+  changed path belongs to their issue; frontend packages must not change
+  `backend/` and backend packages must not change `frontend/`. Ranee may make a
+  cross-cutting integration or deadline fix when the PR records the reason and
+  affected member issue.
+- Run the package-specific tests and `git diff --check`.
+- Attach the issue's required evidence, such as diagrams, screenshots, test
+  output, or worked traces.
+- Explain the result, list the checks run, and include `Refs #<issue-number>`.
+- Leave the PR unmerged for Ranee's review. No peer approval or personal handoff
+  is required.
+
+If a requirement is missing or contradictory, stop only the affected part and
+comment on the issue. Continue every task in the package that is still possible.
+
+## GitHub issue map
+
+- [Tracker — Issue #34](https://github.com/seavens3nt/url-pattern-recognition/issues/34)
+- [Ranee — Issue #35](https://github.com/seavens3nt/url-pattern-recognition/issues/35)
+- [Ralph — Issue #36](https://github.com/seavens3nt/url-pattern-recognition/issues/36)
+- [Pamela — Issue #37](https://github.com/seavens3nt/url-pattern-recognition/issues/37)
+- [Jared — Issue #38](https://github.com/seavens3nt/url-pattern-recognition/issues/38)
+- [Isaiah — Issue #39](https://github.com/seavens3nt/url-pattern-recognition/issues/39)
+- [Sean — Issue #40](https://github.com/seavens3nt/url-pattern-recognition/issues/40)
+- [Paul — Issue #41](https://github.com/seavens3nt/url-pattern-recognition/issues/41)
+- [Cedric — Issue #42](https://github.com/seavens3nt/url-pattern-recognition/issues/42)
+
+Cedric's [Phase 1 Issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13)
+is closed. Issue #42 continues the accepted report with verified Phase 2 evidence.
+
 ## Independent work packages
 
-### Ranee — phase control
+### Ranee — integration tooling, deployment foundation, and phase control
 
-**Owned paths:** `docs/status.md`, `docs/roadmap.md`, `docs/release/`, GitHub Phase 2 issues.
+**Owned paths:**
+
+```text
+scripts/check_all.py
+scripts/smoke_api.py
+.github/workflows/checks.yml
+compose.yaml
+deployment/backend.Dockerfile
+deployment/frontend.Dockerfile
+deployment/nginx.conf
+docs/status.md
+docs/release/
+```
 
 **Tasks and expected outputs:**
 
-- Lock the Phase 2 input files and record their commit.
-- Open one issue per member with exact owned paths and checks.
-- Review and merge PRs; record blockers and scope decisions.
-- Record the Phase 3 go/no-go decision.
+- Build a one-command Python verification runner for backend and frontend checks.
+- Build an API smoke-test script and run it in GitHub Actions against a live Flask process.
+- Add a production-like Docker Compose stack: built React through Nginx, `/api`
+  proxied to Flask, bounded health checks, and no development servers in final images.
+- Record startup, health, build-size, first-response, and restart evidence.
+- Keep the tracker accurate, enforce file boundaries, and record the Phase 3 decision.
 
-**Verify:** every active issue follows the work-package template; no two packages own the same editable file; all merged PR checks pass.
+**Authority:** member ownership prevents collisions but does not restrict Ranee.
+Ranee may modify any file for integration, urgent fixes, or deadline recovery
+and records the reason and affected issue in the PR.
+
+**Verify:** `python scripts/check_all.py` works from different directories; the
+smoke job passes in CI; `docker compose build` and `docker compose up` produce a
+healthy application; browser requests use `/api`; any cross-owned edit records
+its reason and affected issue.
 
 ### Ralph — RE and NFA
 
@@ -64,7 +126,8 @@ docs/automata/diagrams/nfa.dot
 
 **Boundary:** do not edit `frontend/`, `backend/`, Pamela's DFA/minimization files, or QA fixtures.
 
-**Verify:** render the diagram, check every transition against the RE, run `git diff --check`, and confirm all worked cases use the shared fixture.
+**Verify:** render the diagram, check every transition against the RE, run
+`git diff --check`, and confirm all worked cases use shared fixture IDs.
 
 ### Pamela — DFA and minimization
 
@@ -84,14 +147,16 @@ backend/automata/url_dfa.json
 **Tasks and expected outputs:**
 
 - Calculate epsilon closures and every reachable subset.
-- Build a complete DFA with a sink state and disjoint symbol columns.
-- Minimize the DFA and record every partition refinement.
-- Map DFA states to minimized states.
-- Produce editable diagrams and the machine-readable model.
+- Build a complete DFA with disjoint symbol columns and an explicit sink state.
+- Record every partition-refinement step and the original-to-minimized state map.
+- Produce editable diagrams and encode the reviewed minimized table exactly in
+  the machine-readable JSON model.
 
 **Boundary:** do not edit Flask routes/services, simulator code, React files, Ralph's NFA, or QA tests.
 
-**Verify:** every DFA row is total and deterministic; accepting sets contain an NFA accepting state; minimized transitions preserve the language; JSON parses; `git diff --check` passes.
+**Verify:** every DFA row is total and deterministic; accepting subsets contain
+an NFA accepting state; minimized transitions preserve the language; JSON matches
+the documented table; diagrams render; `git diff --check` passes.
 
 ### Jared — simulator and API
 
@@ -116,6 +181,7 @@ tests/test_simulator.py
 - Return `accepted`, `message`, `final_state`, and ordered `trace` fields.
 - Keep HTTP rejection separate from malformed requests.
 - Add backend unit and API tests.
+- Reject invalid model schemas and confirm submitted URLs are never fetched.
 
 **Boundary:** do not edit `frontend/`, formal construction documents, Figma/wireframe files, or the shared fixture expectations.
 
@@ -128,17 +194,25 @@ tests/test_simulator.py
 **Owned paths:**
 
 ```text
+frontend/src/ui/UrlForm.jsx
+frontend/src/ui/StatusPanel.jsx
+frontend/src/ui/TraceTable.jsx
+frontend/src/ui/LoadingIndicator.jsx
+frontend/src/ui/ui.test.jsx
 frontend/src/style.css
-frontend/src/ui/
 docs/ui/accessibility-checklist.md
 ```
 
 **Tasks and expected outputs:**
 
+- Implement tested form, loading, status, final-state, and trace components that
+  receive values and callbacks through props and never call the API.
 - Implement the visual system and responsive desktop/mobile layout.
 - Style idle, loading, accepted, rejected, invalid-request, and offline states.
 - Add visible keyboard focus, readable labels, and accessible contrast notes.
-- Record the final visual/accessibility checklist.
+- Add tests for labels, keyboard submission, disabled/loading state, status
+  semantics, empty trace, and populated trace.
+- Record the final visual/accessibility checklist and production asset sizes.
 
 **Boundary:** do not edit `backend/`, API helpers, validator state logic, automata files, or backend tests.
 
@@ -158,10 +232,12 @@ frontend/src/features/validator/ValidatorPage.test.jsx
 
 **Tasks and expected outputs:**
 
-- Implement one URL input and request submission.
+- Implement one URL input and request submission with an environment-configurable
+  API base URL and bounded timeout.
 - Render loading, accepted, rejected, invalid-request, offline, and unexpected-response states.
 - Display `message`, `final_state`, and the ordered transition table.
-- Prevent duplicate submission and support retry.
+- Prevent duplicate submission, cancel stale requests, and support retry.
+- Validate response shape before rendering.
 - Add component tests for every interface state.
 
 **Boundary:** do not edit `backend/`, the approved language/API documents, automata files, global CSS, or QA-owned tests.
@@ -177,15 +253,18 @@ frontend/src/features/validator/ValidatorPage.test.jsx
 ```text
 tests/fixtures/url_cases.json
 tests/test_language_cases.py
+tests/test_security.py
+tests/test_integration.py
 frontend/src/App.test.jsx
 docs/qa/phase-2-report.md
 ```
 
 **Tasks and expected outputs:**
 
-- Verify the 10 accepted and 10 rejected expectations against the locked rules.
-- Add boundary cases without changing approved results.
-- Run formal, backend, and frontend checks available on `main`.
+- Code parameterized tests for the 20 shared cases and justified boundaries.
+- Code malformed, oversized, wrong-type, unknown-symbol, and URL-fetching security tests.
+- Code cross-layer agreement tests for NFA, generated DFA, simulator, and API.
+- Add frontend regressions for offline, timeout, duplicate submission, and malformed responses.
 - Record defects with reproduction steps and actual/expected results.
 - Produce a Phase 2 QA report.
 
@@ -193,9 +272,11 @@ docs/qa/phase-2-report.md
 
 **Verify:** every case has an ID, rule, expected result, actual result, and evidence; all commands and commit IDs are recorded.
 
-### Cedric — theory chapter
+### Cedric — integrate Phase 2 evidence into the accepted report
 
-**Start:** immediately from the locked language, RE, notation, architecture, and existing evidence. Insert final NFA/DFA figures only after they appear on `main`; do not wait to draft the stable sections.
+**Start:** from the accepted Google Doc and evidence index merged in PR #33.
+Draft stable explanations immediately. Insert final Phase 2 artifacts only after
+they appear on `main`; no personal handoff is required.
 
 **Owned paths:**
 
@@ -205,14 +286,22 @@ docs/report/evidence-index.md
 
 **Tasks and expected outputs:**
 
-- In the existing report Google Doc, explain the RE-to-NFA, subset-construction, and minimization methods; keep references in the same document.
-- Insert merged tables/diagrams with captions and source links.
-- Maintain references and the evidence index.
-- Attribute each technical artifact to its owner.
+- Replace Pending NFA/DFA/minimization sections with Ralph's and Pamela's merged
+  formal artifacts, tables, diagrams, mappings, and traces.
+- Update system design, implementation, testing, security, deployment, and
+  performance sections only from merged work and recorded evidence.
+- Add figure/table numbers, captions, source links, and verified ownership.
+- Update the contribution matrix and 9-minute presentation/demo sequence using
+  verified Phase 2 contributions.
+- Update every evidence-index status using only `Complete`, `Pending`, or `Blocked`.
+- Leave accepted Phase 1 sections unchanged unless Ranee assigns a factual correction.
 
 **Boundary:** do not edit application code, automata source artifacts, tests, or another member's explanation.
 
-**Verify:** every claim points to a merged artifact or test result; terminology matches the locked notation; no unfinished result is described as complete.
+**Verify:** every `Complete` claim points to merged evidence; terminology and
+state names match the reviewed model; every figure/table has a number, caption,
+owner, and source; all eight members appear in the contribution matrix and
+presentation sequence; the PR changes only `docs/report/evidence-index.md`.
 
 ## Phase 2 completion
 

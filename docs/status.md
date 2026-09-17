@@ -2,14 +2,18 @@
 
 | Status field | Value |
 | --- | --- |
-| Evidence date | 2026-09-16 |
-| Active sprint | Phase 1 — Foundation and specification |
-| Active guide | [Phase 1 assignments](phases/week-1.md) |
-| Phase 1 deadline | Wednesday, September 16, 2026 |
+| Evidence date | 2026-09-17 |
+| Active sprint | Phase 2 — Independent construction packages |
+| Active guide | [Phase 2 assignments](phases/week-2.md) |
+| Phase 2 deadline | Sunday, September 20, 2026 |
+| Locked input commit | `770b761` |
 
 This is a reviewed snapshot. GitHub issues and PRs contain the live task state.
 
-Phase 2 is planned in the repository guide only. Its GitHub tracker and member issues must remain unopened until Ranee accepts the Phase 1 gate.
+Ranee accepted Cedric's Phase 1 Google Doc and merged evidence index in
+[PR #33](https://github.com/seavens3nt/url-pattern-recognition/pull/33).
+[Issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13) is
+closed. Phase 2 has no carried Phase 1 documentation condition.
 
 ## Ready
 
@@ -25,11 +29,6 @@ Phase 2 is planned in the repository guide only. Its GitHub tracker and member i
 - Reviewed validation API contract.
 - Working DFA simulator, Flask integration, React verdict states, and transition trace display on the integration branch.
 
-## Pending in Phase 1
-
-- Cedric prepares the course report structure in Google Docs, including references, contribution matrix, decision notes and presentation outline; only `docs/report/evidence-index.md` is submitted to GitHub in Issue #13.
-- Ranee keeps the Phase 1 tracker open until Cedric's deliverable is reviewed and merged.
-
 ## Current boundary
 
 The core language, regular expression, API contract, automata notation, shared corpus, component plan and starter integration are reviewed on `main`. The NFA, subset-construction DFA, minimized model, final UI review, deployment and defense materials still need their assigned evidence and reviews.
@@ -44,7 +43,8 @@ formal and API testing are documented separately.
 - Frontend: 2 Vitest tests, ESLint and production build passed.
 - Browser: React reached Flask on desktop and mobile layouts; submitting a URL showed the current DFA verdict, final state, and ordered transition trace.
 
-At the Phase 1 review, update this page with PR links, check results, blockers and the Phase 2 activation decision.
+The live package status is in the [Phase 2 tracker](https://github.com/seavens3nt/url-pattern-recognition/issues/34).
+Only Ranee reviews and approves Phase 2 PRs.
 
 ## Completed Phase 1 member tasks
 
@@ -55,3 +55,4 @@ At the Phase 1 review, update this page with PR links, check results, blockers a
 - Sean: component and API interaction plan ([issue #3](https://github.com/seavens3nt/url-pattern-recognition/issues/3), [PR #30](https://github.com/seavens3nt/url-pattern-recognition/pull/30)).
 - Pamela: automata notation and DFA/minimization worksheet structure ([issue #7](https://github.com/seavens3nt/url-pattern-recognition/issues/7), [PR #29](https://github.com/seavens3nt/url-pattern-recognition/pull/29)).
 - Paul: clean-setup evidence and 10 accepted/10 rejected shared corpus ([issue #5](https://github.com/seavens3nt/url-pattern-recognition/issues/5), [PR #28](https://github.com/seavens3nt/url-pattern-recognition/pull/28)).
+- Cedric: accepted report baseline and evidence index ([issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13), [PR #33](https://github.com/seavens3nt/url-pattern-recognition/pull/33)).
