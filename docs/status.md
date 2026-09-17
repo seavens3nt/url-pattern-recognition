@@ -2,14 +2,18 @@
 
 | Status field | Value |
 | --- | --- |
-| Evidence date | 2026-09-16 |
-| Active sprint | Phase 1 — Foundation and specification |
-| Active guide | [Phase 1 assignments](phases/week-1.md) |
-| Phase 1 deadline | Wednesday, September 16, 2026 |
+| Evidence date | 2026-09-17 |
+| Active sprint | Phase 2 — Independent construction packages |
+| Active guide | [Phase 2 assignments](phases/week-2.md) |
+| Phase 2 deadline | Sunday, September 20, 2026 |
+| Locked input commit | `770b761` |
 
 This is a reviewed snapshot. GitHub issues and PRs contain the live task state.
 
-Phase 2 is planned in the repository guide only. Its GitHub tracker and member issues must remain unopened until Ranee accepts the Phase 1 gate.
+Ranee approved the Phase 1 gate with one carried condition: Cedric's
+[Issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13)
+remains open until its Google Docs and evidence-index requirements are accepted.
+That condition does not block the independently owned Phase 2 packages.
 
 ## Ready
 
@@ -25,10 +29,10 @@ Phase 2 is planned in the repository guide only. Its GitHub tracker and member i
 - Reviewed validation API contract.
 - Working DFA simulator, Flask integration, React verdict states, and transition trace display on the integration branch.
 
-## Pending in Phase 1
+## Carried Phase 1 condition
 
 - Cedric prepares the course report structure in Google Docs, including references, contribution matrix, decision notes and presentation outline; only `docs/report/evidence-index.md` is submitted to GitHub in Issue #13.
-- Ranee keeps the Phase 1 tracker open until Cedric's deliverable is reviewed and merged.
+- Issue #13 stays open during Phase 2 and is not counted as completed until Ranee accepts both outputs.
 
 ## Current boundary
 
@@ -44,7 +48,8 @@ formal and API testing are documented separately.
 - Frontend: 2 Vitest tests, ESLint and production build passed.
 - Browser: React reached Flask on desktop and mobile layouts; submitting a URL showed the current DFA verdict, final state, and ordered transition trace.
 
-At the Phase 1 review, update this page with PR links, check results, blockers and the Phase 2 activation decision.
+The live package status is in the [Phase 2 tracker](https://github.com/seavens3nt/url-pattern-recognition/issues/34).
+Only Ranee reviews and approves Phase 2 PRs.
 
 ## Completed Phase 1 member tasks
 

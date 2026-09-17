@@ -6,6 +6,10 @@
 
 **Activation rule:** Ranee locks the Phase 2 input files and opens one self-contained issue per member. Phase 1 records and issues are not rewritten by this workflow.
 
+**Activation decision:** Active from September 17, 2026. Inputs are locked at
+commit `770b761`. Cedric's Phase 1 [Issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13)
+remains open as a carried documentation condition and does not block other packages.
+
 ## How members work
 
 - Start immediately when every authoritative input for the package is already on `main`.
@@ -27,6 +31,40 @@ The required issue shape and PR checklist are in [Independent work-package templ
 - `tests/fixtures/url_cases.json`
 
 Only Ranee may approve a change to these inputs during the phase.
+
+## Required check before opening a PR
+
+Every member must complete this checklist inside the PR description:
+
+- Pull the latest `main` before starting and again before the final test run.
+- Run `git diff --name-only origin/main...HEAD` and confirm that every changed
+  path belongs to the issue's owned files. Frontend packages must not change
+  `backend/`; backend packages must not change `frontend/`.
+- Run the package-specific tests and `git diff --check`.
+- Attach the issue's required evidence, such as diagrams, screenshots, test
+  output, or worked traces.
+- Explain the result, list the checks run, and include `Refs #<issue-number>`.
+- Leave the PR unmerged for Ranee's review. No peer approval or personal handoff
+  is required.
+
+If a requirement is missing or contradictory, stop only the affected part and
+comment on the issue. Continue every task in the package that is still possible.
+
+## GitHub issue map
+
+- [Tracker — Issue #34](https://github.com/seavens3nt/url-pattern-recognition/issues/34)
+- [Ranee — Issue #35](https://github.com/seavens3nt/url-pattern-recognition/issues/35)
+- [Ralph — Issue #36](https://github.com/seavens3nt/url-pattern-recognition/issues/36)
+- [Pamela — Issue #37](https://github.com/seavens3nt/url-pattern-recognition/issues/37)
+- [Jared — Issue #38](https://github.com/seavens3nt/url-pattern-recognition/issues/38)
+- [Isaiah — Issue #39](https://github.com/seavens3nt/url-pattern-recognition/issues/39)
+- [Sean — Issue #40](https://github.com/seavens3nt/url-pattern-recognition/issues/40)
+- [Paul — Issue #41](https://github.com/seavens3nt/url-pattern-recognition/issues/41)
+- [Cedric — Issue #42](https://github.com/seavens3nt/url-pattern-recognition/issues/42)
+
+Cedric's [Phase 1 Issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13)
+remains a separate open condition. Completing Issue #42 does not automatically
+close Issue #13.
 
 ## Independent work packages
 
