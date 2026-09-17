@@ -68,18 +68,38 @@ close Issue #13.
 
 ## Independent work packages
 
-### Ranee — phase control
+### Ranee — integration tooling, deployment foundation, and phase control
 
-**Owned paths:** `docs/status.md`, `docs/roadmap.md`, `docs/release/`, GitHub Phase 2 issues.
+**Owned paths:**
+
+```text
+scripts/check_all.py
+scripts/smoke_api.py
+.github/workflows/checks.yml
+compose.yaml
+deployment/backend.Dockerfile
+deployment/frontend.Dockerfile
+deployment/nginx.conf
+docs/status.md
+docs/release/
+```
 
 **Tasks and expected outputs:**
 
-- Lock the Phase 2 input files and record their commit.
-- Open one issue per member with exact owned paths and checks.
-- Review and merge PRs; record blockers and scope decisions.
-- Record the Phase 3 go/no-go decision.
+- Build a one-command Python verification runner for backend and frontend checks.
+- Build an API smoke-test script and run it in GitHub Actions against a live Flask process.
+- Add a production-like Docker Compose stack: built React through Nginx, `/api`
+  proxied to Flask, bounded health checks, and no development servers in final images.
+- Record startup, health, build-size, first-response, and restart evidence.
+- Keep the tracker accurate, enforce file boundaries, and record the Phase 3 decision.
 
-**Verify:** every active issue follows the work-package template; no two packages own the same editable file; all merged PR checks pass.
+**Boundary:** do not edit `backend/` application source, `frontend/src/`, formal
+automata files, or another member's tests. Route any required source change to
+the file owner through the issue.
+
+**Verify:** `python scripts/check_all.py` works from different directories; the
+smoke job passes in CI; `docker compose build` and `docker compose up` produce a
+healthy application; browser requests use `/api`; only owned files change.
 
 ### Ralph — RE and NFA
 
