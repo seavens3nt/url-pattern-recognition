@@ -14,6 +14,8 @@ remains open as a carried documentation condition and does not block other packa
 
 - Start immediately when every authoritative input for the package is already on `main`.
 - Work only in the owned paths listed below. Frontend owners must not edit `backend/`; backend owners must not edit `frontend/`.
+- Ranee may edit any repository file for integration, urgent fixes, or deadline
+  recovery. The reason and affected member issue must be recorded in the PR.
 - Pull `main`, create one task branch, complete the package, run its checks, and open one PR.
 - Do not request another member's approval. Only Ranee reviews and approves PRs.
 - If an input is missing or contradictory, comment on the owner's issue. Ranee decides and updates the locked input.
@@ -37,9 +39,11 @@ Only Ranee may approve a change to these inputs during the phase.
 Every member must complete this checklist inside the PR description:
 
 - Pull the latest `main` before starting and again before the final test run.
-- Run `git diff --name-only origin/main...HEAD` and confirm that every changed
-  path belongs to the issue's owned files. Frontend packages must not change
-  `backend/`; backend packages must not change `frontend/`.
+- Run `git diff --name-only origin/main...HEAD`. Members confirm that every
+  changed path belongs to their issue; frontend packages must not change
+  `backend/` and backend packages must not change `frontend/`. Ranee may make a
+  cross-cutting integration or deadline fix when the PR records the reason and
+  affected member issue.
 - Run the package-specific tests and `git diff --check`.
 - Attach the issue's required evidence, such as diagrams, screenshots, test
   output, or worked traces.
@@ -93,13 +97,14 @@ docs/release/
 - Record startup, health, build-size, first-response, and restart evidence.
 - Keep the tracker accurate, enforce file boundaries, and record the Phase 3 decision.
 
-**Boundary:** do not edit `backend/` application source, `frontend/src/`, formal
-automata files, or another member's tests. Route any required source change to
-the file owner through the issue.
+**Authority:** member ownership prevents collisions but does not restrict Ranee.
+Ranee may modify any file for integration, urgent fixes, or deadline recovery
+and records the reason and affected issue in the PR.
 
 **Verify:** `python scripts/check_all.py` works from different directories; the
 smoke job passes in CI; `docker compose build` and `docker compose up` produce a
-healthy application; browser requests use `/api`; only owned files change.
+healthy application; browser requests use `/api`; any cross-owned edit records
+its reason and affected issue.
 
 ### Ralph — RE and NFA
 
@@ -111,18 +116,23 @@ healthy application; browser requests use `/api`; only owned files change.
 docs/automata/regular-expression.md
 docs/automata/nfa.md
 docs/automata/diagrams/nfa.dot
+backend/automata/nfa.py
+tests/test_nfa.py
 ```
 
 **Tasks and expected outputs:**
 
-- Finalize the named RE without expanding the approved language.
-- Construct the epsilon-NFA with numbered states, start/accepting states, and transitions.
+- Implement immutable NFA states/transitions plus `epsilon_closure`, `move`, and
+  complete-input `accepts` behavior.
+- Encode the approved RE as an executable epsilon-NFA without expanding the language.
 - Add a complete transition table and editable Graphviz source.
+- Add unit tests and verify all 20 shared cases through the NFA.
 - Trace at least two accepted and two rejected fixture cases.
 
 **Boundary:** do not edit `frontend/`, `backend/`, Pamela's DFA/minimization files, or QA fixtures.
 
-**Verify:** render the diagram, check every transition against the RE, run `git diff --check`, and confirm all worked cases use the shared fixture.
+**Verify:** run Ralph's pytest file and Ruff, confirm all 20 fixture verdicts,
+render the diagram, and run `git diff --check`.
 
 ### Pamela — DFA and minimization
 
@@ -137,19 +147,26 @@ docs/automata/minimization.md
 docs/automata/diagrams/dfa.dot
 docs/automata/diagrams/minimized-dfa.dot
 backend/automata/url_dfa.json
+backend/automata/construction.py
+backend/automata/minimization.py
+tests/test_construction.py
+tests/test_minimization.py
 ```
 
 **Tasks and expected outputs:**
 
-- Calculate epsilon closures and every reachable subset.
-- Build a complete DFA with a sink state and disjoint symbol columns.
-- Minimize the DFA and record every partition refinement.
-- Map DFA states to minimized states.
-- Produce editable diagrams and the machine-readable model.
+- Implement reachable-state subset construction from the NFA interface.
+- Implement total sink behavior and partition-refinement minimization.
+- Test closures/subsets, unreachable states, sink behavior, equivalent-state
+  merging, and language preservation.
+- Serialize the minimized DFA deterministically and generate its formal tables,
+  state map, and editable diagrams.
 
 **Boundary:** do not edit Flask routes/services, simulator code, React files, Ralph's NFA, or QA tests.
 
-**Verify:** every DFA row is total and deterministic; accepting sets contain an NFA accepting state; minimized transitions preserve the language; JSON parses; `git diff --check` passes.
+**Verify:** run Pamela's pytest files and Ruff; every DFA row is total and
+deterministic; all 20 fixture verdicts are preserved; JSON and diagrams validate;
+`git diff --check` passes.
 
 ### Jared — simulator and API
 
@@ -174,6 +191,7 @@ tests/test_simulator.py
 - Return `accepted`, `message`, `final_state`, and ordered `trace` fields.
 - Keep HTTP rejection separate from malformed requests.
 - Add backend unit and API tests.
+- Reject invalid model schemas and confirm submitted URLs are never fetched.
 
 **Boundary:** do not edit `frontend/`, formal construction documents, Figma/wireframe files, or the shared fixture expectations.
 
@@ -186,17 +204,25 @@ tests/test_simulator.py
 **Owned paths:**
 
 ```text
+frontend/src/ui/UrlForm.jsx
+frontend/src/ui/StatusPanel.jsx
+frontend/src/ui/TraceTable.jsx
+frontend/src/ui/LoadingIndicator.jsx
+frontend/src/ui/ui.test.jsx
 frontend/src/style.css
-frontend/src/ui/
 docs/ui/accessibility-checklist.md
 ```
 
 **Tasks and expected outputs:**
 
+- Implement tested form, loading, status, final-state, and trace components that
+  receive values and callbacks through props and never call the API.
 - Implement the visual system and responsive desktop/mobile layout.
 - Style idle, loading, accepted, rejected, invalid-request, and offline states.
 - Add visible keyboard focus, readable labels, and accessible contrast notes.
-- Record the final visual/accessibility checklist.
+- Add tests for labels, keyboard submission, disabled/loading state, status
+  semantics, empty trace, and populated trace.
+- Record the final visual/accessibility checklist and production asset sizes.
 
 **Boundary:** do not edit `backend/`, API helpers, validator state logic, automata files, or backend tests.
 
@@ -216,10 +242,12 @@ frontend/src/features/validator/ValidatorPage.test.jsx
 
 **Tasks and expected outputs:**
 
-- Implement one URL input and request submission.
+- Implement one URL input and request submission with an environment-configurable
+  API base URL and bounded timeout.
 - Render loading, accepted, rejected, invalid-request, offline, and unexpected-response states.
 - Display `message`, `final_state`, and the ordered transition table.
-- Prevent duplicate submission and support retry.
+- Prevent duplicate submission, cancel stale requests, and support retry.
+- Validate response shape before rendering.
 - Add component tests for every interface state.
 
 **Boundary:** do not edit `backend/`, the approved language/API documents, automata files, global CSS, or QA-owned tests.
@@ -235,15 +263,18 @@ frontend/src/features/validator/ValidatorPage.test.jsx
 ```text
 tests/fixtures/url_cases.json
 tests/test_language_cases.py
+tests/test_security.py
+tests/test_integration.py
 frontend/src/App.test.jsx
 docs/qa/phase-2-report.md
 ```
 
 **Tasks and expected outputs:**
 
-- Verify the 10 accepted and 10 rejected expectations against the locked rules.
-- Add boundary cases without changing approved results.
-- Run formal, backend, and frontend checks available on `main`.
+- Code parameterized tests for the 20 shared cases and justified boundaries.
+- Code malformed, oversized, wrong-type, unknown-symbol, and URL-fetching security tests.
+- Code cross-layer agreement tests for NFA, generated DFA, simulator, and API.
+- Add frontend regressions for offline, timeout, duplicate submission, and malformed responses.
 - Record defects with reproduction steps and actual/expected results.
 - Produce a Phase 2 QA report.
 
@@ -251,26 +282,33 @@ docs/qa/phase-2-report.md
 
 **Verify:** every case has an ID, rule, expected result, actual result, and evidence; all commands and commit IDs are recorded.
 
-### Cedric — theory chapter
+### Cedric — report evidence checker and generator
 
 **Start:** immediately from the locked language, RE, notation, architecture, and existing evidence. Insert final NFA/DFA figures only after they appear on `main`; do not wait to draft the stable sections.
 
 **Owned paths:**
 
 ```text
+scripts/check_evidence.py
+tests/test_evidence_index.py
 docs/report/evidence-index.md
+docs/report/generated-evidence.md
 ```
 
 **Tasks and expected outputs:**
 
-- In the existing report Google Doc, explain the RE-to-NFA, subset-construction, and minimization methods; keep references in the same document.
-- Insert merged tables/diagrams with captions and source links.
-- Maintain references and the evidence index.
-- Attribute each technical artifact to its owner.
+- Parse the evidence-index table and enforce only `Complete`, `Pending`, or `Blocked`.
+- Validate repository-relative evidence links, unique section names, and evidence
+  for every `Complete` entry; fail with a nonzero exit code on errors.
+- Generate a deterministic evidence summary with section, owner, status, path,
+  and tested commit; add unit tests for valid and invalid indexes.
+- Use the generated evidence to update the existing Google Doc's automata explanations.
 
 **Boundary:** do not edit application code, automata source artifacts, tests, or another member's explanation.
 
-**Verify:** every claim points to a merged artifact or test result; terminology matches the locked notation; no unfinished result is described as complete.
+**Verify:** run the evidence checker, its pytest file, Ruff, and `git diff --check`;
+prove a broken link/status causes failure; every complete report claim resolves to
+merged evidence.
 
 ## Phase 2 completion
 

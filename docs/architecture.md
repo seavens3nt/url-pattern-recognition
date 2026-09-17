@@ -55,12 +55,17 @@ The service now runs the approved core language through the DFA simulator and re
 ## Phase 2 onward ownership rules
 
 Ranee owns project-wide verification, CI smoke testing, deployment configuration,
-and phase control. Isaiah owns global presentation/CSS; Sean owns validator
+integration, and phase control. Member-owned paths reduce collisions; they do not
+limit Ranee's authority to modify any file for integration, urgent fixes, or
+deadline recovery when the reason is recorded in the PR. Isaiah owns global presentation/CSS; Sean owns validator
 interaction and frontend API calls; Jared owns backend routes, services,
 simulator, and backend unit/API tests; Ralph and Pamela own their separate formal
 artifacts; Paul owns fixtures, cross-layer QA evidence, and QA-specific tests;
 Cedric owns report and presentation files.
 
-Frontend owners must not edit `backend/`; backend owners must not edit `frontend/`. Formal, QA, and paper owners must not fix implementation files. When a necessary change falls outside an issue's paths, the member records the contradiction or blocker in their own issue and Ranee changes the decision, expands the owned paths, or creates a separate issue.
+Frontend owners must not edit `backend/`; backend owners must not edit `frontend/`.
+Formal, QA, and paper owners must stay within their listed implementation and
+evidence files. These restrictions apply to members; Ranee may make cross-cutting
+integration or deadline fixes and records the affected issue in the PR.
 
 Members start every portion supported by the locked files already on `main`. When a required dependency is later merged, the dependent owner pulls `main` and continues without seeking a message, peer review, or handoff acceptance. See [Independent work-package template](work-package-template.md).
