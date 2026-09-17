@@ -116,23 +116,19 @@ its reason and affected issue.
 docs/automata/regular-expression.md
 docs/automata/nfa.md
 docs/automata/diagrams/nfa.dot
-backend/automata/nfa.py
-tests/test_nfa.py
 ```
 
 **Tasks and expected outputs:**
 
-- Implement immutable NFA states/transitions plus `epsilon_closure`, `move`, and
-  complete-input `accepts` behavior.
-- Encode the approved RE as an executable epsilon-NFA without expanding the language.
+- Finalize the named RE without expanding the approved language.
+- Construct the epsilon-NFA with numbered states, start/accepting states, and transitions.
 - Add a complete transition table and editable Graphviz source.
-- Add unit tests and verify all 20 shared cases through the NFA.
 - Trace at least two accepted and two rejected fixture cases.
 
 **Boundary:** do not edit `frontend/`, `backend/`, Pamela's DFA/minimization files, or QA fixtures.
 
-**Verify:** run Ralph's pytest file and Ruff, confirm all 20 fixture verdicts,
-render the diagram, and run `git diff --check`.
+**Verify:** render the diagram, check every transition against the RE, run
+`git diff --check`, and confirm all worked cases use shared fixture IDs.
 
 ### Pamela — DFA and minimization
 
@@ -147,26 +143,21 @@ docs/automata/minimization.md
 docs/automata/diagrams/dfa.dot
 docs/automata/diagrams/minimized-dfa.dot
 backend/automata/url_dfa.json
-backend/automata/construction.py
-backend/automata/minimization.py
-tests/test_construction.py
-tests/test_minimization.py
 ```
 
 **Tasks and expected outputs:**
 
-- Implement reachable-state subset construction from the NFA interface.
-- Implement total sink behavior and partition-refinement minimization.
-- Test closures/subsets, unreachable states, sink behavior, equivalent-state
-  merging, and language preservation.
-- Serialize the minimized DFA deterministically and generate its formal tables,
-  state map, and editable diagrams.
+- Calculate epsilon closures and every reachable subset.
+- Build a complete DFA with disjoint symbol columns and an explicit sink state.
+- Record every partition-refinement step and the original-to-minimized state map.
+- Produce editable diagrams and encode the reviewed minimized table exactly in
+  the machine-readable JSON model.
 
 **Boundary:** do not edit Flask routes/services, simulator code, React files, Ralph's NFA, or QA tests.
 
-**Verify:** run Pamela's pytest files and Ruff; every DFA row is total and
-deterministic; all 20 fixture verdicts are preserved; JSON and diagrams validate;
-`git diff --check` passes.
+**Verify:** every DFA row is total and deterministic; accepting subsets contain
+an NFA accepting state; minimized transitions preserve the language; JSON matches
+the documented table; diagrams render; `git diff --check` passes.
 
 ### Jared — simulator and API
 
@@ -282,33 +273,31 @@ docs/qa/phase-2-report.md
 
 **Verify:** every case has an ID, rule, expected result, actual result, and evidence; all commands and commit IDs are recorded.
 
-### Cedric — report evidence checker and generator
+### Cedric — theory chapter and evidence
 
 **Start:** immediately from the locked language, RE, notation, architecture, and existing evidence. Insert final NFA/DFA figures only after they appear on `main`; do not wait to draft the stable sections.
 
 **Owned paths:**
 
 ```text
-scripts/check_evidence.py
-tests/test_evidence_index.py
 docs/report/evidence-index.md
-docs/report/generated-evidence.md
 ```
 
 **Tasks and expected outputs:**
 
-- Parse the evidence-index table and enforce only `Complete`, `Pending`, or `Blocked`.
-- Validate repository-relative evidence links, unique section names, and evidence
-  for every `Complete` entry; fail with a nonzero exit code on errors.
-- Generate a deterministic evidence summary with section, owner, status, path,
-  and tested commit; add unit tests for valid and invalid indexes.
-- Use the generated evidence to update the existing Google Doc's automata explanations.
+- In the existing report Google Doc, explain the RE-to-NFA method, subset
+  construction, minimization, simulator, and web-application flow.
+- Insert only merged tables, diagrams, screenshots, and test results with
+  captions, source links, and owner attribution.
+- Maintain APA references, the presentation outline, and the evidence index
+  using only `Complete`, `Pending`, or `Blocked`.
+- Keep unmerged or untested claims marked `Pending`.
 
 **Boundary:** do not edit application code, automata source artifacts, tests, or another member's explanation.
 
-**Verify:** run the evidence checker, its pytest file, Ruff, and `git diff --check`;
-prove a broken link/status causes failure; every complete report claim resolves to
-merged evidence.
+**Verify:** every claim points to a merged artifact or test result; terminology
+matches the locked notation; figures have captions and source links; evidence
+links resolve; no unfinished result is described as complete.
 
 ## Phase 2 completion
 
