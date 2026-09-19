@@ -8,6 +8,10 @@
 
 **Shared examples:** [`tests/fixtures/url_cases.json`](../../tests/fixtures/url_cases.json)
 
+**Phase 2 status:** Finalized. No changes to the approved language. This
+version is the locked construction input for the epsilon-NFA in
+`docs/automata/nfa.md`, referenced against locked commit `770b761`.
+
 ## 1. Regularity decision
 
 The approved URL language is regular. Each component uses a finite character
@@ -93,22 +97,42 @@ core language has no query component. Full-input matching therefore produces
 
 ## 5. Fixture verification
 
-The expression was checked against the shared fixture. All 10 accepted cases
-match and all 10 rejected cases fail to match.
+The expression was checked against the full shared fixture
+(`tests/fixtures/url_cases.json`), by ID, for the Phase 2 NFA handoff.
 
-| Cases | Expected | Expression result | Outcome |
-| --- | --- | --- | --- |
-| A01–A10 | Accepted | All match | Pass |
-| R01–R10 | Rejected | None match | Pass |
+| Case ID | URL | Expected | Expression result | Outcome |
+| --- | --- | --- | --- | --- |
+| A01 | http://example.com | Accepted | Matches | Pass |
+| B01 | https://example.com/ | Accepted | Matches | Pass |
+| A03 | https://www.example.com | Accepted | Matches | Pass |
+| A04 | https://api.example.com/users | Accepted | Matches | Pass |
+| A05 | http://my-site.example.org/docs | Accepted | Matches | Pass |
+| A06 | https://v2.api.example.net/users/123 | Accepted | Matches | Pass |
+| A07 | https://example.co.uk/about-us | Accepted | Matches | Pass |
+| A08 | http://docs.example.edu/file_name | Accepted | Matches | Pass |
+| B02 | https://shop2.example.com/products/item-1/ | Accepted | Matches | Pass |
+| A10 | https://a.b.example.com/~user/read.me | Accepted | Matches | Pass |
+| R01 | ftp://example.com | Rejected | No match | Pass |
+| R02 | HTTP://example.com | Rejected | No match | Pass |
+| R03 | example.com | Rejected | No match | Pass |
+| R04 | https://localhost | Rejected | No match | Pass |
+| B03 | https://-example.com | Rejected | No match | Pass |
+| B04 | https://example..com | Rejected | No match | Pass |
+| R07 | https://example.com:8080/ | Rejected | No match | Pass |
+| R08 | https://example.com/search?q=test | Rejected | No match | Pass |
+| R09 | https://example.com/page#top | Rejected | No match | Pass |
+| R10 | https://192.168.1.1/ | Rejected | No match | Pass |
+
+All 20 fixture cases pass. No ambiguity found; no scope change required.
 
 ## 6. Construction handoff
 
-Pamela should use the named components in Section 2 as the input boundary for
-the NFA/DFA construction. The construction must preserve full-input matching
-and the stricter final-label rule. If a later automaton disagrees with any
-shared fixture, compare it with this expression and `docs/language-spec.md`
-before changing the accepted language.
+The NFA built from these named components is recorded in
+[`docs/automata/nfa.md`](nfa.md), with the transition table cross-checked
+state by state against Section 2 above. The construction preserves
+full-input matching and the stricter final-label (TLD) rule.
 
-There are no unresolved grammar questions in this Phase 1 draft. Expanding the
-language requires Ranee's approval and synchronized changes to the language
-specification, fixture, formal artifacts, simulator, API, UI messages, and tests.
+There are no unresolved grammar questions in this Phase 2 finalization.
+Expanding the language requires Ranee's approval and synchronized changes to
+the language specification, fixture, formal artifacts, simulator, API, UI
+messages, and tests.

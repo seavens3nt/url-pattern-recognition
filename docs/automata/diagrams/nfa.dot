@@ -1,0 +1,98 @@
+// Epsilon-NFA for the core URL language
+// docs/automata/regular-expression.md is the construction input
+// docs/automata/notation.md defines the notation conventions used here
+
+digraph URL_NFA {
+    rankdir=LR;
+    fontname="Helvetica";
+    node [fontname="Helvetica", fontsize=11];
+    edge [fontname="Helvetica", fontsize=10];
+
+    // invisible entry arrow into the start state
+    __start [shape=none, label="", width=0, height=0];
+    __start -> q0;
+
+    // accepting state drawn as a double circle
+    q20 [shape=doublecircle];
+
+    // all other states as single circles
+    q0 [shape=circle];
+    q1 [shape=circle];
+    q2 [shape=circle];
+    q3 [shape=circle];
+    q4 [shape=circle];
+    q5 [shape=circle];
+    q6 [shape=circle];
+    q7 [shape=circle];
+    q8 [shape=circle];
+    q9 [shape=circle];
+    q10 [shape=circle];
+    q11 [shape=circle];
+    q12 [shape=circle];
+    q13 [shape=circle];
+    q14 [shape=circle];
+    q15 [shape=circle];
+    q16 [shape=circle];
+    q17 [shape=circle];
+    q18 [shape=circle];
+    q19 [shape=circle];
+
+    // scheme: http | https
+    q0 -> q1 [label="h"];
+    q1 -> q2 [label="t"];
+    q2 -> q3 [label="t"];
+    q3 -> q4 [label="p"];
+    q4 -> q5 [label="ε"];
+    q4 -> q5 [label="s"];
+
+    // ://
+    q5 -> q6 [label=":"];
+    q6 -> q7 [label="/"];
+    q7 -> q8 [label="/"];
+
+    // LABEL (single-char and multi-char branches)
+    q8 -> q9 [label="ALNUM"];
+    q9 -> q10 [label="ε"];
+    q9 -> q11 [label="ε"];
+    q11 -> q11 [label="ALNUM"];
+    q11 -> q11 [label="-"];
+    q11 -> q10 [label="ALNUM"];
+
+    // dot after a label: continue as another label, or take TLD
+    q10 -> q12 [label="."];
+    q12 -> q8 [label="ε"];
+    q12 -> q13 [label="ε"];
+
+    // TLD
+    q13 -> q14 [label="LOWER"];
+    q14 -> q15 [label="LOWER"];
+    q15 -> q16 [label="ε"];
+    q15 -> q15 [label="LOWER"];
+
+    // host complete: accept now, or start path
+    q16 -> q20 [label="ε"];
+    q16 -> q17 [label="/"];
+
+    // path
+    q17 -> q20 [label="ε"];
+    q17 -> q18 [label="ALNUM"];
+    q17 -> q18 [label="-"];
+    q17 -> q18 [label="_"];
+    q17 -> q18 [label="."];
+    q17 -> q18 [label="~"];
+
+    q18 -> q18 [label="ALNUM"];
+    q18 -> q18 [label="-"];
+    q18 -> q18 [label="_"];
+    q18 -> q18 [label="."];
+    q18 -> q18 [label="~"];
+    q18 -> q20 [label="ε"];
+    q18 -> q19 [label="/"];
+
+    q19 -> q20 [label="ε"];
+    q19 -> q18 [label="ALNUM"];
+    q19 -> q18 [label="-"];
+    q19 -> q18 [label="_"];
+    q19 -> q18 [label="."];
+    q19 -> q18 [label="~"];
+}
