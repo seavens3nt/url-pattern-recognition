@@ -39,3 +39,11 @@ def test_rejection_stops_when_the_sink_state_is_reached():
     assert result['accepted'] is False
     assert result['final_state'] == 'SINK'
     assert result['trace'][-1]['symbol'] == '?'
+
+
+def test_repeated_internal_hyphens_follow_the_approved_label_grammar():
+    accepted = simulate_url('https://xn--fsq.com')
+    trailing_hyphen = simulate_url('https://example-.com')
+
+    assert accepted['accepted'] is True
+    assert trailing_hyphen['accepted'] is False

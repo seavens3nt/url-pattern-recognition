@@ -8,8 +8,10 @@
 
 **Shared examples:** [`tests/fixtures/url_cases.json`](../../tests/fixtures/url_cases.json)
 
-**Phase 2 status:** Finalized. No changes to the approved language. This
-version is the locked construction input for the epsilon-NFA in
+**Phase 2 status:** Finalized. Ranee's 2026-09-19 scope clarification confirms
+that an ASCII `xn--` label is processed under the ordinary `LABEL` rule without
+IDN decoding; raw Unicode remains rejected. No grammar change is required.
+This version is the locked construction input for the epsilon-NFA in
 `docs/automata/nfa.md`, referenced against locked commit `770b761`.
 
 ## 1. Regularity decision
@@ -123,7 +125,9 @@ The expression was checked against the full shared fixture
 | R09 | https://example.com/page#top | Rejected | No match | Pass |
 | R10 | https://192.168.1.1/ | Rejected | No match | Pass |
 
-All 20 fixture cases pass. No ambiguity found; no scope change required.
+All 20 fixture cases pass. The earlier Punycode wording conflict was resolved
+by Ranee's 2026-09-19 scope clarification: ASCII `xn--` labels follow the
+existing `LABEL` rule, while raw Unicode remains rejected.
 
 ## 6. Construction handoff
 
@@ -132,7 +136,9 @@ The NFA built from these named components is recorded in
 state by state against Section 2 above. The construction preserves
 full-input matching and the stricter final-label (TLD) rule.
 
-There are no unresolved grammar questions in this Phase 2 finalization.
+There are no unresolved grammar questions in this Phase 2 finalization. Ranee's
+ASCII `xn--` clarification matches the existing expression and requires no RE
+or NFA transition change.
 Expanding the language requires Ranee's approval and synchronized changes to
 the language specification, fixture, formal artifacts, simulator, API, UI
 messages, and tests.

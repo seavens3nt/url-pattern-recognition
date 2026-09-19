@@ -31,10 +31,12 @@ Only the rules below are supported. A real-world URL can be valid in a browser a
 | Fragment | Not supported. | Any `#fragment`. |
 | Case | Case-sensitive. Accepted letters are lowercase only. | Uppercase or mixed-case input anywhere. |
 | Whitespace | Not supported anywhere. The simulator does not trim the input. | Leading, trailing, or internal whitespace. |
-| Non-ASCII | Not supported. | Raw Unicode, Punycode hostnames, emoji, and other non-ASCII characters. |
+| Non-ASCII and IDN handling | The recognizer processes ASCII text only. An ASCII `xn--` label is not decoded and is accepted when it satisfies the ordinary `LABEL` rule. | Raw Unicode, emoji, and other non-ASCII characters. |
 | IP addresses | Not supported as hostnames. | IPv4 and bracketed IPv6 literals. |
 
 The recognizer inspects the submitted string only. It never opens the URL, checks DNS, or tests whether a website exists.
+
+**Scope clarification — 2026-09-19:** Ranee Mikaella V. Gutierrez approved treating an ASCII `xn--` label as ordinary input under the existing `LABEL` grammar. The recognizer does not decode or validate internationalized domain names. Raw Unicode remains outside the language. This aligns the written scope with the existing RE, NFA, simulator, and API behavior without changing the grammar.
 
 ## Compact grammar
 

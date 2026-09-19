@@ -229,12 +229,11 @@ fixture's expected verdict (query is outside the core language).
   this NFA (full results in `regular-expression.md` Section 5); all 20 match
   their expected verdict. The four traces above are a representative subset
   using the fixture's own IDs, as required by the issue.
-- Scope note for decision, not a blocker: `LABEL` permits internal hyphens
-  with no restriction on the `xn--` prefix pattern, so an ASCII string such
-  as `xn--fsq.com` matches this RE and NFA as an ordinary hostname (label
-  `xn--fsq`, TLD `com`), even though the language specification currently
-  says Punycode-form hostnames are rejected in the core language. This is
-  not changed here; it is recorded for a scope decision by Ranee/Isaiah.
+- Scope decision — approved by Ranee Mikaella V. Gutierrez on 2026-09-19:
+  an ASCII `xn--` label is processed as an ordinary `LABEL` and is accepted
+  when it satisfies the existing grammar. The recognizer does not decode or
+  validate internationalized domain names, and raw Unicode remains rejected.
+  This resolves the earlier wording conflict without changing the NFA.
 - `docs/automata/diagrams/nfa.dot` renders successfully with Graphviz
   (`dot -Tsvg`); rendered evidence is attached alongside this document.
 
