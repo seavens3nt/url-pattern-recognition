@@ -16,3 +16,43 @@ it('explains a failed backend connection', async () => {
   vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('offline')));
   render(<App />); await screen.findByText(/Backend unavailable/);
 });
+it('shows the offline message when validation times out', async () => {
+  const fetch = vi.fn()
+    .mockResolvedValueOnce({ ok: true, json: async () => ({ status: 'ok', validator_ready: true }) })
+    .mockRejectedValueOnce(new Error('timeout'));
+  vi.stubGlobal('fetch', fetch);
+  render(<App />);
+  await screen.findByText('Backend connected');
+  fireEvent.change(screen.getByLabelText('URL to inspect'), { target: { value: 'https://example.com' } });
+  fireEvent.click(screen.getByRole('button', { name: 'Run DFA' }));
+  await screen.findByText('Cannot reach the backend. Check that Flask is running.');
+});
+it('prevents duplicate submissions while validation is pending', async () => {
+  let resolveValidation;
+  const fetch = vi.fn()
+    .mockResolvedValueOnce({ ok: true, json: async () => ({ status: 'ok', validator_ready: true }) })
+    .mockImplementationOnce(() => new Promise(resolve => { resolveValidation = resolve; }));
+  vi.stubGlobal('fetch', fetch);
+  render(<App />);
+  await screen.findByText('Backend connected');
+  fireEvent.change(screen.getByLabelText('URL to inspect'), { target: { value: 'https://example.com' } });
+  const button = screen.getByRole('button', { name: 'Run DFA' });
+  fireEvent.click(button);
+  expect(button).toBeDisabled();
+  fireEvent.click(button);
+  expect(fetch).toHaveBeenCalledTimes(2);
+  resolveValidation({ status: 200, json: async () => ({ accepted: true, message: 'done' }) });
+  await screen.findByText('done');
+});
+it('renders a request error for a malformed validation response', async () => {
+  const fetch = vi.fn()
+    .mockResolvedValueOnce({ ok: true, json: async () => ({ status: 'ok', validator_ready: true }) })
+    .mockResolvedValueOnce({ status: 200, json: async () => ({}) });
+  vi.stubGlobal('fetch', fetch);
+  render(<App />);
+  await screen.findByText('Backend connected');
+  fireEvent.change(screen.getByLabelText('URL to inspect'), { target: { value: 'https://example.com' } });
+  fireEvent.click(screen.getByRole('button', { name: 'Run DFA' }));
+  await screen.findByText('Request error');
+  expect(screen.getByText('Unexpected response. Check the backend terminal.')).toBeInTheDocument();
+});
