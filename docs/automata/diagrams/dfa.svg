@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<line x1="80.64699680722018" y1="72.23525736724159" x2="849.3530031927799" y2="527.7647426327584" stroke="#333" marker-end="url(#arrow)"/>
+<text x="465.0" y="295.0" font-size="10" text-anchor="middle">LOWER,h,p,s,t</text>
+<line x1="84.0" y1="60.0" x2="846.0" y2="60.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="465.0" y="55.0" font-size="10" text-anchor="middle">DIGIT</text>
+<line x1="60.0" y1="84.0" x2="60.0" y2="516.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="60.0" y="295.0" font-size="10" text-anchor="middle">-,.,/,:,OTHER,_,~</text>
+<path d="M330.0,40.0 q-20,-20 -40,0" stroke="#333" fill="none" marker-end="url(#arrow)"/>
+<text x="370.0" y="25.0" font-size="10" text-anchor="middle">DIGIT,LOWER,h,p,s,t</text>
+<line x1="318.2337302488186" y1="80.91781289098918" x2="71.76626975118141" y2="519.0821871090109" stroke="#333" marker-end="url(#arrow)"/>
+<text x="195.0" y="295.0" font-size="10" text-anchor="middle">/,:,OTHER,_,~</text>
+<line x1="306.0" y1="60.0" x2="84.0" y2="60.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="195.0" y="55.0" font-size="10" text-anchor="middle">.</text>
+<line x1="354.0" y1="60.0" x2="576.0" y2="60.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="465.0" y="55.0" font-size="10" text-anchor="middle">-</text>
+<line x1="576.0" y1="60.0" x2="354.0" y2="60.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="465.0" y="55.0" font-size="10" text-anchor="middle">DIGIT,LOWER,h,p,s,t</text>
+<line x1="582.0621763515921" y1="75.94473213191807" x2="77.93782364840783" y2="524.055267868082" stroke="#333" marker-end="url(#arrow)"/>
+<text x="330.0" y="295.0" font-size="10" text-anchor="middle">.,/,:,OTHER,_,~</text>
+<path d="M600.0,40.0 q-20,-20 -40,0" stroke="#333" fill="none" marker-end="url(#arrow)"/>
+<text x="640.0" y="25.0" font-size="10" text-anchor="middle">-</text>
+<path d="M870.0,40.0 q-20,-20 -40,0" stroke="#333" fill="none" marker-end="url(#arrow)"/>
+<text x="910.0" y="25.0" font-size="10" text-anchor="middle">DIGIT,LOWER,h,p,s,t</text>
+<line x1="849.3530031927799" y1="72.23525736724159" x2="80.64699680722018" y2="527.7647426327584" stroke="#333" marker-end="url(#arrow)"/>
+<text x="465.0" y="295.0" font-size="10" text-anchor="middle">/,:,OTHER,_,~</text>
+<line x1="846.0" y1="60.0" x2="84.0" y2="60.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="465.0" y="55.0" font-size="10" text-anchor="middle">.</text>
+<line x1="894.0" y1="60.0" x2="1116.0" y2="60.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="1005.0" y="55.0" font-size="10" text-anchor="middle">-</text>
+<line x1="1116.0" y1="60.0" x2="894.0" y2="60.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="1005.0" y="55.0" font-size="10" text-anchor="middle">DIGIT,LOWER,h,p,s,t</text>
+<line x1="1118.0685228331138" y1="69.74732318528274" x2="81.93147716688617" y2="530.2526768147172" stroke="#333" marker-end="url(#arrow)"/>
+<text x="600.0" y="295.0" font-size="10" text-anchor="middle">.,/,:,OTHER,_,~</text>
+<path d="M1140.0,40.0 q-20,-20 -40,0" stroke="#333" fill="none" marker-end="url(#arrow)"/>
+<text x="1180.0" y="25.0" font-size="10" text-anchor="middle">-</text>
+<line x1="60.0" y1="244.0" x2="60.0" y2="516.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="60.0" y="375.0" font-size="10" text-anchor="middle">-,.,/,:,DIGIT,LOWER,OTHER,_,h,p,s,~</text>
+<line x1="84.0" y1="220.0" x2="576.0" y2="220.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="330.0" y="215.0" font-size="10" text-anchor="middle">t</text>
+<line x1="330.0" y1="196.0" x2="330.0" y2="84.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="330.0" y="135.0" font-size="10" text-anchor="middle">DIGIT,LOWER,h,p,s,t</text>
+<line x1="314.5230974589652" y1="238.34299560418938" x2="75.47690254103479" y2="521.6570043958106" stroke="#333" marker-end="url(#arrow)"/>
+<text x="195.0" y="375.0" font-size="10" text-anchor="middle">-,.,/,:,OTHER,_,~</text>
+<line x1="579.3530031927799" y1="232.2352573672416" x2="80.64699680722018" y2="527.7647426327584" stroke="#333" marker-end="url(#arrow)"/>
+<text x="330.0" y="375.0" font-size="10" text-anchor="middle">-,.,/,:,DIGIT,LOWER,OTHER,_,h,p,s,~</text>
+<line x1="624.0" y1="220.0" x2="846.0" y2="220.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="735.0" y="215.0" font-size="10" text-anchor="middle">t</text>
+<line x1="847.6787522410563" y1="228.8182707195827" x2="82.32124775894373" y2="531.1817292804172" stroke="#333" marker-end="url(#arrow)"/>
+<text x="465.0" y="375.0" font-size="10" text-anchor="middle">-,.,/,:,DIGIT,LOWER,OTHER,_,h,s,t,~</text>
+<line x1="894.0" y1="220.0" x2="1116.0" y2="220.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="1005.0" y="215.0" font-size="10" text-anchor="middle">p</text>
+<line x1="1116.9888452949988" y1="226.81811991259298" x2="83.01115470500129" y2="533.1818800874071" stroke="#333" marker-end="url(#arrow)"/>
+<text x="600.0" y="375.0" font-size="10" text-anchor="middle">-,.,/,DIGIT,LOWER,OTHER,_,h,p,t,~</text>
+<line x1="1116.259116903507" y1="223.5171678661471" x2="83.7408830964929" y2="376.4828321338529" stroke="#333" marker-end="url(#arrow)"/>
+<text x="600.0" y="295.0" font-size="10" text-anchor="middle">s</text>
+<line x1="1119.3530031927799" y1="232.2352573672416" x2="890.6469968072201" y2="367.7647426327584" stroke="#333" marker-end="url(#arrow)"/>
+<text x="1005.0" y="295.0" font-size="10" text-anchor="middle">:</text>
+<line x1="60.0" y1="404.0" x2="60.0" y2="516.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="60.0" y="455.0" font-size="10" text-anchor="middle">-,.,/,DIGIT,LOWER,OTHER,_,h,p,s,t,~</text>
+<line x1="84.0" y1="380.0" x2="846.0" y2="380.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="465.0" y="375.0" font-size="10" text-anchor="middle">:</text>
+<path d="M330.0,360.0 q-20,-20 -40,0" stroke="#333" fill="none" marker-end="url(#arrow)"/>
+<text x="370.0" y="345.0" font-size="10" text-anchor="middle">-,.,DIGIT,LOWER,_,h,p,s,t,~</text>
+<line x1="309.3530031927798" y1="392.2352573672416" x2="80.64699680722018" y2="527.7647426327584" stroke="#333" marker-end="url(#arrow)"/>
+<text x="195.0" y="455.0" font-size="10" text-anchor="middle">:,OTHER</text>
+<line x1="354.0" y1="380.0" x2="576.0" y2="380.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="465.0" y="375.0" font-size="10" text-anchor="middle">/</text>
+<line x1="576.0" y1="380.0" x2="354.0" y2="380.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="465.0" y="375.0" font-size="10" text-anchor="middle">-,.,DIGIT,LOWER,_,h,p,s,t,~</text>
+<line x1="576.9888452949987" y1="386.818119912593" x2="83.01115470500129" y2="533.1818800874071" stroke="#333" marker-end="url(#arrow)"/>
+<text x="330.0" y="455.0" font-size="10" text-anchor="middle">/,:,OTHER</text>
+<line x1="846.4549501871218" y1="384.65087403711175" x2="83.54504981287829" y2="535.3491259628883" stroke="#333" marker-end="url(#arrow)"/>
+<text x="465.0" y="455.0" font-size="10" text-anchor="middle">-,.,:,DIGIT,LOWER,OTHER,_,h,p,s,t,~</text>
+<line x1="894.0" y1="380.0" x2="1116.0" y2="380.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="1005.0" y="375.0" font-size="10" text-anchor="middle">/</text>
+<line x1="1116.259116903507" y1="383.5171678661471" x2="83.7408830964929" y2="536.4828321338529" stroke="#333" marker-end="url(#arrow)"/>
+<text x="600.0" y="455.0" font-size="10" text-anchor="middle">-,.,:,DIGIT,LOWER,OTHER,_,h,p,s,t,~</text>
+<line x1="1116.4549501871218" y1="375.34912596288825" x2="353.5450498128783" y2="224.65087403711175" stroke="#333" marker-end="url(#arrow)"/>
+<text x="735.0" y="295.0" font-size="10" text-anchor="middle">/</text>
+<path d="M60.0,520.0 q-20,-20 -40,0" stroke="#333" fill="none" marker-end="url(#arrow)"/>
+<text x="100.0" y="505.0" font-size="10" text-anchor="middle">-,.,/,:,DIGIT,LOWER,OTHER,_,h,p,s,t,~</text>
+<line x1="314.5230974589652" y1="521.6570043958106" x2="75.47690254103479" y2="238.34299560418938" stroke="#333" marker-end="url(#arrow)"/>
+<text x="195.0" y="375.0" font-size="10" text-anchor="middle">h</text>
+<line x1="306.0" y1="540.0" x2="84.0" y2="540.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="195.0" y="535.0" font-size="10" text-anchor="middle">-,.,/,:,DIGIT,LOWER,OTHER,_,p,s,t,~</text>
+<path d="M600.0,520.0 q-20,-20 -40,0" stroke="#333" fill="none" marker-end="url(#arrow)"/>
+<text x="640.0" y="505.0" font-size="10" text-anchor="middle">LOWER,h,p,s,t</text>
+<line x1="611.7662697511814" y1="519.0821871090109" x2="858.2337302488186" y2="80.91781289098918" stroke="#333" marker-end="url(#arrow)"/>
+<text x="735.0" y="295.0" font-size="10" text-anchor="middle">DIGIT</text>
+<line x1="576.0" y1="540.0" x2="84.0" y2="540.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="330.0" y="535.0" font-size="10" text-anchor="middle">:,OTHER,_,~</text>
+<line x1="600.0" y1="516.0" x2="600.0" y2="404.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="600.0" y="455.0" font-size="10" text-anchor="middle">/</text>
+<line x1="582.0621763515921" y1="524.055267868082" x2="77.93782364840783" y2="75.94473213191807" stroke="#333" marker-end="url(#arrow)"/>
+<text x="330.0" y="295.0" font-size="10" text-anchor="middle">.</text>
+<line x1="617.9378236484079" y1="524.055267868082" x2="1122.0621763515921" y2="75.94473213191807" stroke="#333" marker-end="url(#arrow)"/>
+<text x="870.0" y="295.0" font-size="10" text-anchor="middle">-</text>
+<line x1="846.0" y1="540.0" x2="624.0" y2="540.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="735.0" y="535.0" font-size="10" text-anchor="middle">LOWER,h,p,s,t</text>
+<line x1="870.0" y1="516.0" x2="870.0" y2="84.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="870.0" y="295.0" font-size="10" text-anchor="middle">DIGIT</text>
+<line x1="846.0" y1="540.0" x2="84.0" y2="540.0" stroke="#333" marker-end="url(#arrow)"/>
+<text x="465.0" y="535.0" font-size="10" text-anchor="middle">/,:,OTHER,_,~</text>
+<line x1="849.3530031927799" y1="527.7647426327584" x2="80.64699680722018" y2="72.23525736724159" stroke="#333" marker-end="url(#arrow)"/>
+<text x="465.0" y="295.0" font-size="10" text-anchor="middle">.</text>
+<line x1="881.7662697511814" y1="519.0821871090109" x2="1128.2337302488186" y2="80.91781289098918" stroke="#333" marker-end="url(#arrow)"/>
+<text x="1005.0" y="295.0" font-size="10" text-anchor="middle">-</text>
+<circle cx="60.0" cy="60.0" r="20" stroke="#333" fill="#fff"/>
+<text x="60.0" y="64.0" font-size="10" text-anchor="middle">AFTER_DOT</text>
+<circle cx="330.0" cy="60.0" r="20" stroke="#333" fill="#fff"/>
+<text x="330.0" y="64.0" font-size="10" text-anchor="middle">FIRST_LABEL_END</text>
+<circle cx="600.0" cy="60.0" r="20" stroke="#333" fill="#fff"/>
+<text x="600.0" y="64.0" font-size="10" text-anchor="middle">FIRST_LABEL_HYPHEN</text>
+<circle cx="870.0" cy="60.0" r="20" stroke="#333" fill="#fff"/>
+<text x="870.0" y="64.0" font-size="10" text-anchor="middle">GENERAL_LABEL_END</text>
+<circle cx="1140.0" cy="60.0" r="20" stroke="#333" fill="#fff"/>
+<text x="1140.0" y="64.0" font-size="10" text-anchor="middle">GENERAL_LABEL_HYPHEN</text>
+<circle cx="60.0" cy="220.0" r="20" stroke="#333" fill="#fff"/>
+<text x="60.0" y="224.0" font-size="10" text-anchor="middle">H</text>
+<circle cx="330.0" cy="220.0" r="20" stroke="#333" fill="#fff"/>
+<text x="330.0" y="224.0" font-size="10" text-anchor="middle">HOST_START</text>
+<circle cx="600.0" cy="220.0" r="20" stroke="#333" fill="#fff"/>
+<text x="600.0" y="224.0" font-size="10" text-anchor="middle">HT</text>
+<circle cx="870.0" cy="220.0" r="20" stroke="#333" fill="#fff"/>
+<text x="870.0" y="224.0" font-size="10" text-anchor="middle">HTT</text>
+<circle cx="1140.0" cy="220.0" r="20" stroke="#333" fill="#fff"/>
+<text x="1140.0" y="224.0" font-size="10" text-anchor="middle">HTTP</text>
+<circle cx="60.0" cy="380.0" r="20" stroke="#333" fill="#fff"/>
+<text x="60.0" y="384.0" font-size="10" text-anchor="middle">HTTPS</text>
+<circle cx="330.0" cy="380.0" r="20" stroke="#333" fill="#fff"/>
+<circle cx="330.0" cy="380.0" r="15" stroke="#333" fill="none"/>
+<text x="330.0" y="384.0" font-size="10" text-anchor="middle">PATH_SEGMENT</text>
+<circle cx="600.0" cy="380.0" r="20" stroke="#333" fill="#fff"/>
+<circle cx="600.0" cy="380.0" r="15" stroke="#333" fill="none"/>
+<text x="600.0" y="384.0" font-size="10" text-anchor="middle">PATH_SLASH</text>
+<circle cx="870.0" cy="380.0" r="20" stroke="#333" fill="#fff"/>
+<text x="870.0" y="384.0" font-size="10" text-anchor="middle">SCHEME_COLON</text>
+<circle cx="1140.0" cy="380.0" r="20" stroke="#333" fill="#fff"/>
+<text x="1140.0" y="384.0" font-size="10" text-anchor="middle">SCHEME_SLASH</text>
+<circle cx="60.0" cy="540.0" r="20" stroke="#333" fill="#fff"/>
+<text x="60.0" y="544.0" font-size="10" text-anchor="middle">SINK</text>
+<circle cx="330.0" cy="540.0" r="20" stroke="#333" fill="#fff"/>
+<text x="330.0" y="544.0" font-size="10" text-anchor="middle">START</text>
+<circle cx="600.0" cy="540.0" r="20" stroke="#333" fill="#fff"/>
+<circle cx="600.0" cy="540.0" r="15" stroke="#333" fill="none"/>
+<text x="600.0" y="544.0" font-size="10" text-anchor="middle">TLD_MANY</text>
+<circle cx="870.0" cy="540.0" r="20" stroke="#333" fill="#fff"/>
+<text x="870.0" y="544.0" font-size="10" text-anchor="middle">TLD_ONE</text>
+<line x1="270.0" y1="540.0" x2="310.0" y2="540.0" stroke="#333" marker-end="url(#arrow)"/>
+</svg>
