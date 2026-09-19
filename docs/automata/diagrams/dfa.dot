@@ -1,0 +1,54 @@
+digraph URL_DFA {
+  graph [rankdir=LR, ranksep=0.7, nodesep=0.45, pad=0.25, bgcolor="white",
+    label="DFA symbol partition: h | t | p | s | LOWER = [a-z] minus {h,t,p,s} | DIGIT = [0-9] | : | / | . | - | _ | ~ | OTHER",
+    labelloc=t, fontsize=10, fontname="Helvetica"];
+  node [shape=circle, fontname="Helvetica", fontsize=11, width=0.55, fixedsize=true];
+  edge [fontname="Helvetica", fontsize=9, arrowsize=0.7];
+
+  start [shape=point, label=""];
+  D14 [shape=doublecircle]; D15 [shape=doublecircle]; D16 [shape=doublecircle]; D17 [shape=doublecircle];
+  D_sink [style="dashed,filled", fillcolor="#f3f4f6", label="sink"];
+  { rank=same; D9; D12; }
+  completion [shape=note, fixedsize=false, width=0, fontsize=10,
+    label="Total transition rule:\nFor every state and every class in Sigma,\nany class not printed on an outgoing edge\ntransitions to sink. sink loops on Sigma.\nSee dfa.md for the expanded table."];
+
+  start -> D0;
+  D0 -> D1 [label="h"];
+  D1 -> D2 [label="t"];
+  D2 -> D3 [label="t"];
+  D3 -> D4 [label="p"];
+  D4 -> D5 [label="s"];
+  D4 -> D6 [label=":"];
+  D5 -> D6 [label=":"];
+  D6 -> D7 [label="/"];
+  D7 -> D8 [label="/"];
+
+  D8 -> D9 [label="h,t,p,s,LOWER,DIGIT"];
+  D9 -> D10 [label="h,t,p,s,LOWER,DIGIT"];
+  D10 -> D10 [label="h,t,p,s,LOWER,DIGIT"];
+  D9 -> D11 [label="."];
+  D10 -> D11 [label="."];
+  D9 -> D12 [label="-"];
+  D10 -> D12 [label="-"];
+  D11 -> D13 [label="h,t,p,s,LOWER"];
+  D11 -> D9 [label="DIGIT"];
+  D12 -> D10 [label="h,t,p,s,LOWER,DIGIT"];
+  D12 -> D12 [label="-"];
+  D13 -> D14 [label="h,t,p,s,LOWER"];
+  D13 -> D10 [label="DIGIT"];
+  D13 -> D11 [label="."];
+  D13 -> D12 [label="-"];
+  D14 -> D14 [label="h,t,p,s,LOWER"];
+  D14 -> D10 [label="DIGIT"];
+  D14 -> D15 [label="/"];
+  D14 -> D11 [label="."];
+  D14 -> D12 [label="-"];
+
+  D15 -> D16 [label="PATH_CHAR"];
+  D16 -> D16 [label="PATH_CHAR"];
+  D16 -> D17 [label="/"];
+  D17 -> D16 [label="PATH_CHAR"];
+
+  completion -> D_sink [style=dashed, color="#6b7280", label="all unshown classes"];
+  D_sink -> D_sink [label="Σ"];
+}

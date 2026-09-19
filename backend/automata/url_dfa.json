@@ -1,0 +1,34 @@
+{
+  "name": "approved-core-url-minimized-dfa",
+  "alphabet": ["h", "t", "p", "s", "LOWER", "DIGIT", ":", "/", ".", "-", "_", "~", "OTHER"],
+  "symbol_partition": {
+    "h": "h", "t": "t", "p": "p", "s": "s",
+    "LOWER": "[a-z] excluding h, t, p, s", "DIGIT": "[0-9]",
+    ":": ":", "/": "/", ".": ".", "-": "-", "_": "_", "~": "~",
+    "OTHER": "every remaining input character"
+  },
+  "states": ["M0", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10", "M11", "M12", "M13", "M14", "M15", "M_sink"],
+  "start_state": "M0",
+  "accepting_states": ["M13", "M14", "M15"],
+  "sink_state": "M_sink",
+  "transitions": {
+    "M0": {"h":"M1","t":"M_sink","p":"M_sink","s":"M_sink","LOWER":"M_sink","DIGIT":"M_sink",":":"M_sink","/":"M_sink",".":"M_sink","-":"M_sink","_":"M_sink","~":"M_sink","OTHER":"M_sink"},
+    "M1": {"h":"M_sink","t":"M2","p":"M_sink","s":"M_sink","LOWER":"M_sink","DIGIT":"M_sink",":":"M_sink","/":"M_sink",".":"M_sink","-":"M_sink","_":"M_sink","~":"M_sink","OTHER":"M_sink"},
+    "M2": {"h":"M_sink","t":"M3","p":"M_sink","s":"M_sink","LOWER":"M_sink","DIGIT":"M_sink",":":"M_sink","/":"M_sink",".":"M_sink","-":"M_sink","_":"M_sink","~":"M_sink","OTHER":"M_sink"},
+    "M3": {"h":"M_sink","t":"M_sink","p":"M4","s":"M_sink","LOWER":"M_sink","DIGIT":"M_sink",":":"M_sink","/":"M_sink",".":"M_sink","-":"M_sink","_":"M_sink","~":"M_sink","OTHER":"M_sink"},
+    "M4": {"h":"M_sink","t":"M_sink","p":"M_sink","s":"M5","LOWER":"M_sink","DIGIT":"M_sink",":":"M6","/":"M_sink",".":"M_sink","-":"M_sink","_":"M_sink","~":"M_sink","OTHER":"M_sink"},
+    "M5": {"h":"M_sink","t":"M_sink","p":"M_sink","s":"M_sink","LOWER":"M_sink","DIGIT":"M_sink",":":"M6","/":"M_sink",".":"M_sink","-":"M_sink","_":"M_sink","~":"M_sink","OTHER":"M_sink"},
+    "M6": {"h":"M_sink","t":"M_sink","p":"M_sink","s":"M_sink","LOWER":"M_sink","DIGIT":"M_sink",":":"M_sink","/":"M7",".":"M_sink","-":"M_sink","_":"M_sink","~":"M_sink","OTHER":"M_sink"},
+    "M7": {"h":"M_sink","t":"M_sink","p":"M_sink","s":"M_sink","LOWER":"M_sink","DIGIT":"M_sink",":":"M_sink","/":"M8",".":"M_sink","-":"M_sink","_":"M_sink","~":"M_sink","OTHER":"M_sink"},
+    "M8": {"h":"M9","t":"M9","p":"M9","s":"M9","LOWER":"M9","DIGIT":"M9",":":"M_sink","/":"M_sink",".":"M_sink","-":"M_sink","_":"M_sink","~":"M_sink","OTHER":"M_sink"},
+    "M9": {"h":"M9","t":"M9","p":"M9","s":"M9","LOWER":"M9","DIGIT":"M9",":":"M_sink","/":"M_sink",".":"M10","-":"M11","_":"M_sink","~":"M_sink","OTHER":"M_sink"},
+    "M10": {"h":"M12","t":"M12","p":"M12","s":"M12","LOWER":"M12","DIGIT":"M9",":":"M_sink","/":"M_sink",".":"M_sink","-":"M_sink","_":"M_sink","~":"M_sink","OTHER":"M_sink"},
+    "M11": {"h":"M9","t":"M9","p":"M9","s":"M9","LOWER":"M9","DIGIT":"M9",":":"M_sink","/":"M_sink",".":"M_sink","-":"M11","_":"M_sink","~":"M_sink","OTHER":"M_sink"},
+    "M12": {"h":"M13","t":"M13","p":"M13","s":"M13","LOWER":"M13","DIGIT":"M9",":":"M_sink","/":"M_sink",".":"M10","-":"M11","_":"M_sink","~":"M_sink","OTHER":"M_sink"},
+    "M13": {"h":"M13","t":"M13","p":"M13","s":"M13","LOWER":"M13","DIGIT":"M9",":":"M_sink","/":"M14",".":"M10","-":"M11","_":"M_sink","~":"M_sink","OTHER":"M_sink"},
+    "M14": {"h":"M15","t":"M15","p":"M15","s":"M15","LOWER":"M15","DIGIT":"M15",":":"M_sink","/":"M_sink",".":"M15","-":"M15","_":"M15","~":"M15","OTHER":"M_sink"},
+    "M15": {"h":"M15","t":"M15","p":"M15","s":"M15","LOWER":"M15","DIGIT":"M15",":":"M_sink","/":"M14",".":"M15","-":"M15","_":"M15","~":"M15","OTHER":"M_sink"},
+    "M_sink": {"h":"M_sink","t":"M_sink","p":"M_sink","s":"M_sink","LOWER":"M_sink","DIGIT":"M_sink",":":"M_sink","/":"M_sink",".":"M_sink","-":"M_sink","_":"M_sink","~":"M_sink","OTHER":"M_sink"}
+  },
+  "provenance": {"language_spec":"docs/language-spec.md","nfa":"docs/automata/nfa.md","dfa_worksheet":"docs/automata/dfa.md","minimization":"docs/automata/minimization.md","locked_commit":"770b761"}
+}

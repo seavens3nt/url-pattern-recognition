@@ -521,3 +521,24 @@ This Phase 1 deliverable is ready for the required coordination reviews:
 
 These reviews validate the format; they do not claim that the final NFA, DFA,
 or minimized transitions have already been constructed.
+
+---
+
+## 20. Phase 2 resolved symbol partition
+
+For the reviewed DFA construction, the table columns are a **partition**, not
+overlapping predicates. The four scheme literals are separate columns and
+`LOWER` means `[a-z]` excluding `h`, `t`, `p`, and `s`. The complete ordered
+partition is:
+
+```text
+{h}, {t}, {p}, {s}, [a-z] \ {h,t,p,s}, [0-9], {:}, {/}, {.}, {-}, {_}, {~}, OTHER
+```
+
+`OTHER` is the complement of the preceding twelve sets over input characters.
+An NFA transition labelled `LOWER` still means all lowercase letters; during
+subset construction its target is copied into each applicable disjoint DFA
+column. This distinction makes each complete DFA row deterministic and lets a
+machine reader classify each raw character once. The reviewed worksheets and
+model are [dfa.md](dfa.md), [minimization.md](minimization.md), and
+[`url_dfa.json`](../../backend/automata/url_dfa.json).
