@@ -18,5 +18,20 @@
   {"id":"R07","category":"rejected","url":"https://example.com:8080/","accepted":false,"source_rule":"Port","reason":"Ports are outside the core language."},
   {"id":"R08","category":"rejected","url":"https://example.com/search?q=test","accepted":false,"source_rule":"Query","reason":"Queries are outside the core language."},
   {"id":"R09","category":"rejected","url":"https://example.com/page#top","accepted":false,"source_rule":"Fragment","reason":"Fragments are outside the core language."},
-  {"id":"R10","category":"rejected","url":"https://192.168.1.1/","accepted":false,"source_rule":"IP addresses","reason":"IP address hostnames are outside the core language."}
+  {"id":"R10","category":"rejected","url":"https://192.168.1.1/","accepted":false,"source_rule":"IP addresses","reason":"IP address hostnames are outside the core language."},
+  {"id":"B05","category":"boundary","url":"https://example.c","accepted":false,"source_rule":"Top-level label","reason":"A one-character top-level label fails the at-least-two-letters rule."},
+  {"id":"B06","category":"boundary","url":"https://example.co1","accepted":false,"source_rule":"Top-level label","reason":"The top-level label may not contain a digit."},
+  {"id":"B07","category":"boundary","url":"https://a-.example.com","accepted":false,"source_rule":"Hostname","reason":"A hostname label cannot end with a hyphen."},
+  {"id":"B08","category":"boundary","url":"https://exa_mple.com","accepted":false,"source_rule":"Hostname","reason":"An underscore is not allowed inside a hostname label."},
+  {"id":"B09","category":"boundary","url":"https://example.com ","accepted":false,"source_rule":"Whitespace","reason":"A trailing space is not trimmed and is rejected."},
+  {"id":"B10","category":"boundary","url":"https://example.com/Path","accepted":false,"source_rule":"Path; Case","reason":"Uppercase letters are not allowed inside a path segment."},
+  {"id":"B11","category":"boundary","url":"https://example.com/a%20b","accepted":false,"source_rule":"Path","reason":"Percent escapes are outside the approved path characters."},
+  {"id":"B12","category":"boundary","url":"https://example.com//x","accepted":false,"source_rule":"Path","reason":"An empty middle path segment is rejected."},
+  {"id":"B13","category":"boundary","url":"https://[::1]/","accepted":false,"source_rule":"IP addresses","reason":"A bracketed IPv6 literal hostname is not supported."},
+  {"id":"B14","category":"boundary","url":"https://xn--example.com","accepted":false,"source_rule":"Non-ASCII","reason":"A Punycode hostname is not supported by the core language."},
+  {"id":"B15","category":"boundary","url":"http:/example.com","accepted":false,"source_rule":"Scheme","reason":"The scheme delimiter must be exactly two slashes."},
+  {"id":"B16","category":"boundary","url":"https://example.com/a/","accepted":true,"source_rule":"Path","reason":"One trailing slash after a path segment is allowed."},
+  {"id":"B17","category":"boundary","url":"https://my-site-1.example.com","accepted":true,"source_rule":"Hostname; Subdomains","reason":"Digits and interior hyphens are allowed inside hostname labels."},
+  {"id":"B18","category":"boundary","url":"http://example.co.uk/a/b/c","accepted":true,"source_rule":"Hostname; Path","reason":"Several lowercase path segments separated by single slashes are allowed."},
+  {"id":"B19","category":"boundary","url":"https://x1.example.org/~a-b_c.d","accepted":true,"source_rule":"Path","reason":"Tilde, hyphen, underscore and dot are all approved path characters."}
 ]
