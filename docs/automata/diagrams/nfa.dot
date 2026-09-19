@@ -74,25 +74,16 @@ digraph URL_NFA {
     q16 -> q17 [label="/"];
 
     // path
+    // The five PATH_CHAR labels (ALNUM, -, _, ., ~) are grouped under one
+    // edge label here for diagram readability only. docs/automata/nfa.md
+    // Section 3 keeps each one as a separate transition table row.
     q17 -> q20 [label="ε"];
-    q17 -> q18 [label="ALNUM"];
-    q17 -> q18 [label="-"];
-    q17 -> q18 [label="_"];
-    q17 -> q18 [label="."];
-    q17 -> q18 [label="~"];
+    q17 -> q18 [label="ALNUM, -, _, ., ~"];
 
-    q18 -> q18 [label="ALNUM"];
-    q18 -> q18 [label="-"];
-    q18 -> q18 [label="_"];
-    q18 -> q18 [label="."];
-    q18 -> q18 [label="~"];
+    q18 -> q18 [label="ALNUM, -, _, ., ~"];
     q18 -> q20 [label="ε"];
     q18 -> q19 [label="/"];
 
     q19 -> q20 [label="ε"];
-    q19 -> q18 [label="ALNUM"];
-    q19 -> q18 [label="-"];
-    q19 -> q18 [label="_"];
-    q19 -> q18 [label="."];
-    q19 -> q18 [label="~"];
+    q19 -> q18 [label="ALNUM, -, _, ., ~"];
 }
