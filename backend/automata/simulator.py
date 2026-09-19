@@ -47,7 +47,9 @@ def _transition(state, symbol):
             return 'AFTER_DOT'
         return SINK
     if state == 'FIRST_LABEL_HYPHEN':
-        return 'FIRST_LABEL_END' if kind in {'letter', 'digit'} else SINK
+        if kind in {'letter', 'digit'}:
+            return 'FIRST_LABEL_END'
+        return state if symbol == '-' else SINK
     if state == 'AFTER_DOT':
         if kind == 'letter':
             return 'TLD_ONE'
@@ -85,7 +87,9 @@ def _transition(state, symbol):
             return 'AFTER_DOT'
         return SINK
     if state == 'GENERAL_LABEL_HYPHEN':
-        return 'GENERAL_LABEL_END' if kind in {'letter', 'digit'} else SINK
+        if kind in {'letter', 'digit'}:
+            return 'GENERAL_LABEL_END'
+        return state if symbol == '-' else SINK
     if state == 'PATH_SLASH':
         return 'PATH_SEGMENT' if kind in {'letter', 'digit', '-', '_', '.', '~'} else SINK
     if state == 'PATH_SEGMENT':
