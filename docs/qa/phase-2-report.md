@@ -43,7 +43,7 @@ git status --short
 
 The production build is intentionally part of the required release check. A clean-pull rerun must record the resulting output and tested commit in the PR description with `Refs #41`.
 
-Observed on QA commit `8b70c05`, rebased onto `f1ca9fc`: the full backend suite
+Observed on QA commit `0c03148`, rebased onto `f1ca9fc`: the full backend suite
 reported `392
 passed, 4 xfailed`; backend lint passed; the frontend suite reported `5
 passed`; frontend lint passed; and the Vite production build completed
