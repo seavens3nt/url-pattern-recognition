@@ -6,8 +6,7 @@ Automated QA covers the approved URL corpus, Flask request validation, the no-ne
 
 The locked contract commit is `770b761`. The QA branch was rebased onto
 `f1ca9fc` (`Merge pull request #49 from seavens3nt/pamela/phase-2-dfa`) before
-verification. The tested QA base commit is `adf9e4e`; the final QA corrections
-are currently uncommitted on `paul/phase-2-automated-qa`.
+verification. The tested QA commit is `8b70c05`.
 
 ## Results
 
@@ -44,8 +43,8 @@ git status --short
 
 The production build is intentionally part of the required release check. A clean-pull rerun must record the resulting output and tested commit in the PR description with `Refs #41`.
 
-Observed on QA base commit `adf9e4e` after rebasing onto `f1ca9fc`, with the
-working-tree QA corrections applied: the full backend suite reported `392
+Observed on QA commit `8b70c05`, rebased onto `f1ca9fc`: the full backend suite
+reported `392
 passed, 4 xfailed`; backend lint passed; the frontend suite reported `5
 passed`; frontend lint passed; and the Vite production build completed
 successfully. The four xfails are the intentionally retained D-001 incomplete
