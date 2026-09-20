@@ -49,3 +49,9 @@ passed, 4 xfailed`; backend lint passed; the frontend suite reported `5
 passed`; frontend lint passed; and the Vite production build completed
 successfully. The four xfails are the intentionally retained D-001 incomplete
 sink-trace cases. `git diff --check` passed and only the owned QA files changed.
+
+Mutation checks performed on commit `5272400`: temporarily changing B14 to
+rejected caused three language assertions to fail; weakening request type
+validation caused 24 targeted security tests to fail; and removing the
+frontend timeout result caused the timeout regression to fail. Each mutation
+was reverted, and the restored checks passed.
