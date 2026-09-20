@@ -22,7 +22,10 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_PATH = Path(__file__).parent / 'fixtures' / 'url_cases.json'
 EXPRESSION_PATH = REPO_ROOT / 'docs' / 'automata' / 'regular-expression.md'
 DFA_PATH = REPO_ROOT / 'backend' / 'automata' / 'url_dfa.json'
-NFA_PATH = REPO_ROOT / 'backend' / 'automata' / 'url_nfa.json'
+NFA_ARTIFACTS = (
+    REPO_ROOT / 'docs' / 'automata' / 'nfa.md',
+    REPO_ROOT / 'docs' / 'automata' / 'diagrams' / 'nfa.dot',
+)
 
 CASES = json.loads(FIXTURE_PATH.read_text(encoding='utf-8'))
 ROW_IDS = [case['id'] for case in CASES]
@@ -38,12 +41,6 @@ ADDITIVE_TRACE_FIELDS = {'symbol_class'}
 ACCEPTED_MESSAGE = 'Accepted: the URL matches the approved core language.'
 
 REGEX_FENCE = re.compile(r'```regex\r?\n(?P<pattern>.+?)\r?\n```', re.DOTALL)
-
-# D-004: the published expression still accepts a consecutive-hyphen label such
-# as xn--example.com, while the approved Non-ASCII rule rejects Punycode
-# hostnames. Only the affected rows may disagree; this marker must be deleted
-# after Ralph aligns the expression with the language decision.
-KNOWN_EXPRESSION_DISAGREEMENTS = {'B14'}
 
 # Character-class labels published in docs/automata/notation.md section 7.
 CHARACTER_CLASSES = {
@@ -149,7 +146,15 @@ def run_dfa_table(dfa, value):
     """Run an explicit transition table; a missing transition is a dead end."""
     state = dfa['start']
     for symbol in value:
-        state = dfa['table'].get(state, {}).get(symbol, dfa['sink'])
+        row = dfa['table'].get(state, {})
+        labels = [symbol]
+        if symbol in string.ascii_lowercase and symbol not in {'h', 't', 'p', 's'}:
+            labels.append('LOWER')
+        elif symbol in string.digits:
+            labels.append('DIGIT')
+        elif symbol not in {':', '/', '.', '-', '_', '~'}:
+            labels.append('OTHER')
+        state = next((row[label] for label in labels if label in row), dfa['sink'])
         if state is None:
             return False
     return state in dfa['accepting']
@@ -301,25 +306,7 @@ def test_rejected_traces_stop_in_the_reported_final_state(client, case):
     assert body['trace'][-1]['to_state'] == body['final_state']
 
 
-@pytest.mark.parametrize(
-    'case',
-    [
-        pytest.param(
-            case,
-            id=case['id'],
-            marks=(
-                pytest.mark.xfail(
-                    strict=True,
-                    reason='D-004: the published expression accepts a Punycode label that the approved '
-                           'Non-ASCII rule rejects; remove this marker after Ralph aligns the expression',
-                )
-                if case['id'] in KNOWN_EXPRESSION_DISAGREEMENTS
-                else ()
-            ),
-        )
-        for case in CASES
-    ],
-)
+@pytest.mark.parametrize('case', CASES, ids=ROW_IDS)
 def test_published_expression_agrees_with_the_fixture_and_the_simulator(case):
     expression_accepts = approved_expression().fullmatch(case['url']) is not None
 
@@ -337,11 +324,6 @@ def test_published_expression_still_carries_the_locked_constraints():
     assert '[a-z]{2,}' in pattern, 'the expression must require two or more lowercase TLD letters'
 
 
-@pytest.mark.xfail(
-    strict=True,
-    reason='D-005: the locked LABEL grammar and the published expression allow consecutive interior '
-           'hyphens, but the simulator rejects them; Ranee must decide which layer changes',
-)
 def test_consecutive_interior_hyphens_are_resolved_consistently():
     value = 'https://my--site.example.com'
 
@@ -371,68 +353,11 @@ def test_rejected_traces_cover_the_full_raw_input(client, url):
     assert [step['position'] for step in body['trace']] == list(range(len(url)))
 
 
-def machine_readable_models():
-    return {'nfa': NFA_PATH, 'dfa': DFA_PATH}
+def test_formal_model_artifacts_are_published():
+    expected = [DFA_PATH, *NFA_ARTIFACTS]
+    missing = [path.relative_to(REPO_ROOT) for path in expected if not path.exists()]
 
-
-def test_machine_readable_formal_models_are_published_together():
-    expected = machine_readable_models()
-    published = {name: path for name, path in expected.items() if path.exists()}
-
-    if not published:
-        pytest.skip(
-            'pending: no machine-readable NFA/DFA artifact is on this commit (checked '
-            + ', '.join(str(path.relative_to(REPO_ROOT)) for path in expected.values())
-            + '); publish them in the shape documented in this module to activate these checks'
-        )
-
-    missing = sorted(set(expected) - set(published))
-    assert not missing, (
-        f'formal publication is partial: {missing} missing while {sorted(published)} exists; '
-        'report the split publication in issues #36/#37'
-    )
-
-
-def test_published_dfa_model_agrees_with_the_fixture_and_the_simulator():
-    if not DFA_PATH.exists():
-        pytest.skip('pending: backend/automata/url_dfa.json is not published on this commit')
-
-    dfa = load_dfa_table(DFA_PATH)
-    assert dfa is not None, (
-        'backend/automata/url_dfa.json uses a shape QA cannot interpret; publish a state map or row '
-        'list with start, accepting and transitions, or extend this loader in the QA package'
-    )
-
-    disagreements = [
-        case['id']
-        for case in CASES
-        if run_dfa_table(dfa, case['url']) is not case['accepted']
-        or run_dfa_table(dfa, case['url']) is not simulate_url(case['url'])['accepted']
-    ]
-    assert not disagreements, (
-        'the published DFA disagrees with the fixture or the simulator on: ' + ', '.join(disagreements)
-    )
-
-
-def test_published_nfa_model_agrees_with_the_fixture_and_the_simulator():
-    if not NFA_PATH.exists():
-        pytest.skip('pending: backend/automata/url_nfa.json is not published on this commit')
-
-    nfa = load_nfa_table(NFA_PATH)
-    assert nfa is not None, (
-        'backend/automata/url_nfa.json uses a shape QA cannot interpret; publish the documented '
-        'start/accepting/transitions/epsilon_symbol shape or extend this loader in the QA package'
-    )
-
-    disagreements = [
-        case['id']
-        for case in CASES
-        if run_nfa(nfa, case['url']) is not case['accepted']
-        or run_nfa(nfa, case['url']) is not simulate_url(case['url'])['accepted']
-    ]
-    assert not disagreements, (
-        'the published NFA disagrees with the fixture or the simulator on: ' + ', '.join(disagreements)
-    )
+    assert not missing, f'formal model artifacts required by Issue #36 are missing: {missing}'
 
 
 @pytest.mark.parametrize('case', CASES, ids=ROW_IDS)

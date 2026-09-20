@@ -28,10 +28,11 @@
   {"id":"B11","category":"boundary","url":"https://example.com/a%20b","accepted":false,"source_rule":"Path","reason":"Percent escapes are outside the approved path characters."},
   {"id":"B12","category":"boundary","url":"https://example.com//x","accepted":false,"source_rule":"Path","reason":"An empty middle path segment is rejected."},
   {"id":"B13","category":"boundary","url":"https://[::1]/","accepted":false,"source_rule":"IP addresses","reason":"A bracketed IPv6 literal hostname is not supported."},
-  {"id":"B14","category":"boundary","url":"https://xn--example.com","accepted":false,"source_rule":"Non-ASCII","reason":"A Punycode hostname is not supported by the core language."},
+  {"id":"B14","category":"boundary","url":"https://xn--example.com","accepted":true,"source_rule":"Hostname","reason":"The ASCII xn-- label is an ordinary hostname label; raw Unicode remains unsupported."},
   {"id":"B15","category":"boundary","url":"http:/example.com","accepted":false,"source_rule":"Scheme","reason":"The scheme delimiter must be exactly two slashes."},
   {"id":"B16","category":"boundary","url":"https://example.com/a/","accepted":true,"source_rule":"Path","reason":"One trailing slash after a path segment is allowed."},
   {"id":"B17","category":"boundary","url":"https://my-site-1.example.com","accepted":true,"source_rule":"Hostname; Subdomains","reason":"Digits and interior hyphens are allowed inside hostname labels."},
   {"id":"B18","category":"boundary","url":"http://example.co.uk/a/b/c","accepted":true,"source_rule":"Hostname; Path","reason":"Several lowercase path segments separated by single slashes are allowed."},
-  {"id":"B19","category":"boundary","url":"https://x1.example.org/~a-b_c.d","accepted":true,"source_rule":"Path","reason":"Tilde, hyphen, underscore and dot are all approved path characters."}
+  {"id":"B19","category":"boundary","url":"https://x1.example.org/~a-b_c.d","accepted":true,"source_rule":"Path","reason":"Tilde, hyphen, underscore and dot are all approved path characters."},
+  {"id":"B20","category":"boundary","url":"https://example.com/é","accepted":false,"source_rule":"Non-ASCII","reason":"Raw Unicode remains outside the approved core language."}
 ]
