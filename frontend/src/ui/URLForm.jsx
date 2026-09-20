@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "../style.css";
 
-const NAV_LINKS = ["Home", "Recognizer", "How it Works", "About Us"];
 const LOADING_MS = 1600;
 
 const STATUS = {
@@ -85,7 +84,7 @@ function inferType(value) {
   return "Encoded String";
 }
 
-/*Core analysis for ACCEPTED and REJECTED*/
+/*Core analysis for ACCEPTED and REJECTED*/ 
 
 function analyze(pattern, url, caseSensitive) {
   const startedAt = performance.now();
@@ -185,19 +184,6 @@ function analyze(pattern, url, caseSensitive) {
 
    /*Presentational pieces*/
 
-function Logo({ size = "large" }) {
-  return (
-    <div className={`upr-logo upr-logo--${size}`} aria-label="URL logo">
-      <span className="upr-logo__dome" />
-      <span className="upr-logo__text">
-        <span>U</span>
-        <span>R</span>
-        <span>L</span>
-      </span>
-    </div>
-  );
-}
-
 function Spinner() {
   return (
     <div className="upr-spinner" role="presentation">
@@ -269,17 +255,7 @@ export default function UrlPatternRecognizer() {
   const showPanel = status !== STATUS.IDLE;
 
   return (
-    <div className="upr-page">
-      <header className="upr-header">
-        <Logo size="large" />
-        <nav className="upr-nav" aria-label="Main navigation">
-          {NAV_LINKS.map((link) => (
-            <a key={link} href={`#${link.toLowerCase().replace(/\s+/g, "-")}`}>
-              {link}
-            </a>
-          ))}
-        </nav>
-      </header>
+    <>
 
       <main className="upr-main">
         <h1 className="upr-title">URL Pattern Recognizer</h1>
@@ -471,20 +447,6 @@ export default function UrlPatternRecognizer() {
           </section>
         )}
       </main>
-
-      <footer className="upr-footer">
-        <Logo size="small" />
-        <p className="upr-copy">
-          &copy; 2026 [@matthewvisuals]. All rights reserved.
-        </p>
-        <nav className="upr-footer-nav" aria-label="Footer navigation">
-          {NAV_LINKS.map((link) => (
-            <a key={link} href={`#${link.toLowerCase().replace(/\s+/g, "-")}`}>
-              {link}
-            </a>
-          ))}
-        </nav>
-      </footer>
-    </div>
+    </>
   );
 }
