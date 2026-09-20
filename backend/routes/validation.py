@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from werkzeug.exceptions import BadRequest
 
 from backend.services.validation import validate_payload
 
@@ -12,5 +13,13 @@ def health():
 
 @api.post('/validate')
 def validate():
-    body, status = validate_payload(request.get_json(silent=True))
+    if not request.is_json:
+        body = {'message': 'Send requests with Content-Type: application/json.', 'code': 'invalid_request'}
+        return jsonify(body), 400
+    try:
+        data = request.get_json(silent=False)
+    except BadRequest:
+        body = {'message': 'Send a valid JSON request body.', 'code': 'invalid_request'}
+        return jsonify(body), 400
+    body, status = validate_payload(data)
     return jsonify(body), status
