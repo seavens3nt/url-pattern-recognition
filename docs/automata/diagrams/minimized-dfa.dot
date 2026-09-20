@@ -1,0 +1,50 @@
+digraph URL_MINIMIZED_DFA {
+  graph [rankdir=LR, ranksep=0.7, nodesep=0.45, pad=0.25, bgcolor="white",
+    label="DFA symbol partition: h | t | p | s | LOWER = [a-z] minus {h,t,p,s} | DIGIT = [0-9] | : | / | . | - | _ | ~ | OTHER",
+    labelloc=t, fontsize=10, fontname="Helvetica"];
+  node [shape=circle, fontname="Helvetica", fontsize=11, width=0.55, fixedsize=true];
+  edge [fontname="Helvetica", fontsize=9, arrowsize=0.7];
+
+  start [shape=point, label=""];
+  M13 [shape=doublecircle]; M14 [shape=doublecircle]; M15 [shape=doublecircle];
+  M_sink [style="dashed,filled", fillcolor="#f3f4f6", label="sink"];
+  { rank=same; M9; M11; }
+  completion [shape=note, fixedsize=false, width=0, fontsize=10,
+    label="Total transition rule:\nFor every state and every class in Sigma,\nany class not printed on an outgoing edge\ntransitions to sink. sink loops on Sigma.\nSee minimization.md for the expanded table."];
+
+  start -> M0;
+  M0 -> M1 [label="h"];
+  M1 -> M2 [label="t"];
+  M2 -> M3 [label="t"];
+  M3 -> M4 [label="p"];
+  M4 -> M5 [label="s"];
+  M4 -> M6 [label=":"];
+  M5 -> M6 [label=":"];
+  M6 -> M7 [label="/"];
+  M7 -> M8 [label="/"];
+
+  M8 -> M9 [label="h,t,p,s,LOWER,DIGIT"];
+  M9 -> M9 [label="h,t,p,s,LOWER,DIGIT"];
+  M9 -> M10 [label="."];
+  M9 -> M11 [label="-"];
+  M10 -> M12 [label="h,t,p,s,LOWER"];
+  M10 -> M9 [label="DIGIT"];
+  M11 -> M9 [label="h,t,p,s,LOWER,DIGIT"];
+  M11 -> M11 [label="-"];
+  M12 -> M13 [label="h,t,p,s,LOWER"];
+  M12 -> M9 [label="DIGIT"];
+  M12 -> M10 [label="."];
+  M12 -> M11 [label="-"];
+  M13 -> M13 [label="h,t,p,s,LOWER"];
+  M13 -> M9 [label="DIGIT"];
+  M13 -> M14 [label="/"];
+  M13 -> M10 [label="."];
+  M13 -> M11 [label="-"];
+
+  M14 -> M15 [label="PATH_CHAR"];
+  M15 -> M15 [label="PATH_CHAR"];
+  M15 -> M14 [label="/"];
+
+  completion -> M_sink [style=dashed, color="#6b7280", label="all unshown classes"];
+  M_sink -> M_sink [label="Σ"];
+}
