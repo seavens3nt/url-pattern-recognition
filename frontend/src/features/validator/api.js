@@ -1,4 +1,4 @@
-// Sean and Jared coordinate changes to this boundary through docs/api-contract.md.
+// The locked request and response boundary is defined in docs/api-contract.md.
 
 const DEFAULT_TIMEOUT_MS = 10000;
 
@@ -57,10 +57,18 @@ function isTraceEntryValid(entry) {
   return (
     entry &&
     typeof entry === 'object' &&
-    typeof entry.position === 'number' &&
+    Number.isInteger(entry.position) &&
+    entry.position >= 0 &&
     typeof entry.symbol === 'string' &&
     typeof entry.from_state === 'string' &&
     (entry.to_state === null || typeof entry.to_state === 'string')
+  );
+}
+
+function isTraceValid(trace) {
+  return (
+    Array.isArray(trace) &&
+    trace.every((entry, index) => isTraceEntryValid(entry) && entry.position === index)
   );
 }
 
@@ -72,8 +80,7 @@ function isResultShapeValid(data) {
     typeof data.accepted === 'boolean' &&
     typeof data.message === 'string' &&
     (data.final_state === null || typeof data.final_state === 'string') &&
-    Array.isArray(data.trace) &&
-    data.trace.every(isTraceEntryValid)
+    isTraceValid(data.trace)
   );
 }
 
@@ -95,6 +102,7 @@ export async function validateUrl(url, { signal: externalSignal, timeoutMs = DEF
   const { signal, getReason, cleanup } = withTimeout(externalSignal, timeoutMs);
 
   let response;
+  let data = null;
   try {
     response = await fetch(`${getBaseUrl()}/validate`, {
       method: 'POST',
@@ -102,8 +110,14 @@ export async function validateUrl(url, { signal: externalSignal, timeoutMs = DEF
       body: JSON.stringify({ url }),
       signal,
     });
+    try {
+      data = await response.json();
+    } catch (err) {
+      // A malformed/non-JSON body is handled below as an unexpected response.
+      // Preserve AbortError so the timeout/cancellation state remains accurate.
+      if (err && err.name === 'AbortError') throw err;
+    }
   } catch (err) {
-    cleanup();
     if (err && err.name === 'AbortError') {
       const reason = getReason();
       const e = new Error(
@@ -115,27 +129,21 @@ export async function validateUrl(url, { signal: externalSignal, timeoutMs = DEF
     const e = new Error('Cannot reach the backend. Check that Flask is running.');
     e.code = 'offline';
     throw e;
-  }
-  cleanup();
-
-  let data = null;
-  try {
-    data = await response.json();
-  } catch {
-    // fall through; handled below based on response.ok
+  } finally {
+    cleanup();
   }
 
   if (response.ok === false) {
-    // HTTP 400/413 already carry { code, message } per the contract — pass
-    // that straight through so it renders as a request error, not "Rejected".
-    if (data && typeof data.message === 'string') {
+    // Only HTTP 400/413 represent an invalid user request. Other HTTP
+    // failures are retryable server errors and must not blame the input.
+    if ((response.status === 400 || response.status === 413) && data && typeof data.message === 'string') {
       return {
         code: data.code || (response.status === 413 ? 'payload_too_large' : 'invalid_request'),
         message: data.message,
       };
     }
-    const e = new Error(`Unexpected server error (HTTP ${response.status}).`);
-    e.code = 'malformed_response';
+    const e = new Error(`The backend returned an unexpected HTTP ${response.status} response.`);
+    e.code = 'server_error';
     throw e;
   }
 

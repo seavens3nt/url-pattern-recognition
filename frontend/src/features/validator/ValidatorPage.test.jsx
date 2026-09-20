@@ -171,6 +171,39 @@ describe('ValidatorPage', () => {
     expect(screen.getByRole('button', { name: /retry/i })).toBeInTheDocument();
   });
 
+  it('rejects a malformed or unordered transition trace', async () => {
+    mockHealthOk();
+    globalThis.fetch.mockResolvedValueOnce(
+      ok({
+        accepted: true,
+        message: 'Accepted',
+        final_state: 'M13',
+        trace: [{ position: 1, symbol: 'h', from_state: 'M0', to_state: 'M1' }],
+      })
+    );
+
+    render(<ValidatorPage />);
+    await screen.findByText('Backend connected');
+    await submit('https://example.com');
+
+    expect(await screen.findByText('Request error')).toBeInTheDocument();
+    expect(screen.queryByText('Accepted')).not.toBeInTheDocument();
+  });
+
+  it('shows an unexpected server failure as retryable instead of an invalid request', async () => {
+    mockHealthOk();
+    globalThis.fetch.mockResolvedValueOnce(fail(500, { message: 'Internal error' }));
+
+    render(<ValidatorPage />);
+    await screen.findByText('Backend connected');
+    await submit('https://example.com');
+
+    expect(await screen.findByText('Request error')).toBeInTheDocument();
+    expect(screen.getByText(/unexpected HTTP 500/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /retry/i })).toBeInTheDocument();
+    expect(screen.queryByText('Rejected')).not.toBeInTheDocument();
+  });
+
   it('ignores a duplicate submit while a request is already in flight', async () => {
     mockHealthOk();
     let resolveFetch;

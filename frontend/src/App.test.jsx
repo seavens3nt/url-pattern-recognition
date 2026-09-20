@@ -41,7 +41,11 @@ it('prevents duplicate submissions while validation is pending', async () => {
   expect(button).toBeDisabled();
   fireEvent.click(button);
   expect(fetch).toHaveBeenCalledTimes(2);
-  resolveValidation({ status: 200, json: async () => ({ accepted: true, message: 'done' }) });
+  resolveValidation({
+    ok: true,
+    status: 200,
+    json: async () => ({ accepted: true, message: 'done', final_state: 'M13', trace: [] }),
+  });
   await screen.findByText('done');
 });
 it('renders a request error for a malformed validation response', async () => {
@@ -54,5 +58,5 @@ it('renders a request error for a malformed validation response', async () => {
   fireEvent.change(screen.getByLabelText('URL to inspect'), { target: { value: 'https://example.com' } });
   fireEvent.click(screen.getByRole('button', { name: 'Run DFA' }));
   await screen.findByText('Request error');
-  expect(screen.getByText('Unexpected response. Check the backend terminal.')).toBeInTheDocument();
+  expect(screen.getByText('The server returned an unexpected response.')).toBeInTheDocument();
 });

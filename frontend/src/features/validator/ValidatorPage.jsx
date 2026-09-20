@@ -58,8 +58,10 @@ export default function ValidatorPage() {
       if (SILENT_CODES.has(err.code)) return;
       setResult({ message: err.message, code: err.code || 'offline' });
     } finally {
-      if (requestRef.current === controller) requestRef.current = null;
-      setBusy(false);
+      if (requestRef.current === controller) {
+        requestRef.current = null;
+        setBusy(false);
+      }
     }
   }
 
