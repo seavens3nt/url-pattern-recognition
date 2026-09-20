@@ -5,26 +5,23 @@ from __future__ import annotations
 from backend.automata.model import DfaModel, load_dfa_model
 
 
-def _symbol_class(symbol: str) -> str:
+def _symbol_key(model: DfaModel, symbol: str) -> str:
+    if symbol in model.alphabet:
+        return symbol
     if 'a' <= symbol <= 'z':
-        return 'letter'
+        for candidate in ('LOWER', 'letter'):
+            if candidate in model.alphabet:
+                return candidate
     if '0' <= symbol <= '9':
-        return 'digit'
-    if symbol in '-_.~':
-        return symbol
-    if symbol in ':/':
-        return symbol
-    return 'other'
+        for candidate in ('DIGIT', 'digit'):
+            if candidate in model.alphabet:
+                return candidate
+    return 'OTHER' if 'OTHER' in model.alphabet else 'other'
 
 
-def _transition(model: DfaModel, state: str, symbol: str) -> tuple[str, str]:
+def _transition(model: DfaModel, state: str, symbol: str) -> str:
     row = model.transitions[state]
-    symbol_class = _symbol_class(symbol)
-    if symbol in row:
-        symbol_key = symbol
-    else:
-        symbol_key = symbol_class if symbol_class in row else 'other'
-    return row[symbol_key], symbol_class
+    return row[_symbol_key(model, symbol)]
 
 
 def simulate_url(value: str, model: DfaModel | None = None) -> dict[str, object]:
@@ -35,18 +32,16 @@ def simulate_url(value: str, model: DfaModel | None = None) -> dict[str, object]
     failure_position = None
 
     for position, symbol in enumerate(value):
-        next_state, symbol_key = _transition(dfa, state, symbol)
+        next_state = _transition(dfa, state, symbol)
         trace.append({
             'position': position,
             'symbol': symbol,
-            'symbol_class': symbol_key,
             'from_state': state,
             'to_state': next_state,
         })
         state = next_state
-        if state == dfa.sink_state:
+        if state == dfa.sink_state and failure_position is None:
             failure_position = position
-            break
 
     accepted = state in dfa.accepting_states and failure_position is None
     if accepted:
