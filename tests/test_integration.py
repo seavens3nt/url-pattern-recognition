@@ -340,12 +340,6 @@ def test_consecutive_interior_hyphens_are_resolved_consistently():
         'https://example.com:8080/',
     ],
 )
-@pytest.mark.xfail(
-    strict=True,
-    reason='D-001: docs/api-contract.md requires one trace entry per raw input character, including '
-           'after the trap state, but the simulator stops at the first sink transition. Remove this '
-           'marker after Jared confirms the completed-trace fix and S-002 is re-reviewed.',
-)
 def test_rejected_traces_cover_the_full_raw_input(client, url):
     body = client.post('/api/validate', json={'url': url}).json
 
