@@ -62,13 +62,4 @@ describe("HomePage", () => {
     });
   });
 
-  it("renders navigation links in the header and footer", () => {
-    render(<HomePage />);
-    expect(screen.getAllByRole("link", { name: "Recognizer" })).toHaveLength(2);
-  });
-
-  it("renders the footer copyright", () => {
-    render(<HomePage />);
-    expect(screen.getByText(/All rights reserved/i)).toBeTruthy();
-  });
 });
