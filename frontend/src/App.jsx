@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import Layout from "./ui/Layout.jsx";
+import HeaderFooter from "./ui/HeaderFooter.jsx";
 import HomePage from "./ui/HomePage.jsx";
 import URLForm from "./ui/URLForm.jsx";
 import HowItWorksPage from "./ui/HowItWorksPage.jsx";
+import AboutPage from './ui/AboutPage.jsx';
 import ValidatorPage from "./features/validator/ValidatorPage.jsx";
 
 const VALID_ROUTES = ["home", "recognizer", "how-it-works", "about"];
@@ -36,7 +37,7 @@ export default function App() {
   const route = useHashRoute();
 
   return (
-    <Layout current={route} plain={route === "home"}>
+    <HeaderFooter current={route} plain={route === "home"}>
       {route === "home" && <HomePage onStart={() => navigate("recognizer")} />}
 
       {route === "recognizer" && (
@@ -48,23 +49,8 @@ export default function App() {
 
       {route === "how-it-works" && <HowItWorksPage/>}
 
-      {route === "about" && (
-        <main className="upr-main">
-          <h1 className="upr-title">How it Works</h1>
-          <p className="upr-subtitle">
-            Content for this page is on the way.
-          </p>
-        </main>
-      )}
+      {route === "about" && <AboutPage/>}
 
-      {route === "about" && (
-        <main className="upr-main">
-          <h1 className="upr-title">About Us</h1>
-          <p className="upr-subtitle">
-            Content for this page is on the way.
-          </p>
-        </main>
-      )}
-    </Layout>
+    </HeaderFooter>
   );
 }
