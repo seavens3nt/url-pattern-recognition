@@ -42,7 +42,7 @@ export default function App() {
 
       {route === "recognizer" && (
         <>
-          {/* <ValidatorPage /> */}
+          <ValidatorPage/>
           <URLForm />
         </>
       )}
