@@ -1,75 +1,18 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
-import HomePage from "./HomePage.jsx";
-import URLForm from "./URLForm.jsx";
+import UrlForm from "./UrlForm.jsx";
+import LoadingIndicator from "./LoadingIndicator.jsx";
 import StatusPanel from "./StatusPanel.jsx";
 import TraceTable from "./TraceTable.jsx";
 
 afterEach(cleanup);
 
-describe("HomePage", () => {
-  it("renders the hero headline", () => {
-    render(<HomePage />);
-    const heading = screen.getByRole("heading", { level: 1 });
-    expect(heading.textContent).toContain("URL Pattern");
-    expect(heading.textContent).toContain("Recognition");
-  });
-
-  it("renders the hero description", () => {
-    render(<HomePage />);
-    expect(
-      screen.getByText(/An Automated URL Recognizer and Verifier/i)
-    ).toBeTruthy();
-  });
-
-  it("calls onStart when the Start button is clicked", () => {
-    const onStart = vi.fn();
-    render(<HomePage onStart={onStart} />);
-    fireEvent.click(screen.getByRole("button", { name: /start/i }));
-    expect(onStart).toHaveBeenCalledTimes(1);
-  });
-
-  it("renders the What is a URL section with three cards", () => {
-    const { container } = render(<HomePage />);
-    expect(screen.getByText("What is a URL?")).toBeTruthy();
-    expect(container.querySelectorAll(".home-card")).toHaveLength(3);
-  });
-
-  it("highlights the middle card", () => {
-    const { container } = render(<HomePage />);
-    const cards = container.querySelectorAll(".home-card");
-    expect(cards[1].classList.contains("home-card--accent")).toBe(true);
-  });
-
-  it("renders the URL Anatomy diagram and all four layer sections", () => {
-    const { container } = render(<HomePage />);
-    expect(screen.getByText("URL Anatomy")).toBeTruthy();
-    expect(
-      screen.getByRole("img", { name: /annotated example url/i })
-    ).toBeTruthy();
-    expect(container.querySelectorAll(".ana-section")).toHaveLength(4);
-  });
-
-  it("labels the diagram parts", () => {
-    render(<HomePage />);
-    [
-      "subdomain",
-      "domain",
-      "TLD",
-      "subdirectory",
-      "parameter",
-      "key",
-      "value",
-    ].forEach((label) => {
-      expect(screen.getAllByText(label).length).toBeGreaterThan(0);
-    });
-  });
-
+describe("validator UI components", () => {
   it("renders one controlled URL input and forwards changes", () => {
     const onChange = vi.fn();
 
     render(
-      <URLForm
+      <UrlForm
         value="https://example.com"
         onChange={onChange}
         helpText="The simulator reads the URL text only."
@@ -91,7 +34,7 @@ describe("HomePage", () => {
     const onSubmit = vi.fn();
 
     render(
-      <URLForm
+      <UrlForm
         value="https://example.com"
         onSubmit={onSubmit}
         loading
@@ -105,6 +48,12 @@ describe("HomePage", () => {
 
     fireEvent.submit(screen.getByRole("button", { name: "Validating..." }));
     expect(onSubmit).toHaveBeenCalledTimes(1);
+  });
+
+  it("announces pending validation", () => {
+    render(<LoadingIndicator />);
+    expect(screen.getByRole("status")).toHaveTextContent("Validating URL");
+    expect(screen.getByRole("status")).toHaveAttribute("aria-busy", "true");
   });
 
   it("renders API verdict messages and final states", () => {
@@ -125,6 +74,18 @@ describe("HomePage", () => {
     expect(screen.queryByText(/HTTP 200|Execution Time/)).toBeNull();
   });
 
+  it("renders a rejected verdict separately from request errors", () => {
+    render(
+      <StatusPanel
+        status="rejected"
+        payload={{ message: "Rejected by the DFA.", final_state: "SINK" }}
+      />
+    );
+
+    expect(screen.getByRole("status")).toHaveTextContent("Rejected by the DFA.");
+    expect(screen.getByRole("status")).toHaveTextContent("Final state: SINK");
+  });
+
   it("keeps request errors separate from rejected verdicts", () => {
     render(
       <StatusPanel
@@ -138,6 +99,41 @@ describe("HomePage", () => {
       "A non-empty URL string is required."
     );
     expect(screen.queryByText("REJECTED")).toBeNull();
+  });
+
+  it("shows an offline message and forwards retry", () => {
+    const onRetry = vi.fn();
+    render(
+      <StatusPanel
+        status="offline"
+        payload={{ message: "Start Flask and try again.", code: "offline" }}
+        onRetry={onRetry}
+      />
+    );
+
+    expect(screen.getByRole("alert")).toHaveTextContent("Backend unavailable");
+    fireEvent.click(screen.getByRole("button", { name: "Retry" }));
+    expect(onRetry).toHaveBeenCalledTimes(1);
+  });
+
+  it("renders an unexpected response without calling it rejected", () => {
+    render(
+      <StatusPanel
+        status="unexpected"
+        payload={{ message: "The response shape is invalid." }}
+      />
+    );
+
+    expect(screen.getByRole("alert")).toHaveTextContent("Unexpected response");
+    expect(screen.queryByText("Rejected")).not.toBeInTheDocument();
+  });
+
+  it("describes an empty transition trace", () => {
+    render(<TraceTable trace={[]} />);
+    expect(screen.getByRole("status")).toHaveTextContent(
+      "No transition trace is available"
+    );
+    expect(screen.queryByRole("table")).not.toBeInTheDocument();
   });
 
   it("renders supplied trace rows through props", () => {

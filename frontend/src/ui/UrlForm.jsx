@@ -2,7 +2,7 @@ import "../style.css";
 
 const DEFAULT_ID = "url";
 
-export default function URLForm({
+export default function UrlForm({
   value = "",
   onChange,
   onSubmit,

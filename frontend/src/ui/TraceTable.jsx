@@ -1,8 +1,14 @@
 export default function TraceTable({ trace = [] }) {
-  if (trace.length === 0) return null;
+  if (trace.length === 0) {
+    return (
+      <p className="upr-empty-trace" role="status">
+        No transition trace is available for this result.
+      </p>
+    );
+  }
 
   return (
-    <div className="trace-wrap">
+    <div className="trace-wrap" role="region" aria-label="DFA transition trace" tabIndex="0">
       <table>
         <caption className="sr-only">DFA transition trace</caption>
         <thead>

@@ -1,14 +1,20 @@
 import LoadingIndicator from "./LoadingIndicator.jsx";
 
 const STATUS = {
+  IDLE: "idle",
   LOADING: "loading",
   ACCEPTED: "accepted",
   REJECTED: "rejected",
   INVALID: "invalid",
+  INVALID_REQUEST: "invalid-request",
+  OFFLINE: "offline",
   ERROR: "error",
+  UNEXPECTED: "unexpected",
 };
 
-export default function StatusPanel({ status, payload }) {
+export default function StatusPanel({ status = STATUS.IDLE, payload, onRetry }) {
+  if (status === STATUS.IDLE) return null;
+
   if (status === STATUS.LOADING) {
     return <LoadingIndicator />;
   }
@@ -17,20 +23,32 @@ export default function StatusPanel({ status, payload }) {
     payload?.message || "The validator did not return a result message.";
   const finalState = payload?.final_state;
 
-  if (status === STATUS.ERROR) {
+  const isOffline =
+    status === STATUS.OFFLINE ||
+    (status === STATUS.ERROR &&
+      (payload?.code === "offline" || payload?.code === "timeout"));
+
+  if (isOffline || status === STATUS.ERROR || status === STATUS.UNEXPECTED) {
+    const heading = isOffline
+      ? "Backend unavailable"
+      : status === STATUS.UNEXPECTED
+        ? "Unexpected response"
+        : "Request error";
+
     return (
       <div className="upr-notice" role="alert">
-        <h2 className="upr-notice__title">
-          {payload?.code === "offline" || payload?.code === "timeout"
-            ? "Backend unavailable"
-            : "Request error"}
-        </h2>
+        <h2 className="upr-notice__title">{heading}</h2>
         <p className="upr-notice__text">{message}</p>
+        {isOffline && onRetry && (
+          <button type="button" className="upr-button" onClick={onRetry}>
+            Retry
+          </button>
+        )}
       </div>
     );
   }
 
-  if (status === STATUS.INVALID) {
+  if (status === STATUS.INVALID || status === STATUS.INVALID_REQUEST) {
     return (
       <div className="upr-notice upr-notice--solo" role="alert">
         <h2 className="upr-notice__title">Request error</h2>
@@ -62,5 +80,10 @@ export default function StatusPanel({ status, payload }) {
     );
   }
 
-  return null;
+  return (
+    <div className="upr-notice" role="alert">
+      <h2 className="upr-notice__title">Unexpected response</h2>
+      <p className="upr-notice__text">{message}</p>
+    </div>
+  );
 }

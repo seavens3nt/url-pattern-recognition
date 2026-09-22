@@ -1,8 +1,7 @@
-import { afterEach, beforeEach, expect, it, vi } from 'vitest';
+import { afterEach, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import App from './App.jsx';
 afterEach(() => { cleanup(); vi.unstubAllGlobals(); });
-beforeEach(() => { window.history.replaceState(null, '', '#/recognizer'); });
 it('connects to the backend and displays an accepted DFA result', async () => {
   const fetch = vi.fn().mockResolvedValueOnce({ ok: true, json: async () => ({ status: 'ok', validator_ready: true }) }).mockResolvedValueOnce({ status: 200, json: async () => ({ accepted: true, message: 'Accepted: the URL matches the approved core language.', final_state: 'TLD_MANY', trace: [{ position: 0, symbol: 'h', from_state: 'START', to_state: 'H' }] }) });
   vi.stubGlobal('fetch', fetch); render(<App />);

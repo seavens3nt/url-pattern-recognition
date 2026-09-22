@@ -1,6 +1,14 @@
-export default function LoadingIndicator() {
+export default function LoadingIndicator({
+  title = "Validating URL",
+  message = "Running the DFA simulator...",
+}) {
   return (
-    <div className="upr-loading">
+    <div
+      className="upr-loading"
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
+    >
       <div className="upr-spinner" role="presentation">
         <span className="upr-spinner__ring" />
         <span className="upr-spinner__pulse" />
@@ -8,8 +16,8 @@ export default function LoadingIndicator() {
           <span className="upr-spinner__dot" />
         </span>
       </div>
-      <h2 className="upr-loading__title">Validating URL</h2>
-      <p className="upr-loading__text">Running the DFA simulator...</p>
+      <h2 className="upr-loading__title">{title}</h2>
+      <p className="upr-loading__text">{message}</p>
     </div>
   );
 }

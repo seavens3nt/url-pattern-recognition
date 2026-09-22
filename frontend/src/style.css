@@ -532,6 +532,20 @@ body {
   border: 0;
 }
 
+.upr-empty-trace {
+  margin: 18px 0 0;
+  padding: 14px 16px;
+  color: var(--upr-navy);
+  background: var(--upr-panel-bg);
+  border: 1px solid rgba(12, 33, 96, 0.12);
+  border-radius: 10px;
+}
+
+.trace-wrap:focus-visible {
+  outline: 3px solid var(--upr-teal);
+  outline-offset: 3px;
+}
+
 /* ---------- Reasons list ---------- */
 .upr-reasons {
   margin: 0;
