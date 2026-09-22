@@ -1,0 +1,360 @@
+.home-page {
+  background-image: none;
+  background-color: var(--upr-white);
+}
+
+/* ---------- Icon badges ---------- */
+.home-badge {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #eef2fb;
+  box-shadow: 0 4px 12px rgba(12, 33, 96, 0.08);
+}
+
+.home-badge svg {
+  width: 24px;
+  height: 24px;
+}
+
+.home-badge--green {
+  background: #e9f7f1;
+}
+
+.home-badge--sky {
+  background: #e8f0ff;
+}
+
+.home-badge--hero {
+  margin-bottom: 26px;
+}
+
+.home-badge--section {
+  margin-bottom: 14px;
+}
+
+/* ---------- Hero ---------- */
+.home-hero {
+  position: relative;
+  min-height: calc(100svh - var(--upr-header-h, 96px));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px 90px;
+  text-align: center;
+  background-color: var(--upr-white);
+  background-image: radial-gradient(rgba(12, 33, 96, 0.16) 1.2px, transparent 1.2px);
+  background-size: 26px 26px;
+}
+
+.home-hero__headline {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+}
+
+.home-hero__title {
+  margin: 0;
+  font-size: clamp(38px, 6vw, 60px);
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: var(--upr-navy);
+}
+
+.home-float {
+  animation: home-bob 4.5s ease-in-out infinite;
+}
+
+.home-float--right {
+  animation-delay: 1.4s;
+}
+
+.home-hero__text {
+  margin: 26px 0 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #33405f;
+}
+
+.home-start {
+  margin-top: 34px;
+  min-width: 110px;
+  padding: 11px 32px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--upr-white);
+  background: var(--upr-navy);
+  border: none;
+  border-radius: var(--upr-radius-pill);
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(12, 33, 96, 0.28);
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+
+.home-start:hover {
+  background: var(--upr-navy-deep);
+  transform: translateY(-2px);
+}
+
+.home-start:active {
+  transform: translateY(0);
+}
+
+/* ---------- Generic section ---------- */
+.home-section {
+  padding: 64px 24px 72px;
+  text-align: center;
+}
+
+.home-section__title {
+  margin: 0;
+  font-size: clamp(28px, 4.5vw, 42px);
+  font-weight: 800;
+  letter-spacing: -0.6px;
+  color: var(--upr-navy);
+}
+
+.home-section__sub {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: #33405f;
+  opacity: 0.8;
+}
+
+/* ---------- Cards ---------- */
+.home-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 50px;
+  width: min(1250px, 100%);
+  margin: 62px auto 0;
+  text-align: left;
+}
+
+.home-card {
+  padding: 26px 24px;
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  background: var(--upr-white);
+  border: 1px solid rgba(12, 33, 96, 0.16);
+  border-radius: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.home-card p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #33405f;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+.home-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(12, 33, 96, 0.12);
+}
+
+.home-card--accent {
+  background: var(--upr-navy);
+  border-color: var(--upr-navy);
+  box-shadow: 0 16px 34px rgba(12, 33, 96, 0.28);
+}
+
+.home-card--accent p {
+  color: var(--upr-white);
+}
+
+/* ---------- Anatomy shell ---------- */
+.home-anatomy__shell {
+  width: min(1120px, 100%);
+  margin: 40px auto 0;
+  padding: 34px 30px 38px;
+  text-align: left;
+  background: var(--upr-white);
+  border: 1px solid rgba(37, 99, 235, 0.22);
+  border-radius: 20px;
+  box-shadow: 0 18px 40px rgba(12, 33, 96, 0.08);
+}
+
+.home-anatomy__notes {
+  margin-top: 40px;
+  padding: 26px 28px;
+  border: 1px solid rgba(37, 99, 235, 0.22);
+  border-radius: 16px;
+}
+
+/* ---------- Annotated URL diagram ---------- */
+.ana-wrap {
+  overflow-x: auto;
+  padding: 10px 4px 6px;
+}
+
+.ana-line {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-width: 660px;
+  font-family: "SFMono-Regular", Consolas, "Courier New", monospace;
+}
+
+.ana-group,
+.ana-unit {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ana-row {
+  display: inline-flex;
+  align-items: flex-end;
+}
+
+.ana-text {
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  color: #111827;
+  white-space: pre;
+  padding: 2px 0;
+}
+
+.ana-label {
+  font-size: 11px;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: var(--ana-c, #64748b);
+  padding: 0 4px 2px;
+  white-space: nowrap;
+}
+
+.ana-bracket {
+  width: 100%;
+  height: 7px;
+  border: 1.5px solid var(--ana-c, #94a3b8);
+}
+
+.ana-bracket--top {
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  margin-bottom: 3px;
+}
+
+.ana-bracket--bottom {
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  margin-top: 3px;
+}
+
+/* tone colours */
+.ana-blue {
+  --ana-c: #2563eb;
+}
+
+.ana-green {
+  --ana-c: #10a37f;
+}
+
+.ana-orange {
+  --ana-c: #ea9a3e;
+}
+
+.ana-purple {
+  --ana-c: #7c5cf0;
+}
+
+.ana-pink {
+  --ana-c: #e0559b;
+}
+
+/* ---------- Anatomy notes ---------- */
+.ana-section {
+  margin-bottom: 22px;
+}
+
+.ana-section:last-child {
+  margin-bottom: 0;
+}
+
+.ana-section h3 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--upr-navy);
+}
+
+.ana-list,
+.ana-list ul {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 5px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #33405f;
+}
+
+.ana-list ul {
+  margin-top: 5px;
+  list-style: circle;
+}
+
+.ana-list strong {
+  color: var(--upr-navy);
+}
+
+.ana-list code {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 11.5px;
+  color: #2563eb;
+}
+
+/* ---------- Animations ---------- */
+@keyframes home-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 960px) {
+  .home-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .home-hero__headline {
+    gap: 18px;
+  }
+
+  .home-float {
+    display: none;
+  }
+
+  .home-anatomy__shell {
+    padding: 22px 16px 26px;
+  }
+
+  .home-anatomy__notes {
+    padding: 20px 16px;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .home-float {
+    animation: none;
+  }
+
+  .home-card:hover,
+  .home-start:hover {
+    transform: none;
+  }
+}

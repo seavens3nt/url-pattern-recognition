@@ -1,0 +1,113 @@
+.upr-brand {
+  display: inline-flex;
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+.upr-brand:focus-visible {
+  outline: 2px solid var(--upr-teal);
+  outline-offset: 4px;
+}
+
+/* ---------- Active link ---------- */
+.upr-nav a.is-active {
+  border-bottom-color: var(--upr-teal);
+  color: var(--upr-teal-dark);
+}
+
+.upr-footer-nav a.is-active {
+  color: var(--upr-teal-dark);
+  text-decoration: underline;
+}
+
+.upr-nav a:focus-visible,
+.upr-footer-nav a:focus-visible {
+  outline: 2px solid var(--upr-teal);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- Hamburger ---------- */
+.upr-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  padding: 0 9px;
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.upr-burger span {
+  display: block;
+  height: 2.5px;
+  width: 100%;
+  border-radius: 2px;
+  background: var(--upr-navy);
+  transition: transform 0.22s ease, opacity 0.18s ease;
+}
+
+.upr-burger.is-open span:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.upr-burger.is-open span:nth-child(2) {
+  opacity: 0;
+}
+
+.upr-burger.is-open span:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* ---------- Mobile nav ---------- */
+@media (max-width: 900px) {
+  .upr-header {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 24px 0;
+  }
+
+  .upr-burger {
+    display: flex;
+  }
+
+  .upr-nav {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    margin: 6px 0 0;
+    padding: 6px 0;
+    background: var(--upr-white);
+    border: 1px solid rgba(12, 33, 96, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 12px 26px rgba(12, 33, 96, 0.12);
+  }
+
+  .upr-nav.is-open {
+    display: flex;
+    animation: upr-fade-up 0.2s ease both;
+  }
+
+  .upr-nav a {
+    width: 100%;
+    padding: 12px 18px;
+    font-size: 15px;
+    border-bottom: none;
+    border-left: 3px solid transparent;
+  }
+
+  .upr-nav a:hover,
+  .upr-nav a.is-active {
+    border-bottom-color: transparent;
+    border-left-color: var(--upr-teal);
+    background: rgba(26, 140, 146, 0.07);
+  }
+}
