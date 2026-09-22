@@ -132,8 +132,8 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 50px;
-  width: min(1500px, 100%);
-  margin: 42px auto 0;
+  width: min(1250px, 100%);
+  margin: 62px auto 0;
   text-align: left;
 }
 

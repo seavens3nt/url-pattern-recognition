@@ -1,22 +1,23 @@
 import './styles/about_us.css';
-
-   /*(A) import them at the top and use the variable:
-       import nayeon from '../assets/team/nayeon.jpg'; 
-       ...  photo: nayeon*/
+import ranee_pic from '../../profile_pics/ranee.jpeg';
+import paul_pic from '../../profile_pics/paul.jpeg';
+import isaiah_pic from '../../profile_pics/isaiah.png';
+import pamela_pic from '../../profile_pics/pamela.jpeg';
+import kenneth_pic from '../../profile_pics/kenneth.jpeg';
+import sean_pic from '../../profile_pics/sean.jpeg';
+import jared_pic from '../../profile_pics/jared.jpeg';
+import cedric_pic from '../../profile_pics/cedric.jpeg';
 
 const TEAM = [
-  { name: 'Ranee Mikaella Gutierrez',      role: 'Project Manager / Integration Lead', photo: '' },
-  { name: 'Sean Matthew Tumolac',   role: 'Automata Optimizer',                 photo: '' },
-  { name: 'Isaiah Jasser Otilano',     role: 'Language Analyst',                   photo: '' },
-  { name: 'Jared Noel', role: 'Simulator Programmer',               photo: '' },
-  { name: 'Ralph Kenneth Punzalan',  role: 'RegEx / NFA Designer',               photo: '' },
-  { name: 'Paul Joshua Campos', role: 'QA / Tester',                        photo: '' },
-  { name: 'Pamela Babaran',    role: 'DFA Designer',                       photo: '' },
-  { name: 'Cedric Sigue', role: 'Documentation / Presentation Lead',  photo: '' },
+  { name: 'Ranee Mikaella Gutierrez',   role: 'Project Manager / Integration Lead',   photo: ranee_pic },
+  { name: 'Sean Matthew Tumolac',       role: 'Automata Optimizer',                   photo: sean_pic },
+  { name: 'Isaiah Jasser Otilano',      role: 'UI/UX & Language Analyst',             photo: isaiah_pic },
+  { name: 'Jared Noel',                 role: 'Simulator Programmer',                 photo: jared_pic },
+  { name: 'Ralph Kenneth Punzalan',     role: 'RegEx / NFA Designer',                 photo: kenneth_pic },
+  { name: 'Paul Joshua Campos',         role: 'QA / Tester',                          photo: paul_pic },
+  { name: 'Pamela Babaran',             role: 'DFA Designer',                         photo: pamela_pic },
+  { name: 'Cedric Kristoff Sigue',      role: 'Documentation / Presentation Lead',    photo: cedric_pic },
 ];
-
-/*for fallback avatars */
-const FALLBACK = '';
 
 function initialsOf(name) {
   return name
@@ -28,7 +29,7 @@ function initialsOf(name) {
 }
 
 function Avatar({ member }) {
-  const src = member.photo || FALLBACK;
+  const src = member.photo;
 
   if (src) {
     return (
