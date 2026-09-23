@@ -179,6 +179,26 @@ body {
   opacity: 0.75;
 }
 
+.upr-health {
+  width: fit-content;
+  margin: 18px auto 0;
+  padding: 7px 14px;
+  color: var(--upr-navy);
+  background: rgba(26, 140, 146, 0.1);
+  border: 1px solid rgba(26, 140, 146, 0.22);
+  border-radius: var(--upr-radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.upr-scope-note {
+  width: min(760px, 100%);
+  margin: 28px auto 0;
+  color: #52607d;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
 /* ---------- Card ---------- */
 .upr-card {
   width: min(1000px, 100%);

@@ -1,7 +1,24 @@
-import { afterEach, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import App from './App.jsx';
-afterEach(() => { cleanup(); vi.unstubAllGlobals(); });
+beforeEach(() => { window.location.hash = '/recognizer'; });
+afterEach(() => { cleanup(); vi.unstubAllGlobals(); window.location.hash = ''; });
+it('opens the full home page and navigates into the styled recognizer', async () => {
+  window.location.hash = '/home';
+  vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
+    ok: true,
+    json: async () => ({ status: 'ok', validator_ready: true }),
+  }));
+
+  render(<App />);
+  expect(screen.getByRole('heading', { name: 'URL Pattern Recognition' })).toBeInTheDocument();
+  expect(screen.getByRole('navigation', { name: 'Main navigation' })).toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole('button', { name: 'Start' }));
+
+  expect(await screen.findByLabelText('URL to inspect')).toBeInTheDocument();
+  expect(await screen.findByText('Backend connected')).toBeInTheDocument();
+});
 it('connects to the backend and displays an accepted DFA result', async () => {
   const fetch = vi.fn().mockResolvedValueOnce({ ok: true, json: async () => ({ status: 'ok', validator_ready: true }) }).mockResolvedValueOnce({ status: 200, json: async () => ({ accepted: true, message: 'Accepted: the URL matches the approved core language.', final_state: 'TLD_MANY', trace: [{ position: 0, symbol: 'h', from_state: 'START', to_state: 'H' }] }) });
   vi.stubGlobal('fetch', fetch); render(<App />);

@@ -1,118 +1,166 @@
-# Phase 3 — Independent integration packages
+# Phase 3 — Audit, correction and release candidate
 
-**Dates:** September 21–25, 2026
+**Dates:** September 23–25, 2026
+**Sprint goal:** audit the integrated Phase 2 candidate, fix only verified
+defects, complete deployment/report evidence, and freeze a release candidate.
 
-**Sprint goal:** integrate the locked Phase 2 outputs while each member remains inside one owned area.
+Phase 3 does not repeat Phase 2 implementation. Each member receives one
+independent package and works from the locked files on `main`. A member changes
+an implementation file only when their audit exposes a reproducible defect in
+their owned area. Only Ranee accepts PRs and changes scope.
 
-**Activation rule:** Ranee records the exact Phase 2 model, API, UI-state,
-fixture, deployment, and report-evidence commits before opening Phase 3 issues.
-Members start immediately when their listed inputs exist on `main`.
+## Activation inputs
 
-The independent workflow and issue structure are defined in [Independent work-package template](../work-package-template.md). Only Ranee approves PRs.
-
-## Locked inputs
-
+- Phase 2 integration gate and screenshots in `docs/release/`
 - `backend/automata/url_dfa.json`
-- `docs/api-contract.md`
-- `docs/language-spec.md`
-- `docs/ui/wireframes.md`
+- `docs/automata/{nfa,dfa,minimization}.md`
+- `docs/api-contract.md` and `docs/language-spec.md`
 - `tests/fixtures/url_cases.json`
-- `docs/report/evidence-index.md` and the accepted report baseline from PR #33
+- integrated React application under `frontend/src/`
+- `docs/report/evidence-index.md`
 
-## Work packages
+The locked candidate commit will be recorded in `docs/status.md` after the
+Phase 2 closure PR is merged. Members pull that `main` before beginning.
 
-### Ranee — integration and feature freeze
+## Ranee — integration, deployment and feature freeze
 
-**Primary owned paths:** `scripts/`, `.github/workflows/checks.yml`, `compose.yaml`,
-`deployment/`, `docs/status.md`, `docs/release/integration-gate.md`, and GitHub
-Phase 3 issues.
+**Owned files:** `scripts/`, `.github/workflows/checks.yml`, `compose.yaml`,
+`deployment/`, `docs/status.md`, `docs/release/`, and Phase 3 GitHub issues.
 
-**Expected outputs:** integrated production-like build; CI/API smoke result;
-deployment and startup evidence; locked commit list; independently owned issues;
-merged-PR record; blocker decisions; feature-freeze and Phase 4 decision.
+**Required output:**
 
-**Authority:** member-owned paths reduce collisions but do not restrict Ranee.
-Ranee may edit any repository file for integration, urgent fixes, or deadline
-recovery and records the reason and affected issue in the PR.
+- Run the complete checker and API smoke test on the locked candidate.
+- Start Docker Desktop when available, validate the Compose configuration, and
+  record a port-8080 accepted/rejected browser run.
+- Measure production bundle sizes and record startup/first-response evidence.
+- Triage defects to the owning package without expanding features.
+- Record the feature-freeze commit and Phase 4 decision.
 
-### Jared — backend integration
+**Done when:** CI is green, critical defects are closed, deployment evidence is
+linked, and `docs/status.md` names the frozen commit.
 
-**Owned paths:** `backend/`, `tests/test_api.py`, `tests/test_simulator.py`.
+## Ralph — NFA trace audit
 
-**Expected outputs:** validated model loading; complete-input traversal; accurate verdict/final-state/trace responses; backend regression tests.
+**Owned files:** `docs/qa/nfa-trace-audit.md`; change
+`docs/automata/nfa.md` or `docs/automata/diagrams/nfa.dot` only for an assigned
+correction.
 
-**Do not touch:** `frontend/`, `docs/automata/*.md`, Figma/UI documents, or QA reports.
+**Required output:**
 
-**Verify:** Ruff and pytest pass; all fixture cases produce the expected API verdict; traces use the locked model.
+- Independently trace two accepted and two rejected shared-fixture IDs.
+- Compare every consumed symbol, epsilon closure and final outcome with the
+  documented NFA.
+- List exact state/transition mismatches or state `No mismatch found`.
+- Render the DOT source only if it changes.
 
-### Sean — frontend integration
+**Done when:** the audit names fixture IDs, expected/actual paths, commands and
+the tested commit. Ralph does not edit DFA, runtime, frontend or QA tests.
 
-**Owned paths:** `frontend/src/features/validator/` and its feature tests.
+## Pamela — minimized-DFA/model audit
 
-**Expected outputs:** real API submission; complete loading/verdict/error rendering; final-state and trace display; retry and component tests.
+**Owned files:** `docs/qa/dfa-model-audit.md`; change DFA/minimization/model
+files only for a defect assigned by Ranee.
 
-**Do not touch:** `backend/`, automata files, API/language contracts, global CSS, or QA-owned tests.
+**Required output:**
 
-**Verify:** frontend tests, ESLint, and production build pass for accepted, rejected, invalid-request, and offline flows.
+- Compare documented states, start/accepting/sink sets, symbol partition and
+  every transition with `backend/automata/url_dfa.json`.
+- Check the original-to-minimized mapping and total-transition property.
+- Trace two accepted and two rejected shared-fixture IDs through the model.
+- List exact mismatches or state `No mismatch found`.
 
-### Isaiah — responsive and accessible presentation
+**Done when:** the audit is reproducible from the locked commit and does not
+modify simulator, API, frontend or another member's audit.
 
-**Owned paths:** `frontend/src/style.css`, `frontend/src/ui/`, `docs/ui/accessibility-checklist.md`.
+## Jared — backend security and contract audit
 
-**Expected outputs:** desktop/mobile layout; all state appearances; keyboard focus; accessible labels/contrast evidence; screenshots.
+**Owned files:** `backend/`, `tests/test_api.py`, and
+`tests/test_simulator.py` only.
 
-**Do not touch:** `backend/`, validator request/state logic, automata files, or tests owned by other packages.
+**Required output:**
 
-**Verify:** ESLint/build pass; keyboard and responsive inspection evidence is attached.
+- Recheck model-schema rejection, total traversal, sink continuation, request
+  type/size limits, response schema and the no-network guarantee.
+- Add regression tests only for missing backend coverage.
+- Fix only reproducible backend defects and retain the locked API contract.
+- Record Ruff and targeted/full pytest results in the PR.
 
-### Ralph — NFA trace audit
+**Done when:** all shared cases agree with the API and simulator, security
+boundaries pass, and no frontend/formal-document file changes appear.
 
-**Owned paths:** `docs/qa/nfa-trace-audit.md`, `docs/automata/diagrams/nfa.dot` only when a correction is assigned by Ranee.
+## Isaiah — responsive and accessibility audit
 
-**Expected outputs:** selected fixture traces through the RE/NFA; exact mismatch records; corrected NFA source only when required.
+**Owned files:** `frontend/src/ui/`, `frontend/src/style.css`, and
+`docs/ui/accessibility-checklist.md`.
 
-**Do not touch:** DFA/model, backend, frontend, or QA test files.
+**Required output:**
 
-### Pamela — DFA model audit
+- Inspect Home, Recognizer, How It Works and About Us at desktop and narrow
+  widths, including the hamburger menu and scrollable trace.
+- Verify keyboard order, visible focus, labels, live status/error semantics,
+  color contrast and reduced-motion behavior.
+- Optimize oversized presentation assets without changing team content.
+- Attach before/after evidence only when a correction is required.
 
-**Owned paths:** `docs/qa/dfa-model-audit.md`, DFA/minimization artifacts only when a correction is assigned by Ranee.
+**Done when:** the checklist identifies every tested viewport and interaction,
+ESLint/build pass, and no API/state/backend files change.
 
-**Expected outputs:** state-ID, accepting/sink, transition, and minimized-mapping comparison against `url_dfa.json`; exact mismatch records.
+## Sean — frontend behavior and performance audit
 
-**Do not touch:** backend loader/simulator, frontend, or QA test files.
+**Owned files:** `frontend/src/features/validator/` and its feature tests.
 
-### Paul — end-to-end verification
+**Required output:**
 
-**Owned paths:** `tests/fixtures/`, QA-owned regression tests, `docs/qa/phase-3-report.md`.
+- Recheck accepted, rejected, malformed, oversized, offline, timeout,
+  unexpected-response, retry, duplicate-submit and unmount behavior.
+- Verify environment-configurable API routing for development and deployment.
+- Add regression tests only for uncovered behavior and fix verified defects.
+- Record Vitest, ESLint and production-build output.
 
-**Expected outputs:** simulator/API/UI result matrix; malformed/limit/offline/retry coverage; defect reports; retest evidence.
+**Done when:** API behavior remains consistent through Isaiah's components and
+no backend/global-style/formal-document files change.
 
-**Do not touch:** implementation or formal-model files. Ranee assigns fixes to the owning package.
+## Paul — end-to-end release verification
 
-### Cedric — integrated-system chapter and demo draft
+**Owned files:** QA-owned tests, `tests/fixtures/`, and
+`docs/qa/phase-3-report.md`.
 
-**Owned artifacts:** the accepted report Google Doc from PR #33 and only
-`docs/report/evidence-index.md` in GitHub.
+**Required output:**
 
-**Expected outputs:** code-aligned architecture and implementation explanation;
-verified Phase 2/3 screenshots and test evidence; updated contribution matrix;
-resolved evidence links; timed demo sequence using actual integrated behavior.
+- Run the full corpus through simulator and API, then sample accepted/rejected
+  cases in the browser.
+- Verify malformed/oversized/offline/retry behavior and all four routes.
+- Record each defect with reproduction, expected/actual result, owner and
+  retest status; do not repair implementation files.
+- Record the final test counts and tested commit.
 
-**Do not touch:** application code, formal artifacts, or tests.
+**Done when:** the report contains a cross-layer result matrix, every critical
+defect is retested, and the candidate commit is explicit.
 
-## Parallel-progress rule
+## Cedric — integrated paper and demo package
 
-Ralph, Pamela, Paul, and Cedric can begin their audits/evidence work from the
-locked files while Ranee, Jared, Sean, and Isaiah integrate their own areas.
-Nobody waits for a personal review. When a required new commit reaches `main`,
-the affected owner pulls it and continues.
+**Owned artifacts:** the accepted shared Google Doc and
+`docs/report/evidence-index.md`.
 
-## Phase 3 completion
+**Required output:**
 
-- [ ] Runtime model matches the locked minimized DFA.
-- [ ] React displays real API verdicts, final states, and traces.
-- [ ] Rejection, malformed request, and connection failure remain distinct.
-- [ ] The shared corpus agrees across simulator, API, and UI.
-- [ ] Critical defects are fixed in their owning packages and retested.
-- [ ] Evidence and demo documents describe the actual candidate.
-- [ ] Ranee records feature freeze and Phase 4 activation.
+- Synchronize the NFA, subset construction, DFA, minimization, architecture,
+  implementation, validation/security and test-result sections from linked
+  repository evidence.
+- Insert the accepted desktop/mobile screenshots with numbered captions.
+- Update references, contribution matrix and the 9-minute eight-member demo.
+- Remove pending statements that conflict with merged evidence.
+
+**Done when:** each technical claim links to evidence, terminology/state IDs
+match the candidate, all members have verified contributions, and Ranee accepts
+the Google Doc. Cedric does not edit application, automata or test files.
+
+## Phase 3 gate
+
+- [ ] Runtime JSON matches the documented minimized DFA.
+- [ ] React/API/simulator agree for the shared corpus.
+- [ ] Verdict, request-error and offline states remain distinct.
+- [ ] Desktop/narrow accessibility evidence is accepted.
+- [ ] CI, API smoke and production-like deployment checks pass.
+- [ ] Paper and demo describe the frozen candidate.
+- [ ] Ranee records the feature-freeze commit and activates Phase 4.
