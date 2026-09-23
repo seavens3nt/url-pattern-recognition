@@ -3,13 +3,15 @@
 | Status field | Value |
 | --- | --- |
 | Evidence date | 2026-09-23 |
-| Active sprint | Phase 2 closure; Phase 3 prepared |
+| Active sprint | Phase 3 activation; work packages being published |
 | Active guide | [Phase 3 assignments](phases/week-3.md) |
 | Phase 3 deadline | Friday, September 25, 2026 |
-| Locked candidate | Pending Phase 2 closure PR merge |
+| Locked candidate | `8e666da` — merged [PR #56](https://github.com/seavens3nt/url-pattern-recognition/pull/56) |
 
-This is the Phase 2 closure snapshot. Phase 3 packages are prepared in the
-linked guide and become active after Ranee accepts the merged candidate.
+Phase 2 integration is merged, with six successful GitHub checks on PR #56.
+The Phase 3 assignments in the linked guide are synchronized with the shared
+project execution Google Doc. Member issues are published against the locked
+candidate before work begins.
 
 Ranee accepted Cedric's Phase 1 Google Doc and merged evidence index in
 [PR #33](https://github.com/seavens3nt/url-pattern-recognition/pull/33).
@@ -24,9 +26,10 @@ closed. Phase 2 has no carried Phase 1 documentation condition.
   components and reviewed React API state machine.
 - Local evidence covers desktop/narrow layouts, a real accepted API result,
   final state and ordered trace.
-- Phase 2 is ready for Phase 3 audit after the closure PR passes CI and is
-  merged. Docker container evidence remains an explicit Phase 3 deployment task
-  because Docker Desktop was unavailable at the local gate.
+- Phase 2 integration passed CI and was squash-merged as `8e666da`. Cedric's
+  unfinished course-report work carries into Phase 3; it is not marked complete.
+  Docker container evidence remains a Phase 3 deployment task because Docker
+  Desktop was unavailable at the local gate.
 
 ## Phase 3 boundary
 
@@ -53,8 +56,8 @@ formal and API testing are documented separately.
 
 The Phase 2 tracker is
 [Issue #34](https://github.com/seavens3nt/url-pattern-recognition/issues/34).
-The Phase 3 tracker and member packages will be opened from the active guide
-after the gate is accepted. Only Ranee reviews and approves PRs.
+The Phase 3 tracker and member packages are opened from the active guide after
+the gate decision is recorded. Only Ranee accepts member PRs.
 
 ## Completed Phase 1 member tasks
 
