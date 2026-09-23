@@ -1,6 +1,7 @@
 # Phase 3 — Audit, correction and release candidate
 
-**Dates:** September 23–25, 2026
+**Dates:** September 21–25, 2026. Assignment activation follows the Phase 2
+closure merge on September 23; the approved sprint window is unchanged.
 **Sprint goal:** audit the integrated Phase 2 candidate, fix only verified
 defects, complete deployment/report evidence, and freeze a release candidate.
 
