@@ -39,7 +39,7 @@ export default function StatusPanel({ status = STATUS.IDLE, payload, onRetry }) 
       <div className="upr-notice" role="alert">
         <h2 className="upr-notice__title">{heading}</h2>
         <p className="upr-notice__text">{message}</p>
-        {isOffline && onRetry && (
+        {onRetry && (
           <button type="button" className="upr-button" onClick={onRetry}>
             Retry
           </button>

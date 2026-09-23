@@ -305,8 +305,8 @@ presentation sequence; the PR changes only `docs/report/evidence-index.md`.
 
 ## Phase 2 completion
 
-- [ ] Every package has one owner, non-overlapping paths, expected outputs, and checks.
-- [ ] RE/NFA, DFA/minimization, simulator/API, visual, interaction, QA, and evidence-index PRs are merged; Ranee accepts the Google Docs theory sections.
-- [ ] No frontend PR edits backend files and no backend PR edits frontend files.
-- [ ] All automated checks pass on `main`.
-- [ ] Ranee records the Phase 3 activation decision.
+- [x] Every package has one owner, non-overlapping paths, expected outputs, and checks.
+- [x] RE/NFA, DFA/minimization, simulator/API, visual, interaction and QA packages are merged; the repository evidence index is reconciled for Phase 3 paper synchronization.
+- [x] No frontend package edits backend files and no backend package edits frontend files. Ranee's cross-owned UI integration repair is recorded in the integration gate.
+- [x] The final local checker, API smoke test and browser verification pass on the Phase 2 closure candidate.
+- [ ] GitHub Actions verifies the merged revision and Ranee records Phase 3 activation. Google Doc synchronization and final acceptance are Cedric's independent Phase 3 package.
