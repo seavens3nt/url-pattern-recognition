@@ -350,7 +350,7 @@ body {
 /* ---------- Results panel ---------- */
 .upr-results {
   width: min(1000px, 100%);
-  margin: 34px auto 0;
+  margin: 30px auto 0;
   text-align: left;
   border-radius: 14px;
   overflow: hidden;
@@ -361,7 +361,8 @@ body {
 }
 
 .upr-results__header {
-  padding: 14px 22px;
+  margin: 0;
+  padding: 24px 22px;
   background: var(--upr-teal);
   color: var(--upr-white);
   font-size: 14px;
