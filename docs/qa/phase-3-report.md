@@ -73,8 +73,12 @@ simulated HTTP 400 response.
 
 ## Browser evidence
 
-No screenshots are attached. Browser results were verified directly in the
-running application and are recorded in the result matrix above.
+Browser results were verified directly in the running application and are
+recorded in the result matrix above.
+
+### Offline state
+
+![Offline state](https://github.com/user-attachments/assets/cca3cc2d-3464-4945-acd5-f946f09eddf2)
 
 Observed route headings:
 
