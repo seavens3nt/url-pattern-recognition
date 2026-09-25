@@ -76,13 +76,37 @@ simulated HTTP 400 response.
 Browser results were verified directly in the running application and are
 recorded in the result matrix above.
 
-### Accepted recognizer
+### accepted recognizer
 
-![Accepted recognizer](https://github.com/user-attachments/assets/6b6eabc3-a13f-487f-931e-ebe35f137961)
+![accepted recognizer](https://github.com/user-attachments/assets/2ac28c25-3490-46ab-b20d-04dd8f01e27a)
 
-### Offline state
+### rejected recognizer
 
-![Offline state](https://github.com/user-attachments/assets/cca3cc2d-3464-4945-acd5-f946f09eddf2)
+![rejected recognizer](https://github.com/user-attachments/assets/b41db705-9969-4eb8-aa6a-8d68687c7952)
+
+### offline recognizer
+
+![offline recognizer](https://github.com/user-attachments/assets/4d2a2876-d2c2-4a2f-94ef-eb6f1aa760ba)
+
+### retry recognizer
+
+![retry recognizer](https://github.com/user-attachments/assets/2f77f283-25c4-4f17-a8d9-fa440b67e890)
+
+### home
+
+![home](https://github.com/user-attachments/assets/e265ad7e-aead-446b-a2a6-37fee2683fa2)
+
+### recognizer
+
+![recognizer](https://github.com/user-attachments/assets/49593363-b2cc-497f-9cd8-53ce8112c979)
+
+### about us
+
+![about us](https://github.com/user-attachments/assets/86fb628b-f659-4f64-ad6c-5c02d7cb4aa3)
+
+### how it works
+
+![how it works](https://github.com/user-attachments/assets/4859c32a-62bc-40ad-9dfb-b2a13939c6d2)
 
 Observed route headings:
 
