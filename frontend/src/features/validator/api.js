@@ -65,22 +65,30 @@ function isTraceEntryValid(entry) {
   );
 }
 
-function isTraceValid(trace) {
+function isTraceValid(trace, url) {
+  // Spread produces Unicode code points, matching the simulator's raw-input
+  // positions even when it traces a rejected non-ASCII character.
+  const symbols = [...url];
   return (
     Array.isArray(trace) &&
-    trace.every((entry, index) => isTraceEntryValid(entry) && entry.position === index)
+    trace.every(
+      (entry, index) =>
+        isTraceEntryValid(entry) &&
+        entry.position === index &&
+        entry.symbol === symbols[index]
+    )
   );
 }
 
 // Matches the HTTP 200 schema in docs/api-contract.md exactly.
-function isResultShapeValid(data) {
+function isResultShapeValid(data, url) {
   return (
     data &&
     typeof data === 'object' &&
     typeof data.accepted === 'boolean' &&
     typeof data.message === 'string' &&
     (data.final_state === null || typeof data.final_state === 'string') &&
-    isTraceValid(data.trace)
+    isTraceValid(data.trace, url)
   );
 }
 
@@ -147,7 +155,7 @@ export async function validateUrl(url, { signal: externalSignal, timeoutMs = DEF
     throw e;
   }
 
-  if (!isResultShapeValid(data)) {
+  if (!isResultShapeValid(data, url)) {
     const e = new Error('The server returned an unexpected response.');
     e.code = 'malformed_response';
     throw e;

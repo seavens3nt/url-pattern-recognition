@@ -9,6 +9,15 @@ function fail(status, body) {
   return { ok: false, status, json: async () => body };
 }
 
+function traceFor(value, finalState = 'S1') {
+  return [...value].map((symbol, position) => ({
+    position,
+    symbol,
+    from_state: position === 0 ? 'START' : finalState,
+    to_state: finalState,
+  }));
+}
+
 // Every test mounts the component, which immediately fires a health check.
 // Queue that response first, then queue whatever the test itself needs.
 function mockHealthOk() {
@@ -52,10 +61,7 @@ describe('ValidatorPage', () => {
         accepted: true,
         message: 'Accepted: matches the approved language.',
         final_state: 'TLD_MANY',
-        trace: [
-          { position: 0, symbol: 'h', from_state: 'START', to_state: 'H' },
-          { position: 1, symbol: 't', from_state: 'H', to_state: 'HT' },
-        ],
+        trace: traceFor('http://a.co', 'TLD_MANY'),
       })
     );
 
@@ -65,8 +71,8 @@ describe('ValidatorPage', () => {
 
     expect(await screen.findByText('Accepted')).toBeInTheDocument();
     expect(screen.getByText(/matches the approved language/i)).toBeInTheDocument();
-    expect(screen.getByText('TLD_MANY')).toBeInTheDocument();
-    expect(screen.getByText('View transition trace (2 steps)')).toBeInTheDocument();
+    expect(screen.getByText('TLD_MANY', { selector: 'code' })).toBeInTheDocument();
+    expect(screen.getByText('View transition trace (11 steps)')).toBeInTheDocument();
   });
 
   it('renders a rejected result and never shows a retry button for it', async () => {
@@ -76,7 +82,7 @@ describe('ValidatorPage', () => {
         accepted: false,
         message: 'Rejected: the URL does not match the approved core language.',
         final_state: 'SINK',
-        trace: [{ position: 0, symbol: 'f', from_state: 'START', to_state: 'SINK' }],
+        trace: traceFor('ftp://bad', 'SINK'),
       })
     );
 
@@ -86,6 +92,26 @@ describe('ValidatorPage', () => {
 
     expect(await screen.findByText('Rejected')).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /retry/i })).not.toBeInTheDocument();
+  });
+
+  it('renders a complete rejection trace containing a non-ASCII character', async () => {
+    const value = 'https://example.😀';
+    mockHealthOk();
+    globalThis.fetch.mockResolvedValueOnce(
+      ok({
+        accepted: false,
+        message: 'Rejected: unsupported character.',
+        final_state: 'SINK',
+        trace: traceFor(value, 'SINK'),
+      })
+    );
+
+    render(<ValidatorPage />);
+    await screen.findByText('Backend connected');
+    await submit(value);
+
+    expect(await screen.findByText('Rejected')).toBeInTheDocument();
+    expect(screen.getByText('View transition trace (17 steps)')).toBeInTheDocument();
   });
 
   it('shows an HTTP 400 as a request error, never labeled Rejected', async () => {
@@ -190,6 +216,25 @@ describe('ValidatorPage', () => {
     expect(screen.queryByText('Accepted')).not.toBeInTheDocument();
   });
 
+  it('rejects a trace whose raw symbol does not match the submitted character', async () => {
+    mockHealthOk();
+    globalThis.fetch.mockResolvedValueOnce(
+      ok({
+        accepted: true,
+        message: 'Accepted',
+        final_state: 'M13',
+        trace: [{ position: 0, symbol: 'x', from_state: 'M0', to_state: 'M1' }],
+      })
+    );
+
+    render(<ValidatorPage />);
+    await screen.findByText('Backend connected');
+    await submit('https://example.com');
+
+    expect(await screen.findByText('Request error')).toBeInTheDocument();
+    expect(screen.queryByText('Accepted')).not.toBeInTheDocument();
+  });
+
   it('shows an unexpected server failure as retryable instead of an invalid request', async () => {
     mockHealthOk();
     globalThis.fetch.mockResolvedValueOnce(fail(500, { message: 'Internal error' }));
@@ -224,7 +269,7 @@ describe('ValidatorPage', () => {
 
     expect(globalThis.fetch).toHaveBeenCalledTimes(2); // 1 health + 1 validate
 
-    resolveFetch(ok({ accepted: true, message: 'ok', final_state: 'S1', trace: [] }));
+    resolveFetch(ok({ accepted: true, message: 'ok', final_state: 'S1', trace: traceFor('https://example.com') }));
     await screen.findByText('Accepted');
   });
 
@@ -240,7 +285,14 @@ describe('ValidatorPage', () => {
     mockHealthOk();
     globalThis.fetch
       .mockRejectedValueOnce(new TypeError('Failed to fetch')) // first attempt: offline
-      .mockResolvedValueOnce(ok({ accepted: true, message: 'now it works', final_state: 'S1', trace: [] }));
+      .mockResolvedValueOnce(
+        ok({
+          accepted: true,
+          message: 'now it works',
+          final_state: 'S1',
+          trace: traceFor('https://example.com'),
+        })
+      );
 
     render(<ValidatorPage />);
     await screen.findByText('Backend connected');
