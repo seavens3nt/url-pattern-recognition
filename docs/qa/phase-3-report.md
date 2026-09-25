@@ -76,6 +76,10 @@ simulated HTTP 400 response.
 Browser results were verified directly in the running application and are
 recorded in the result matrix above.
 
+### Accepted recognizer
+
+![Accepted recognizer](https://github.com/user-attachments/assets/6b6eabc3-a13f-487f-931e-ebe35f137961)
+
 ### Offline state
 
 ![Offline state](https://github.com/user-attachments/assets/cca3cc2d-3464-4945-acd5-f946f09eddf2)
