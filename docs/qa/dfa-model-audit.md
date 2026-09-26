@@ -1,8 +1,11 @@
 # DFA model audit — Phase 3
 
-**Auditor:** Pamela  
-**Tested commit:** `a86e13877d658e7283c02ac143be35a5c7389a4a`  
-**Audit date:** 2026-09-23  
+**Auditor:** Pamela
+
+**Tested commit:** `a86e13877d658e7283c02ac143be35a5c7389a4a`
+
+**Audit date:** 2026-09-23
+
 **Refs:** issue [#60](https://github.com/seavens3nt/url-pattern-recognition/issues/60)
 
 ## Authoritative input files
@@ -18,10 +21,12 @@
 
 ## 1. State set
 
-**Minimization spec** (stable partition, `minimization.md`):  
+**Minimization spec** (stable partition, `minimization.md`):
+
 `{M0, M1, M2, M3, M4, M5, M6, M7, M8, M9, M10, M11, M12, M13, M14, M15, M_sink}` — 17 states.
 
-**Runtime JSON** (`states` array):  
+**Runtime JSON** (`states` array):
+
 `["M0","M1","M2","M3","M4","M5","M6","M7","M8","M9","M10","M11","M12","M13","M14","M15","M_sink"]` — 17 states.
 
 **Result:** No mismatch found.
@@ -63,11 +68,13 @@
 
 ## 5. Alphabet and symbol partition
 
-**Spec alphabet** (13 disjoint columns, `minimization.md` / `notation.md`):  
+**Spec alphabet** (13 disjoint columns, `minimization.md` / `notation.md`):
+
 `h`, `t`, `p`, `s`, `LOWER` ([a-z] \ {h,t,p,s}), `DIGIT` ([0-9]), `:`, `/`, `.`, `-`, `_`, `~`, `OTHER`
 
-**JSON `alphabet` array** (13 entries):  
-`["h","t","p","s","LOWER","DIGIT",":","/"," .","−","_","~","OTHER"]`
+**JSON `alphabet` array** (13 entries):
+
+`["h","t","p","s","LOWER","DIGIT",":","/",".","-","_","~","OTHER"]`
 
 **JSON `symbol_partition`** entries:
 
@@ -93,7 +100,7 @@
 
 ## 6. Complete transition table comparison
 
-Every cell of the 17 × 13 = 221-entry table was checked against `minimization.md`. The table below reproduces the full runtime JSON transitions alongside the spec values. Mismatches would be flagged in a **Diff** column; none were found.
+Every cell of the 17 × 13 = 221-entry table was checked against `minimization.md`. The table below records the runtime JSON transitions; no differences from the specification were found.
 
 | State | h | t | p | s | LOWER | DIGIT | : | / | . | - | _ | ~ | OTHER |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -225,9 +232,10 @@ Symbol-partition mapping applied before each step: `h`→h, `t`→t, `p`→p, `s
 | Step | Char | Column | From | To |
 | --- | --- | --- | --- | --- |
 | 1 | f | LOWER | M0 | M_sink |
-| 2–18 | (remaining) | any | M_sink | M_sink |
+| 2–17 | (remaining) | any | M_sink | M_sink |
 
-**Final state:** M_sink ∉ {M13, M14, M15} → **rejected** ✓  
+**Final state:** M_sink ∉ {M13, M14, M15} → **rejected** ✓
+
 Reason: M0 only accepts `h`; all other columns go directly to the sink.
 
 ---
@@ -254,7 +262,8 @@ Reason: M0 only accepts `h`; all other columns go directly to the sink.
 | 16 | s | s | M9 | M9 |
 | 17 | t | t | M9 | M9 |
 
-**Final state:** M9 ∉ {M13, M14, M15} → **rejected** ✓  
+**Final state:** M9 ∉ {M13, M14, M15} → **rejected** ✓
+
 Reason: a single-label hostname never exits M9 (no `.` encountered to advance toward M10→M12→M13).
 
 ---
@@ -281,16 +290,22 @@ Reason: a single-label hostname never exits M9 (no `.` encountered to advance to
 
 ---
 
-## 10. Commands run
+## 10. Verification
 
 ```powershell
-# Confirm tested commit
+# Confirm the original audit baseline
 git rev-parse HEAD
 # a86e13877d658e7283c02ac143be35a5c7389a4a
-
-# Whitespace check
-git diff --check
-# (no output — no trailing whitespace or mixed line-ending issues)
 ```
 
-All comparison and trace work was performed by manual inspection of the source files listed in section 1. No simulator or API was invoked; the audit is a pure model-level check.
+The original model comparison and fixture traces were performed by manual inspection of the source files in section 1. During PR review on 2026-09-27, the transition tables in `docs/automata/minimization.md` and this audit were parsed and compared with `backend/automata/url_dfa.json`: both contain 17 states × 13 symbols = 221 exact transitions. The R01 input length was also checked as 17 characters. These review checks corrected two transcription errors in the audit; no runtime-model difference was found.
+
+The targeted formal/model checks were rerun on the PR branch with a fresh pytest temp directory:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest tests/test_simulator.py tests/test_integration.py --basetemp=.pytest-tmp-pr66-review-20260927 -p no:cacheprovider -q
+# 206 passed
+
+git diff --check origin/main...HEAD
+# no output after the PR correction commit
+```
