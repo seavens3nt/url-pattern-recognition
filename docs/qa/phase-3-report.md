@@ -1,18 +1,24 @@
 # Phase 3 End-to-End Release QA Report
 
-**QA owner:** Paul  
-**Tested commit:** `a86e13877d658e7283c02ac143be35a5c7389a4a`  
-**Branch:** `paul/phase-3-release-qa`  
-**Evidence date:** 2026-09-25  
-**Scope:** Locked Phase 2 candidate; no implementation repair performed.
+**QA owner:** Paul
+
+**Original candidate:** `a86e13877d658e7283c02ac143be35a5c7389a4a` (September 25, 2026)
+
+**Offline/retry retest baseline:** `3ebba57d692db818dc3c7809d20637fb2e13db38` (current `main`, September 27, 2026)
+
+**Scope:** QA evidence for the locked Phase 2 candidate, followed by an explicitly separate retest after Sean's frontend correction. No implementation repair is part of this PR.
 
 ## Result
 
-**PASS for the verified release-candidate scope.** The simulator, API and React
-client agreed on all 36 fixture rows. The complete checker passed, API
-transport/security cases passed, all four routes rendered, and accepted,
-rejected, request-error, offline and retry states were observed. No critical or
-high-severity defect was reproduced.
+The locked candidate passed the reported simulator/API corpus checks and the
+accepted, rejected, request-error and route samples in the browser. The browser
+offline check **failed**: the attached screenshot shows `Request error` with an
+unexpected HTTP 500 response, rather than `Backend unavailable`. This is
+recorded as QA-64-01 below. The later main-branch retest passed after PR #69;
+that result must not be attributed to the original candidate. Browser checks
+sampled URLs; they did not run the React client against all 36 fixture rows.
+The retest also exposed a low-severity stale health badge after a successful
+Retry; QA-64-02 remains open for the frontend owner.
 
 Docker/Compose production deployment was not part of this QA run. The Phase 2
 gate records Docker availability as a separate Ranee-owned deployment check.
@@ -32,15 +38,17 @@ gate records Docker availability as a separate Ranee-owned deployment check.
 
 ## Commands and results
 
-Commands were run from the repository root unless noted.
+Paul's original candidate results are recorded below. The corrected Windows
+command spelling matches `docs/how-to-run.md` and can be run from the repository
+root; the original report accidentally prefixed the venv path with `\.`.
 
 | Command | Result |
 | --- | --- |
-| `\.\.venv\Scripts\python.exe scripts/check_all.py` | PASS: Ruff; 446 backend tests; ESLint; 29 frontend tests; Vite build |
-| `\.\.venv\Scripts\python.exe scripts/smoke_api.py` | PASS: health plus accepted/rejected smoke cases |
-| Independent Python corpus/API cross-check | PASS: 36 simulator cases, 36 API cases, full trace lengths |
+| `.\.venv\Scripts\python.exe scripts/check_all.py` | Reported PASS: Ruff; 446 backend tests; ESLint; 29 frontend tests; Vite build |
+| `.\.venv\Scripts\python.exe scripts/smoke_api.py` | Reported PASS: health plus accepted/rejected smoke cases |
+| Independent Python corpus/API cross-check (original invocation not recorded) | Reported PASS: 36 simulator cases, 36 API cases, full trace lengths; reproducibility is limited without the original command |
 | `git rev-parse HEAD` | `a86e13877d658e7283c02ac143be35a5c7389a4a` |
-| `git diff --check` | PASS before report creation |
+| `git diff --check` | Passed before report creation; the final PR diff is checked separately below |
 
 The production build reported JavaScript 217.71 kB (68.59 kB gzip), CSS
 21.99 kB (5.19 kB gzip), and `index.html` 0.48 kB (0.32 kB gzip). The largest
@@ -60,8 +68,8 @@ image was `isaiah-C578o1Ri.png` at 1,764.75 kB.
 | Browser accepted | `https://example.com` | Accepted result, final state and trace | Accepted, final state `M13`, 19-step trace | PASS |
 | Browser rejected | `https://example.com:8080/` | Rejected sink result and complete trace | Rejected, final state `M_sink`, 25-step trace | PASS |
 | Browser routes | Home, Recognizer, How it Works, About Us | Each route renders | All four rendered with expected headings | PASS |
-| Browser offline | Aborted validation request | Backend unavailable and Retry | Expected alert and Retry observed | PASS |
-| Browser retry | Retry after offline | Request succeeds when backend returns | Accepted result restored | PASS |
+| Browser offline | Attempted offline scenario (reported as an aborted validation request) | Backend unavailable and Retry | Screenshot shows Request error, unexpected HTTP 500, and Retry | FAIL: QA-64-01 |
+| Browser retry | Retry after the HTTP 500 result | Request succeeds when backend returns | Accepted result restored, but this did not prove the original offline state | PARTIAL |
 | Browser request error | Simulated HTTP 400 | Request error, not rejected | `Request error` and `URL is required.` observed | PASS |
 | Timeout behavior | Frontend regression coverage | Timeout remains distinct | Covered by the 29-test frontend suite | PASS |
 
@@ -70,6 +78,41 @@ The normal browser input control enforces a 2,048-character maximum, so a
 2,049-character URL and over-16 KiB body boundaries were independently verified
 against the API transport. Frontend request-error mapping was verified with a
 simulated HTTP 400 response.
+
+## Current-main retest of QA-64-01
+
+The correction in merged PR #69 was retested against the code in main commit
+`3ebba57d692db818dc3c7809d20637fb2e13db38`. The isolated PR branch also
+contained that main commit; its pre-report-edit merge commit was `1fbd068`.
+This is a second test baseline, not a replacement for the original candidate.
+
+| Check | Reproducible command or action | Result |
+| --- | --- | --- |
+| Backend lint | `python -m ruff check backend tests scripts` | PASS |
+| Backend tests | `python -m pytest --basetemp=.pytest-pr70-final -p no:cacheprovider` | 454 passed, using Python 3.14.2 from an existing project venv |
+| Corpus parity | `python -m pytest tests/test_integration.py::test_fixture_simulator_and_api_verdicts_agree --basetemp=.pytest-pr70-corpus -p no:cacheprovider` | 36 fixture cases passed |
+| Frontend lint | `cd frontend; npm run lint` | PASS |
+| Frontend tests | `cd frontend; npm test` | 37 passed across 3 files |
+| Production build | `cd frontend; npm run build` | PASS; JavaScript 218.06 kB (68.70 kB gzip), CSS 22.21 kB (5.23 kB gzip) |
+| API smoke | Start Flask on port 5000, then `python scripts/smoke_api.py` | PASS: A01 and R01 |
+| Real offline browser test | Start Vite on port 5173 with Flask stopped; submit `https://example.com` | `Backend unavailable`, `Cannot reach the backend`, and Retry displayed |
+| Recovery browser test | Start Flask on port 5000; click Retry without reloading the page | Accepted, final state `M13`, 19 trace rows; the health badge stayed stale (QA-64-02) |
+
+Browser setup was `cd frontend; npm ci`, then
+`npm run dev -- --host 127.0.0.1`. For recovery, Flask was started from the
+repository root with
+`python -m flask --app backend.app:create_app run --host 127.0.0.1 --port 5000`.
+Before that command, Flask was stopped and the Vite proxy's validation request
+failed. The browser check used the same page without reloading between the
+offline result and Retry.
+
+For the Python commands, use the interpreter from a venv with
+`backend/requirements-dev.txt` installed. In a normal Windows checkout, replace
+`python` with `.\.venv\Scripts\python.exe`. The complete checker first hit an
+existing Windows pytest temporary-directory permission error during this
+retest; the fresh `--basetemp` run above passed. The initial sandboxed frontend
+run could not read Vite's config; Vitest and the build passed when run outside
+that sandbox. Neither failure is recorded as an application defect.
 
 ## Browser evidence
 
@@ -84,7 +127,7 @@ recorded in the result matrix above.
 
 ![rejected recognizer](https://github.com/user-attachments/assets/b41db705-9969-4eb8-aa6a-8d68687c7952)
 
-### offline recognizer
+### offline attempt on the original candidate — failed
 
 ![offline recognizer](https://github.com/user-attachments/assets/4d2a2876-d2c2-4a2f-94ef-eb6f1aa760ba)
 
@@ -119,15 +162,17 @@ Observed route headings:
 
 | ID | Reproduction | Expected | Actual | Owner | Retest status |
 | --- | --- | --- | --- | --- | --- |
-| None | No reproducible release-blocking defect found on the locked candidate | Candidate behavior matches language, API and UI contracts | All listed checks passed | N/A | N/A |
+| QA-64-01 | On the original candidate, run the attempted offline browser scenario and submit `https://example.com` | `Backend unavailable` and Retry | Attached offline screenshot shows `Request error` and unexpected HTTP 500 | Sean (frontend validator) | PASS on `3ebba57`: real stopped-Flask browser run displayed Backend unavailable; after Flask restarted, Retry returned Accepted, `M13`, 19 trace rows |
+| QA-64-02 (low) | On `3ebba57`, load Recognizer with Flask stopped, submit `https://example.com`, start Flask, then click Retry without reloading | Health indicator updates to connected after recovery | Result becomes Accepted with 19 trace rows, but the health badge still says `Backend unavailable — start Flask in terminal 1.` | Sean (frontend validator) | OPEN; no implementation change is part of this QA PR |
 
-No implementation files were edited and no defect was repaired as part of this
-QA package. The only intended change is this QA-owned report.
+No implementation files were edited as part of this QA package. The frontend
+repair was merged separately in PR #69. The only intended PR #70 change is this
+QA-owned report.
 
 ## Final disposition
 
-The candidate commit and tested results are explicit above. Cross-layer corpus
-agreement, transport boundaries, browser route coverage, accepted/rejected
-traces, offline/request-error/retry behavior and automated timeout coverage all
-passed. This report is ready for Ranee's review and acceptance; it does not
-constitute a commit or merge into `main`.
+The original candidate's offline result failed; the later retest passed with
+one low-severity display issue still open. The candidate commits and each result
+are separated above. This QA report is ready
+for Ranee's review; it does not declare the Phase 3 feature-freeze commit or
+complete the separate Docker/port-8080 deployment gate.
