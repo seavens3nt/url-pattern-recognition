@@ -34,9 +34,16 @@ label-ending-hyphen rules.
 
 ```
 git log --oneline -1 a86e138
+(git show a86e138:tests/fixtures/url_cases.json | Out-String | ConvertFrom-Json).Count
+.\.venv\Scripts\python.exe -m pytest tests/test_integration.py -q --basetemp=.pytest-tmp
+git diff --check
 ```
-Confirms the tested commit is present in the local history and matches the
-locked candidate named in issue #59.
+Run from the repository root in Windows PowerShell. The first command confirms
+the locked candidate named in issue #59. The fixture count command returns
+`36`. The integration suite passes (`155 passed`); it checks the published
+regular expression, shared fixture, simulator, and API. The four NFA traces
+above were checked by hand against the transition table. The diff check
+reports no whitespace errors.
 
 No `dot` render command was run. Per the issue's "Render DOT only if its
 source changes" instruction, `docs/automata/diagrams/nfa.dot` was diffed
@@ -169,9 +176,9 @@ the digit-exclusion rule for `TLD`.
 
 `docs/automata/nfa.md` Section 6 states "All 20 cases in
 `tests/fixtures/url_cases.json` were traced by hand against this NFA." The
-fixture at the tested commit contains 38 cases (`B05`-`B20` were added after
+fixture at the tested commit contains 36 cases (`B05`-`B20` were added after
 the original NFA construction). This is a documentation-currency note, not a
-trace defect: every case checked in this audit, including three drawn from
+trace defect: every case checked in this audit, all drawn from
 the newer `B05`-`B20` range, still matches. No correction to `nfa.md` was
 made, since this file is not owned for edits outside an assigned correction.
 Flagged here for Ranee's awareness.
