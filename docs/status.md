@@ -2,16 +2,18 @@
 
 | Status field | Value |
 | --- | --- |
-| Evidence date | 2026-09-23 |
-| Active sprint | Phase 3 activation; work packages being published |
+| Evidence date | 2026-09-25 |
+| Active sprint | Phase 3 release verification; feature freeze on hold |
 | Active guide | [Phase 3 assignments](phases/week-3.md) |
 | Phase 3 deadline | Friday, September 25, 2026 |
-| Locked candidate | `8e666da` — merged [PR #56](https://github.com/seavens3nt/url-pattern-recognition/pull/56) |
+| Locked candidate | `a86e138` — merged [PR #57](https://github.com/seavens3nt/url-pattern-recognition/pull/57), including the Phase 2 candidate from [PR #56](https://github.com/seavens3nt/url-pattern-recognition/pull/56) |
+| Feature-freeze commit | Not declared; Phase 3 gate remains open |
 
-Phase 2 integration is merged, with six successful GitHub checks on PR #56.
-The Phase 3 assignments in the linked guide are synchronized with the shared
-project execution Google Doc. Member issues are published against the locked
-candidate before work begins.
+Phase 2 integration and the follow-up guide correction are merged, with six
+successful GitHub checks on each PR. The Phase 3 assignments are in the linked
+guide, the shared project execution Google Doc, and [tracker #65](https://github.com/seavens3nt/url-pattern-recognition/issues/65).
+The September 25 release-gate evidence is in
+[phase-3-release-gate.md](release/phase-3-release-gate.md).
 
 Ranee accepted Cedric's Phase 1 Google Doc and merged evidence index in
 [PR #33](https://github.com/seavens3nt/url-pattern-recognition/pull/33).
@@ -54,10 +56,15 @@ formal and API testing are documented separately.
 - API smoke: health plus one accepted and one rejected shared case passed
   locally (A01 and R01).
 
-The Phase 2 tracker is
-[Issue #34](https://github.com/seavens3nt/url-pattern-recognition/issues/34).
-The Phase 3 tracker and member packages are opened from the active guide after
-the gate decision is recorded. Only Ranee accepts member PRs.
+The Phase 2 tracker,
+[Issue #34](https://github.com/seavens3nt/url-pattern-recognition/issues/34),
+is closed with Cedric's report work explicitly carried into Phase 3. Phase 3
+member issues are open under [tracker #65](https://github.com/seavens3nt/url-pattern-recognition/issues/65).
+The complete checker, API smoke, request-boundary checks, and Compose
+configuration pass on `a86e138`. Docker/port-8080 deployment remains unverified
+because the local engine is unavailable. Member audit PRs still await Ranee's
+review; the feature freeze and Phase 4 go/no-go decision are pending. Only
+Ranee accepts member PRs.
 
 ## Completed Phase 1 member tasks
 

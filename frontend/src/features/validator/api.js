@@ -65,22 +65,44 @@ function isTraceEntryValid(entry) {
   );
 }
 
-function isTraceValid(trace) {
+function isTraceValid(trace, url) {
+  // Spread produces Unicode code points, matching the simulator's raw-input
+  // positions even when it traces a rejected non-ASCII character.
+  const symbols = [...url];
   return (
     Array.isArray(trace) &&
-    trace.every((entry, index) => isTraceEntryValid(entry) && entry.position === index)
+    trace.length === symbols.length &&
+    trace.every(
+      (entry, index) =>
+        isTraceEntryValid(entry) &&
+        entry.position === index &&
+        entry.symbol === symbols[index]
+    )
   );
 }
 
+async function backendIsUnavailable() {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 2000);
+  try {
+    await getHealth(controller.signal);
+    return false;
+  } catch {
+    return true;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
 // Matches the HTTP 200 schema in docs/api-contract.md exactly.
-function isResultShapeValid(data) {
+function isResultShapeValid(data, url) {
   return (
     data &&
     typeof data === 'object' &&
     typeof data.accepted === 'boolean' &&
     typeof data.message === 'string' &&
     (data.final_state === null || typeof data.final_state === 'string') &&
-    isTraceValid(data.trace)
+    isTraceValid(data.trace, url)
   );
 }
 
@@ -90,8 +112,8 @@ function isResultShapeValid(data) {
  * - Resolves with the DFA result on HTTP 200: { accepted, message, final_state, trace }.
  * - Resolves with a request-error object on HTTP 400/413: { code, message } —
  *   same shape the UI already renders as "Request error", never "Rejected".
- * - Throws an Error with a `.code` of "offline", "timeout", "cancelled", or
- *   "malformed_response" for everything else that isn't a clean request error.
+ * - Throws an Error with a `.code` of "offline", "timeout", "cancelled",
+ *   "malformed_response", or "server_error" for other failures.
  *
  * @param {string} url
  * @param {object} [options]
@@ -142,12 +164,20 @@ export async function validateUrl(url, { signal: externalSignal, timeoutMs = DEF
         message: data.message,
       };
     }
+    // A stopped Flask server becomes an empty 500 at the Vite development
+    // proxy. Probe health before calling it offline so a real backend 500
+    // remains a server error rather than a misleading connectivity message.
+    if (response.status >= 500 && data === null && await backendIsUnavailable()) {
+      const e = new Error('Cannot reach the backend. Check that Flask is running.');
+      e.code = 'offline';
+      throw e;
+    }
     const e = new Error(`The backend returned an unexpected HTTP ${response.status} response.`);
     e.code = 'server_error';
     throw e;
   }
 
-  if (!isResultShapeValid(data)) {
+  if (!isResultShapeValid(data, url)) {
     const e = new Error('The server returned an unexpected response.');
     e.code = 'malformed_response';
     throw e;

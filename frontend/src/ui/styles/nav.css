@@ -51,6 +51,12 @@
   transition: transform 0.22s ease, opacity 0.18s ease;
 }
 
+.upr-burger:focus-visible {
+  outline: 2px solid var(--upr-teal-dark);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
 .upr-burger.is-open span:nth-child(1) {
   transform: translateY(7.5px) rotate(45deg);
 }
@@ -109,5 +115,15 @@
     border-bottom-color: transparent;
     border-left-color: var(--upr-teal);
     background: rgba(26, 140, 146, 0.07);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .upr-burger span {
+    transition: none;
+  }
+
+  .upr-nav.is-open {
+    animation: none;
   }
 }
