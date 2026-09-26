@@ -38,6 +38,7 @@ afterEach(() => {
   // tree mounted, so later tests see multiple "Backend connected" nodes.
   vi.restoreAllMocks();
   vi.useRealTimers();
+  vi.unstubAllEnvs();
 });
 
 describe('ValidatorPage', () => {
@@ -235,6 +236,39 @@ describe('ValidatorPage', () => {
     expect(screen.queryByText('Accepted')).not.toBeInTheDocument();
   });
 
+  it('rejects a truncated accepted trace even when its first symbol matches', async () => {
+    mockHealthOk();
+    globalThis.fetch.mockResolvedValueOnce(
+      ok({
+        accepted: true,
+        message: 'Accepted',
+        final_state: 'M13',
+        trace: [{ position: 0, symbol: 'h', from_state: 'M0', to_state: 'M1' }],
+      })
+    );
+
+    render(<ValidatorPage />);
+    await screen.findByText('Backend connected');
+    await submit('https://example.com');
+
+    expect(await screen.findByText('Request error')).toBeInTheDocument();
+    expect(screen.queryByText('Accepted')).not.toBeInTheDocument();
+  });
+
+  it('rejects an empty trace for a completed DFA rejection', async () => {
+    mockHealthOk();
+    globalThis.fetch.mockResolvedValueOnce(
+      ok({ accepted: false, message: 'Rejected', final_state: 'M_sink', trace: [] })
+    );
+
+    render(<ValidatorPage />);
+    await screen.findByText('Backend connected');
+    await submit('ftp://bad');
+
+    expect(await screen.findByText('Request error')).toBeInTheDocument();
+    expect(screen.queryByText('Rejected')).not.toBeInTheDocument();
+  });
+
   it('shows an unexpected server failure as retryable instead of an invalid request', async () => {
     mockHealthOk();
     globalThis.fetch.mockResolvedValueOnce(fail(500, { message: 'Internal error' }));
@@ -247,6 +281,79 @@ describe('ValidatorPage', () => {
     expect(screen.getByText(/unexpected HTTP 500/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /retry/i })).toBeInTheDocument();
     expect(screen.queryByText('Rejected')).not.toBeInTheDocument();
+  });
+
+  it('recognizes an empty dev-proxy 500 as offline when health also fails', async () => {
+    mockHealthOk();
+    globalThis.fetch
+      .mockResolvedValueOnce({
+        ok: false,
+        status: 500,
+        json: async () => { throw new SyntaxError('Empty proxy response'); },
+      })
+      .mockResolvedValueOnce(fail(500, {}));
+
+    render(<ValidatorPage />);
+    await screen.findByText('Backend connected');
+    await submit('https://example.com');
+
+    expect(await screen.findByText('Backend unavailable')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /retry/i })).toBeInTheDocument();
+    expect(globalThis.fetch).toHaveBeenCalledTimes(3);
+  });
+
+  it('keeps a non-JSON backend 500 as a server error when health succeeds', async () => {
+    mockHealthOk();
+    globalThis.fetch
+      .mockResolvedValueOnce({
+        ok: false,
+        status: 500,
+        json: async () => { throw new SyntaxError('Non-JSON error page'); },
+      })
+      .mockResolvedValueOnce(ok({ status: 'ok' }));
+
+    render(<ValidatorPage />);
+    await screen.findByText('Backend connected');
+    await submit('https://example.com');
+
+    expect(await screen.findByText('Request error')).toBeInTheDocument();
+    expect(screen.getByText(/unexpected HTTP 500/i)).toBeInTheDocument();
+  });
+
+  it('uses the configured API base without changing the request body', async () => {
+    vi.stubEnv('VITE_API_BASE_URL', 'https://validator.example/api');
+    mockHealthOk();
+    globalThis.fetch.mockResolvedValueOnce(
+      ok({ accepted: true, message: 'Accepted', final_state: 'M13', trace: traceFor('https://example.com') })
+    );
+
+    render(<ValidatorPage />);
+    await screen.findByText('Backend connected');
+    await submit('https://example.com');
+    await screen.findByRole('heading', { name: /Accepted/ });
+
+    expect(globalThis.fetch).toHaveBeenNthCalledWith(1, 'https://validator.example/api/health', expect.any(Object));
+    expect(globalThis.fetch).toHaveBeenNthCalledWith(2, 'https://validator.example/api/validate',
+      expect.objectContaining({ body: JSON.stringify({ url: 'https://example.com' }) }));
+  });
+
+  it('aborts a pending validation when the page unmounts', async () => {
+    mockHealthOk();
+    let requestSignal;
+    globalThis.fetch.mockImplementationOnce((_url, { signal }) => {
+      requestSignal = signal;
+      return new Promise((_resolve, reject) => {
+        signal.addEventListener('abort', () => reject(new DOMException('Aborted', 'AbortError')));
+      });
+    });
+
+    const view = render(<ValidatorPage />);
+    await screen.findByText('Backend connected');
+    await submit('https://example.com');
+    expect(requestSignal.aborted).toBe(false);
+
+    view.unmount();
+    expect(requestSignal.aborted).toBe(true);
   });
 
   it('ignores a duplicate submit while a request is already in flight', async () => {

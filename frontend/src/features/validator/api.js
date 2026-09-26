@@ -71,6 +71,7 @@ function isTraceValid(trace, url) {
   const symbols = [...url];
   return (
     Array.isArray(trace) &&
+    trace.length === symbols.length &&
     trace.every(
       (entry, index) =>
         isTraceEntryValid(entry) &&
@@ -78,6 +79,19 @@ function isTraceValid(trace, url) {
         entry.symbol === symbols[index]
     )
   );
+}
+
+async function backendIsUnavailable() {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 2000);
+  try {
+    await getHealth(controller.signal);
+    return false;
+  } catch {
+    return true;
+  } finally {
+    clearTimeout(timeoutId);
+  }
 }
 
 // Matches the HTTP 200 schema in docs/api-contract.md exactly.
@@ -98,8 +112,8 @@ function isResultShapeValid(data, url) {
  * - Resolves with the DFA result on HTTP 200: { accepted, message, final_state, trace }.
  * - Resolves with a request-error object on HTTP 400/413: { code, message } —
  *   same shape the UI already renders as "Request error", never "Rejected".
- * - Throws an Error with a `.code` of "offline", "timeout", "cancelled", or
- *   "malformed_response" for everything else that isn't a clean request error.
+ * - Throws an Error with a `.code` of "offline", "timeout", "cancelled",
+ *   "malformed_response", or "server_error" for other failures.
  *
  * @param {string} url
  * @param {object} [options]
@@ -149,6 +163,14 @@ export async function validateUrl(url, { signal: externalSignal, timeoutMs = DEF
         code: data.code || (response.status === 413 ? 'payload_too_large' : 'invalid_request'),
         message: data.message,
       };
+    }
+    // A stopped Flask server becomes an empty 500 at the Vite development
+    // proxy. Probe health before calling it offline so a real backend 500
+    // remains a server error rather than a misleading connectivity message.
+    if (response.status >= 500 && data === null && await backendIsUnavailable()) {
+      const e = new Error('Cannot reach the backend. Check that Flask is running.');
+      e.code = 'offline';
+      throw e;
     }
     const e = new Error(`The backend returned an unexpected HTTP ${response.status} response.`);
     e.code = 'server_error';
