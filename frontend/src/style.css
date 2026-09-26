@@ -233,7 +233,7 @@ body {
 }
 
 .upr-input::placeholder {
-  color: #9aa6bd;
+  color: #52607d;
 }
 
 .upr-input:focus {
@@ -327,7 +327,7 @@ body {
   font-size: 14px;
   font-weight: 700;
   color: var(--upr-white);
-  background: var(--upr-teal);
+  background: var(--upr-teal-dark);
   border: none;
   border-radius: var(--upr-radius-pill);
   cursor: pointer;
@@ -335,7 +335,7 @@ body {
 }
 
 .upr-button:hover:not(:disabled) {
-  background: var(--upr-teal-dark);
+  background: #105f63;
 }
 
 .upr-button:active:not(:disabled) {
@@ -350,7 +350,7 @@ body {
 /* ---------- Results panel ---------- */
 .upr-results {
   width: min(1000px, 100%);
-  margin: 34px auto 0;
+  margin: 30px auto 0;
   text-align: left;
   border-radius: 14px;
   overflow: hidden;
@@ -361,8 +361,9 @@ body {
 }
 
 .upr-results__header {
-  padding: 14px 22px;
-  background: var(--upr-teal);
+  margin: 0;
+  padding: 24px 22px;
+  background: var(--upr-teal-dark);
   color: var(--upr-white);
   font-size: 14px;
   font-weight: 700;
@@ -506,7 +507,7 @@ body {
 }
 
 .upr-banner--accepted {
-  background: var(--upr-green);
+  background: var(--upr-green-dark);
   box-shadow: 0 8px 20px rgba(11, 138, 75, 0.25);
 }
 
