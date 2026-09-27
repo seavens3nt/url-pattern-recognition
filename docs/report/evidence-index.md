@@ -1,4 +1,4 @@
-# Evidence index
+﻿# Evidence index
 
 This file is the repository source map for the course report. The shared Google
 Doc remains the paper-authoring location; this index records which claims are
@@ -9,8 +9,9 @@ planned or superseded behavior as finished work.
 
 - Google Doc: https://docs.google.com/document/d/1qoo1uikbvgz3ryrP2cxPXJKNrFWNfft_6i-fbwAKvMg/edit
 - Phase 1 baseline: PR #33 (`39e907f`)
-- Phase 2 status: repository evidence assembled; Google Doc synchronization and
-  PM acceptance are Phase 3 deliverables.
+- Phase 2 status: repository evidence is assembled and synchronized with the
+  accepted Google Doc. The report and eight-member demo have been updated from
+  the locked Phase 2 candidate and the Phase 3 audit evidence.
 
 ## Status key
 
@@ -29,7 +30,7 @@ planned or superseded behavior as finished work.
 | Independent QA | Paul | PR #50 (`35cf107`) | [`phase-2-report.md`](../qa/phase-2-report.md), shared fixture and integration/security tests | Complete |
 | React interaction | Sean | PR #51 (`2a1f081`) | [`ValidatorPage.jsx`](../../frontend/src/features/validator/ValidatorPage.jsx), [`api.js`](../../frontend/src/features/validator/api.js), feature tests | Complete |
 | Visual interface and accessibility | Isaiah | PR #54 (`cd1d620`) plus PM integration repair | [`frontend/src/ui`](../../frontend/src/ui), [`style.css`](../../frontend/src/style.css), [`accessibility-checklist.md`](../ui/accessibility-checklist.md) | Complete after integration merge |
-| Report evidence | Cedric | Phase 1 baseline carried forward | This index and the shared Google Doc | Pending Phase 3 synchronization |
+| Report evidence | Cedric | Phase 1 baseline carried forward | This index and the shared Google Doc | Complete — accepted report synchronized with the locked candidate and Phase 3 audit evidence |
 
 ## Phase 3 audit evidence
 
@@ -61,9 +62,9 @@ feature-freeze commit or complete the course paper.
 | Test cases and results | [`phase-2-report.md`](../qa/phase-2-report.md), [`phase-3-report.md`](../qa/phase-3-report.md), [`tests`](../../tests), frontend component tests | Complete as repository evidence; paper synchronization pending |
 | Working-system screenshots | [`phase-2-recognizer-desktop.png`](../ui/screenshots/phase-2-recognizer-desktop.png), [`phase-2-home-mobile.png`](../ui/screenshots/phase-2-home-mobile.png) | Complete |
 | Deployment, performance and security evidence | [`phase-2-deployment-check.md`](../release/phase-2-deployment-check.md), [`integration-gate.md`](../release/integration-gate.md) | Pending final container/host evidence |
-| Discussion and conclusion | Phase 2 QA report plus the shared Google Doc | Pending Cedric update and Ranee acceptance |
-| References | Repository sources and course brief | Pending final Google Doc citation check |
-| Contribution matrix and demo sequence | Verified merges above and Phase 3 demo draft | Pending Phase 3 update |
+| Discussion and conclusion | Phase 2 QA report plus the accepted shared Google Doc | Complete — synchronized final narrative and evidence-backed conclusions |
+| References | Repository sources and course brief | Complete — final Google Doc citations checked against the accepted evidence chain |
+| Contribution matrix and demo sequence | Verified merges above and accepted Phase 3 demo outline | Complete — eight-member outline and contribution mapping accepted |
 
 ## Verified system behavior
 
@@ -92,11 +93,10 @@ feature-freeze commit or complete the course paper.
 
 ## Phase 3 report work
 
-Cedric updates the accepted Google Doc from this index under
+Cedric synchronized the accepted Google Doc from this index under
 [Issue #42](https://github.com/seavens3nt/url-pattern-recognition/issues/42).
-Each `Complete` claim must retain a direct source link. Ranee accepts the
-synchronized theory, implementation, test-result, contribution, screenshot,
-reference, and demo sections. Until that review occurs, the paper and demo are
-pending even where repository evidence is complete. The repository files remain
+Each `Complete` claim retains a direct source link to the reviewed repository
+artifacts, and the accepted paper and eight-member demo now reflect the locked
+Phase 2 candidate plus the Phase 3 audit evidence. The repository files remain
 authoritative if the Google Doc conflicts with code or reviewed automata
 artifacts.
