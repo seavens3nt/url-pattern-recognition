@@ -31,6 +31,19 @@ planned or superseded behavior as finished work.
 | Visual interface and accessibility | Isaiah | PR #54 (`cd1d620`) plus PM integration repair | [`frontend/src/ui`](../../frontend/src/ui), [`style.css`](../../frontend/src/style.css), [`accessibility-checklist.md`](../ui/accessibility-checklist.md) | Complete after integration merge |
 | Report evidence | Cedric | Phase 1 baseline carried forward | This index and the shared Google Doc | Pending Phase 3 synchronization |
 
+## Phase 3 audit evidence
+
+These records audit the locked Phase 2 candidate (`a86e138`) or explicitly
+identify a later retest. Their presence in the repository does not declare a
+feature-freeze commit or complete the course paper.
+
+| Area | Evidence | Verified boundary |
+| --- | --- | --- |
+| NFA trace audit | [`nfa-trace-audit.md`](../qa/nfa-trace-audit.md) | Ralph checked four additional fixture traces against the NFA table on `a86e138`; this does not replace the formal NFA artifact linked above. |
+| DFA model audit | [`dfa-model-audit.md`](../qa/dfa-model-audit.md) | Pamela compared the minimized transition table with the runtime JSON on `a86e138`. |
+| End-to-end QA | [`phase-3-report.md`](../qa/phase-3-report.md) | Paul records the original candidate's failed offline check separately from the successful stopped-Flask retest on `3ebba57`. QA-64-02 was observed on that retest; its frontend fix merged in [PR #73](https://github.com/seavens3nt/url-pattern-recognition/pull/73), but an independent browser retest of the merged fix is not recorded here. |
+| Deployment and release gate | [`phase-3-release-gate.md`](../release/phase-3-release-gate.md) | The September 25 check passed local tests and Compose configuration on `a86e138`; container/browser verification at port 8080 and a declared feature-freeze commit remain pending. |
+
 ## Required course sections
 
 | Report section | Evidence | Status |
@@ -45,7 +58,7 @@ planned or superseded behavior as finished work.
 | DFA minimization and minimized diagram | [`minimization.md`](../automata/minimization.md), [`minimized-dfa.dot`](../automata/diagrams/minimized-dfa.dot), [`minimized-dfa-rendered-evidence.png`](../automata/diagrams/minimized-dfa-rendered-evidence.png) | Complete |
 | System design and API contract | [`architecture.md`](../architecture.md), [`api-contract.md`](../api-contract.md) | Complete |
 | Implementation/source code | [`backend`](../../backend), [`frontend/src`](../../frontend/src) | Complete |
-| Test cases and results | [`phase-2-report.md`](../qa/phase-2-report.md), [`tests`](../../tests), frontend component tests | Complete |
+| Test cases and results | [`phase-2-report.md`](../qa/phase-2-report.md), [`phase-3-report.md`](../qa/phase-3-report.md), [`tests`](../../tests), frontend component tests | Complete as repository evidence; paper synchronization pending |
 | Working-system screenshots | [`phase-2-recognizer-desktop.png`](../ui/screenshots/phase-2-recognizer-desktop.png), [`phase-2-home-mobile.png`](../ui/screenshots/phase-2-home-mobile.png) | Complete |
 | Deployment, performance and security evidence | [`phase-2-deployment-check.md`](../release/phase-2-deployment-check.md), [`integration-gate.md`](../release/integration-gate.md) | Pending final container/host evidence |
 | Discussion and conclusion | Phase 2 QA report plus the shared Google Doc | Pending Cedric update and Ranee acceptance |
@@ -79,8 +92,11 @@ planned or superseded behavior as finished work.
 
 ## Phase 3 report work
 
-Cedric updates the accepted Google Doc from this index. Each `Complete` claim
-must retain a direct source link. Ranee accepts the synchronized theory,
-implementation, test-result, contribution, screenshot, and demo sections. The
-repository files remain authoritative if the Google Doc conflicts with code or
-reviewed automata artifacts.
+Cedric updates the accepted Google Doc from this index under
+[Issue #42](https://github.com/seavens3nt/url-pattern-recognition/issues/42).
+Each `Complete` claim must retain a direct source link. Ranee accepts the
+synchronized theory, implementation, test-result, contribution, screenshot,
+reference, and demo sections. Until that review occurs, the paper and demo are
+pending even where repository evidence is complete. The repository files remain
+authoritative if the Google Doc conflicts with code or reviewed automata
+artifacts.
