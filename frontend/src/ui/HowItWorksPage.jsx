@@ -3,23 +3,23 @@ import "./styles/howitworks.css";
 const STEPS = [
   {
     title: "User Input",
-    text: "The user enters a URL pattern such as /users/:userID/posts/:postId and a test URL to evaluate against it. A Case Sensitivity toggle decides whether literal segments must match exactly.",
+    text: "The user enters one URL to inspect. The interface sends only that text to the validation API; it does not visit the website or download any content.",
   },
   {
-    title: "Input Validation",
-    text: "Before any matching happens, both fields are checked. The pattern must begin with a forward slash, contain no whitespace, name every dynamic segment, and avoid duplicate parameter keys. The URL is checked for whitespace and for a supported http or https scheme. If any rule fails, the process stops and the INPUT INVALID state is returned along with a list of reasons.",
+    title: "Request Validation",
+    text: "Flask checks that the request contains a non-empty URL string and stays within the transport size limit. Malformed or oversized requests are reported separately from URLs rejected by the automaton.",
   },
   {
-    title: "URL Parsing",
-    text: "The test URL is broken into its parts. Protocol, hostname, pathname, and query string are separated, and the path is split into ordered segments for comparison.",
+    title: "DFA Simulation",
+    text: "The simulator starts at the DFA's initial state and reads the URL one symbol at a time. Every symbol follows the reviewed transition table, including transitions to the sink state for unsupported input.",
   },
   {
-    title: "Segment Matching",
-    text: "The pattern and the URL are compared segment by segment. Segment counts must agree. Literal segments must match, honoring the case sensitivity setting. Dynamic segments beginning with a colon capture their value, which is decoded and assigned a data type such as Numeric String, Alphanumeric String, or UUID. Query pairs are collected separately and tagged as Key-Value Pairs.",
+    title: "Acceptance Decision",
+    text: "After the final symbol, the DFA accepts the URL only when it ends in an accepting state. The approved language covers lowercase HTTP or HTTPS, a DNS-style hostname, and an optional simple path.",
   },
   {
     title: "Result Rendering",
-    text: "A match returns the ACCEPTED state with the execution time, the URL Segment Anatomy panel, and the table of extracted dynamic parameters. A mismatch returns REJECTED with the specific reasons. Any unexpected failure falls through to the error state.",
+    text: "The React interface shows the accepted or rejected verdict, the final DFA state, and the ordered transition trace. Request errors and an offline backend appear as distinct interface states.",
   },
 ];
 

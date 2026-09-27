@@ -9,7 +9,7 @@ export default function TraceTable({ trace = [] }) {
 
   return (
     <div className="trace-wrap" role="region" aria-label="DFA transition trace" tabIndex="0">
-      <table>
+      <table className="upr-table">
         <caption className="sr-only">DFA transition trace</caption>
         <thead>
           <tr>

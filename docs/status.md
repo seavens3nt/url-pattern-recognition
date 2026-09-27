@@ -2,49 +2,69 @@
 
 | Status field | Value |
 | --- | --- |
-| Evidence date | 2026-09-17 |
-| Active sprint | Phase 2 — Independent construction packages |
-| Active guide | [Phase 2 assignments](phases/week-2.md) |
-| Phase 2 deadline | Sunday, September 20, 2026 |
-| Locked input commit | `770b761` |
+| Evidence date | 2026-09-25 |
+| Active sprint | Phase 3 release verification; feature freeze on hold |
+| Active guide | [Phase 3 assignments](phases/week-3.md) |
+| Phase 3 deadline | Friday, September 25, 2026 |
+| Locked candidate | `a86e138` — merged [PR #57](https://github.com/seavens3nt/url-pattern-recognition/pull/57), including the Phase 2 candidate from [PR #56](https://github.com/seavens3nt/url-pattern-recognition/pull/56) |
+| Feature-freeze commit | Not declared; Phase 3 gate remains open |
 
-This is a reviewed snapshot. GitHub issues and PRs contain the live task state.
+Phase 2 integration and the follow-up guide correction are merged, with six
+successful GitHub checks on each PR. The Phase 3 assignments are in the linked
+guide, the shared project execution Google Doc, and [tracker #65](https://github.com/seavens3nt/url-pattern-recognition/issues/65).
+The September 25 release-gate evidence is in
+[phase-3-release-gate.md](release/phase-3-release-gate.md).
 
 Ranee accepted Cedric's Phase 1 Google Doc and merged evidence index in
 [PR #33](https://github.com/seavens3nt/url-pattern-recognition/pull/33).
 [Issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13) is
 closed. Phase 2 has no carried Phase 1 documentation condition.
 
-## Ready
+## Phase 2 gate decision
 
-- React and Flask starter with a visible connection check.
-- Beginner run and GitHub Desktop guides.
-- All eight members completed repository onboarding and ran both servers; Ranee confirmed that no setup blocker remains.
-- Backend and frontend automated checks in GitHub Actions.
-- Private repository access accepted by all seven teammates.
-- Main-branch PR rule and Ranee’s required code-owner approval.
-- Four-week roadmap, file ownership and active Phase 1 assignments.
-- Deadline-safe core URL language, 10 accepted cases, 10 rejected cases, and the required Figma states.
-- Reviewed regular-expression draft aligned with the approved core language and shared fixture.
-- Reviewed validation API contract.
-- Working DFA simulator, Flask integration, React verdict states, and transition trace display on the integration branch.
+- RE/NFA, DFA/minimization/model, simulator/API, QA, React behavior and visual
+  packages are merged and indexed.
+- The PM integration repair connects the static pages, navigation, reusable UI
+  components and reviewed React API state machine.
+- Local evidence covers desktop/narrow layouts, a real accepted API result,
+  final state and ordered trace.
+- Phase 2 integration passed CI and was squash-merged as `8e666da`. Cedric's
+  unfinished course-report work carries into Phase 3; it is not marked complete.
+  Docker container evidence remains a Phase 3 deployment task because Docker
+  Desktop was unavailable at the local gate.
 
-## Current boundary
+## Phase 3 boundary
 
-The core language, regular expression, API contract, automata notation, shared corpus, component plan and starter integration are reviewed on `main`. The NFA, subset-construction DFA, minimized model, final UI review, deployment and defense materials still need their assigned evidence and reviews.
+Feature scope is frozen to the approved lowercase HTTP/HTTPS URL language. Phase
+3 audits the merged candidate, fixes reproducible defects in the owning package,
+finishes deployment evidence, synchronizes the paper and prepares the release
+candidate. New product features, databases, accounts, URL fetching, query/
+fragment acceptance and unrelated visual redesigns are out of scope.
 
 Paul's clean-setup and corpus evidence is recorded in
 [clean-setup evidence](qa/clean-setup-evidence.md). Follow-up scenarios for
 formal and API testing are documented separately.
 
-## Verified starter checks
+## Verified Phase 2 candidate
 
-- Backend: 34 pytest tests and Ruff passed.
-- Frontend: 2 Vitest tests, ESLint and production build passed.
-- Browser: React reached Flask on desktop and mobile layouts; submitting a URL showed the current DFA verdict, final state, and ordered transition trace.
+- Backend: 446 pytest tests and Ruff passed in the Phase 2 QA package; the final
+  closure runner uses a repository-local pytest base to avoid stale Windows temp
+  permissions.
+- Frontend: 29 Vitest tests, ESLint and production build pass after integration.
+- Browser: all four routes render; React reaches Flask; an accepted URL displays
+  the final DFA state and complete ordered trace.
+- API smoke: health plus one accepted and one rejected shared case passed
+  locally (A01 and R01).
 
-The live package status is in the [Phase 2 tracker](https://github.com/seavens3nt/url-pattern-recognition/issues/34).
-Only Ranee reviews and approves Phase 2 PRs.
+The Phase 2 tracker,
+[Issue #34](https://github.com/seavens3nt/url-pattern-recognition/issues/34),
+is closed with Cedric's report work explicitly carried into Phase 3. Phase 3
+member issues are open under [tracker #65](https://github.com/seavens3nt/url-pattern-recognition/issues/65).
+The complete checker, API smoke, request-boundary checks, and Compose
+configuration pass on `a86e138`. Docker/port-8080 deployment remains unverified
+because the local engine is unavailable. Member audit PRs still await Ranee's
+review; the feature freeze and Phase 4 go/no-go decision are pending. Only
+Ranee accepts member PRs.
 
 ## Completed Phase 1 member tasks
 

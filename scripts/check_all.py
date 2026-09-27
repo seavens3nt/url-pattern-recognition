@@ -10,6 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 FRONTEND = ROOT / "frontend"
+PYTEST_BASE = ROOT / ".pytest-tmp"
 
 
 def run(label: str, command: list[str], cwd: Path = ROOT) -> None:
@@ -35,7 +36,11 @@ def main() -> int:
 
     checks = [
         ("Backend lint", [sys.executable, "-m", "ruff", "check", "backend", "tests", "scripts"], ROOT),
-        ("Backend tests", [sys.executable, "-m", "pytest"], ROOT),
+        (
+            "Backend tests",
+            [sys.executable, "-m", "pytest", f"--basetemp={PYTEST_BASE}"],
+            ROOT,
+        ),
         ("Frontend lint", [npm, "run", "lint"], FRONTEND),
         ("Frontend tests", [npm, "test"], FRONTEND),
         ("Frontend production build", [npm, "run", "build"], FRONTEND),

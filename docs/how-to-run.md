@@ -72,8 +72,9 @@ Success includes `Local: http://127.0.0.1:5173/` or `http://localhost:5173/`. Ke
 ## 8. Check that it works
 
 - The page title is URL Pattern Recognition.
+- On the Home page, select **Start** or **Recognizer** to open the validator.
 - The connection message becomes **Backend connected**.
-- Enter `https://example.com` and press **Send to backend**.
+- Enter `https://example.com` and press **Run DFA**.
 - You should see an accepted result for `https://example.com`, including its final DFA state and transition trace.
 
 ## Each time you work
