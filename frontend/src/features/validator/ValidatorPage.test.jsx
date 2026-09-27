@@ -152,8 +152,9 @@ describe('ValidatorPage', () => {
     await screen.findByText('Backend connected');
     await submit('https://example.com');
 
-    expect(await screen.findByText(/backend unavailable/i)).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: 'Backend unavailable' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /retry/i })).toBeInTheDocument();
+    expect(screen.getByText('Backend unavailable — start Flask in terminal 1.')).toBeInTheDocument();
   });
 
   it('times out a slow response and offers retry', async () => {
@@ -405,9 +406,35 @@ describe('ValidatorPage', () => {
     await screen.findByText('Backend connected');
     await submit('https://example.com');
 
-    await screen.findByText(/backend unavailable/i);
+    await screen.findByRole('heading', { name: 'Backend unavailable' });
     fireEvent.click(screen.getByRole('button', { name: /retry/i }));
 
     expect(await screen.findByText(/now it works/i)).toBeInTheDocument();
+    expect(screen.getByText('Backend connected')).toBeInTheDocument();
+  });
+
+  it('refreshes an initially unavailable health badge after a successful retry', async () => {
+    globalThis.fetch
+      .mockRejectedValueOnce(new TypeError('Flask is offline')) // mount-time health
+      .mockRejectedValueOnce(new TypeError('Flask is offline')) // first validation
+      .mockResolvedValueOnce(
+        ok({
+          accepted: true,
+          message: 'Accepted after recovery',
+          final_state: 'M13',
+          trace: traceFor('https://example.com', 'M13'),
+        })
+      );
+
+    render(<ValidatorPage />);
+    await screen.findByText('Backend unavailable — start Flask in terminal 1.');
+    await submit('https://example.com');
+    await screen.findByRole('heading', { name: 'Backend unavailable' });
+
+    fireEvent.click(screen.getByRole('button', { name: /retry/i }));
+
+    expect(await screen.findByText('Accepted after recovery')).toBeInTheDocument();
+    expect(screen.getByText('Backend connected')).toBeInTheDocument();
+    expect(screen.queryByText('Backend unavailable — start Flask in terminal 1.')).not.toBeInTheDocument();
   });
 });

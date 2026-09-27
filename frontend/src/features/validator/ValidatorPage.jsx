@@ -27,13 +27,21 @@ export default function ValidatorPage() {
   const [busy, setBusy] = useState(false);
 
   const requestRef = useRef(null); // AbortController for the in-flight validate call
+  const healthRequestRef = useRef(null);
   const lastUrlRef = useRef('');
 
   useEffect(() => {
     const controller = new AbortController();
+    healthRequestRef.current = controller;
     getHealth(controller.signal).then(data => {
-      setHealth(data.status === 'ok' ? 'Backend connected' : 'Backend unavailable');
-    }).catch(e => { if (e.name !== 'AbortError') setHealth('Backend unavailable — start Flask in terminal 1.'); });
+      if (!controller.signal.aborted) {
+        setHealth(data.status === 'ok' ? 'Backend connected' : 'Backend unavailable');
+      }
+    }).catch(e => {
+      if (!controller.signal.aborted && e.name !== 'AbortError') {
+        setHealth('Backend unavailable — start Flask in terminal 1.');
+      }
+    });
     return () => controller.abort();
   }, []);
 
@@ -46,6 +54,11 @@ export default function ValidatorPage() {
   }, []);
 
   async function runValidation(targetUrl) {
+    // A validation result is fresher than the mount-time health check.
+    if (healthRequestRef.current) {
+      healthRequestRef.current.abort();
+      healthRequestRef.current = null;
+    }
     // A new request always supersedes a pending one — prevents duplicate
     // concurrent requests and guarantees the most recent submission wins.
     if (requestRef.current) requestRef.current.abort();
@@ -59,10 +72,14 @@ export default function ValidatorPage() {
     try {
       const data = await validateUrl(targetUrl, { signal: controller.signal });
       if (requestRef.current !== controller) return; // superseded while awaiting
+      setHealth('Backend connected');
       setResult(data);
     } catch (err) {
       if (requestRef.current !== controller) return;
       if (SILENT_CODES.has(err.code)) return;
+      if (err.code === 'offline') {
+        setHealth('Backend unavailable — start Flask in terminal 1.');
+      }
       setResult({ message: err.message, code: err.code || 'offline' });
     } finally {
       if (requestRef.current === controller) {
