@@ -1,13 +1,15 @@
 # Four-week roadmap
 
-The final deadline is **September 29, 2026**. Because fewer than four full weeks remain, the four phases use a compressed recovery schedule. September 29 is reserved for the final upload and submission check.
+The submission deadline is **September 29, 2026**; the final presentation is
+**October 6, 2026**. The compressed four-phase schedule retains its original
+build and submission checkpoints. Defense preparation continues after upload.
 
 | Phase | Dates | Gate | Detailed guide |
 | --- | --- | --- |
 | 1. Foundation and specification | Sep 9–16 | Scope and alphabet approved; RE draft, wireframes, API contract, test corpus and setup evidence reviewed | [Week 1](phases/week-1.md) |
 | 2. Automata and owned packages | Sep 17–20 | Formal model and independently owned frontend, backend, QA, and paper packages reviewed | [Week 2](phases/week-2.md) |
 | 3. Integrated application | Sep 21–25 | React displays real simulator verdicts and traces; end-to-end tests pass; features freeze | [Week 3](phases/week-3.md) |
-| 4. Verification and defense | Sep 26–28 | Release candidate, clean-run evidence, report, slides and rehearsal accepted | [Week 4](phases/week-4.md) |
+| 4. Release, submission and defense | Sep 26–Oct 6 | Release candidate and clean-run evidence, Sep 29 submission, then slides and final presentation | [Week 4](phases/week-4.md) |
 
 ## Final deadline sequence
 
@@ -24,10 +26,13 @@ portal has an earlier cutoff.
   verified Phase 2 evidence into the accepted report baseline.
 - **September 26–27:** run final regression and clean setup; finish the paper,
   slides, demo script, citations, screenshots, and offline fallback.
-- **September 28:** tag the release candidate, finish one full timed rehearsal,
-  and prepare every submission file and link.
+- **September 28:** prepare the release candidate and every submission file
+  and link; record any carried gate work explicitly.
 - **September 29:** upload, verify every submitted file/link, and save the
   submission receipt. No feature work is planned for submission day.
+- **September 30–October 5:** rehearse the eight-member explanation and live
+  demo, check slides and a local fallback, and resolve presentation-only issues.
+- **October 6:** final presentation.
 
 ## Phase 2 onward start order
 

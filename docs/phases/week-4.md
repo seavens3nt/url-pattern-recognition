@@ -1,8 +1,11 @@
 # Phase 4 — Independent release and defense packages
 
-**Dates:** September 26–28, 2026. Submit on September 29.
+**Dates:** September 26–October 6, 2026. Submit on September 29; present on
+October 6. The original September 26–28 release window is retained as planned
+history. Phase 4 opens only after Ranee records the Phase 3 freeze decision.
 
-**Sprint goal:** verify the frozen candidate, correct only release blockers, and prepare the final academic package.
+**Sprint goal:** verify the frozen candidate, correct only release blockers,
+submit the academic package, and prepare the October 6 defense.
 
 **Activation rule:** Ranee records the frozen release-candidate commit before
 opening Phase 4 issues. Only Ranee approves PRs and decides whether a reported
@@ -108,5 +111,9 @@ portal has an earlier cutoff.
 - **September 25:** feature-freeze commit recorded and verified Phase 2 evidence
   integrated into the accepted report baseline.
 - **September 26–27:** final QA, clean run, paper, slides, demo, and fallback.
-- **September 28:** release candidate tagged and full timed rehearsal completed.
+- **September 28:** prepare the release candidate and submission files; any
+  delayed Phase 3 gate item stays explicitly open until Ranee resolves it.
 - **September 29:** upload and verification only; submission receipt saved.
+- **September 30–October 5:** planned defense rehearsal, slides and fallback
+  checks; no new product features.
+- **October 6:** final presentation.
