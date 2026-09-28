@@ -9,8 +9,10 @@ planned or superseded behavior as finished work.
 
 - Google Doc: https://docs.google.com/document/d/1qoo1uikbvgz3ryrP2cxPXJKNrFWNfft_6i-fbwAKvMg/edit
 - Phase 1 baseline: PR #33 (`39e907f`)
-- Phase 2 status: repository evidence assembled; Google Doc synchronization and
-  PM acceptance are Phase 3 deliverables.
+- Phase 2 status: repository evidence is assembled. The Phase 3 tab of the
+  [draft report](https://docs.google.com/document/d/1qoo1uikbvgz3ryrP2cxPXJKNrFWNfft_6i-fbwAKvMg/edit?tab=t.jwsjlj5y1tc)
+  now cites the formal model and distinguishes the locked candidate from later
+  QA retests. Ranee's final report acceptance is still pending under Issue #42.
 
 ## Status key
 
@@ -29,7 +31,7 @@ planned or superseded behavior as finished work.
 | Independent QA | Paul | PR #50 (`35cf107`) | [`phase-2-report.md`](../qa/phase-2-report.md), shared fixture and integration/security tests | Complete |
 | React interaction | Sean | PR #51 (`2a1f081`) | [`ValidatorPage.jsx`](../../frontend/src/features/validator/ValidatorPage.jsx), [`api.js`](../../frontend/src/features/validator/api.js), feature tests | Complete |
 | Visual interface and accessibility | Isaiah | PR #54 (`cd1d620`) plus PM integration repair | [`frontend/src/ui`](../../frontend/src/ui), [`style.css`](../../frontend/src/style.css), [`accessibility-checklist.md`](../ui/accessibility-checklist.md) | Complete after integration merge |
-| Report evidence | Cedric | Phase 1 baseline carried forward | This index and the shared Google Doc | Pending Phase 3 synchronization |
+| Report evidence | Cedric | Phase 1 baseline carried forward | This index and the shared Google Doc | Draft synchronized; pending Ranee's acceptance in Issue #42 |
 
 ## Phase 3 audit evidence
 
@@ -58,12 +60,12 @@ feature-freeze commit or complete the course paper.
 | DFA minimization and minimized diagram | [`minimization.md`](../automata/minimization.md), [`minimized-dfa.dot`](../automata/diagrams/minimized-dfa.dot), [`minimized-dfa-rendered-evidence.png`](../automata/diagrams/minimized-dfa-rendered-evidence.png) | Complete |
 | System design and API contract | [`architecture.md`](../architecture.md), [`api-contract.md`](../api-contract.md) | Complete |
 | Implementation/source code | [`backend`](../../backend), [`frontend/src`](../../frontend/src) | Complete |
-| Test cases and results | [`phase-2-report.md`](../qa/phase-2-report.md), [`phase-3-report.md`](../qa/phase-3-report.md), [`tests`](../../tests), frontend component tests | Complete as repository evidence; paper synchronization pending |
+| Test cases and results | [`phase-2-report.md`](../qa/phase-2-report.md), [`phase-3-report.md`](../qa/phase-3-report.md), [`tests`](../../tests), frontend component tests | Repository evidence complete; candidate/retest distinction added to draft report; pending Ranee's acceptance |
 | Working-system screenshots | [`phase-2-recognizer-desktop.png`](../ui/screenshots/phase-2-recognizer-desktop.png), [`phase-2-home-mobile.png`](../ui/screenshots/phase-2-home-mobile.png) | Complete |
 | Deployment, performance and security evidence | [`phase-2-deployment-check.md`](../release/phase-2-deployment-check.md), [`integration-gate.md`](../release/integration-gate.md) | Pending final container/host evidence |
-| Discussion and conclusion | Phase 2 QA report plus the shared Google Doc | Pending Cedric update and Ranee acceptance |
-| References | Repository sources and course brief | Pending final Google Doc citation check |
-| Contribution matrix and demo sequence | Verified merges above and Phase 3 demo draft | Pending Phase 3 update |
+| Discussion and conclusion | Phase 2 and Phase 3 QA reports plus the shared draft report | Drafted; pending Ranee's acceptance |
+| References | Direct NFA, DFA, minimization and runtime-model sources in the shared draft report | Updated; pending final citation review and Ranee's acceptance |
+| Contribution matrix and demo sequence | Verified merges above and the Phase 3 draft report | Eight-member matrix and approximately nine-minute outline drafted; pending Ranee's acceptance |
 
 ## Verified system behavior
 
@@ -92,11 +94,10 @@ feature-freeze commit or complete the course paper.
 
 ## Phase 3 report work
 
-Cedric updates the accepted Google Doc from this index under
+Cedric synchronized the Phase 3 draft report from this index under
 [Issue #42](https://github.com/seavens3nt/url-pattern-recognition/issues/42).
-Each `Complete` claim must retain a direct source link. Ranee accepts the
-synchronized theory, implementation, test-result, contribution, screenshot,
-reference, and demo sections. Until that review occurs, the paper and demo are
-pending even where repository evidence is complete. The repository files remain
-authoritative if the Google Doc conflicts with code or reviewed automata
+Each `Complete` repository claim retains a direct source link. The paper and
+eight-member demo now cite the locked Phase 2 candidate and separately dated
+Phase 3 audit evidence, but Ranee has not yet accepted the final report. The
+repository files remain authoritative if the Google Doc conflicts with code or reviewed automata
 artifacts.
