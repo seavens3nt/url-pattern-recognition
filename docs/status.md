@@ -1,78 +1,55 @@
 # Current status
 
+**Evidence updated:** September 28, 2026 (Asia/Manila). This is the current
+Phase 3 gate record; older candidate results remain in
+[the release-gate log](release/phase-3-release-gate.md).
+
 | Status field | Value |
 | --- | --- |
-| Evidence date | 2026-09-25 |
-| Active sprint | Phase 3 release verification; feature freeze on hold |
-| Active guide | [Phase 3 assignments](phases/week-3.md) |
-| Phase 3 deadline | Friday, September 25, 2026 |
-| Locked candidate | `a86e138` — merged [PR #57](https://github.com/seavens3nt/url-pattern-recognition/pull/57), including the Phase 2 candidate from [PR #56](https://github.com/seavens3nt/url-pattern-recognition/pull/56) |
-| Feature-freeze commit | Not declared; Phase 3 gate remains open |
+| Active gate | [Phase 3 tracker #65](https://github.com/seavens3nt/url-pattern-recognition/issues/65), awaiting Ranee's go/no-go decision |
+| Current main checked | `7da852001fbfa3f536e1bfe417e45713c04ec4c6` (PR #74) |
+| Feature-freeze commit | **Not declared.** Ranee selects it after this documentation correction merges and CI passes. |
+| Next milestones | Submission September 29; final presentation October 6 |
+| Hosting destination | Not yet selected; local Compose at port 8080 was verified, not a public deployment |
 
-Phase 2 integration and the follow-up guide correction are merged, with six
-successful GitHub checks on each PR. The Phase 3 assignments are in the linked
-guide, the shared project execution Google Doc, and [tracker #65](https://github.com/seavens3nt/url-pattern-recognition/issues/65).
-The September 25 release-gate evidence is in
-[phase-3-release-gate.md](release/phase-3-release-gate.md).
+## Phase 3 evidence on current main
 
-Ranee accepted Cedric's Phase 1 Google Doc and merged evidence index in
-[PR #33](https://github.com/seavens3nt/url-pattern-recognition/pull/33).
-[Issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13) is
-closed. Phase 2 has no carried Phase 1 documentation condition.
+- The NFA, DFA/model, backend, UI, frontend behavior, and QA Phase 3 PRs
+  [#66–#73](https://github.com/seavens3nt/url-pattern-recognition/pulls?q=is%3Apr+is%3Amerged+phase+3)
+  are merged. Ranee merged [report PR #74](https://github.com/seavens3nt/url-pattern-recognition/pull/74)
+  and closed [Issue #42](https://github.com/seavens3nt/url-pattern-recognition/issues/42).
+  The report content is synchronized; final editorial, slides, and submission
+  checks belong to Phase 4.
+- Current main had successful backend, frontend, and API-smoke GitHub checks.
+  The local retest passed Ruff, 454 backend tests, ESLint, 38 frontend tests,
+  and a Vite production build. The first sandboxed Vitest attempt failed to
+  read its config; the normal-access rerun passed.
+- The September 28 local Compose build and browser run at localhost:8080
+  passed accepted A01, rejected R01, full transition traces, HTTP 400/413
+  boundaries, offline display, and Retry recovery. The corrected health badge
+  displayed Backend connected after Retry. See
+  [the exact test record](release/phase-3-release-gate.md).
+- The production dependency audit reported zero advisories. Two moderate
+  advisories remain in development test tooling. The 1.76 MB About Us image is
+  a non-blocking load follow-up; a hosted performance result is not claimed.
 
-## Phase 2 gate decision
+## Decision to open Phase 4
 
-- RE/NFA, DFA/minimization/model, simulator/API, QA, React behavior and visual
-  packages are merged and indexed.
-- The PM integration repair connects the static pages, navigation, reusable UI
-  components and reviewed React API state machine.
-- Local evidence covers desktop/narrow layouts, a real accepted API result,
-  final state and ordered trace.
-- Phase 2 integration passed CI and was squash-merged as `8e666da`. Cedric's
-  unfinished course-report work carries into Phase 3; it is not marked complete.
-  Docker container evidence remains a Phase 3 deployment task because Docker
-  Desktop was unavailable at the local gate.
+The application has passed the local technical gate, but Phase 4 has **not**
+been activated. The corrected API contract and this evidence update must merge
+with passing CI. Ranee then records the frozen commit and go/no-go decision in
+this file and [tracker #65](https://github.com/seavens3nt/url-pattern-recognition/issues/65).
+The local browser run was observed but no new port-8080 screenshot file was
+saved; Ranee must either add it or accept that documented evidence exception.
+Do not treat issue closure, a health response, or a green build alone as the
+Phase 4 decision.
 
-## Phase 3 boundary
+## Locked scope
 
-Feature scope is frozen to the approved lowercase HTTP/HTTPS URL language. Phase
-3 audits the merged candidate, fixes reproducible defects in the owning package,
-finishes deployment evidence, synchronizes the paper and prepares the release
-candidate. New product features, databases, accounts, URL fetching, query/
-fragment acceptance and unrelated visual redesigns are out of scope.
-
-Paul's clean-setup and corpus evidence is recorded in
-[clean-setup evidence](qa/clean-setup-evidence.md). Follow-up scenarios for
-formal and API testing are documented separately.
-
-## Verified Phase 2 candidate
-
-- Backend: 446 pytest tests and Ruff passed in the Phase 2 QA package; the final
-  closure runner uses a repository-local pytest base to avoid stale Windows temp
-  permissions.
-- Frontend: 29 Vitest tests, ESLint and production build pass after integration.
-- Browser: all four routes render; React reaches Flask; an accepted URL displays
-  the final DFA state and complete ordered trace.
-- API smoke: health plus one accepted and one rejected shared case passed
-  locally (A01 and R01).
-
-The Phase 2 tracker,
-[Issue #34](https://github.com/seavens3nt/url-pattern-recognition/issues/34),
-is closed with Cedric's report work explicitly carried into Phase 3. Phase 3
-member issues are open under [tracker #65](https://github.com/seavens3nt/url-pattern-recognition/issues/65).
-The complete checker, API smoke, request-boundary checks, and Compose
-configuration pass on `a86e138`. Docker/port-8080 deployment remains unverified
-because the local engine is unavailable. Member audit PRs still await Ranee's
-review; the feature freeze and Phase 4 go/no-go decision are pending. Only
-Ranee accepts member PRs.
-
-## Completed Phase 1 member tasks
-
-- Ranee: project setup and onboarding ([issue #1](https://github.com/seavens3nt/url-pattern-recognition/issues/1)).
-- Isaiah: language specification and wireframes ([issue #2](https://github.com/seavens3nt/url-pattern-recognition/issues/2)).
-- Jared: validation API contract ([issue #4](https://github.com/seavens3nt/url-pattern-recognition/issues/4)).
-- Ralph: regular-expression draft and regularity review ([issue #6](https://github.com/seavens3nt/url-pattern-recognition/issues/6)).
-- Sean: component and API interaction plan ([issue #3](https://github.com/seavens3nt/url-pattern-recognition/issues/3), [PR #30](https://github.com/seavens3nt/url-pattern-recognition/pull/30)).
-- Pamela: automata notation and DFA/minimization worksheet structure ([issue #7](https://github.com/seavens3nt/url-pattern-recognition/issues/7), [PR #29](https://github.com/seavens3nt/url-pattern-recognition/pull/29)).
-- Paul: clean-setup evidence and 10 accepted/10 rejected shared corpus ([issue #5](https://github.com/seavens3nt/url-pattern-recognition/issues/5), [PR #28](https://github.com/seavens3nt/url-pattern-recognition/pull/28)).
-- Cedric: accepted report baseline and evidence index ([issue #13](https://github.com/seavens3nt/url-pattern-recognition/issues/13), [PR #33](https://github.com/seavens3nt/url-pattern-recognition/pull/33)).
+The approved lowercase HTTP/HTTPS grammar in
+[language-spec.md](language-spec.md) remains unchanged. The validator treats
+input as text and never visits submitted websites. New product features,
+general URL support, databases, and unrelated redesigns are outside the
+release. The authoritative API behavior is in
+[api-contract.md](api-contract.md); the final work packages are in
+[week-4.md](phases/week-4.md).

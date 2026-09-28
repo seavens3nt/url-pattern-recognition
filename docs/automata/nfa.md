@@ -225,10 +225,14 @@ fixture's expected verdict (query is outside the core language).
 - The transition table above was checked state by state against every named
   component in `docs/automata/regular-expression.md` Section 2; no component
   introduces a symbol or transition absent from this table.
-- All 20 cases in `tests/fixtures/url_cases.json` were traced by hand against
-  this NFA (full results in `regular-expression.md` Section 5); all 20 match
-  their expected verdict. The four traces above are a representative subset
-  using the fixture's own IDs, as required by the issue.
+- The original Phase 2 hand check covered 20 cases (full results in
+  `regular-expression.md` Section 5); all 20 matched their expected verdict.
+  The shared fixture later grew to 36 cases. Ralph's
+  [Phase 3 audit](../qa/nfa-trace-audit.md) manually checked four additional
+  boundary cases, and the integration suite checks the 36-case
+  specification/simulator/API parity. These are distinct checks; this
+  document does not claim that all 36 cases were hand-traced through the NFA.
+  The four worked traces above remain a representative Phase 2 subset.
 - Scope decision — approved by Ranee Mikaella V. Gutierrez on 2026-09-19:
   an ASCII `xn--` label is processed as an ordinary `LABEL` and is accepted
   when it satisfies the existing grammar. The recognizer does not decode or

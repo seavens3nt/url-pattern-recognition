@@ -1,183 +1,106 @@
-# API contract
+# Validation API contract
 
-## Implemented starter endpoints
+This is the implemented React–Flask boundary for the Phase 3 candidate. The
+accepted input language is defined by [the approved specification](language-spec.md);
+runtime states come from [url_dfa.json](../backend/automata/url_dfa.json). The API
+simulates the submitted string. It never fetches the URL or checks whether a
+website exists.
 
-`GET /api/health` returns HTTP 200 with `{"status":"ok","validator_ready":true}`.
+## Endpoints and input
 
-`POST /api/validate` takes a JSON body such as `{"url":"https://example.com"}`. A missing, non-string, blank, or over-2048-character URL returns HTTP 400 with `code: invalid_request` and a readable `message`. Bodies over 16 KiB return 413. The service never fetches the supplied URL.
+**GET /api/health** returns HTTP 200 with
+{"status":"ok","validator_ready":true} when the Flask endpoint is reachable.
+The current route sets `validator_ready` to `true` without loading or checking
+the DFA model, so this response proves backend connectivity only. Verify model
+readiness with a known accepted `POST /api/validate` smoke case; health alone
+does not prove that validation can run or that a submitted URL is accepted.
 
-A well-shaped request returns HTTP 200 with a DFA result:
-```json
-{"accepted":true,"message":"Accepted: the URL matches the approved core language.","final_state":"TLD_MANY","trace":[{"position":0,"symbol":"h","symbol_class":"letter","from_state":"START","to_state":"H"}]}
-```
-A rejected URL also returns HTTP 200 with `accepted: false`, its final state, and the trace produced before rejection.
+**POST /api/validate** takes one required JSON string:
 
-## Final response for Sprint 1 review — sign-off details pending
+~~~json
+{"url":"http://a.co"}
+~~~
 
-HTTP 200 represents a completed DFA simulation for either an accepted or rejected input string. The simulator must not fetch or otherwise visit the submitted URL.
+The value is processed as sent. It is not trimmed, lowercased, decoded,
+resolved, or visited. The core language accepts lowercase HTTP/HTTPS, a
+DNS-style host, and an optional simple path. FTP, ports, queries, fragments,
+IP literals, raw Unicode, and uppercase input are outside that language. An
+ASCII xn-- label is ordinary label text; no IDN decoding occurs.
 
-An empty or blank URL never reaches the DFA path; it is rejected upstream by the existing HTTP 400 blank-URL check in "Implemented starter endpoints."
+## Completed simulation: HTTP 200
 
-The response body has this schema:
+Both acceptance and formal rejection return HTTP 200.
 
-```json
+| Field | Meaning |
+| --- | --- |
+| accepted | Boolean DFA verdict. |
+| message | Human-readable result; do not use it as the machine-readable verdict. |
+| final_state | State after all input symbols are consumed; a string for a completed simulation. |
+| trace | Ordered transition rows, one per input symbol, including symbols consumed in the sink. |
+
+Each trace row contains zero-based position, raw symbol, from_state, and
+to_state. There is no symbol_class response field. The minimized DFA starts at
+M0, accepts in M13, M14, or M15, and uses M_sink for invalid paths. The client
+displays the trace and final state; it must not infer acceptance from the
+message or HTTP 200 alone.
+
+The current Flask test client returns this complete response for http://a.co:
+
+~~~json
 {
   "accepted": true,
-  "message": "string",
-  "final_state": "S0",
+  "final_state": "M13",
+  "message": "Accepted: the URL matches the approved core language.",
   "trace": [
-    {
-      "position": 0,
-      "symbol": "h",
-      "from_state": "S0",
-      "to_state": "S1"
-    }
+    {"from_state":"M0","position":0,"symbol":"h","to_state":"M1"},
+    {"from_state":"M1","position":1,"symbol":"t","to_state":"M2"},
+    {"from_state":"M2","position":2,"symbol":"t","to_state":"M3"},
+    {"from_state":"M3","position":3,"symbol":"p","to_state":"M4"},
+    {"from_state":"M4","position":4,"symbol":":","to_state":"M6"},
+    {"from_state":"M6","position":5,"symbol":"/","to_state":"M7"},
+    {"from_state":"M7","position":6,"symbol":"/","to_state":"M8"},
+    {"from_state":"M8","position":7,"symbol":"a","to_state":"M9"},
+    {"from_state":"M9","position":8,"symbol":".","to_state":"M10"},
+    {"from_state":"M10","position":9,"symbol":"c","to_state":"M12"},
+    {"from_state":"M12","position":10,"symbol":"o","to_state":"M13"}
   ]
 }
-```
+~~~
 
-Field meanings:
+For ftp://a.co, the same endpoint returns HTTP 200 with accepted false,
+final_state M_sink, and ten trace rows. The first row goes from M0 to M_sink
+on f; the remaining symbols are still consumed in M_sink. A URL ending in
+?debug is likewise a completed simulation with an HTTP 200 **rejected**
+verdict because queries are outside the approved language.
 
-- `accepted` is a boolean verdict from the DFA.
-- `message` is a string containing a readable result summary for the UI.
-- `final_state` is the final DFA state label after consuming the input. The field is nullable in the wire contract, but completed HTTP 200 simulations should return a string state label.
-- `trace` is an array of transition entries in input order.
-- `position` is an integer zero-based index into the raw input string exactly as the client sent it.
-- `symbol` is the raw input character consumed at that position.
-- `from_state` is the DFA state before consuming `symbol`.
-- `to_state` is the DFA state reached after consuming `symbol`. The field is nullable in the wire contract, but completed HTTP 200 simulations should return a string state label for each transition.
+## Invalid request: HTTP 400 or 413
 
-Trace completeness decision: the trace should run for the full length of the input. If a character falls outside the approved grammar or no accepting path remains, the DFA transitions into a dead/trap state and continues consuming the remaining characters. This matches the formal DFA model with a total transition function and gives the UI a complete per-character explanation. Pamela must confirm this remains compatible with the final DFA model once it exists.
+A missing, non-string, blank, or over-2,048-character URL does not reach the
+DFA. Flask returns HTTP 400 with code invalid_request and a readable message.
+For example, an empty JSON object returns:
 
-Normalization decision: trace positions index the raw input string, not a lowercased, trimmed, Punycode-converted, or otherwise normalized form. Any normalization required by the approved language belongs to simulator preprocessing and state-transition design; the wire contract should not hide the user's original character positions from the UI. Pamela and Jared should confirm this once the simulator implementation exists.
+~~~json
+{"code":"invalid_request","message":"Send a JSON object with a string URL."}
+~~~
 
-The examples below are illustrative, not the final DFA. State labels such as `S0`, `S1`, `S_ACCEPT`, and `TRAP` are placeholders only; Pamela's DFA will provide the real labels.
+A request body over 16 KiB returns HTTP 413. In the Compose deployment, Nginx
+may reject the body before Flask does, so callers must not assume every 413
+has Flask's JSON error shape. The ordinary browser input is limited to 2,048
+characters. React renders Flask's JSON 400/413 responses as request errors,
+not DFA rejections. An upstream HTML 413 is an unexpected server response in
+the current client; this edge cannot be produced by the ordinary 2,048-
+character browser form.
 
-### Illustrative accepted URL
+## Unavailable backend and routing
 
-Request:
+If React cannot reach Flask, it shows **Backend unavailable** with Retry.
+Timeout and unexpected server responses remain separate errors. Development
+uses Vite's relative /api proxy. Compose uses Nginx to route /api/ to the
+Python backend at port 5000 while serving the frontend at port 8080. The
+backend is not published directly by Compose. See [compose.yaml](../compose.yaml)
+and [nginx.conf](../deployment/nginx.conf).
 
-```json
-{
-  "url": "ftp://a.co/"
-}
-```
-
-Response:
-
-```json
-{
-  "accepted": true,
-  "message": "Input accepted by the DFA.",
-  "final_state": "S_ACCEPT",
-  "trace": [
-    {"position": 0, "symbol": "f", "from_state": "S0", "to_state": "S1"},
-    {"position": 1, "symbol": "t", "from_state": "S1", "to_state": "S2"},
-    {"position": 2, "symbol": "p", "from_state": "S2", "to_state": "S3"},
-    {"position": 3, "symbol": ":", "from_state": "S3", "to_state": "S4"},
-    {"position": 4, "symbol": "/", "from_state": "S4", "to_state": "S5"},
-    {"position": 5, "symbol": "/", "from_state": "S5", "to_state": "S6"},
-    {"position": 6, "symbol": "a", "from_state": "S6", "to_state": "S7"},
-    {"position": 7, "symbol": ".", "from_state": "S7", "to_state": "S8"},
-    {"position": 8, "symbol": "c", "from_state": "S8", "to_state": "S9"},
-    {"position": 9, "symbol": "o", "from_state": "S9", "to_state": "S10"},
-    {"position": 10, "symbol": "/", "from_state": "S10", "to_state": "S_ACCEPT"}
-  ]
-}
-```
-
-### Illustrative rejected URL with trap state
-
-Request:
-
-```json
-{
-  "url": "http://bad host/"
-}
-```
-
-Response:
-
-```json
-{
-  "accepted": false,
-  "message": "Input rejected by the DFA after entering the trap state.",
-  "final_state": "TRAP",
-  "trace": [
-    {"position": 0, "symbol": "h", "from_state": "S0", "to_state": "S1"},
-    {"position": 1, "symbol": "t", "from_state": "S1", "to_state": "S2"},
-    {"position": 2, "symbol": "t", "from_state": "S2", "to_state": "S3"},
-    {"position": 3, "symbol": "p", "from_state": "S3", "to_state": "S4"},
-    {"position": 4, "symbol": ":", "from_state": "S4", "to_state": "S5"},
-    {"position": 5, "symbol": "/", "from_state": "S5", "to_state": "S6"},
-    {"position": 6, "symbol": "/", "from_state": "S6", "to_state": "S7"},
-    {"position": 7, "symbol": "b", "from_state": "S7", "to_state": "S8"},
-    {"position": 8, "symbol": "a", "from_state": "S8", "to_state": "S9"},
-    {"position": 9, "symbol": "d", "from_state": "S9", "to_state": "S10"},
-    {"position": 10, "symbol": " ", "from_state": "S10", "to_state": "TRAP"},
-    {"position": 11, "symbol": "h", "from_state": "TRAP", "to_state": "TRAP"},
-    {"position": 12, "symbol": "o", "from_state": "TRAP", "to_state": "TRAP"},
-    {"position": 13, "symbol": "s", "from_state": "TRAP", "to_state": "TRAP"},
-    {"position": 14, "symbol": "t", "from_state": "TRAP", "to_state": "TRAP"},
-    {"position": 15, "symbol": "/", "from_state": "TRAP", "to_state": "TRAP"}
-  ]
-}
-```
-
-### Illustrative accepted edge case with valueless query
-
-Request:
-
-```json
-{
-  "url": "https://ex.com/path?debug"
-}
-```
-
-Response:
-
-```json
-{
-  "accepted": true,
-  "message": "Input accepted by the DFA with a valueless query key.",
-  "final_state": "S_ACCEPT",
-  "trace": [
-    {"position": 0, "symbol": "h", "from_state": "S0", "to_state": "S1"},
-    {"position": 1, "symbol": "t", "from_state": "S1", "to_state": "S2"},
-    {"position": 2, "symbol": "t", "from_state": "S2", "to_state": "S3"},
-    {"position": 3, "symbol": "p", "from_state": "S3", "to_state": "S4"},
-    {"position": 4, "symbol": "s", "from_state": "S4", "to_state": "S5"},
-    {"position": 5, "symbol": ":", "from_state": "S5", "to_state": "S6"},
-    {"position": 6, "symbol": "/", "from_state": "S6", "to_state": "S7"},
-    {"position": 7, "symbol": "/", "from_state": "S7", "to_state": "S8"},
-    {"position": 8, "symbol": "e", "from_state": "S8", "to_state": "S9"},
-    {"position": 9, "symbol": "x", "from_state": "S9", "to_state": "S10"},
-    {"position": 10, "symbol": ".", "from_state": "S10", "to_state": "S11"},
-    {"position": 11, "symbol": "c", "from_state": "S11", "to_state": "S12"},
-    {"position": 12, "symbol": "o", "from_state": "S12", "to_state": "S13"},
-    {"position": 13, "symbol": "m", "from_state": "S13", "to_state": "S14"},
-    {"position": 14, "symbol": "/", "from_state": "S14", "to_state": "S15"},
-    {"position": 15, "symbol": "p", "from_state": "S15", "to_state": "S16"},
-    {"position": 16, "symbol": "a", "from_state": "S16", "to_state": "S17"},
-    {"position": 17, "symbol": "t", "from_state": "S17", "to_state": "S18"},
-    {"position": 18, "symbol": "h", "from_state": "S18", "to_state": "S19"},
-    {"position": 19, "symbol": "?", "from_state": "S19", "to_state": "S20"},
-    {"position": 20, "symbol": "d", "from_state": "S20", "to_state": "S21"},
-    {"position": 21, "symbol": "e", "from_state": "S21", "to_state": "S22"},
-    {"position": 22, "symbol": "b", "from_state": "S22", "to_state": "S23"},
-    {"position": 23, "symbol": "u", "from_state": "S23", "to_state": "S24"},
-    {"position": 24, "symbol": "g", "from_state": "S24", "to_state": "S_ACCEPT"}
-  ]
-}
-```
-
-During development, React calls relative `/api` paths and Vite proxies to Flask at 127.0.0.1:5000. Production needs an equivalent routing arrangement and production Python server.
-
-## Review outcomes
-
-- Isaiah / `docs/language-spec.md`: Still pending in this checkout; `docs/language-spec.md` is missing, and no PR number, review date, or decision-log entry was provided in this task.
-- Sean: Pending; no actual review resolution was provided in this task.
-- Pamela: Pending; no actual review resolution was provided in this task.
-- Paul: Pending; no actual review resolution was provided in this task.
-- Ranee: Pending; no gate approval resolution was provided in this task.
-- Schema changes requested: No actual schema changes were provided in this task, so no schema or example changes were applied.
+The implemented contract is checked by [test_api.py](../tests/test_api.py),
+[test_simulator.py](../tests/test_simulator.py), and the shared
+[URL corpus](../tests/fixtures/url_cases.json). Local Compose verification
+is recorded in [the Phase 3 release gate](release/phase-3-release-gate.md).

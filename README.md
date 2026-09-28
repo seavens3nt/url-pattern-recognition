@@ -1,8 +1,8 @@
 # URL Pattern Recognition
 
-An Automata Theory web application built with React and Flask. It will decide whether an input URL belongs to the team-approved language and show the DFA transition trace used to reach the result.
+An Automata Theory web application built with React and Flask. It decides whether an input URL belongs to the team-approved language and shows the DFA transition trace used to reach the result.
 
-The application runs the approved core language through an explicit DFA and returns accepted or rejected verdicts with a transition trace. The team must still finish and review the full RE → NFA → DFA → minimized-DFA academic evidence before submission.
+The application runs the approved core language through an explicit DFA and returns accepted or rejected verdicts with a transition trace. The RE → NFA → DFA → minimized-DFA evidence is recorded in the [regular expression](docs/automata/regular-expression.md), [NFA](docs/automata/nfa.md), [DFA](docs/automata/dfa.md), and [minimization](docs/automata/minimization.md) documentation. See the [Phase 3 release gate](docs/release/phase-3-release-gate.md) for the latest verification and remaining release decisions.
 
 ## Start here
 

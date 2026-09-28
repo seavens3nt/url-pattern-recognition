@@ -12,7 +12,9 @@ planned or superseded behavior as finished work.
 - Phase 2 status: repository evidence is assembled. The Phase 3 tab of the
   [draft report](https://docs.google.com/document/d/1qoo1uikbvgz3ryrP2cxPXJKNrFWNfft_6i-fbwAKvMg/edit?tab=t.jwsjlj5y1tc)
   now cites the formal model and distinguishes the locked candidate from later
-  QA retests. Ranee's final report acceptance is still pending under Issue #42.
+  QA retests. Ranee merged [PR #74](https://github.com/seavens3nt/url-pattern-recognition/pull/74)
+  and closed [Issue #42](https://github.com/seavens3nt/url-pattern-recognition/issues/42)
+  on September 28; final editorial and submission review belongs to Phase 4.
 
 ## Status key
 
@@ -31,7 +33,7 @@ planned or superseded behavior as finished work.
 | Independent QA | Paul | PR #50 (`35cf107`) | [`phase-2-report.md`](../qa/phase-2-report.md), shared fixture and integration/security tests | Complete |
 | React interaction | Sean | PR #51 (`2a1f081`) | [`ValidatorPage.jsx`](../../frontend/src/features/validator/ValidatorPage.jsx), [`api.js`](../../frontend/src/features/validator/api.js), feature tests | Complete |
 | Visual interface and accessibility | Isaiah | PR #54 (`cd1d620`) plus PM integration repair | [`frontend/src/ui`](../../frontend/src/ui), [`style.css`](../../frontend/src/style.css), [`accessibility-checklist.md`](../ui/accessibility-checklist.md) | Complete after integration merge |
-| Report evidence | Cedric | Phase 1 baseline carried forward | This index and the shared Google Doc | Draft synchronized; pending Ranee's acceptance in Issue #42 |
+| Report evidence | Cedric | PR #74 (`7da8520`); Issue #42 closed by Ranee | This index and the shared Google Doc | Phase 3 synchronization accepted; final editorial/submission review in Phase 4 |
 
 ## Phase 3 audit evidence
 
@@ -43,8 +45,8 @@ feature-freeze commit or complete the course paper.
 | --- | --- | --- |
 | NFA trace audit | [`nfa-trace-audit.md`](../qa/nfa-trace-audit.md) | Ralph checked four additional fixture traces against the NFA table on `a86e138`; this does not replace the formal NFA artifact linked above. |
 | DFA model audit | [`dfa-model-audit.md`](../qa/dfa-model-audit.md) | Pamela compared the minimized transition table with the runtime JSON on `a86e138`. |
-| End-to-end QA | [`phase-3-report.md`](../qa/phase-3-report.md) | Paul records the original candidate's failed offline check separately from the successful stopped-Flask retest on `3ebba57`. QA-64-02 was observed on that retest; its frontend fix merged in [PR #73](https://github.com/seavens3nt/url-pattern-recognition/pull/73), but an independent browser retest of the merged fix is not recorded here. |
-| Deployment and release gate | [`phase-3-release-gate.md`](../release/phase-3-release-gate.md) | The September 25 check passed local tests and Compose configuration on `a86e138`; container/browser verification at port 8080 and a declared feature-freeze commit remain pending. |
+| End-to-end QA | [`phase-3-report.md`](../qa/phase-3-report.md), [`phase-3-release-gate.md`](../release/phase-3-release-gate.md) | Paul's original candidate failed the attempted offline check; a later retest on `3ebba57` passed but found QA-64-02. Its fix merged in [PR #73](https://github.com/seavens3nt/url-pattern-recognition/pull/73), and the September 28 local Compose browser retest on `7da8520` independently verified offline, Retry, and the restored health badge. |
+| Deployment and release gate | [`phase-3-release-gate.md`](../release/phase-3-release-gate.md) | The September 25 container check was blocked. On September 28, the local Compose build and browser/API run at port 8080 passed on `7da8520`. No hosted deployment or Ranee-declared feature-freeze commit is claimed. |
 
 ## Required course sections
 
@@ -60,12 +62,12 @@ feature-freeze commit or complete the course paper.
 | DFA minimization and minimized diagram | [`minimization.md`](../automata/minimization.md), [`minimized-dfa.dot`](../automata/diagrams/minimized-dfa.dot), [`minimized-dfa-rendered-evidence.png`](../automata/diagrams/minimized-dfa-rendered-evidence.png) | Complete |
 | System design and API contract | [`architecture.md`](../architecture.md), [`api-contract.md`](../api-contract.md) | Complete |
 | Implementation/source code | [`backend`](../../backend), [`frontend/src`](../../frontend/src) | Complete |
-| Test cases and results | [`phase-2-report.md`](../qa/phase-2-report.md), [`phase-3-report.md`](../qa/phase-3-report.md), [`tests`](../../tests), frontend component tests | Repository evidence complete; candidate/retest distinction added to draft report; pending Ranee's acceptance |
+| Test cases and results | [`phase-2-report.md`](../qa/phase-2-report.md), [`phase-3-report.md`](../qa/phase-3-report.md), [`phase-3-release-gate.md`](../release/phase-3-release-gate.md), [`tests`](../../tests), frontend component tests | Phase 3 report synchronization accepted in Issue #42; dated candidate and retest results remain distinct |
 | Working-system screenshots | [`phase-2-recognizer-desktop.png`](../ui/screenshots/phase-2-recognizer-desktop.png), [`phase-2-home-mobile.png`](../ui/screenshots/phase-2-home-mobile.png) | Complete |
-| Deployment, performance and security evidence | [`phase-2-deployment-check.md`](../release/phase-2-deployment-check.md), [`integration-gate.md`](../release/integration-gate.md) | Pending final container/host evidence |
-| Discussion and conclusion | Phase 2 and Phase 3 QA reports plus the shared draft report | Drafted; pending Ranee's acceptance |
-| References | Direct NFA, DFA, minimization and runtime-model sources in the shared draft report | Updated; pending final citation review and Ranee's acceptance |
-| Contribution matrix and demo sequence | Verified merges above and the Phase 3 draft report | Eight-member matrix and approximately nine-minute outline drafted; pending Ranee's acceptance |
+| Deployment, performance and security evidence | [`phase-3-release-gate.md`](../release/phase-3-release-gate.md), [`integration-gate.md`](../release/integration-gate.md) | Local Compose/port-8080 proof added; hosted deployment and final submission evidence remain Phase 4 |
+| Discussion and conclusion | Phase 2 and Phase 3 QA reports plus the shared draft report | Phase 3 synchronized; final editorial review in Phase 4 |
+| References | Direct NFA, DFA, minimization and runtime-model sources in the shared draft report | Phase 3 source links added; final citation formatting in Phase 4 |
+| Contribution matrix and demo sequence | Verified merges above and the Phase 3 draft report | Eight-member matrix and approximately nine-minute outline in the report; October 6 rehearsal remains Phase 4 |
 
 ## Verified system behavior
 
@@ -95,9 +97,10 @@ feature-freeze commit or complete the course paper.
 ## Phase 3 report work
 
 Cedric synchronized the Phase 3 draft report from this index under
-[Issue #42](https://github.com/seavens3nt/url-pattern-recognition/issues/42).
-Each `Complete` repository claim retains a direct source link. The paper and
-eight-member demo now cite the locked Phase 2 candidate and separately dated
-Phase 3 audit evidence, but Ranee has not yet accepted the final report. The
-repository files remain authoritative if the Google Doc conflicts with code or reviewed automata
-artifacts.
+[Issue #42](https://github.com/seavens3nt/url-pattern-recognition/issues/42);
+Ranee merged PR #74 and closed that issue. Each `Complete` repository claim
+retains a direct source link. The paper and eight-member demo cite the locked
+Phase 2 candidate and separately dated Phase 3 audit evidence. Final citation
+formatting, export and defense rehearsal belong to Phase 4. Repository files
+remain authoritative if the Google Doc conflicts with code or reviewed
+automata artifacts.
