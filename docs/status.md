@@ -1,14 +1,15 @@
 # Current status
 
-**Evidence updated:** September 28, 2026 (Asia/Manila). This is the current
-Phase 3 gate record; older candidate results remain in
+**Gate decision:** September 29, 2026 (Asia/Manila). The Phase 3 evidence and
+older candidate results remain in
 [the release-gate log](release/phase-3-release-gate.md).
 
 | Status field | Value |
 | --- | --- |
-| Active gate | [Phase 3 tracker #65](https://github.com/seavens3nt/url-pattern-recognition/issues/65), awaiting Ranee's go/no-go decision |
-| Current main checked | `7da852001fbfa3f536e1bfe417e45713c04ec4c6` (PR #74) |
-| Feature-freeze commit | **Not declared.** Ranee selects it after this documentation correction merges and CI passes. |
+| Gate decision | **GO to Phase 4.** Ranee delegated this decision to Codex on September 29 after asking it to merge PR #75 and decide. |
+| Phase 3 tracker | [#65](https://github.com/seavens3nt/url-pattern-recognition/issues/65); the gate decision is recorded here and in the tracker. |
+| Frozen application commit | `0eb389bac3f50d3ed0a2cae70bb8a36e6b79e480` (squash merge of [PR #75](https://github.com/seavens3nt/url-pattern-recognition/pull/75)); no new product features after this revision without an explicit release-blocker decision. |
+| Post-merge CI | Project checks succeeded on `0eb389b` (backend, frontend, API smoke). |
 | Next milestones | Submission September 29; final presentation October 6 |
 | Hosting destination | Not yet selected; local Compose at port 8080 was verified, not a public deployment |
 
@@ -33,16 +34,24 @@ Phase 3 gate record; older candidate results remain in
   advisories remain in development test tooling. The 1.76 MB About Us image is
   a non-blocking load follow-up; a hosted performance result is not claimed.
 
-## Decision to open Phase 4
+## Phase 4 gate decision
 
-The application has passed the local technical gate, but Phase 4 has **not**
-been activated. The corrected API contract and this evidence update must merge
-with passing CI. Ranee then records the frozen commit and go/no-go decision in
-this file and [tracker #65](https://github.com/seavens3nt/url-pattern-recognition/issues/65).
-The local browser run was observed but no new port-8080 screenshot file was
-saved; Ranee must either add it or accept that documented evidence exception.
-Do not treat issue closure, a health response, or a green build alone as the
-Phase 4 decision.
+**GO.** The formal model, integrated app, independent QA, report
+synchronization, local Compose/browser run, and post-merge CI satisfy the
+Phase 3 technical gate. The application is frozen at `0eb389b`; subsequent
+governance, report, and presentation edits do not change that application
+baseline. Ranee explicitly delegated the merge and go/no-go choice to Codex
+on September 29. The missing saved screenshot from the exact September 28
+port-8080 run is accepted as a documented Phase 3 evidence exception because
+the visual browser behavior and API results were observed and recorded. Phase
+4 should still collect final working-system screenshots for the submission
+package if required by the course rubric.
+
+Phase 4 may now start with final regression, clean setup, paper export,
+submission, and October 6 defense preparation. A public hosting destination
+has not been selected or tested; no hosted result is claimed. Any hosted
+deployment needs its own verification. This decision does not authorize new
+product features or claim that the final submission has occurred.
 
 ## Locked scope
 
