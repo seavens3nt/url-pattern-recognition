@@ -64,8 +64,9 @@ In terminal 2, from the worktree root, run:
 
 For browser testing, Vite was started from `frontend` with
 `npm.cmd run dev -- --host 127.0.0.1 --port 5173`. Both services ran from the
-frozen worktree. Docker is not installed in this environment; Compose config,
-container startup, and hosted deployment were not verified.
+frozen worktree. The `docker` CLI was not found in this PowerShell session;
+whether Docker Desktop or its engine is installed or running was not established.
+Compose config, container startup, and hosted deployment were not verified.
 
 ## Result Matrix
 
@@ -84,7 +85,7 @@ container startup, and hosted deployment were not verified.
 | Browser accepted/rejected flows | PASS | Both exercised in the UI at desktop and narrow CSS viewport widths. |
 | Browser invalid-request presentation | PASS | Deterministic HTTP 400 at the browser API boundary rendered as Request error, not a DFA rejection. The real API 400 boundary was independently exercised above. |
 | Browser offline and Retry | PASS | Stopped and restarted only the frozen-worktree Flask server; details below. |
-| Compose / public deployment | NOT RUN | Docker unavailable; hosting destination is not selected. |
+| Compose / public deployment | NOT RUN | Docker CLI was not found; hosting destination is not selected. |
 
 ## Browser Results
 
