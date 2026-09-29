@@ -103,8 +103,25 @@ overflow was observed.
 | Retry recovery | Restart Flask and click Retry without reloading | Accepted, `M13`, 19 rows; status changed to “Backend connected”. |
 | Narrow viewport | Run accepted flow at 375px CSS width | Form and result remained available; no document horizontal overflow. |
 
-**Screenshot attachment:** to be added manually by Paul before PR submission.
-No screenshots are included in this report.
+## Screenshots
+
+- [ ] Desktop: accepted result
+<img width="1177" height="917" alt="accepted recognizer" src="https://github.com/user-attachments/assets/102b25c3-f1e4-4e0e-ab0a-b786d701ad82" />
+
+- [ ] Desktop: rejected result
+<img width="1173" height="917" alt="rejected recognizer" src="https://github.com/user-attachments/assets/749d4e46-5929-4ae4-bcce-38c465da5cab" />
+
+- [ ] Offline (backend unavailable)
+<img width="1162" height="725" alt="desktop ver - offline" src="https://github.com/user-attachments/assets/56623bb2-4124-4dce-a14e-6db95208e97c" />
+
+- [ ] Invalid request (HTTP 400)
+<img width="1167" height="727" alt="invalid" src="https://github.com/user-attachments/assets/05688cfd-20ec-4b9b-9efe-34014cda345b" />
+
+- [ ] Retry
+<img width="1172" height="925" alt="retry recognizer" src="https://github.com/user-attachments/assets/33d5df31-957f-4991-9059-26a5c9f5ebfc" />
+
+- [ ] Narrow/mobile accepted result
+<img width="313" height="845" alt="narrow ver" src="https://github.com/user-attachments/assets/49a86173-c218-4d1c-ac31-c2b13f6eb7cb" />
 
 ## Residual Risks and Follow-up
 
