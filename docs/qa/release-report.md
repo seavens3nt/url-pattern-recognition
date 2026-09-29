@@ -152,9 +152,6 @@ No release-blocking defect was reproduced, so no implementation defect was
 filed. The initial apparent narrow-width overflow was a measurement error from
 integrated-browser zoom and scrollbar width; corrected CSS viewport checks
 showed no overflow. Implementation, formal-model, and frontend files were not
-edited. Ranee is the requested sole reviewer. This report is not accepted until
-Ranee reviews it.
+edited. 
 
-The GitHub browser session and `gh` CLI were both signed out during this run.
-The report is ready on `phase-4/paul-final-qa`, but creating/pushing the PR,
-requesting Ranee, and posting to tracker #77 require GitHub authentication.
+
