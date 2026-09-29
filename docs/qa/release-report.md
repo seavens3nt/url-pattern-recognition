@@ -64,9 +64,8 @@ In terminal 2, from the worktree root, run:
 
 For browser testing, Vite was started from `frontend` with
 `npm.cmd run dev -- --host 127.0.0.1 --port 5173`. Both services ran from the
-frozen worktree. The `docker` CLI was not found in this PowerShell session;
-whether Docker Desktop or its engine is installed or running was not established.
-Compose config, container startup, and hosted deployment were not verified.
+frozen worktree. No public hosting target was selected; hosted deployment was
+not verified.
 
 ## Result Matrix
 
@@ -85,7 +84,7 @@ Compose config, container startup, and hosted deployment were not verified.
 | Browser accepted/rejected flows | PASS | Both exercised in the UI at desktop and narrow CSS viewport widths. |
 | Browser invalid-request presentation | PASS | Deterministic HTTP 400 at the browser API boundary rendered as Request error, not a DFA rejection. The real API 400 boundary was independently exercised above. |
 | Browser offline and Retry | PASS | Stopped and restarted only the frozen-worktree Flask server; details below. |
-| Compose / public deployment | NOT RUN | Docker CLI was not found; hosting destination is not selected. |
+| Public deployment | NOT RUN | Hosting destination is not selected. |
 
 ## Browser Results
 
@@ -122,7 +121,7 @@ No screenshots are included in this report.
 - **Performance:** The build's largest asset is `isaiah-C578o1Ri.png` at
   1,764.75 kB. No load test, hosted latency measurement, or production asset
   transfer test was run.
-- **Deployment:** Docker/Compose and public hosting were not tested. Local
+- **Deployment:** No public hosting target was selected or verified. Local
   development servers are not public hosting evidence.
 - **Readiness:** `/api/health` returns a constant `validator_ready: true`; health
   proves endpoint connectivity only. The accepted/rejected API smoke exercises
