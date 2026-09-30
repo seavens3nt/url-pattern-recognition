@@ -3,7 +3,8 @@
 **Owner:** Pamela  
 **Issue:** [#82](https://github.com/seavens3nt/url-pattern-recognition/issues/82)  
 **Frozen application commit:** `0eb389bac3f50d3ed0a2cae70bb8a36e6b79e480`  
-**Tested at:** `c2bda231535201a0a1a2debc5cf738c1bb5b51c0` (latest main, 2026-09-23)  
+**Tested at:** `c2bda231535201a0a1a2debc5cf738c1bb5b51c0` (main, 2026-09-29)
+
 **Source files:** `docs/automata/dfa.md`, `docs/automata/minimization.md`,  
 `backend/automata/url_dfa.json`, `tests/fixtures/url_cases.json`
 
@@ -99,10 +100,11 @@ not matter whether it was the leading slash or a segment separator; what
 follows has the same acceptance profile.
 
 **Why nothing else merges:** every other pair of states either differs in
-acceptance (e.g. D14 accepts, D13 does not), or differs in where at least one
-symbol leads (e.g. D8 sends ALNUM to what becomes M9 but no other state sends
-ALNUM there from a non-loop position). The partition-refinement record in
-`docs/automata/minimization.md` shows all 12 split steps.
+acceptance (e.g. D14 accepts, D13 does not), or has a symbol that leads to
+different final blocks. For example, D8 and D12 both send ALNUM to the M9
+block, but `-` sends D8 to D_sink and keeps D12 in its hyphen-run block.
+The partition-refinement record in `docs/automata/minimization.md` shows
+all 12 split steps.
 
 **Result:** the 19-state DFA minimizes to **17 states** (M0–M15 plus M_sink).
 The mapping is recorded in `docs/automata/minimization.md` and the runtime
@@ -192,9 +194,10 @@ grammar constraint (two-label requirement), not a malformed-input error.
 | Reached by | Invalid or out-of-language input | Fully valid URL consumed |
 | Verdict | REJECTED | ACCEPTED (if input also fully consumed) |
 
-M_sink is declared explicitly in the JSON (`"sink_state": "M_sink"`) so the
-simulator can short-circuit: once in M_sink it knows acceptance is impossible
-regardless of remaining input. This is different from a non-accepting state
+M_sink is declared explicitly in the JSON (`"sink_state": "M_sink"`). Once
+the simulator reaches it, acceptance is impossible, but the simulator still
+consumes every remaining character and records each sink transition in the
+trace. This is different from a non-accepting state
 like M9, which still has useful outgoing transitions.
 
 ---
