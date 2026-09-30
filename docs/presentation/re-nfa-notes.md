@@ -27,12 +27,12 @@ package is speaking notes and evidence only.
 
 ## RE-to-NFA explanation (for defense)
 
-The approved language (`docs/language-spec.md`) is regular: every rule is a
-finite alphabet, concatenation, finite alternation, or bounded repetition,
-with no nesting, cross-part counting, or external lookup. The regular
+The approved language (`docs/language-spec.md`) is regular: its rules use
+finite character classes, concatenation, alternation, and Kleene star/plus
+repetition, all of which preserve regularity. The regular
 expression in `regular-expression.md` Section 2 names each piece of the
 grammar (`SCHEME`, `LABEL`, `TLD`, `PATH_CHAR`, `SEGMENT`, `PATH`), and the
-NFA in `nfa.md` builds a Thompson-style state for each one: fixed keywords
+NFA in `nfa.md` builds state-and-transition structures for those components: fixed keywords
 like `http`/`https` become chains of literal-character transitions, repeated
 or optional parts (a label's inner characters, extra TLD letters, path
 segments) become epsilon choice points and self-loops, and the whole machine
@@ -100,9 +100,10 @@ not a defect.
 Three separate checks exist and should not be conflated when defending this
 work:
 
-1. **Phase 2 hand trace** — 20 cases traced by hand against the NFA when it
-   was first built (`regular-expression.md` Section 5).
-2. **Phase 3 audit** — 4 additional fixture cases traced by hand,
+1. **Phase 2 expression check** — 20 fixture cases checked by hand against the
+   regular expression (`regular-expression.md` Section 5). The NFA document
+   separately includes four worked NFA traces (`nfa.md` Section 5).
+2. **Phase 3 NFA audit** — 4 additional fixture cases traced by hand,
    independently, against the documented NFA (`docs/qa/nfa-trace-audit.md`).
 3. **Automated parity suite** — `tests/test_language_cases.py` and
    `tests/test_integration.py`, run against the full 36-case shared fixture
@@ -111,8 +112,9 @@ work:
    is not a hand trace of the NFA.
 
 No claim is made that all 36 fixture cases were manually traced through the
-NFA. Only 24 were (20 in Phase 2, 4 in Phase 3); the remaining fixture
-coverage is automated, not hand-verified against the state table.
+NFA. The published evidence contains four Phase 2 NFA worked traces and four
+additional Phase 3 NFA traces. The 20-case Phase 2 expression check is a
+different verification layer; automated parity covers all 36 fixture cases.
 
 ## Speaking sequence (~1 minute)
 
@@ -131,7 +133,6 @@ coverage is automated, not hand-verified against the state table.
    a state whose only transition is on a literal dot. With no more input and
    no epsilon path to accept, it rejects — a single label can never satisfy
    this language."
-5. *(10s)* "We've hand-traced 24 of the 36 fixture cases directly against
-   this NFA, across Phase 2 and Phase 3. The rest of the 36-case coverage is
-   automated — 286 tests pass at the current commit — which checks
-   parity in code, not a hand trace of the state table."
+5. *(10s)* "We hand-checked 20 fixtures against the expression, published four
+   NFA worked traces, and independently traced four more NFA cases in Phase 3.
+   Automated tests cover all 36 fixtures; those are not hand traces."
