@@ -66,3 +66,46 @@ collapses into a labelled button. At desktop width, the full navigation is shown
 - Record the final pushed commit and CI result in PR #68 after the changes are
   committed. The historical Phase 2 test counts are not reused as Phase 3
   evidence.
+
+
+# Phase 4 visual and accessibility verification
+
+**Owner:** Isaiah @m1nay3on
+
+**Work package:** [Issue #79](https://github.com/seavens3nt/url-pattern-recognition/issues/79)
+
+**Application baseline:** `0eb389bac3f50d3ed0a2cae70bb8a36e6b79e480`
+
+**Evidence review:** October 1, 2026 (Asia/Manila), on PR head `cd81e6455f7e1d7ad794c1916c4f118717c7f5ae`. The PR branch has no `frontend/` or `backend/` differences from the frozen application baseline.
+
+Isaiah's [Phase 4 screenshot document](https://docs.google.com/document/d/1kgIVnh0rDMMab4bt6ZEOv-JcAgGUh3PCDiFc8kA_C6U/edit?usp=sharing) contains desktop, tablet, and mobile captures. These representative PNGs were copied unchanged from that document into the repository so the evidence survives a separate document link:
+
+- [Desktop recognizer: URL input and accepted result](screenshots/phase-4-recognizer-desktop-result.png)
+- [Desktop recognizer: accepted result and transition trace](screenshots/phase-4-recognizer-desktop-trace.png)
+- [390 x 844 mobile recognizer: result and trace](screenshots/phase-4-recognizer-mobile-result-trace.png)
+
+The captures show `https://example.com/users/123` accepted at `M15` with 29 transition steps. On October 1, the same input was submitted with Enter to the frozen React app and a running local Flask backend; the live result was Accepted, `M15`, and 29 ordered rows. The screenshot document does not record its own capture commit or an automated overflow measurement; the identical application files and live result support the comparison but do not prove capture timing.
+
+## Viewports and routes
+
+| Supplied capture viewport | Home | Recognizer | How it Works | About Us | Overflow evidence |
+| --- | --- | --- | --- | --- | --- |
+| 1280 x 720 desktop | Captured | Captured with result | Captured | Captured | October 1 live recognizer: document width 1265 px within a 1280 px viewport. |
+| 768 x 900 tablet | Captured | Captured with result | Captured | Captured | No visible clipping in supplied captures; scroll width not measured. |
+| 390 x 844 narrow mobile | Captured | Captured with result | Captured | Captured | No visible clipping in supplied captures; scroll width not measured. |
+
+## Interaction and accessibility findings
+
+| Check | Result and evidence | Limit |
+| --- | --- | --- |
+| URL label and keyboard submission | Pass in October 1 live browser run: the input was exposed as `URL to inspect`; Enter submitted `https://example.com/users/123`. | Tested at the 1280 x 720 browser viewport. |
+| Focus order and visible focus | Pass in the live recognizer: Tab moved from URL input to `Run DFA`, then to the `DFA transition trace` region. The button had an outline and the trace region had a solid focus outline. | Other routes and viewport-specific keyboard order were not independently retested in this review. |
+| Result announcement semantics | The accepted result is a `role="status"` region; request errors use `role="alert"` in the frozen component. | Screen-reader announcement timing was not measured. |
+| Transition trace | The live result exposed a named, keyboard-focusable region, table caption, column headers, and 29 ordered rows. The supplied desktop and mobile captures show readable trace columns. | A wider trace requiring horizontal scrolling was not exercised. |
+| Responsive route visibility | Isaiah's linked document shows all four routes at the three stated viewports. | Screenshots support visual appearance, not keyboard behavior or automated overflow claims. |
+
+## Visual follow-up and defense scope
+
+The frozen UI still renders the heading as **“Validation result”**, with a lowercase `r`; the earlier claim that “Validation Result” capitalization was implemented was incorrect. The results container uses a 14 px corner radius in the frozen CSS. This documentation-only PR does not change either value or assert an independently verified Figma match. A visual change after the freeze requires Ranee to identify it as a release blocker and assign the affected file.
+
+For the defense, describe this UI as a text-only URL recognizer: it sends the entered string to the local Flask validator, then displays the DFA verdict, final state, and ordered transitions. It does not visit the URL or validate arbitrary URL syntax. The evidence above is from local development and supplied screenshots; it is not a public-hosting audit or a measured screen-reader test.
