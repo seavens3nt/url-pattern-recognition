@@ -11,7 +11,7 @@ older candidate results remain in
 | Frozen application commit | `0eb389bac3f50d3ed0a2cae70bb8a36e6b79e480` (squash merge of [PR #75](https://github.com/seavens3nt/url-pattern-recognition/pull/75)); no new product features after this revision without an explicit release-blocker decision. |
 | Post-merge CI | Project checks succeeded on `0eb389b` (backend, frontend, API smoke). |
 | Next milestones | Submission September 29; final presentation October 6 |
-| Hosting destination | Not yet selected; local Compose at port 8080 was verified, not a public deployment |
+| Hosting destination | Vercel selected by Ranee on October 1; local Compose at port 8080 was verified, but Vercel deployment and live smoke remain pending |
 
 ## Phase 3 evidence on current main
 
@@ -48,10 +48,11 @@ the visual browser behavior and API results were observed and recorded. Phase
 package if required by the course rubric.
 
 Phase 4 may now start with final regression, clean setup, paper export,
-submission, and October 6 defense preparation. A public hosting destination
-has not been selected or tested; no hosted result is claimed. Any hosted
-deployment needs its own verification. This decision does not authorize new
-product features or claim that the final submission has occurred.
+submission, and October 6 defense preparation. Vercel was selected as the
+hosting destination on October 1 but is not yet tested; no hosted result is
+claimed. Any hosted deployment needs its own verification. This decision does
+not authorize new product features or claim that the final submission has
+occurred.
 
 ## Locked scope
 

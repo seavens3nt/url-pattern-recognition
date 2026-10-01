@@ -22,7 +22,11 @@ Build a web application for an Automata Theory project. The academic focus is a 
   the recognizer does not decode or verify Punycode.
 
 ## Open decisions
-The hosting destination remains to be confirmed. The URL-language decisions and sprint dates are approved; do not expand them from examples or browser behavior.
+Ranee selected Vercel as the hosting destination on October 1, 2026. A live
+deployment and its acceptance remain pending; see
+[Vercel deployment](release/vercel-deployment.md). The URL-language decisions
+and sprint dates are approved; do not expand them from examples or browser
+behavior.
 
 ## Boundaries
 The 2048-character API input limit is a transport constraint, not the formal language specification. A well-shaped request is simulated by the current DFA and returns HTTP 200 with either verdict; malformed requests remain HTTP errors. A successful health check proves connectivity only.
