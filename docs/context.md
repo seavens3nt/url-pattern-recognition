@@ -24,8 +24,8 @@ Build a web application for an Automata Theory project. The academic focus is a 
 ## Open decisions
 Ranee selected Vercel as the hosting destination on October 1, 2026. The app
 was deployed and live-tested on October 2; see
-[Vercel deployment](release/vercel-deployment.md). Its source commit remains on
-a local deployment branch pending GitHub review and merge. Final course
+[Vercel deployment](release/vercel-deployment.md). Its source commit is on the
+remote deployment branch pending GitHub review and merge. Final course
 acceptance remains separate. The URL-language decisions and sprint dates are
 approved; do not expand them from examples or browser behavior.
 

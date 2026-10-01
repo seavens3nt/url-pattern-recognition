@@ -8,9 +8,9 @@ is required. The function includes `backend/automata/url_dfa.json` and uses
 Python 3.12. `vercel.json` routes API paths to Flask before the SPA fallback.
 
 The deployment record below distinguishes the live Vercel artifact from the
-repository state. The deployed source is currently committed only on the local
-`deploy/vercel` branch; it must be reviewed and merged into GitHub `main` before
-the repository can reproduce the public site from its default branch.
+repository state. The deployed source is on the remote `deploy/vercel` branch;
+it must be reviewed and merged into GitHub `main` before the repository can
+reproduce the public site from its default branch.
 
 ## Before deployment
 
@@ -56,10 +56,10 @@ Record the failing deployment URL and error logs before rebuilding a fix.
 
 | Field | Verified value |
 | --- | --- |
-| Source revision | Local `deploy/vercel` commit `d651f593639b4d60821982228169eed9bf9c27d3` (application and Vercel configuration); GitHub push/PR/merge pending. |
+| Source revision | Remote `deploy/vercel` commit `d651f593639b4d60821982228169eed9bf9c27d3` (application and Vercel configuration); PR review and merge pending. |
 | Preview URL and smoke evidence | [Preview](https://url-pattern-recognition-fpvjhu6k3-seavens3nts-projects.vercel.app), deployment `dpl_2xe47KP22wro3sM4JqADyaf48EqQ`, READY October 2. Authenticated HTTP smoke passed page/assets, health, accepted `M13`/19 transitions, rejected `M_sink`/17 transitions, malformed 400, oversized 413, no-store and security headers. Browser confirmed connected backend, both verdicts, and lazy-loaded About page. |
 | Production URL and smoke evidence | [Public site](https://url-pattern-recognition.vercel.app), deployment `dpl_BbGB7AvDb5dxSk2zb6RKEXXWU4mH`, READY October 2 after promotion. Public HTTP smoke repeated the preview checks; production runtime error log was empty after those requests. |
-| Ranee release decision | Ranee authorized Vercel deployment. Production was published after the preview checks passed. Final course submission, GitHub integration, and issue closure are separate pending decisions. |
+| Ranee release decision | Ranee authorized Vercel deployment. Production was published after the preview checks passed. PR review/merge, final course submission, and issue closure are separate pending decisions. |
 
 The initial site build loads about 68.6 KiB of compressed JavaScript and 4.6
 KiB of compressed CSS; the team page is loaded only when opened. The About
