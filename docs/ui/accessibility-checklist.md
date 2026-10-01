@@ -66,3 +66,31 @@ collapses into a labelled button. At desktop width, the full navigation is shown
 - Record the final pushed commit and CI result in PR #68 after the changes are
   committed. The historical Phase 2 test counts are not reused as Phase 3
   evidence.
+
+
+# Phase 4 Visual and Accessibility Verification
+
+**Owner:** Isaiah @m1nay3on
+
+**Work package:** [Issue #79](https://github.com/seavens3nt/url-pattern-recognition/issues/79)
+
+**Visual evidence:** [Phase 4 UI Visual & Accessibility Verification](https://docs.google.com/document/d/1kgIVnh0rDMMab4bt6ZEOv-JcAgGUh3PCDiFc8kA_C6U/edit?usp=sharing)
+
+## Summary of Verification
+- Desktop/mobile and keyboard findings are recorded on the frozen baseline.
+- Keyboard-test focus order, visible focus, labels, submit/result announcements and trace-table readability are all functioning for all viewports
+- Changes requested in Phase 3 are now implemented in current `main` branch
+- Current screenshots and the accessibility checklist are available in Visual evidence. 
+
+
+## Viewports and routes
+
+| Viewport | Home | Recognizer | How it Works | About Us | Horizontal page overflow |
+| --- | --- | --- | --- | --- | --- |
+| 1280 x 720 desktop | Pass | Pass | Pass | Pass | None observed |
+| 768 x 900 tablet | Pass | Pass | Pass | Pass | None observed |
+| 390 x 844 narrow mobile | Pass | Pass | Pass | Pass | None observed |
+
+## Revisions from Phase 3
+- Proper Capitalization of "Validation Result" is applied
+- Corner Rounding of Validation Result Section is same with approved Figma UI
