@@ -110,7 +110,9 @@ export default function ValidatorPage() {
       <p className="upr-subtitle mt-[14px] text-[14px] leading-[1.5] text-[var(--upr-navy)] opacity-75">
         Enter one URL and follow the DFA transitions used to accept or reject it.
       </p>
-      <p role="status" className="upr-health mx-auto mt-[18px] w-fit rounded-full border border-[rgba(26,140,146,0.22)] bg-[rgba(26,140,146,0.1)] px-[14px] py-[7px] text-[12px] font-bold text-[var(--upr-navy)]">{health}</p>
+      {health !== 'Backend connected' && (
+        <p role="status" className="upr-health mx-auto mt-[18px] w-fit rounded-full border border-[rgba(26,140,146,0.22)] bg-[rgba(26,140,146,0.1)] px-[14px] py-[7px] text-[12px] font-bold text-[var(--upr-navy)]">{health}</p>
+      )}
 
       <UrlForm
         value={url}
