@@ -105,12 +105,12 @@ export default function ValidatorPage() {
   const showTrace = !busy && (result?.accepted === true || result?.accepted === false);
 
   return (
-    <main className="upr-main" id="section-recognizer">
-      <h1 className="upr-title">URL Pattern Recognition</h1>
-      <p className="upr-subtitle">
+    <main className="upr-main w-full flex-[1_0_auto] px-6 pt-14 pb-24 text-center" id="section-recognizer">
+      <h1 className="upr-title m-0 text-[clamp(30px,4vw,40px)] font-extrabold tracking-[-0.5px] text-[var(--upr-navy)]">URL Pattern Recognition</h1>
+      <p className="upr-subtitle mt-[14px] text-[14px] leading-[1.5] text-[var(--upr-navy)] opacity-75">
         Enter one URL and follow the DFA transitions used to accept or reject it.
       </p>
-      <p role="status" className="upr-health">{health}</p>
+      <p role="status" className="upr-health mx-auto mt-[18px] w-fit rounded-full border border-[rgba(26,140,146,0.22)] bg-[rgba(26,140,146,0.1)] px-[14px] py-[7px] text-[12px] font-bold text-[var(--upr-navy)]">{health}</p>
 
       <UrlForm
         value={url}
@@ -124,19 +124,19 @@ export default function ValidatorPage() {
       />
 
       {showResult && (
-        <section className="upr-results" aria-labelledby="validation-result-heading">
-          <h2 id="validation-result-heading" className="upr-results__header">
+        <section className="upr-results mx-auto mt-[30px] w-full max-w-[1000px] overflow-hidden rounded-[14px] border border-[rgba(12,33,96,0.08)] bg-[var(--upr-panel-bg)] text-left shadow-[0_14px_34px_rgba(8,26,77,0.1)] motion-reduce:animate-none" aria-labelledby="validation-result-heading">
+          <h2 id="validation-result-heading" className="upr-results__header m-0 bg-[var(--upr-teal-dark)] px-[22px] py-6 text-[14px] font-bold tracking-[0.2px] text-white">
             Validation result
           </h2>
-          <div className={`upr-results__body${busy ? ' is-centered' : ''}`}>
+          <div className={`upr-results__body min-h-[230px] px-[30px] pt-8 pb-10 max-[900px]:px-4 max-[900px]:pt-6 max-[900px]:pb-8${busy ? ' is-centered grid place-items-center px-6 pt-10 pb-12' : ''}`}>
             <StatusPanel status={status} payload={result} onRetry={retry} />
 
             {showTrace && (
-              <section className="upr-section" aria-labelledby="trace-heading">
-                <h3 id="trace-heading" className="upr-section__title">
+              <section className="upr-section mt-[26px]" aria-labelledby="trace-heading">
+                <h3 id="trace-heading" className="upr-section__title mb-[10px] text-[12px] font-extrabold text-[var(--upr-navy)]">
                   View transition trace ({result.trace.length} steps)
                 </h3>
-                <div className="upr-panel upr-panel--table">
+                <div className="upr-panel upr-panel--table overflow-x-auto rounded-lg border border-[rgba(12,33,96,0.1)] bg-white p-0">
                   <TraceTable trace={result.trace} />
                 </div>
               </section>
@@ -145,7 +145,7 @@ export default function ValidatorPage() {
         </section>
       )}
 
-      <p className="upr-scope-note">
+      <p className="upr-scope-note mx-auto mt-7 w-full max-w-[760px] text-[12px] leading-[1.6] text-[#52607d]">
         Core scope: lowercase HTTP/HTTPS, a DNS-style hostname, and an optional simple path.
       </p>
     </main>

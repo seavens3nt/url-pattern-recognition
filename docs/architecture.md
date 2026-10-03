@@ -4,14 +4,15 @@
 ```text
 frontend/
   package.json and package-lock.json        Frontend dependencies only
-  vite.config.js                           Local /api proxy to Flask
+  vite.config.js                           Tailwind/Vite plugin and local /api proxy to Flask
   src/
     main.jsx                               React entry point
     App.jsx                                Application composition
     features/validator/
       ValidatorPage.jsx                    Sean: interaction/results
       api.js                               Sean: frontend HTTP calls; contract is locked by Ranee
-    style.css                              Isaiah: layout/styles
+    style.css                              Tailwind imports, shared tokens, custom graphics/animations
+    ui/styles/                             Page-specific custom graphics and responsive rules
     App.test.jsx                           Paul: cross-feature regression tests
 backend/
   app.py                                   Jared: Flask factory and global errors

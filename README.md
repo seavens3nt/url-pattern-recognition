@@ -2,6 +2,11 @@
 
 An Automata Theory web application built with React and Flask. It decides whether an input URL belongs to the team-approved language and shows the DFA transition trace used to reach the result.
 
+The frontend uses Tailwind CSS v4 for layout and common component styling.
+Its responsive navigation, original logo, illustrated URL anatomy, and
+animations retain focused component CSS. Tailwind is compiled by Vite during `npm run dev` and
+`npm run build`; no separate styling command is needed.
+
 The application runs the approved core language through an explicit DFA and returns accepted or rejected verdicts with a transition trace. The RE → NFA → DFA → minimized-DFA evidence is recorded in the [regular expression](docs/automata/regular-expression.md), [NFA](docs/automata/nfa.md), [DFA](docs/automata/dfa.md), and [minimization](docs/automata/minimization.md) documentation. See the [Phase 3 release gate](docs/release/phase-3-release-gate.md) for the latest verification and remaining release decisions.
 
 ## Start here

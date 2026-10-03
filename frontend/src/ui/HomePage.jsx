@@ -202,7 +202,7 @@ export default function HomePage({ onStart }) {
     <>
 
       {/* ---------- HERO ---------- */}
-      <section className="home-hero" id="section-home">
+      <section className="home-hero relative flex min-h-[calc(100svh-var(--upr-header-h))] flex-col items-center justify-center bg-white px-6 pt-10 pb-[90px] text-center" id="section-home">
         <Badge tone="blue" className="home-badge--hero">
           <IconMonitorLock />
         </Badge>
@@ -212,7 +212,7 @@ export default function HomePage({ onStart }) {
             <IconCloud />
           </Badge>
 
-          <h1 className="home-hero__title">
+          <h1 className="home-hero__title m-0 text-[clamp(38px,6vw,60px)] leading-[1.08] font-extrabold tracking-[-1px] text-[var(--upr-navy)]">
             URL Pattern
             <br />
             Recognition
@@ -223,30 +223,30 @@ export default function HomePage({ onStart }) {
           </Badge>
         </div>
 
-        <p className="home-hero__text">
+        <p className="home-hero__text mt-[26px] text-[15px] leading-[1.6] text-[#33405f]">
           An Automated URL Recognizer and Verifier
           <br />
           (Accepts and Rejects URL input)
         </p>
 
-        <button type="button" className="home-start" onClick={onStart}>
+        <button type="button" className="home-start mt-[34px] min-w-[110px] cursor-pointer rounded-full border-0 bg-[var(--upr-navy)] px-8 py-[11px] text-[15px] font-bold text-white shadow-[0_10px_22px_rgba(12,33,96,0.28)] transition-[transform,background] hover:-translate-y-0.5 hover:bg-[var(--upr-navy-deep)] active:translate-y-0 motion-reduce:hover:translate-y-0" onClick={onStart}>
           Start
         </button>
       </section>
 
       {/* ---------- WHAT IS A URL ---------- */}
-      <section className="home-section" id="what-is-a-url">
+      <section className="home-section px-6 pt-16 pb-[72px] text-center" id="what-is-a-url">
         <Badge tone="sky" className="home-badge--section">
           <IconLink />
         </Badge>
-        <h2 className="home-section__title">What is a URL?</h2>
-        <p className="home-section__sub">Understanding what is a URL</p>
+        <h2 className="home-section__title m-0 text-[clamp(28px,4.5vw,42px)] font-extrabold tracking-[-0.6px] text-[var(--upr-navy)]">What is a URL?</h2>
+        <p className="home-section__sub mt-[10px] text-[13px] text-[#33405f] opacity-80">Understanding what is a URL</p>
 
-        <div className="home-cards">
+        <div className="home-cards mx-auto mt-[62px] grid w-full max-w-[1250px] grid-cols-3 gap-[50px] text-left max-[960px]:grid-cols-1">
           {URL_CARDS.map((text, index) => (
             <article
               key={index}
-              className={`home-card${index === 1 ? " home-card--accent" : ""}`}
+              className={`home-card flex min-h-40 items-center rounded-2xl border border-[rgba(12,33,96,0.16)] bg-white px-6 py-[26px] transition-[transform,box-shadow] hover:-translate-y-1 hover:shadow-[0_16px_32px_rgba(12,33,96,0.12)] motion-reduce:hover:translate-y-0${index === 1 ? " home-card--accent border-[var(--upr-navy)] bg-[var(--upr-navy)] shadow-[0_16px_34px_rgba(12,33,96,0.28)]" : ""}`}
             >
               <p>{text}</p>
             </article>
@@ -255,12 +255,12 @@ export default function HomePage({ onStart }) {
       </section>
 
       {/* ---------- URL ANATOMY ---------- */}
-      <section className="home-section home-anatomy" id="section-anatomy">
+      <section className="home-section home-anatomy px-6 pt-16 pb-[72px] text-center" id="section-anatomy">
         <Badge tone="blue" className="home-badge--section">
           <IconMonitorLock />
         </Badge>
-        <h2 className="home-section__title">URL Anatomy</h2>
-        <p className="home-section__sub">
+        <h2 className="home-section__title m-0 text-[clamp(28px,4.5vw,42px)] font-extrabold tracking-[-0.6px] text-[var(--upr-navy)]">URL Anatomy</h2>
+        <p className="home-section__sub mt-[10px] text-[13px] text-[#33405f] opacity-80">
           Learn and explore the parts and functions of a URL
         </p>
 

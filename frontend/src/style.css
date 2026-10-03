@@ -1,3 +1,10 @@
+/* Keep the existing browser defaults: Tailwind's Preflight would alter the
+   established form, heading, and button appearance during this migration. */
+@layer theme, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@layer components {
 *, *::before, *::after { box-sizing: border-box; }
 
 html, body, #root {
@@ -157,106 +164,10 @@ body {
 }
 
 /* ---------- Main ---------- */
-.upr-main {
-  flex: 1;
-  padding: 56px 24px 96px;
-  text-align: center;
-}
-
-.upr-title {
-  margin: 0;
-  font-size: clamp(30px, 4vw, 40px);
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  color: var(--upr-navy);
-}
-
-.upr-subtitle {
-  margin: 14px 0 0;
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--upr-navy);
-  opacity: 0.75;
-}
-
-.upr-health {
-  width: fit-content;
-  margin: 18px auto 0;
-  padding: 7px 14px;
-  color: var(--upr-navy);
-  background: rgba(26, 140, 146, 0.1);
-  border: 1px solid rgba(26, 140, 146, 0.22);
-  border-radius: var(--upr-radius-pill);
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.upr-scope-note {
-  width: min(760px, 100%);
-  margin: 28px auto 0;
-  color: #52607d;
-  font-size: 12px;
-  line-height: 1.6;
-}
 
 /* ---------- Card ---------- */
-.upr-card {
-  width: min(1000px, 100%);
-  margin: 44px auto 0;
-  padding: 34px 34px 40px;
-  text-align: left;
-  background: var(--upr-navy);
-  border-radius: var(--upr-radius-card);
-  box-shadow: 0 24px 50px rgba(8, 26, 77, 0.22);
-}
-
-.upr-label {
-  display: block;
-  margin: 0 0 10px 12px;
-  color: var(--upr-white);
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.upr-input {
-  width: 100%;
-  height: 46px;
-  margin-bottom: 26px;
-  padding: 0 24px;
-  font-size: 14px;
-  color: #3b4a6b;
-  background: var(--upr-white);
-  border: 2px solid transparent;
-  border-radius: var(--upr-radius-pill);
-  outline: none;
-  transition: border-color 0.18s ease, box-shadow 0.18s ease;
-}
-
-.upr-input::placeholder {
-  color: #52607d;
-}
-
-.upr-input:focus {
-  border-color: var(--upr-teal);
-  box-shadow: 0 0 0 4px rgba(26, 140, 146, 0.25);
-}
-
-.upr-input:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
 
 /* ---------- Form guidance ---------- */
-.upr-help {
-  margin: -14px 12px 22px;
-  color: #c8d2e8;
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-.upr-help--error {
-  color: #ffb4b4;
-}
 
 /* ---------- Toggle ---------- */
 .upr-toggle-row {
@@ -315,37 +226,6 @@ body {
 }
 
 /* ---------- Button ---------- */
-.upr-actions {
-  display: flex;
-  justify-content: center;
-}
-
-.upr-button {
-  min-width: 98px;
-  height: 34px;
-  padding: 0 24px;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--upr-white);
-  background: var(--upr-teal-dark);
-  border: none;
-  border-radius: var(--upr-radius-pill);
-  cursor: pointer;
-  transition: background 0.18s ease, transform 0.12s ease;
-}
-
-.upr-button:hover:not(:disabled) {
-  background: #105f63;
-}
-
-.upr-button:active:not(:disabled) {
-  transform: translateY(1px);
-}
-
-.upr-button:disabled {
-  opacity: 0.75;
-  cursor: progress;
-}
 
 /* ---------- Results panel ---------- */
 .upr-results {
@@ -358,27 +238,6 @@ body {
   border: 1px solid rgba(12, 33, 96, 0.08);
   box-shadow: 0 14px 34px rgba(8, 26, 77, 0.1);
   animation: upr-fade-up 0.35s ease both;
-}
-
-.upr-results__header {
-  margin: 0;
-  padding: 24px 22px;
-  background: var(--upr-teal-dark);
-  color: var(--upr-white);
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.2px;
-}
-
-.upr-results__body {
-  min-height: 230px;
-  padding: 32px 30px 40px;
-}
-
-.upr-results__body.is-centered {
-  display: grid;
-  place-items: center;
-  padding: 40px 24px 48px;
 }
 
 /* ---------- Loading ---------- */
@@ -458,28 +317,9 @@ body {
   animation: upr-fade-up 0.3s ease both;
 }
 
-.upr-notice--solo {
-  margin-bottom: 30px;
-}
-
-.upr-notice__title {
-  margin: 0;
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--upr-navy);
-  letter-spacing: 0.3px;
-}
-
 .upr-notice__title--wide {
   letter-spacing: 1.2px;
   padding: 6px 0;
-}
-
-.upr-notice__text {
-  margin: 6px 0 0;
-  font-size: 12px;
-  color: var(--upr-navy);
-  opacity: 0.75;
 }
 
 /* ---------- Status banners: ACCEPTED and REJECTED ---------- */
@@ -493,53 +333,7 @@ body {
   animation: upr-fade-up 0.3s ease both;
 }
 
-.upr-banner__title {
-  margin: 0;
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: 1px;
-}
-
-.upr-banner__meta {
-  margin: 5px 0 0;
-  font-size: 11px;
-  opacity: 0.9;
-}
-
-.upr-banner--accepted {
-  background: var(--upr-green-dark);
-  box-shadow: 0 8px 20px rgba(11, 138, 75, 0.25);
-}
-
-.upr-banner--rejected {
-  background: var(--upr-red);
-  border: 2px solid #1e7ce0;
-  box-shadow: 0 8px 20px rgba(142, 17, 22, 0.25);
-}
-
 /* ---------- Sections ---------- */
-.upr-section {
-  margin-top: 26px;
-}
-
-.upr-section__title {
-  margin: 0 0 10px;
-  font-size: 12px;
-  font-weight: 800;
-  color: var(--upr-navy);
-}
-
-.upr-panel {
-  padding: 16px 20px;
-  background: var(--upr-white);
-  border: 1px solid rgba(12, 33, 96, 0.1);
-  border-radius: 8px;
-}
-
-.upr-panel--table {
-  padding: 0;
-  overflow-x: auto;
-}
 
 .sr-only {
   position: absolute;
@@ -736,15 +530,6 @@ body {
     justify-content: center;
   }
 
-  .upr-card {
-    padding: 26px 20px 32px;
-    border-radius: 20px;
-  }
-
-  .upr-results__body {
-    padding: 24px 16px 32px;
-  }
-
   .upr-table th,
   .upr-table td {
     padding: 12px 8px;
@@ -773,4 +558,5 @@ body {
     animation-duration: 0.01ms;
     animation-iteration-count: 1;
   }
+}
 }

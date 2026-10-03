@@ -1,3 +1,4 @@
+@layer components {
 .upr-brand {
   display: inline-flex;
   text-decoration: none;
@@ -126,4 +127,5 @@
   .upr-nav.is-open {
     animation: none;
   }
+}
 }

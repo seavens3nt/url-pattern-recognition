@@ -1,3 +1,4 @@
+@layer components {
 .home-page {
   background-image: none;
   background-color: var(--upr-white);
@@ -58,15 +59,6 @@
   gap: 56px;
 }
 
-.home-hero__title {
-  margin: 0;
-  font-size: clamp(38px, 6vw, 60px);
-  line-height: 1.08;
-  font-weight: 800;
-  letter-spacing: -1px;
-  color: var(--upr-navy);
-}
-
 .home-float {
   animation: home-bob 4.5s ease-in-out infinite;
 }
@@ -75,78 +67,9 @@
   animation-delay: 1.4s;
 }
 
-.home-hero__text {
-  margin: 26px 0 0;
-  font-size: 15px;
-  line-height: 1.6;
-  color: #33405f;
-}
-
-.home-start {
-  margin-top: 34px;
-  min-width: 110px;
-  padding: 11px 32px;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--upr-white);
-  background: var(--upr-navy);
-  border: none;
-  border-radius: var(--upr-radius-pill);
-  cursor: pointer;
-  box-shadow: 0 10px 22px rgba(12, 33, 96, 0.28);
-  transition: transform 0.15s ease, background 0.2s ease;
-}
-
-.home-start:hover {
-  background: var(--upr-navy-deep);
-  transform: translateY(-2px);
-}
-
-.home-start:active {
-  transform: translateY(0);
-}
-
 /* ---------- Generic section ---------- */
-.home-section {
-  padding: 64px 24px 72px;
-  text-align: center;
-}
-
-.home-section__title {
-  margin: 0;
-  font-size: clamp(28px, 4.5vw, 42px);
-  font-weight: 800;
-  letter-spacing: -0.6px;
-  color: var(--upr-navy);
-}
-
-.home-section__sub {
-  margin: 10px 0 0;
-  font-size: 13px;
-  color: #33405f;
-  opacity: 0.8;
-}
 
 /* ---------- Cards ---------- */
-.home-cards {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 50px;
-  width: min(1250px, 100%);
-  margin: 62px auto 0;
-  text-align: left;
-}
-
-.home-card {
-  padding: 26px 24px;
-  min-height: 160px;
-  display: flex;
-  align-items: center;
-  background: var(--upr-white);
-  border: 1px solid rgba(12, 33, 96, 0.16);
-  border-radius: 16px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
 
 .home-card p {
   margin: 0;
@@ -154,11 +77,6 @@
   line-height: 1.65;
   color: #33405f;
   font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-}
-
-.home-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 32px rgba(12, 33, 96, 0.12);
 }
 
 .home-card--accent {
@@ -326,9 +244,6 @@
 
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
-  .home-cards {
-    grid-template-columns: 1fr;
-  }
 
   .home-hero__headline {
     gap: 18px;
@@ -357,4 +272,5 @@
   .home-start:hover {
     transform: none;
   }
+}
 }
