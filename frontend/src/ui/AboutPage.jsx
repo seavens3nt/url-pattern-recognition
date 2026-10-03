@@ -1,12 +1,12 @@
 import './styles/about_us.css';
-import ranee_pic from '../../profile_pics/ranee.jpeg';
-import paul_pic from '../../profile_pics/paul.jpeg';
-import isaiah_pic from '../../profile_pics/isaiah.png';
-import pamela_pic from '../../profile_pics/pamela.jpeg';
-import kenneth_pic from '../../profile_pics/kenneth.jpeg';
-import sean_pic from '../../profile_pics/sean.jpeg';
-import jared_pic from '../../profile_pics/jared.jpeg';
-import cedric_pic from '../../profile_pics/cedric.jpeg';
+import ranee_pic from '../../profile_pics/ranee.webp';
+import paul_pic from '../../profile_pics/paul.webp';
+import isaiah_pic from '../../profile_pics/isaiah.webp';
+import pamela_pic from '../../profile_pics/pamela.webp';
+import kenneth_pic from '../../profile_pics/kenneth.webp';
+import sean_pic from '../../profile_pics/sean.webp';
+import jared_pic from '../../profile_pics/jared.webp';
+import cedric_pic from '../../profile_pics/cedric.webp';
 
 const TEAM = [
   { name: 'Ranee Mikaella Gutierrez',   role: 'Project Manager / Integration Lead',   photo: ranee_pic },
@@ -38,6 +38,7 @@ function Avatar({ member }) {
         src={src}
         alt={member.name}
         loading="lazy"
+        decoding="async"
         width="112"
         height="112"
       />
