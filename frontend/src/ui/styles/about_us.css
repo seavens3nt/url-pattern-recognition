@@ -1,6 +1,13 @@
 @layer components {
 
 /* ---------- Heading ---------- */
+.about-overview {
+  min-height: calc(100svh - var(--upr-header-h));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 46px 0 70px;
+}
 
 /* ---------- Mission flow ---------- */
 
@@ -44,7 +51,11 @@
 /* ---------- Team heading ---------- */
 
 .about-team {
-  margin-top: 76px;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 70px 0;
 }
 
 .about-team__title {

@@ -54,7 +54,8 @@ function Avatar({ member }) {
 
 export default function AboutPage() {
   return (
-    <main className="about-main w-full flex-[1_0_auto] bg-transparent px-6 pt-[46px] pb-[90px] text-center">
+    <main className="about-main w-full flex-[1_0_auto] bg-transparent px-6 text-center">
+      <div className="about-overview">
       <section className="about-intro">
         <h1 className="about-title m-0 text-[clamp(30px,4vw,40px)] font-extrabold tracking-[0.4px] text-[var(--upr-navy)]">About Us</h1>
         <p className="about-subtitle mt-[10px] text-[13.5px] text-[#5c6a95]">
@@ -95,6 +96,7 @@ export default function AboutPage() {
           </p>
         </article>
       </section>
+      </div>
 
       <section className="about-team" aria-label="Meet the team">
         <h2 className="about-team__title">

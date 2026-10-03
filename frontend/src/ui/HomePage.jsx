@@ -67,6 +67,11 @@ const URL_CARDS = [
 const ANATOMY_SECTIONS = [
   {
     title: "Section 1: The Address Layer (Location)",
+    label: "Address layer",
+    preview: "Scheme and host identify the destination.",
+    shortLabel: "Address",
+    shortPreview: "Scheme + host",
+    example: "https://www.example.com",
     items: [
       {
         term: "Scheme / Protocol",
@@ -89,6 +94,11 @@ const ANATOMY_SECTIONS = [
   },
   {
     title: "Section 2: The Resource Layer (Navigation)",
+    label: "Resource layer",
+    preview: "The path locates a resource on that host.",
+    shortLabel: "Resource",
+    shortPreview: "Path",
+    example: "/forum/questions/",
     items: [
       {
         term: "Path",
@@ -102,6 +112,11 @@ const ANATOMY_SECTIONS = [
   },
   {
     title: "Section 3: The Data Layer (Parameters & Filters)",
+    label: "Data layer",
+    preview: "Query parameters carry values; this recognizer excludes them.",
+    shortLabel: "Data",
+    shortPreview: "Not accepted here",
+    example: "?tag=networking",
     items: [
       {
         term: "Query String",
@@ -117,6 +132,11 @@ const ANATOMY_SECTIONS = [
   },
   {
     title: "Section 4: The View Layer (On-Page Positioning)",
+    label: "View layer",
+    preview: "A fragment points within a page; this recognizer excludes it.",
+    shortLabel: "View",
+    shortPreview: "Not accepted here",
+    example: "#top",
     items: [
       {
         term: "Fragment / Anchor",
@@ -130,65 +150,27 @@ const ANATOMY_SECTIONS = [
 ];
 
 
-   /*Annotated URL diagram*/
+   /* A general URL example; query and fragment are outside our DFA language. */
 
-function TopUnit({ label, tone, children }) {
+function UrlPart({ label, tone, children, excluded = false }) {
   return (
-    <span className={`ana-unit ana-${tone}`}>
-      <span className="ana-label">{label}</span>
-      <span className="ana-bracket ana-bracket--top" />
+    <span className={`ana-part ana-${tone}${excluded ? " ana-part--excluded" : ""}`}>
       <span className="ana-text">{children}</span>
-    </span>
-  );
-}
-
-function BottomGroup({ label, tone, children }) {
-  return (
-    <span className={`ana-group ana-${tone}`}>
-      <span className="ana-row">{children}</span>
-      <span className="ana-bracket ana-bracket--bottom" />
-      <span className="ana-label">{label}</span>
+      <span className="ana-label">{label}{excluded ? " · excluded" : ""}</span>
     </span>
   );
 }
 
 function UrlDiagram() {
   return (
-    <div className="ana-wrap" role="img" aria-label="Annotated example URL">
-      <div className="ana-line">
-        <BottomGroup label="scheme" tone="pink">
-          <span className="ana-text">https://</span>
-        </BottomGroup>
-
-        <BottomGroup label="host" tone="green">
-          <TopUnit label="subdomain" tone="blue">www.</TopUnit>
-          <TopUnit label="domain" tone="green">example</TopUnit>
-          <TopUnit label="TLD" tone="orange">.com</TopUnit>
-        </BottomGroup>
-
-        <BottomGroup label="path" tone="blue">
-          <span className="ana-text">/</span>
-          <TopUnit label="subdirectory" tone="purple">forum/questions</TopUnit>
-          <span className="ana-text">/</span>
-        </BottomGroup>
-
-        <BottomGroup label="query string" tone="green">
-          <span className="ana-text">?</span>
-          <span className="ana-group ana-green">
-            <span className="ana-label">parameter</span>
-            <span className="ana-bracket ana-bracket--top" />
-            <span className="ana-row">
-              <TopUnit label="key" tone="blue">tag</TopUnit>
-              <span className="ana-text">=</span>
-              <TopUnit label="value" tone="orange">networking</TopUnit>
-            </span>
-          </span>
-          <span className="ana-text">&amp;order=newest</span>
-        </BottomGroup>
-
-        <BottomGroup label="fragment" tone="pink">
-          <span className="ana-text">#top</span>
-        </BottomGroup>
+    <div className="ana-wrap" role="group" aria-label="General URL anatomy example">
+      <p className="ana-scope-note">General URL example <span>Query and fragment are shown for explanation only; this recognizer rejects them.</span></p>
+      <div className="ana-line" aria-label="https://www.example.com/forum/questions/?tag=networking&order=newest#top">
+        <UrlPart label="Scheme" tone="pink">https://</UrlPart>
+        <UrlPart label="Host" tone="green">www.example.com</UrlPart>
+        <UrlPart label="Path" tone="blue">/forum/questions/</UrlPart>
+        <UrlPart label="Query string" tone="orange" excluded>?tag=networking&amp;order=newest</UrlPart>
+        <UrlPart label="Fragment" tone="purple" excluded>#top</UrlPart>
       </div>
     </div>
   );
@@ -235,18 +217,18 @@ export default function HomePage({ onStart }) {
       </section>
 
       {/* ---------- WHAT IS A URL ---------- */}
-      <section className="home-section px-6 pt-16 pb-[72px] text-center" id="what-is-a-url">
+      <section className="home-section px-6 pt-16 pb-[72px] text-center max-[960px]:pt-10 max-[960px]:pb-11" id="what-is-a-url">
         <Badge tone="sky" className="home-badge--section">
           <IconLink />
         </Badge>
-        <h2 className="home-section__title m-0 text-[clamp(28px,4.5vw,42px)] font-extrabold tracking-[-0.6px] text-[var(--upr-navy)]">What is a URL?</h2>
-        <p className="home-section__sub mt-[10px] text-[13px] text-[#33405f] opacity-80">Understanding what is a URL</p>
+        <h2 className="home-section__title m-0 text-[clamp(40px,6vw,64px)] font-extrabold tracking-[-0.6px] text-[var(--upr-navy)]">What is a URL?</h2>
+        <p className="home-section__sub mt-[10px] text-[clamp(16px,2vw,20px)] text-[#33405f] opacity-80">Understanding what is a URL</p>
 
-        <div className="home-cards mx-auto mt-[62px] grid w-full max-w-[1250px] grid-cols-3 gap-[50px] text-left max-[960px]:grid-cols-1">
+        <div className="home-cards mx-auto mt-[42px] grid w-full max-w-[900px] grid-cols-1 gap-[18px] text-left max-[960px]:mt-8">
           {URL_CARDS.map((text, index) => (
             <article
               key={index}
-              className={`home-card flex min-h-40 items-center rounded-2xl border border-[rgba(12,33,96,0.16)] bg-white px-6 py-[26px] transition-[transform,box-shadow] hover:-translate-y-1 hover:shadow-[0_16px_32px_rgba(12,33,96,0.12)] motion-reduce:hover:translate-y-0${index === 1 ? " home-card--accent border-[var(--upr-navy)] bg-[var(--upr-navy)] shadow-[0_16px_34px_rgba(12,33,96,0.28)]" : ""}`}
+              className={`home-card flex min-h-[148px] items-center rounded-2xl border px-7 py-6 transition-[transform,box-shadow] hover:-translate-y-1 hover:shadow-[0_16px_32px_rgba(12,33,96,0.12)] motion-reduce:hover:translate-y-0 max-[620px]:px-[22px]${index === 1 ? " home-card--accent border-[var(--upr-navy)] bg-[var(--upr-navy)] shadow-[0_16px_34px_rgba(12,33,96,0.28)]" : " border-[rgba(12,33,96,0.16)] bg-white"}`}
             >
               <p>{text}</p>
             </article>
@@ -255,12 +237,12 @@ export default function HomePage({ onStart }) {
       </section>
 
       {/* ---------- URL ANATOMY ---------- */}
-      <section className="home-section home-anatomy px-6 pt-16 pb-[72px] text-center" id="section-anatomy">
+      <section className="home-section home-anatomy px-6 py-10 text-center max-[620px]:px-4" id="section-anatomy">
         <Badge tone="blue" className="home-badge--section">
           <IconMonitorLock />
         </Badge>
-        <h2 className="home-section__title m-0 text-[clamp(28px,4.5vw,42px)] font-extrabold tracking-[-0.6px] text-[var(--upr-navy)]">URL Anatomy</h2>
-        <p className="home-section__sub mt-[10px] text-[13px] text-[#33405f] opacity-80">
+        <h2 className="home-section__title m-0 text-[clamp(40px,6vw,64px)] font-extrabold tracking-[-0.6px] text-[var(--upr-navy)]">URL Anatomy</h2>
+        <p className="home-section__sub mt-[10px] text-[clamp(16px,2vw,20px)] text-[#33405f] opacity-80">
           Learn and explore the parts and functions of a URL
         </p>
 
@@ -268,22 +250,30 @@ export default function HomePage({ onStart }) {
           <UrlDiagram />
 
           <div className="home-anatomy__notes">
-            {ANATOMY_SECTIONS.map((section) => (
-              <div className="ana-section" key={section.title}>
-                <h3>{section.title}</h3>
-                <ul className="ana-list">
-                  {section.items.map((item) => (
-                    <li key={item.term}>
-                      <strong>{item.term}</strong> (<code>{item.code}</code>)
-                      <ul>
-                        {item.children.map((child, i) => (
-                          <li key={i}>{child}</li>
-                        ))}
-                      </ul>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            {ANATOMY_SECTIONS.map((section, index) => (
+              <details className="ana-section" key={section.title}>
+                <summary className="ana-section__summary">
+                  <span className="ana-section__number">0{index + 1}</span>
+                  <strong><span className="ana-summary-full">{section.label}</span><span className="ana-summary-short">{section.shortLabel}</span></strong>
+                  <span><span className="ana-summary-full">{section.preview}</span><span className="ana-summary-short">{section.shortPreview}</span></span>
+                  <code className="ana-section__example">{section.example}</code>
+                </summary>
+                <div className="ana-section__details">
+                  <h3>{section.title}</h3>
+                  <ul className="ana-list">
+                    {section.items.map((item) => (
+                      <li key={item.term}>
+                        <strong>{item.term}</strong> (<code>{item.code}</code>)
+                        <ul>
+                          {item.children.map((child, i) => (
+                            <li key={i}>{child}</li>
+                          ))}
+                        </ul>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </details>
             ))}
           </div>
         </div>

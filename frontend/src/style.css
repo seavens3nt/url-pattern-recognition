@@ -14,6 +14,10 @@ html, body, #root {
   max-width: none;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   display: block;
   place-items: initial;
@@ -56,7 +60,7 @@ body {
   --upr-muted: #7b8bb0;
   --upr-radius-card: 26px;
   --upr-radius-pill: 999px;
-  --upr-header-h: 96px;
+  --upr-header-h: 82px;
 }
 
 .upr-page {
@@ -143,12 +147,14 @@ body {
 }
 
 .upr-nav {
-  display: flex;
-  gap: 140px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: min(720px, 100%);
   margin-left: auto;
 }
 
 .upr-nav a {
+  justify-self: center;
   color: var(--upr-navy);
   text-decoration: none;
   font-weight: 700;
@@ -518,6 +524,10 @@ body {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
+  :root {
+    --upr-header-h: 74px;
+  }
+
   .upr-header {
     flex-direction: column;
     gap: 18px;
