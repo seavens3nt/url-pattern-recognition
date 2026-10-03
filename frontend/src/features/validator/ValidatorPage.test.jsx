@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen, fireEvent, cleanup } from '@testing-library/react';
+import { render, screen, fireEvent, cleanup, waitFor } from '@testing-library/react';
 import ValidatorPage from './ValidatorPage';
 
 function ok(body) {
@@ -29,23 +29,27 @@ async function submit(value) {
   fireEvent.click(screen.getByRole('button', { name: /run dfa/i }));
 }
 
+async function waitForHealthyBackend() {
+  await waitFor(() => expect(screen.queryByText('Checking backend…')).not.toBeInTheDocument());
+  expect(screen.queryByText('Backend connected')).not.toBeInTheDocument();
+}
+
 beforeEach(() => {
   globalThis.fetch = vi.fn();
 });
 
 afterEach(() => {
-  cleanup(); // Without this, React Testing Library leaves each test's DOM
-  // tree mounted, so later tests see multiple "Backend connected" nodes.
+  cleanup(); // Prevent one test's mounted UI from affecting later queries.
   vi.restoreAllMocks();
   vi.useRealTimers();
   vi.unstubAllEnvs();
 });
 
 describe('ValidatorPage', () => {
-  it('shows idle state and reports a healthy backend', async () => {
+  it('shows idle state without a connected-backend badge', async () => {
     mockHealthOk();
     render(<ValidatorPage />);
-    expect(await screen.findByText('Backend connected')).toBeInTheDocument();
+    await waitForHealthyBackend();
     expect(screen.queryByText('Accepted')).not.toBeInTheDocument();
   });
 
@@ -67,7 +71,7 @@ describe('ValidatorPage', () => {
     );
 
     render(<ValidatorPage />);
-    await screen.findByText('Backend connected');
+    await waitForHealthyBackend();
     await submit('http://a.co');
 
     expect(await screen.findByText('Accepted')).toBeInTheDocument();
@@ -88,7 +92,7 @@ describe('ValidatorPage', () => {
     );
 
     render(<ValidatorPage />);
-    await screen.findByText('Backend connected');
+    await waitForHealthyBackend();
     await submit('ftp://bad');
 
     expect(await screen.findByText('Rejected')).toBeInTheDocument();
@@ -108,7 +112,7 @@ describe('ValidatorPage', () => {
     );
 
     render(<ValidatorPage />);
-    await screen.findByText('Backend connected');
+    await waitForHealthyBackend();
     await submit(value);
 
     expect(await screen.findByText('Rejected')).toBeInTheDocument();
@@ -122,7 +126,7 @@ describe('ValidatorPage', () => {
     );
 
     render(<ValidatorPage />);
-    await screen.findByText('Backend connected');
+    await waitForHealthyBackend();
     await submit('x');
 
     expect(await screen.findByText('Request error')).toBeInTheDocument();
@@ -137,7 +141,7 @@ describe('ValidatorPage', () => {
     globalThis.fetch.mockResolvedValueOnce(fail(413, { code: 'payload_too_large', message: 'Request body too large.' }));
 
     render(<ValidatorPage />);
-    await screen.findByText('Backend connected');
+    await waitForHealthyBackend();
     await submit('x'.repeat(2049));
 
     expect(await screen.findByText('Request error')).toBeInTheDocument();
@@ -149,7 +153,7 @@ describe('ValidatorPage', () => {
     globalThis.fetch.mockRejectedValueOnce(new TypeError('Failed to fetch'));
 
     render(<ValidatorPage />);
-    await screen.findByText('Backend connected');
+    await waitForHealthyBackend();
     await submit('https://example.com');
 
     expect(await screen.findByRole('heading', { name: 'Backend unavailable' })).toBeInTheDocument();
@@ -171,7 +175,7 @@ describe('ValidatorPage', () => {
     );
 
     render(<ValidatorPage />);
-    await screen.findByText('Backend connected');
+    await waitForHealthyBackend();
 
     vi.useFakeTimers();
     fireEvent.change(screen.getByLabelText(/url to inspect/i), { target: { value: 'https://slow.example.com' } });
@@ -192,7 +196,7 @@ describe('ValidatorPage', () => {
     globalThis.fetch.mockResolvedValueOnce(ok({ accepted: true })); // missing message/final_state/trace
 
     render(<ValidatorPage />);
-    await screen.findByText('Backend connected');
+    await waitForHealthyBackend();
     await submit('https://example.com');
 
     expect(await screen.findByText('Request error')).toBeInTheDocument();
@@ -211,7 +215,7 @@ describe('ValidatorPage', () => {
     );
 
     render(<ValidatorPage />);
-    await screen.findByText('Backend connected');
+    await waitForHealthyBackend();
     await submit('https://example.com');
 
     expect(await screen.findByText('Request error')).toBeInTheDocument();
@@ -230,7 +234,7 @@ describe('ValidatorPage', () => {
     );
 
     render(<ValidatorPage />);
-    await screen.findByText('Backend connected');
+    await waitForHealthyBackend();
     await submit('https://example.com');
 
     expect(await screen.findByText('Request error')).toBeInTheDocument();
@@ -249,7 +253,7 @@ describe('ValidatorPage', () => {
     );
 
     render(<ValidatorPage />);
-    await screen.findByText('Backend connected');
+    await waitForHealthyBackend();
     await submit('https://example.com');
 
     expect(await screen.findByText('Request error')).toBeInTheDocument();
@@ -263,7 +267,7 @@ describe('ValidatorPage', () => {
     );
 
     render(<ValidatorPage />);
-    await screen.findByText('Backend connected');
+    await waitForHealthyBackend();
     await submit('ftp://bad');
 
     expect(await screen.findByText('Request error')).toBeInTheDocument();
@@ -275,7 +279,7 @@ describe('ValidatorPage', () => {
     globalThis.fetch.mockResolvedValueOnce(fail(500, { message: 'Internal error' }));
 
     render(<ValidatorPage />);
-    await screen.findByText('Backend connected');
+    await waitForHealthyBackend();
     await submit('https://example.com');
 
     expect(await screen.findByText('Request error')).toBeInTheDocument();
@@ -295,7 +299,7 @@ describe('ValidatorPage', () => {
       .mockResolvedValueOnce(fail(500, {}));
 
     render(<ValidatorPage />);
-    await screen.findByText('Backend connected');
+    await waitForHealthyBackend();
     await submit('https://example.com');
 
     expect(await screen.findByText('Backend unavailable')).toBeInTheDocument();
@@ -314,7 +318,7 @@ describe('ValidatorPage', () => {
       .mockResolvedValueOnce(ok({ status: 'ok' }));
 
     render(<ValidatorPage />);
-    await screen.findByText('Backend connected');
+    await waitForHealthyBackend();
     await submit('https://example.com');
 
     expect(await screen.findByText('Request error')).toBeInTheDocument();
@@ -329,7 +333,7 @@ describe('ValidatorPage', () => {
     );
 
     render(<ValidatorPage />);
-    await screen.findByText('Backend connected');
+    await waitForHealthyBackend();
     await submit('https://example.com');
     await screen.findByRole('heading', { name: /Accepted/ });
 
@@ -349,7 +353,7 @@ describe('ValidatorPage', () => {
     });
 
     const view = render(<ValidatorPage />);
-    await screen.findByText('Backend connected');
+    await waitForHealthyBackend();
     await submit('https://example.com');
     expect(requestSignal.aborted).toBe(false);
 
@@ -368,7 +372,7 @@ describe('ValidatorPage', () => {
     );
 
     render(<ValidatorPage />);
-    await screen.findByText('Backend connected');
+    await waitForHealthyBackend();
 
     fireEvent.change(screen.getByLabelText(/url to inspect/i), { target: { value: 'https://example.com' } });
     const button = screen.getByRole('button', { name: /run dfa/i });
@@ -403,17 +407,17 @@ describe('ValidatorPage', () => {
       );
 
     render(<ValidatorPage />);
-    await screen.findByText('Backend connected');
+    await waitForHealthyBackend();
     await submit('https://example.com');
 
     await screen.findByRole('heading', { name: 'Backend unavailable' });
     fireEvent.click(screen.getByRole('button', { name: /retry/i }));
 
     expect(await screen.findByText(/now it works/i)).toBeInTheDocument();
-    expect(screen.getByText('Backend connected')).toBeInTheDocument();
+    expect(screen.queryByText('Backend connected')).not.toBeInTheDocument();
   });
 
-  it('refreshes an initially unavailable health badge after a successful retry', async () => {
+  it('clears an initially unavailable health badge after a successful retry', async () => {
     globalThis.fetch
       .mockRejectedValueOnce(new TypeError('Flask is offline')) // mount-time health
       .mockRejectedValueOnce(new TypeError('Flask is offline')) // first validation
@@ -434,7 +438,7 @@ describe('ValidatorPage', () => {
     fireEvent.click(screen.getByRole('button', { name: /retry/i }));
 
     expect(await screen.findByText('Accepted after recovery')).toBeInTheDocument();
-    expect(screen.getByText('Backend connected')).toBeInTheDocument();
+    expect(screen.queryByText('Backend connected')).not.toBeInTheDocument();
     expect(screen.queryByText('Backend unavailable — start Flask in terminal 1.')).not.toBeInTheDocument();
   });
 });
