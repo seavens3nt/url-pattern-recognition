@@ -54,7 +54,7 @@ export default function App() {
   }
 
   return (
-    <Layout current="home" plain>
+    <Layout current="home">
       <HomePage onStart={() => navigate('recognizer')} />
     </Layout>
   );

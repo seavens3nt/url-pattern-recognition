@@ -89,9 +89,9 @@ export function Footer({ current = "home" }) {
   );
 }
 
-export default function Layout({ current, plain = false, children }) {
+export default function Layout({ current, children }) {
   return (
-    <div className={`upr-page flex min-h-svh flex-col text-[var(--upr-navy)]${plain ? " home-page" : ""}`}>
+    <div className="upr-page flex min-h-svh flex-col text-[var(--upr-navy)]">
       <Navbar current={current} />
       {children}
       <Footer current={current} />

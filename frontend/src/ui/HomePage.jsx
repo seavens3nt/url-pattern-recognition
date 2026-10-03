@@ -202,7 +202,7 @@ export default function HomePage({ onStart }) {
     <>
 
       {/* ---------- HERO ---------- */}
-      <section className="home-hero relative flex min-h-[calc(100svh-var(--upr-header-h))] flex-col items-center justify-center bg-white px-6 pt-10 pb-[90px] text-center" id="section-home">
+      <section className="home-hero relative flex min-h-[calc(100svh-var(--upr-header-h))] flex-col items-center justify-center px-6 pt-10 pb-[90px] text-center" id="section-home">
         <Badge tone="blue" className="home-badge--hero">
           <IconMonitorLock />
         </Badge>

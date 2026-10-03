@@ -1,9 +1,4 @@
 @layer components {
-.home-page {
-  background-image: none;
-  background-color: var(--upr-white);
-}
-
 /* ---------- Icon badges ---------- */
 .home-badge {
   display: inline-grid;
@@ -46,9 +41,6 @@
   justify-content: center;
   padding: 40px 24px 90px;
   text-align: center;
-  background-color: var(--upr-white);
-  background-image: radial-gradient(rgba(12, 33, 96, 0.16) 1.2px, transparent 1.2px);
-  background-size: 26px 26px;
 }
 
 .home-hero__headline {
