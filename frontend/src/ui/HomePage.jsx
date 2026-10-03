@@ -212,7 +212,7 @@ export default function HomePage({ onStart }) {
             <IconCloud />
           </Badge>
 
-          <h1 className="home-hero__title m-0 text-[clamp(38px,6vw,60px)] leading-[1.08] font-extrabold tracking-[-1px] text-[var(--upr-navy)]">
+          <h1 className="home-hero__title m-0 text-[clamp(44px,6.5vw,76px)] leading-[1.06] font-extrabold tracking-[-1px] text-[var(--upr-navy)]">
             URL Pattern
             <br />
             Recognition
@@ -223,13 +223,13 @@ export default function HomePage({ onStart }) {
           </Badge>
         </div>
 
-        <p className="home-hero__text mt-[26px] text-[15px] leading-[1.6] text-[#33405f]">
+        <p className="home-hero__text mt-8 text-[20px] leading-[1.5] text-[#33405f] max-[620px]:text-[17px]">
           An Automated URL Recognizer and Verifier
           <br />
           (Accepts and Rejects URL input)
         </p>
 
-        <button type="button" className="home-start mt-[34px] min-w-[110px] cursor-pointer rounded-full border-0 bg-[var(--upr-navy)] px-8 py-[11px] text-[15px] font-bold text-white shadow-[0_10px_22px_rgba(12,33,96,0.28)] transition-[transform,background] hover:-translate-y-0.5 hover:bg-[var(--upr-navy-deep)] active:translate-y-0 motion-reduce:hover:translate-y-0" onClick={onStart}>
+        <button type="button" className="home-start mt-10 min-w-[150px] cursor-pointer rounded-full border-0 bg-[var(--upr-navy)] px-10 py-[14px] text-[18px] font-bold text-white shadow-[0_10px_22px_rgba(12,33,96,0.28)] transition-[transform,background] hover:-translate-y-0.5 hover:bg-[var(--upr-navy-deep)] active:translate-y-0 motion-reduce:hover:translate-y-0 max-[620px]:min-w-[132px] max-[620px]:px-8 max-[620px]:py-3 max-[620px]:text-[16px]" onClick={onStart}>
           Start
         </button>
       </section>
