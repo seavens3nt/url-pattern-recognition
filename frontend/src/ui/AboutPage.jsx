@@ -37,7 +37,7 @@ function Avatar({ member }) {
         className="about-member__img"
         src={src}
         alt={member.name}
-        loading="lazy"
+        loading="eager"
         decoding="async"
         width="112"
         height="112"
