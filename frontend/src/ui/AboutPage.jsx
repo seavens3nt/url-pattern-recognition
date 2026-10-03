@@ -1,12 +1,12 @@
 import './styles/about_us.css';
-import ranee_pic from '../../profile_pics/ranee.jpeg';
-import paul_pic from '../../profile_pics/paul.jpeg';
-import isaiah_pic from '../../profile_pics/isaiah.png';
-import pamela_pic from '../../profile_pics/pamela.jpeg';
-import kenneth_pic from '../../profile_pics/kenneth.jpeg';
-import sean_pic from '../../profile_pics/sean.jpeg';
-import jared_pic from '../../profile_pics/jared.jpeg';
-import cedric_pic from '../../profile_pics/cedric.jpeg';
+import ranee_pic from '../../profile_pics/ranee.webp';
+import paul_pic from '../../profile_pics/paul.webp';
+import isaiah_pic from '../../profile_pics/isaiah.webp';
+import pamela_pic from '../../profile_pics/pamela.webp';
+import kenneth_pic from '../../profile_pics/kenneth.webp';
+import sean_pic from '../../profile_pics/sean.webp';
+import jared_pic from '../../profile_pics/jared.webp';
+import cedric_pic from '../../profile_pics/cedric.webp';
 
 const TEAM = [
   { name: 'Ranee Mikaella Gutierrez',   role: 'Project Manager / Integration Lead',   photo: ranee_pic },
@@ -38,6 +38,7 @@ function Avatar({ member }) {
         src={src}
         alt={member.name}
         loading="lazy"
+        decoding="async"
         width="112"
         height="112"
       />
@@ -53,16 +54,16 @@ function Avatar({ member }) {
 
 export default function AboutPage() {
   return (
-    <main className="about-main">
+    <main className="about-main w-full flex-[1_0_auto] bg-transparent px-6 pt-[46px] pb-[90px] text-center">
       <section className="about-intro">
-        <h1 className="about-title">About Us</h1>
-        <p className="about-subtitle">
+        <h1 className="about-title m-0 text-[clamp(30px,4vw,40px)] font-extrabold tracking-[0.4px] text-[var(--upr-navy)]">About Us</h1>
+        <p className="about-subtitle mt-[10px] text-[13.5px] text-[#5c6a95]">
           Building technology that makes everyday problems simpler.
         </p>
       </section>
 
-      <section className="about-flow" aria-label="Who we are">
-        <article className="about-card about-card--wide">
+      <section className="about-flow mx-auto mt-[34px] flex max-w-[660px] flex-col items-center" aria-label="Who we are">
+        <article className="about-card about-card--wide w-full rounded-[14px] border border-[rgba(22,37,92,0.16)] bg-white px-[30px] py-6 shadow-[0_10px_26px_rgba(22,37,92,0.08)]">
           <p>
             We are a team of developers and designers focused on creating practical,
             accessible digital solutions. What started as a small student project grew
@@ -77,7 +78,7 @@ export default function AboutPage() {
 
         <div className="about-connector" aria-hidden="true" />
 
-        <article className="about-card">
+        <article className="about-card w-full rounded-[14px] border border-[rgba(22,37,92,0.16)] bg-white px-[30px] py-6 shadow-[0_10px_26px_rgba(22,37,92,0.08)]">
           <h2 className="about-card__title">Our Mission</h2>
           <p>
             To build meaningful digital experiences that are simple, useful, and
@@ -87,7 +88,7 @@ export default function AboutPage() {
 
         <div className="about-connector" aria-hidden="true" />
 
-        <article className="about-card">
+        <article className="about-card w-full rounded-[14px] border border-[rgba(22,37,92,0.16)] bg-white px-[30px] py-6 shadow-[0_10px_26px_rgba(22,37,92,0.08)]">
           <h2 className="about-card__title">What We Value</h2>
           <p className="about-card__values">
             Innovation &middot; Simplicity &middot; Accessibility &middot; Reliability

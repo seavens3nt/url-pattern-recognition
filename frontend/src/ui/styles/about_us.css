@@ -1,45 +1,8 @@
-.about-main {
-  flex: 1;
-  padding: 46px 24px 90px;
-  text-align: center;
-  background: transparent;
-}
+@layer components {
 
 /* ---------- Heading ---------- */
 
-.about-title {
-  margin: 0;
-  font-size: clamp(30px, 4vw, 40px);
-  font-weight: 800;
-  letter-spacing: 0.4px;
-  color: var(--upr-navy, #16255c);
-}
-
-.about-subtitle {
-  margin: 10px 0 0;
-  font-size: 13.5px;
-  color: var(--upr-slate, #5c6a95);
-}
-
 /* ---------- Mission flow ---------- */
-
-.about-flow {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 34px auto 0;
-  max-width: 660px;
-}
-
-.about-card {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 24px 30px;
-  border: 1px solid rgba(22, 37, 92, 0.16);
-  border-radius: 14px;
-  background: var(--upr-white, #ffffff);
-  box-shadow: 0 10px 26px rgba(22, 37, 92, 0.08);
-}
 
 /* the top card is intentionally wider than the two below it */
 .about-card--wide {
@@ -259,4 +222,5 @@
   .about-member__body {
     transition: none;
   }
+}
 }

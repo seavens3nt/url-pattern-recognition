@@ -34,9 +34,9 @@ function Node({ label }) {
 
 export default function HowItWorksPage() {
   return (
-    <main className="hiw-main" id="section-how-it-works">
-      <h1 className="hiw-title">How it Works</h1>
-      <p className="hiw-sub">Know how our automated system works</p>
+    <main className="hiw-main w-full flex-[1_0_auto] bg-transparent px-6 pt-[46px] pb-[84px] text-center max-[620px]:px-4 max-[620px]:pt-[34px] max-[620px]:pb-16" id="section-how-it-works">
+      <h1 className="hiw-title m-0 text-[clamp(26px,3.6vw,34px)] font-extrabold tracking-[-0.5px] text-[var(--upr-navy)]">How it Works</h1>
+      <p className="hiw-sub mt-2 text-[12px] text-[var(--upr-navy)] opacity-70">Know how our automated system works</p>
 
       <div className="hiw-flow">
         <Node label="Start" />
@@ -48,9 +48,9 @@ export default function HowItWorksPage() {
               key={step.title}
               style={{ animationDelay: `${index * 90}ms` }}
             >
-              <article className="hiw-card">
-                <h2 className="hiw-card__title">{step.title}</h2>
-                <p className="hiw-card__text">{step.text}</p>
+              <article className="hiw-card rounded-[10px] border border-[rgba(12,33,96,0.28)] bg-white px-[18px] pt-4 pb-[18px] text-left shadow-[0_8px_18px_rgba(12,33,96,0.07)] transition-[transform,box-shadow,border-color] hover:-translate-y-[3px] hover:border-[var(--upr-teal)] hover:shadow-[0_14px_28px_rgba(12,33,96,0.12)] max-[620px]:px-[14px] max-[620px]:pt-[14px] max-[620px]:pb-4 motion-reduce:hover:translate-y-0">
+                <h2 className="hiw-card__title mb-2 text-[13px] font-extrabold text-[var(--upr-navy)]">{step.title}</h2>
+                <p className="hiw-card__text text-justify text-[11.5px] leading-[1.75] text-[#33405f] max-[620px]:text-left">{step.text}</p>
               </article>
             </li>
           ))}

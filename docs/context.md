@@ -9,7 +9,10 @@ Build a web application for an Automata Theory project. The academic focus is a 
   2026-09-16; Phase 2 ran 2026-09-17 through 2026-09-20; Phase 3 was planned
   for 2026-09-21 through 2026-09-25. Phase 4 covers release/submission and
   the later defense preparation. September 29 remains reserved for submission.
-- React + Vite, CSS, Python + Flask, Graphviz, and the testing tools in the tech stack.
+- React + Vite with Tailwind CSS v4 utilities and component CSS for the
+  existing graphics and animations; Python + Flask, Graphviz, and the testing
+  tools remain in the tech stack. Tailwind does not change the URL grammar,
+  API, or DFA behavior.
 - Eight roles with UI/UX, frontend, backend, QA, and documentation work distributed as listed in team-roles.md.
 - No database, account system, or AI/ML is needed for the core scope.
 - The simulator will inspect input text. It will not visit the submitted URL or check whether a website exists.
