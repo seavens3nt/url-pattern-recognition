@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import usePageMotion from './usePageMotion.js';
 import "../style.css";
 import "./styles/nav.css";
+import "./styles/interactions.css";
 
 export const NAV_ITEMS = [
   { key: "home", label: "Home" },
@@ -90,8 +92,10 @@ export function Footer({ current = "home" }) {
 }
 
 export default function Layout({ current, children }) {
+  const rootRef = useRef(null);
+  usePageMotion(rootRef, current);
   return (
-    <div className="upr-page flex min-h-svh flex-col text-[var(--upr-navy)]">
+    <div ref={rootRef} className="upr-page flex min-h-svh flex-col text-[var(--upr-navy)]">
       <Navbar current={current} />
       {children}
       <Footer current={current} />

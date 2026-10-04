@@ -20,7 +20,7 @@ function traceFor(value, finalState = 'S1') {
 
 async function submit(value) {
   fireEvent.change(screen.getByLabelText(/url to inspect/i), { target: { value } });
-  fireEvent.click(screen.getByRole('button', { name: /run dfa/i }));
+  fireEvent.click(screen.getByRole('button', { name: /check url pattern/i }));
 }
 
 beforeEach(() => {
@@ -67,7 +67,13 @@ describe('ValidatorPage', () => {
     expect(await screen.findByText('Accepted')).toBeInTheDocument();
     expect(screen.getByText(/matches the approved language/i)).toBeInTheDocument();
     expect(screen.getByText('TLD_MANY', { selector: 'code' })).toBeInTheDocument();
-    expect(screen.getByText('View transition trace (11 steps)')).toBeInTheDocument();
+    const traceToggle = screen.getByText(/transition trace \(11 steps\)/);
+    expect(traceToggle.closest('details')).not.toHaveAttribute('open');
+    expect(screen.getByText('11 transitions')).toBeInTheDocument();
+    fireEvent.click(traceToggle);
+    expect(traceToggle.closest('details')).toHaveAttribute('open');
+    expect(screen.getByRole('table', { name: 'DFA transition trace' })).toBeVisible();
+    expect(screen.getAllByRole('row')).toHaveLength(12);
   });
 
   it('renders a rejected result and never shows a retry button for it', async () => {
@@ -102,7 +108,7 @@ describe('ValidatorPage', () => {
     await submit(value);
 
     expect(await screen.findByText('Rejected')).toBeInTheDocument();
-    expect(screen.getByText('View transition trace (17 steps)')).toBeInTheDocument();
+    expect(screen.getByText(/transition trace \(17 steps\)/)).toBeInTheDocument();
   });
 
   it('shows an HTTP 400 as a request error, never labeled Rejected', async () => {
@@ -157,7 +163,7 @@ describe('ValidatorPage', () => {
 
     vi.useFakeTimers();
     fireEvent.change(screen.getByLabelText(/url to inspect/i), { target: { value: 'https://slow.example.com' } });
-    fireEvent.click(screen.getByRole('button', { name: /run dfa/i }));
+    fireEvent.click(screen.getByRole('button', { name: /check url pattern/i }));
 
     await vi.advanceTimersByTimeAsync(10000);
     // testing-library's async polling uses real timers internally, which
@@ -330,7 +336,7 @@ describe('ValidatorPage', () => {
     render(<ValidatorPage />);
 
     fireEvent.change(screen.getByLabelText(/url to inspect/i), { target: { value: 'https://example.com' } });
-    const button = screen.getByRole('button', { name: /run dfa/i });
+    const button = screen.getByRole('button', { name: /check url pattern/i });
     fireEvent.click(button);
     fireEvent.click(button); // second click while disabled/busy must be a no-op
 
@@ -341,7 +347,7 @@ describe('ValidatorPage', () => {
   });
 
   // Note: a "newer submission cancels a stale in-flight one" scenario isn't
-  // covered as its own test — the Run DFA button is disabled while busy, so
+  // covered as its own test — the Check URL Pattern button is disabled while busy, so
   // a user can never actually trigger a second submit through the UI while
   // one is pending. That's the same guarantee, enforced a different way,
   // and it's already covered by the duplicate-submit test above. The

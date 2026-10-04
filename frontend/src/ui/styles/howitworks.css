@@ -2,8 +2,8 @@
 
 .hiw-flow {
   position: relative;
-  width: min(560px, 100%);
-  margin: 34px auto 0;
+  width: min(880px, 100%);
+  margin: 44px auto 0;
   padding: 0;
 }
 
@@ -26,15 +26,15 @@
 .hiw-node {
   position: relative;
   z-index: 1;
-  height: 34px;
+  height: 40px;
 }
 
 .hiw-node__dot {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 15px;
-  height: 15px;
+  width: 18px;
+  height: 18px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: #1d4ed8;
@@ -47,8 +47,8 @@
   top: 50%;
   left: 50%;
   transform: translateY(-50%);
-  margin-left: 16px;
-  font-size: 12px;
+  margin-left: 20px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1;
   white-space: nowrap;
@@ -63,23 +63,7 @@
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 26px;
-}
-
-.hiw-step {
-  animation: hiw-rise 0.45s ease both;
-}
-
-/* ---------- Animation ---------- */
-@keyframes hiw-rise {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  gap: 32px;
 }
 
 /* ---------- Responsive ---------- */
@@ -90,10 +74,4 @@
   }
 }
 
-/* ---------- Reduced motion ---------- */
-@media (prefers-reduced-motion: reduce) {
-  .hiw-step {
-    animation: none;
-  }
-}
 }

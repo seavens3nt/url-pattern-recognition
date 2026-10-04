@@ -1,0 +1,52 @@
+.upr-specular {
+  position: relative;
+  isolation: isolate;
+  --shine-angle: 120deg;
+  transition: background-color 240ms ease, box-shadow 280ms ease,
+    transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    translate 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    scale 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.upr-specular:not(:disabled):hover { scale: 1.035; }
+.upr-specular:not(:disabled):active { scale: 0.97; transition-duration: 100ms; }
+
+/* Only the rim is painted: existing backgrounds, text and focus rings remain. */
+.upr-specular::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  pointer-events: none;
+  background: conic-gradient(from var(--shine-angle),
+    transparent 0deg, rgba(255, 255, 255, 0.25) 25deg,
+    rgba(255, 255, 255, 0.9) 45deg, transparent 80deg,
+    transparent 200deg, rgba(255, 255, 255, 0.35) 225deg,
+    transparent 260deg);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.upr-specular:not(:disabled):is(:hover, :focus-visible)::after { opacity: 1; }
+
+/* Without mask support, omit decoration rather than covering button text. */
+@supports not ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
+  .upr-specular::after { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .upr-specular,
+  .upr-specular:not(:disabled):hover,
+  .upr-specular:not(:disabled):active {
+    scale: 1;
+    translate: none;
+    transform: none;
+    transition: none;
+  }
+  .upr-specular::after { display: none; transition: none; }
+}

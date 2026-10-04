@@ -31,7 +31,7 @@ it('connects to the backend and displays an accepted DFA result', async () => {
   const fetch = vi.fn().mockResolvedValueOnce({ status: 200, json: async () => ({ accepted: true, message: 'Accepted: the URL matches the approved core language.', final_state: 'TLD_MANY', trace: traceForUrl('https://example.com', 'TLD_MANY') }) });
   vi.stubGlobal('fetch', fetch); render(<App />);
   fireEvent.change(screen.getByLabelText('URL to inspect'), { target: { value: 'https://example.com' } });
-  fireEvent.click(screen.getByRole('button', { name: 'Run DFA' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Check URL Pattern' }));
   await screen.findByText('Accepted: the URL matches the approved core language.');
   expect(screen.getByText('Final state:')).toBeInTheDocument();
   expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual({ url: 'https://example.com' });
@@ -41,7 +41,7 @@ it('shows an offline result only after a failed validation request', async () =>
   render(<App />);
   expect(screen.queryByText(/Backend unavailable/)).not.toBeInTheDocument();
   fireEvent.change(screen.getByLabelText('URL to inspect'), { target: { value: 'https://example.com' } });
-  fireEvent.click(screen.getByRole('button', { name: 'Run DFA' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Check URL Pattern' }));
   expect(await screen.findByRole('heading', { name: 'Backend unavailable' })).toBeInTheDocument();
 });
 it('shows the offline message when validation times out', async () => {
@@ -49,7 +49,7 @@ it('shows the offline message when validation times out', async () => {
   vi.stubGlobal('fetch', fetch);
   render(<App />);
   fireEvent.change(screen.getByLabelText('URL to inspect'), { target: { value: 'https://example.com' } });
-  fireEvent.click(screen.getByRole('button', { name: 'Run DFA' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Check URL Pattern' }));
   await screen.findByText('Cannot reach the backend. Check that Flask is running.');
 });
 it('prevents duplicate submissions while validation is pending', async () => {
@@ -58,7 +58,7 @@ it('prevents duplicate submissions while validation is pending', async () => {
   vi.stubGlobal('fetch', fetch);
   render(<App />);
   fireEvent.change(screen.getByLabelText('URL to inspect'), { target: { value: 'https://example.com' } });
-  const button = screen.getByRole('button', { name: 'Run DFA' });
+  const button = screen.getByRole('button', { name: 'Check URL Pattern' });
   fireEvent.click(button);
   expect(button).toBeDisabled();
   fireEvent.click(button);
@@ -75,7 +75,7 @@ it('renders a request error for a malformed validation response', async () => {
   vi.stubGlobal('fetch', fetch);
   render(<App />);
   fireEvent.change(screen.getByLabelText('URL to inspect'), { target: { value: 'https://example.com' } });
-  fireEvent.click(screen.getByRole('button', { name: 'Run DFA' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Check URL Pattern' }));
   await screen.findByText('Request error');
   expect(screen.getByText('The server returned an unexpected response.')).toBeInTheDocument();
 });

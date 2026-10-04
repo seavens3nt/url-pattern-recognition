@@ -88,16 +88,6 @@
   font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 
-.home-card--accent {
-  background: var(--upr-navy);
-  border-color: var(--upr-navy);
-  box-shadow: 0 16px 34px rgba(12, 33, 96, 0.28);
-}
-
-.home-card--accent p {
-  color: var(--upr-white);
-}
-
 /* ---------- Anatomy shell ---------- */
 .home-anatomy__shell {
   width: min(1400px, 100%);
@@ -112,10 +102,11 @@
 
 .home-anatomy__notes {
   margin-top: 14px;
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  align-items: stretch;
-  gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  /* Each disclosure grows downward without stretching its closed neighbor. */
+  align-items: start;
+  gap: 14px;
 }
 
 /* ---------- Annotated URL diagram ---------- */
@@ -223,17 +214,12 @@
 /* ---------- Anatomy notes ---------- */
 .ana-section {
   min-width: 0;
-  grid-column: span 5;
+  flex: 1 1 calc(50% - 7px);
   border: 1px solid rgba(37, 99, 235, 0.18);
   border-radius: 16px;
   background: #f4f7ff;
   box-shadow: 0 5px 14px rgba(12, 33, 96, 0.04);
   overflow: hidden;
-}
-
-.ana-section:nth-child(4n + 1),
-.ana-section:nth-child(4n + 4) {
-  grid-column: span 7;
 }
 
 .ana-section:nth-child(2) {
@@ -252,11 +238,16 @@
 }
 
 .ana-section__summary {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  font: inherit;
   position: relative;
   display: grid;
   gap: 3px;
-  min-height: 92px;
-  padding: 11px 36px 10px 16px;
+  min-height: 116px;
+  padding: 16px 40px 16px 20px;
   cursor: pointer;
   list-style: none;
 }
@@ -275,7 +266,7 @@
   color: var(--upr-navy);
 }
 
-.ana-section[open] .ana-section__summary::after {
+.ana-section__summary[aria-expanded="true"]::after {
   content: "−";
 }
 
@@ -433,15 +424,8 @@
   }
 
   .home-anatomy__notes {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
     margin-top: 10px;
-  }
-
-  .ana-section,
-  .ana-section:nth-child(4n + 1),
-  .ana-section:nth-child(4n + 4) {
-    grid-column: span 1;
   }
 
   .home-anatomy__shell {

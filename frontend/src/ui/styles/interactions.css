@@ -1,0 +1,93 @@
+/* Interaction motion shares timing across the home cards and trace disclosure. */
+.home-card,
+.ana-section,
+.hiw-card,
+.about-member__photo,
+.about-member__body {
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    translate 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    scale 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 280ms ease, border-color 280ms ease;
+}
+
+.ana-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(12, 33, 96, 0.09);
+}
+
+.ana-section__summary,
+.upr-trace > summary {
+  transition: opacity 220ms ease, scale 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ana-section__summary:active,
+.upr-trace > summary:active { scale: 0.99; }
+
+/* Browsers without intrinsic-size transitions still fade content on opening. */
+.ana-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 500ms ease, opacity 400ms ease;
+}
+.ana-panel.is-open { grid-template-rows: 1fr; opacity: 1; }
+.ana-panel__clip { min-height: 0; overflow: hidden; }
+.ana-panel .ana-section__details {
+  margin-top: 14px;
+  padding: 20px;
+  border: 1px solid rgba(37, 99, 235, 0.18);
+  border-radius: 16px;
+  background: #f4f7ff;
+}
+.ana-panel:nth-child(2) .ana-section__details { background: #f0faf6; }
+.ana-panel:nth-child(3) .ana-section__details { background: #fff8f0; }
+.ana-panel:nth-child(4) .ana-section__details { background: #f7f3ff; }
+
+.upr-trace[open] .trace-wrap {
+  animation: upr-disclosure-in 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes upr-disclosure-in {
+  from { opacity: 0; translate: 0 -5px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@supports (interpolate-size: allow-keywords) and (selector(details::details-content)) {
+  .upr-trace { interpolate-size: allow-keywords; }
+
+  .upr-trace::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition: block-size 420ms cubic-bezier(0.22, 1, 0.36, 1),
+      content-visibility 420ms allow-discrete;
+  }
+
+  .upr-trace[open]::details-content { block-size: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ana-panel { transition: none; }
+  .home-card,
+  .ana-section,
+  .hiw-card,
+  .about-member__photo,
+  .about-member__body,
+  .ana-section__summary,
+  .upr-trace > summary,
+  .ana-section::details-content,
+  .upr-trace::details-content { transition: none; }
+
+  .home-card:hover,
+  .ana-section:hover,
+  .hiw-card:hover,
+  .about-member:hover .about-member__photo,
+  .about-member:hover .about-member__body {
+    transform: none;
+    translate: none;
+    scale: 1;
+  }
+  .ana-section__summary:active,
+  .upr-trace > summary:active { scale: 1; }
+  .ana-section[open] .ana-section__details,
+  .upr-trace[open] .trace-wrap { animation: none; }
+}

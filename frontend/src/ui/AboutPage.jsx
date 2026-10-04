@@ -39,8 +39,8 @@ function Avatar({ member }) {
         alt={member.name}
         loading="eager"
         decoding="async"
-        width="112"
-        height="112"
+        width="136"
+        height="136"
       />
     );
   }
@@ -57,14 +57,14 @@ export default function AboutPage() {
     <main className="about-main w-full flex-[1_0_auto] bg-transparent px-6 text-center">
       <div className="about-overview">
       <section className="about-intro">
-        <h1 className="about-title m-0 text-[clamp(30px,4vw,40px)] font-extrabold tracking-[0.4px] text-[var(--upr-navy)]">About Us</h1>
-        <p className="about-subtitle mt-[10px] text-[13.5px] text-[#5c6a95]">
+        <h1 className="about-title m-0 text-[clamp(42px,6vw,64px)] font-extrabold tracking-[-0.8px] text-[var(--upr-navy)]">About Us</h1>
+        <p className="about-subtitle mx-auto mt-4 max-w-[760px] text-[clamp(16px,2vw,20px)] leading-[1.5] text-[#5c6a95]">
           Building technology that makes everyday problems simpler.
         </p>
       </section>
 
-      <section className="about-flow mx-auto mt-[34px] flex max-w-[660px] flex-col items-center" aria-label="Who we are">
-        <article className="about-card about-card--wide w-full rounded-[14px] border border-[rgba(22,37,92,0.16)] bg-white px-[30px] py-6 shadow-[0_10px_26px_rgba(22,37,92,0.08)]">
+      <section className="about-flow mx-auto mt-10 flex w-full max-w-[880px] flex-col items-center" aria-label="Who we are">
+        <article data-reveal className="about-card about-card--wide w-full rounded-[18px] border border-[rgba(22,37,92,0.16)] bg-white px-8 py-7 shadow-[0_10px_26px_rgba(22,37,92,0.08)] max-[620px]:px-5 max-[620px]:py-6">
           <p>
             We are a team of developers and designers focused on creating practical,
             accessible digital solutions. What started as a small student project grew
@@ -79,7 +79,7 @@ export default function AboutPage() {
 
         <div className="about-connector" aria-hidden="true" />
 
-        <article className="about-card w-full rounded-[14px] border border-[rgba(22,37,92,0.16)] bg-white px-[30px] py-6 shadow-[0_10px_26px_rgba(22,37,92,0.08)]">
+        <article data-reveal className="about-card w-full rounded-[18px] border border-[rgba(22,37,92,0.16)] bg-white px-8 py-7 shadow-[0_10px_26px_rgba(22,37,92,0.08)] max-[620px]:px-5 max-[620px]:py-6">
           <h2 className="about-card__title">Our Mission</h2>
           <p>
             To build meaningful digital experiences that are simple, useful, and
@@ -89,7 +89,7 @@ export default function AboutPage() {
 
         <div className="about-connector" aria-hidden="true" />
 
-        <article className="about-card w-full rounded-[14px] border border-[rgba(22,37,92,0.16)] bg-white px-[30px] py-6 shadow-[0_10px_26px_rgba(22,37,92,0.08)]">
+        <article data-reveal className="about-card w-full rounded-[18px] border border-[rgba(22,37,92,0.16)] bg-white px-8 py-7 shadow-[0_10px_26px_rgba(22,37,92,0.08)] max-[620px]:px-5 max-[620px]:py-6">
           <h2 className="about-card__title">What We Value</h2>
           <p className="about-card__values">
             Innovation &middot; Simplicity &middot; Accessibility &middot; Reliability
@@ -99,10 +99,12 @@ export default function AboutPage() {
       </div>
 
       <section className="about-team" aria-label="Meet the team">
+        <div data-reveal>
         <h2 className="about-team__title">
           Meet the Team <span aria-hidden="true">&rarr;</span>
         </h2>
         <p className="about-team__subtitle">Minds Behind the Code</p>
+        </div>
 
         <ul className="about-team__grid">
           {TEAM.map((member, index) => {
@@ -110,6 +112,7 @@ export default function AboutPage() {
 
             return (
               <li
+                data-reveal
                 key={member.name}
                 className={`about-member about-member--${side}`}
               >
