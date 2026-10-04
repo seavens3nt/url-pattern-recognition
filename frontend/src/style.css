@@ -235,7 +235,7 @@ body {
 
 /* ---------- Results panel ---------- */
 .upr-results {
-  width: min(1000px, 100%);
+  width: min(1040px, 100%);
   margin: 30px auto 0;
   text-align: left;
   border-radius: 14px;
@@ -330,9 +330,9 @@ body {
 
 /* ---------- Status banners: ACCEPTED and REJECTED ---------- */
 .upr-banner {
-  width: min(680px, 100%);
-  margin: 12px auto 30px;
-  padding: 14px 20px;
+  width: min(820px, 100%);
+  margin: 0 auto;
+  padding: 16px 20px;
   text-align: center;
   border-radius: 8px;
   color: var(--upr-white);
@@ -411,13 +411,20 @@ body {
 /* ---------- Parameters table ---------- */
 .upr-table {
   width: 100%;
+  min-width: 360px;
   border-collapse: collapse;
-  font-size: 12px;
+  font-size: 15px;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
   text-align: center;
 }
 
 .upr-table th {
-  padding: 14px 12px;
+  position: sticky;
+  top: 0;
+  background: var(--upr-white);
+  z-index: 1;
+  padding: 15px 14px;
   font-weight: 800;
   color: var(--upr-navy);
   border-bottom: 1px solid rgba(12, 33, 96, 0.12);
@@ -425,10 +432,15 @@ body {
 }
 
 .upr-table td {
-  padding: 14px 12px;
+  padding: 14px 14px;
   color: #33405f;
   border-bottom: 1px solid rgba(12, 33, 96, 0.06);
-  word-break: break-word;
+  white-space: nowrap;
+}
+
+.upr-table td code {
+  font-size: 1em;
+  font-weight: 600;
 }
 
 .upr-table tbody tr:last-child td {
@@ -542,7 +554,7 @@ body {
 
   .upr-table th,
   .upr-table td {
-    padding: 12px 8px;
+    padding: 13px 8px;
   }
 
   .upr-footer {
@@ -558,7 +570,48 @@ body {
 }
 
 /* ---------- Reduced motion ---------- */
+.upr-page {
+  animation: upr-page-in 420ms ease-out;
+}
+
+.upr-page-enter {
+  animation: upr-page-in 280ms ease-out;
+}
+
+.upr-reveal:not(.is-visible) {
+  opacity: 0;
+}
+
+.upr-reveal.is-visible {
+  animation: upr-scroll-in 450ms ease-out both;
+}
+
+/* Never hide a control or explanation receiving keyboard focus. */
+.upr-reveal:focus-within {
+  opacity: 1;
+}
+
+@keyframes upr-page-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes upr-scroll-in {
+  from { opacity: 0; translate: 0 14px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .upr-page,
+  .upr-page-enter,
+  .upr-reveal,
+  .upr-reveal:not(.is-visible),
+  .upr-reveal.is-visible {
+    opacity: 1;
+    translate: none;
+    animation: none;
+  }
+
   .upr-spinner__ring,
   .upr-spinner__pulse,
   .upr-spinner__dot,

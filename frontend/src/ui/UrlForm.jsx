@@ -1,3 +1,4 @@
+import SpecularButton from "./SpecularButton.jsx";
 import "../style.css";
 
 const DEFAULT_ID = "url";
@@ -31,7 +32,7 @@ export default function UrlForm({
 
   return (
     <form className="upr-card mx-auto mt-10 w-full max-w-[1040px] rounded-[26px] bg-[var(--upr-navy)] px-10 pt-10 pb-11 text-center shadow-[0_24px_50px_rgba(8,26,77,0.22)] max-[900px]:rounded-[20px] max-[900px]:px-5 max-[900px]:pt-[26px] max-[900px]:pb-8" onSubmit={handleSubmit} noValidate={!required}>
-      <label className="upr-label mb-3 block text-[16px] font-bold text-white" htmlFor={id}>
+      <label className="upr-label mb-3 block text-[clamp(19px,2.2vw,22px)] font-bold text-white" htmlFor={id}>
         {label}
       </label>
       <input
@@ -62,9 +63,9 @@ export default function UrlForm({
       ) : null}
 
       <div className="upr-actions flex justify-center">
-        <button type="submit" className="upr-button min-h-12 min-w-[136px] cursor-pointer rounded-full border-0 bg-[var(--upr-teal-dark)] px-7 text-[16px] font-bold text-white transition-[background,transform] duration-[180ms] hover:not-disabled:bg-[#105f63] active:not-disabled:translate-y-px disabled:cursor-progress disabled:opacity-75" disabled={isDisabled}>
+        <SpecularButton type="submit" className="upr-button min-h-12 min-w-[136px] cursor-pointer rounded-full border-0 bg-[var(--upr-teal-dark)] px-7 text-[16px] font-bold text-white transition-[background,transform] duration-[180ms] hover:not-disabled:bg-[#105f63] active:not-disabled:translate-y-px disabled:cursor-progress disabled:opacity-75" disabled={isDisabled}>
           {loading ? loadingLabel : submitLabel}
-        </button>
+        </SpecularButton>
       </div>
     </form>
   );

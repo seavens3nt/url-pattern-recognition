@@ -91,7 +91,7 @@ export default function ValidatorPage() {
         onSubmit={submit}
         disabled={busy}
         loading={busy}
-        submitLabel="Run DFA"
+        submitLabel="Check URL Pattern"
         loadingLabel="Checking..."
         helpText="The simulator reads the text only and never visits the submitted website."
       />
@@ -101,22 +101,22 @@ export default function ValidatorPage() {
       </p>
 
       {showResult && (
-        <section className="upr-results mx-auto mt-[30px] w-full max-w-[1000px] overflow-hidden rounded-[14px] border border-[rgba(12,33,96,0.08)] bg-[var(--upr-panel-bg)] text-left shadow-[0_14px_34px_rgba(8,26,77,0.1)] motion-reduce:animate-none" aria-labelledby="validation-result-heading">
-          <h2 id="validation-result-heading" className="upr-results__header m-0 bg-[var(--upr-teal-dark)] px-[22px] py-6 text-[14px] font-bold tracking-[0.2px] text-white">
+        <section className="upr-results mx-auto mt-[30px] w-full max-w-[1040px] overflow-hidden rounded-[20px] border border-[rgba(12,33,96,0.08)] bg-[var(--upr-panel-bg)] text-left shadow-[0_14px_34px_rgba(8,26,77,0.1)] motion-reduce:animate-none" aria-labelledby="validation-result-heading">
+          <h2 id="validation-result-heading" className="upr-results__header m-0 bg-[var(--upr-teal-dark)] px-6 py-4 text-[16px] font-bold tracking-[0.2px] text-white max-[900px]:px-5">
             Validation result
           </h2>
-          <div className={`upr-results__body min-h-[230px] px-[30px] pt-8 pb-10 max-[900px]:px-4 max-[900px]:pt-6 max-[900px]:pb-8${busy ? ' is-centered grid place-items-center px-6 pt-10 pb-12' : ''}`}>
-            <StatusPanel status={status} payload={result} onRetry={retry} />
+          <div className={`upr-results__body px-8 py-7 max-[900px]:px-5 max-[900px]:py-5${busy ? ' is-centered grid min-h-[230px] place-items-center' : ''}`}>
+            <StatusPanel status={status} payload={result} onRetry={retry} stepCount={showTrace ? result.trace.length : undefined} />
 
             {showTrace && (
-              <section className="upr-section mt-[26px]" aria-labelledby="trace-heading">
-                <h3 id="trace-heading" className="upr-section__title mb-[10px] text-[12px] font-extrabold text-[var(--upr-navy)]">
-                  View transition trace ({result.trace.length} steps)
-                </h3>
-                <div className="upr-panel upr-panel--table overflow-x-auto rounded-lg border border-[rgba(12,33,96,0.1)] bg-white p-0">
+              <details className="upr-trace group mx-auto mt-5 w-full max-w-[960px] rounded-xl border border-[rgba(12,33,96,0.12)] bg-white">
+                <summary className="cursor-pointer px-5 py-4 text-[15px] font-bold text-[var(--upr-navy)] marker:text-[var(--upr-teal-dark)] hover:bg-[rgba(26,140,146,0.05)] focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-[var(--upr-teal)]">
+                  <span className="group-open:hidden">Show</span><span className="hidden group-open:inline">Hide</span> transition trace ({result.trace.length} steps)
+                </summary>
+                <div className="upr-panel upr-panel--table max-h-[min(50vh,420px)] overflow-auto border-t border-[rgba(12,33,96,0.1)] p-0">
                   <TraceTable trace={result.trace} />
                 </div>
-              </section>
+              </details>
             )}
           </div>
         </section>

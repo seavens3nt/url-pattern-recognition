@@ -68,6 +68,7 @@ describe("validator UI components", () => {
     );
 
     expect(screen.getByRole("status")).toHaveTextContent("Accepted by the DFA.");
+    expect(screen.getByRole("status")).toHaveTextContent("satisfy the approved grammar");
     expect(screen.getByRole("status")).toHaveTextContent(
       "Final state: TLD_MANY"
     );
@@ -84,6 +85,37 @@ describe("validator UI components", () => {
 
     expect(screen.getByRole("status")).toHaveTextContent("Rejected by the DFA.");
     expect(screen.getByRole("status")).toHaveTextContent("Final state: SINK");
+  });
+
+  it("explains the first rejecting transition without hiding the full trace", () => {
+    render(
+      <StatusPanel
+        status="rejected"
+        payload={{
+          message: "Rejected by the DFA.",
+          final_state: "M_sink",
+          trace: [
+            { position: 0, symbol: "h", from_state: "M0", to_state: "M1" },
+            { position: 1, symbol: "?", from_state: "M1", to_state: "M_sink" },
+            { position: 2, symbol: "x", from_state: "M_sink", to_state: "M_sink" },
+          ],
+        }}
+      />
+    );
+
+    expect(screen.getByRole("status")).toHaveTextContent('At trace position 1, "?" sent the DFA to its rejecting sink');
+    expect(screen.getByRole("status")).toHaveTextContent("Query strings are not supported");
+  });
+
+  it("explains a rejection that ends outside the sink", () => {
+    render(
+      <StatusPanel
+        status="rejected"
+        payload={{ message: "Rejected", final_state: "M12", trace: [] }}
+      />
+    );
+
+    expect(screen.getByRole("status")).toHaveTextContent("ended in a non-accepting state");
   });
 
   it("keeps request errors separate from rejected verdicts", () => {

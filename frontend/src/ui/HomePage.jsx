@@ -1,3 +1,5 @@
+import SpecularButton from "./SpecularButton.jsx";
+import { useState } from "react";
 import "../style.css";
 import "./styles/home.css";
 
@@ -180,6 +182,7 @@ function UrlDiagram() {
    /*Page*/
 
 export default function HomePage({ onStart }) {
+  const [activeAnatomy, setActiveAnatomy] = useState(null);
   return (
     <>
 
@@ -211,13 +214,13 @@ export default function HomePage({ onStart }) {
           (Accepts and Rejects URL input)
         </p>
 
-        <button type="button" className="home-start mt-10 min-w-[150px] cursor-pointer rounded-full border-0 bg-[var(--upr-navy)] px-10 py-[14px] text-[18px] font-bold text-white shadow-[0_10px_22px_rgba(12,33,96,0.28)] transition-[transform,background] hover:-translate-y-0.5 hover:bg-[var(--upr-navy-deep)] active:translate-y-0 motion-reduce:hover:translate-y-0 max-[620px]:min-w-[132px] max-[620px]:px-8 max-[620px]:py-3 max-[620px]:text-[16px]" onClick={onStart}>
+        <SpecularButton type="button" className="home-start mt-10 min-w-[150px] cursor-pointer rounded-full border-0 bg-[var(--upr-navy)] px-10 py-[14px] text-[18px] font-bold text-white shadow-[0_10px_22px_rgba(12,33,96,0.28)] transition-[transform,background] hover:-translate-y-0.5 hover:bg-[var(--upr-navy-deep)] active:translate-y-0 motion-reduce:hover:translate-y-0 max-[620px]:min-w-[132px] max-[620px]:px-8 max-[620px]:py-3 max-[620px]:text-[16px]" onClick={onStart}>
           Start
-        </button>
+        </SpecularButton>
       </section>
 
       {/* ---------- WHAT IS A URL ---------- */}
-      <section className="home-section px-6 pt-16 pb-[72px] text-center max-[960px]:pt-10 max-[960px]:pb-11" id="what-is-a-url">
+      <section data-reveal className="home-section px-6 pt-16 pb-[72px] text-center max-[960px]:pt-10 max-[960px]:pb-11" id="what-is-a-url">
         <Badge tone="sky" className="home-badge--section">
           <IconLink />
         </Badge>
@@ -228,7 +231,7 @@ export default function HomePage({ onStart }) {
           {URL_CARDS.map((text, index) => (
             <article
               key={index}
-              className={`home-card flex min-h-[148px] items-center rounded-2xl border px-7 py-6 transition-[transform,box-shadow] hover:-translate-y-1 hover:shadow-[0_16px_32px_rgba(12,33,96,0.12)] motion-reduce:hover:translate-y-0 max-[620px]:px-[22px]${index === 1 ? " home-card--accent border-[var(--upr-navy)] bg-[var(--upr-navy)] shadow-[0_16px_34px_rgba(12,33,96,0.28)]" : " border-[rgba(12,33,96,0.16)] bg-white"}`}
+              className={`home-card flex min-h-[148px] items-center rounded-2xl border px-7 py-6 transition-[transform,box-shadow] hover:-translate-y-1 hover:shadow-[0_16px_32px_rgba(12,33,96,0.12)] motion-reduce:hover:translate-y-0 max-[620px]:px-[22px] border-[rgba(12,33,96,0.16)] bg-white`}
             >
               <p>{text}</p>
             </article>
@@ -237,7 +240,7 @@ export default function HomePage({ onStart }) {
       </section>
 
       {/* ---------- URL ANATOMY ---------- */}
-      <section className="home-section home-anatomy px-6 py-10 text-center max-[620px]:px-4" id="section-anatomy">
+      <section data-reveal className="home-section home-anatomy px-6 py-10 text-center max-[620px]:px-4" id="section-anatomy">
         <Badge tone="blue" className="home-badge--section">
           <IconMonitorLock />
         </Badge>
@@ -251,13 +254,24 @@ export default function HomePage({ onStart }) {
 
           <div className="home-anatomy__notes">
             {ANATOMY_SECTIONS.map((section, index) => (
-              <details className="ana-section" key={section.title}>
-                <summary className="ana-section__summary">
+              <div className="ana-section" key={section.title}>
+                <button type="button" className="ana-section__summary" aria-expanded={activeAnatomy === index}
+                  aria-controls={`anatomy-panel-${index}`} id={`anatomy-button-${index}`}
+                  onClick={() => setActiveAnatomy(activeAnatomy === index ? null : index)}>
                   <span className="ana-section__number">0{index + 1}</span>
                   <strong><span className="ana-summary-full">{section.label}</span><span className="ana-summary-short">{section.shortLabel}</span></strong>
                   <span><span className="ana-summary-full">{section.preview}</span><span className="ana-summary-short">{section.shortPreview}</span></span>
                   <code className="ana-section__example">{section.example}</code>
-                </summary>
+                </button>
+              </div>
+            ))}
+          </div>
+          <div className="ana-panels">
+            {ANATOMY_SECTIONS.map((section, index) => (
+              <div key={section.title} id={`anatomy-panel-${index}`} role="region"
+                aria-labelledby={`anatomy-button-${index}`} aria-hidden={activeAnatomy !== index}
+                inert={activeAnatomy !== index} className={`ana-panel${activeAnatomy === index ? " is-open" : ""}`}>
+                <div className="ana-panel__clip">
                 <div className="ana-section__details">
                   <h3>{section.title}</h3>
                   <ul className="ana-list">
@@ -273,7 +287,8 @@ export default function HomePage({ onStart }) {
                     ))}
                   </ul>
                 </div>
-              </details>
+                </div>
+              </div>
             ))}
           </div>
         </div>

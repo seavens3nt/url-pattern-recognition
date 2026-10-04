@@ -35,22 +35,22 @@ function Node({ label }) {
 export default function HowItWorksPage() {
   return (
     <main className="hiw-main w-full flex-[1_0_auto] bg-transparent px-6 pt-[46px] pb-[84px] text-center max-[620px]:px-4 max-[620px]:pt-[34px] max-[620px]:pb-16" id="section-how-it-works">
-      <h1 className="hiw-title m-0 text-[clamp(26px,3.6vw,34px)] font-extrabold tracking-[-0.5px] text-[var(--upr-navy)]">How it Works</h1>
-      <p className="hiw-sub mt-2 text-[12px] text-[var(--upr-navy)] opacity-70">Know how our automated system works</p>
+      <h1 className="hiw-title m-0 text-[clamp(42px,6vw,64px)] font-extrabold tracking-[-0.8px] text-[var(--upr-navy)]">How it Works</h1>
+      <p className="hiw-sub mx-auto mt-4 max-w-[760px] text-[clamp(16px,2vw,20px)] leading-[1.5] text-[var(--upr-navy)] opacity-70">Know how our automated system works</p>
 
       <div className="hiw-flow">
         <Node label="Start" />
 
         <ol className="hiw-steps">
-          {STEPS.map((step, index) => (
+          {STEPS.map((step) => (
             <li
+              data-reveal
               className="hiw-step"
               key={step.title}
-              style={{ animationDelay: `${index * 90}ms` }}
             >
-              <article className="hiw-card rounded-[10px] border border-[rgba(12,33,96,0.28)] bg-white px-[18px] pt-4 pb-[18px] text-left shadow-[0_8px_18px_rgba(12,33,96,0.07)] transition-[transform,box-shadow,border-color] hover:-translate-y-[3px] hover:border-[var(--upr-teal)] hover:shadow-[0_14px_28px_rgba(12,33,96,0.12)] max-[620px]:px-[14px] max-[620px]:pt-[14px] max-[620px]:pb-4 motion-reduce:hover:translate-y-0">
-                <h2 className="hiw-card__title mb-2 text-[13px] font-extrabold text-[var(--upr-navy)]">{step.title}</h2>
-                <p className="hiw-card__text text-justify text-[11.5px] leading-[1.75] text-[#33405f] max-[620px]:text-left">{step.text}</p>
+              <article className="hiw-card rounded-[18px] border border-[rgba(12,33,96,0.28)] bg-white px-8 py-7 text-left shadow-[0_8px_18px_rgba(12,33,96,0.07)] transition-[transform,box-shadow,border-color] hover:-translate-y-[3px] hover:border-[var(--upr-teal)] hover:shadow-[0_14px_28px_rgba(12,33,96,0.12)] max-[620px]:px-5 max-[620px]:py-6 motion-reduce:hover:translate-y-0">
+                <h2 className="hiw-card__title mb-3 text-[clamp(20px,2.6vw,24px)] font-extrabold text-[var(--upr-navy)]">{step.title}</h2>
+                <p className="hiw-card__text text-[clamp(16px,1.8vw,18px)] leading-[1.7] text-[#33405f]">{step.text}</p>
               </article>
             </li>
           ))}
