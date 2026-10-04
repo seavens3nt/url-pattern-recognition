@@ -24,19 +24,22 @@ Build a web application for an Automata Theory project. The academic focus is a 
   ASCII `xn--` label is accepted when it meets the ordinary hostname rule;
   the recognizer does not decode or verify Punycode.
 
-## Open decisions
-Ranee selected Vercel as the hosting destination on October 1, 2026. The app
-was deployed and live-tested on October 2; see
-[Vercel deployment](release/vercel-deployment.md). Its source commit is on the
-remote deployment branch pending GitHub review and merge. Final course
-acceptance remains separate. The URL-language decisions and sprint dates are
-approved; do not expand them from examples or browser behavior.
+## Completion decision
+Ranee declared the project finished October 4, 2026. The completed application
+is on `main` at `e3e6f59` (PR #98) and runs on Vercel production. See
+[Current status](status.md) for the authoritative completion record and
+[Vercel deployment](release/vercel-deployment.md) for hosting details.
+The October 6 presentation remains scheduled. Completion does not claim
+presentation delivery, course grading or a portal submission has occurred.
+The approved URL language remains unchanged.
 
 ## Boundaries
 The 2048-character API input limit is a transport constraint, not the formal language specification. A well-shaped request is simulated by the current DFA and returns HTTP 200 with either verdict; malformed requests remain HTTP errors. A successful health check proves connectivity only.
 
 ## Handoffs
-The canonical owner and deliverable list is in [Team roles](team-roles.md). The dependency order and phase gates are in the [Roadmap](roadmap.md); the active week’s exact coordination is in its phase guide. This file records project decisions rather than repeating assignments.
+The canonical owner and deliverable list is in [Team roles](team-roles.md).
+The [Roadmap](roadmap.md) and phase guides preserve completed-project planning
+history. This file records decisions rather than repeating assignments.
 
 ## Maintenance
 Record approved decisions here with the decision date and related issue or PR. Keep current status in status.md, planned work in roadmap.md, and API details in api-contract.md. The shared Google Doc remains linked from the README for coordination.

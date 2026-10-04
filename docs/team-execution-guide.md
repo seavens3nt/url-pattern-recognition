@@ -1,5 +1,9 @@
 # Project guide
 
+**Project completed October 4, 2026.** This guide preserves the team workflow.
+See [Current status](status.md) for final evidence and
+[the live application](https://url-pattern-recognition.vercel.app) for the result.
+
 ## Purpose
 
 URL Pattern Recognition is a four-week Automata Theory project. The web app checks the **structure** of an input URL against a language approved by the team. It does not check whether the website exists or fetch the submitted address.
@@ -10,15 +14,20 @@ The academic pipeline is:
 Language specification → Regular Expression → NFA → DFA → Minimized DFA → Simulator → Web app
 ```
 
-The final app should show a verdict, final state and ordered transition trace. It should also explain the supported language, examples and formal construction clearly enough for the team’s defense.
+The final app shows a verdict, final state and ordered transition trace.
+Its supporting pages explain the project and supported language, while the
+documentation records the formal construction for the defense.
 
 ## Scope
 
-The required product has one focused validator experience with three sections: Validator, Automata, and Guide & Examples. The team will support one fixed URL language after Week 1 approval. Accounts, saved history, database storage, external URL fetching and a general-purpose regex editor are outside the core scope.
+The completed product supports one fixed URL language through the Recognizer,
+with supporting Home, How It Works and About Us pages. Accounts, saved history,
+database storage, external URL fetching and a general-purpose regex editor
+remain outside the core scope.
 
 ## Technology
 
-- **Frontend:** React, Vite, JavaScript/JSX and CSS.
+- **Frontend:** React, Vite, JavaScript/JSX, Tailwind CSS v4 and component CSS.
 - **Backend:** Python and Flask.
 - **Formal artifacts:** JSON transition data and Graphviz diagrams.
 - **Testing:** pytest, Vitest and React Testing Library.

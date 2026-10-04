@@ -7,10 +7,25 @@ Python Flask function on the same origin. The browser continues to call
 is required. The function includes `backend/automata/url_dfa.json` and uses
 Python 3.12. `vercel.json` routes API paths to Flask before the SPA fallback.
 
-The deployment record below distinguishes the live Vercel artifact from the
-repository state. The deployed source is on the remote `deploy/vercel` branch;
-it must be reviewed and merged into GitHub `main` before the repository can
-reproduce the public site from its default branch.
+The deployment configuration is on `main`. The completed application revision
+is `e3e6f595f4d791fb65e94c4f431c85af4af9f7c3` (PR #98), deployed October 4
+through Vercel's GitHub integration. The production alias is
+[url-pattern-recognition.vercel.app](https://url-pattern-recognition.vercel.app).
+The October 2 record below preserves the first deployment's historical evidence.
+
+## Current production verification — October 4
+
+- Application source: merged `main` revision `e3e6f59`.
+- Production deployment: `dpl_2asvRvCYudoHxkfZ1dMLV7i1VvJk`.
+- Public health returned `status: "ok"` and `validator_ready: true`.
+- `https://example.com` returned accepted, `M13`, 19 trace rows.
+- `ftp://example.com` returned rejected, `M_sink`, 17 trace rows.
+- About portraits use optimized WebP assets, approximately 5–22 kB each in
+  the October 4 build, replacing the earlier large-image follow-up.
+- These are functional smoke results, not a public load-test benchmark.
+
+Ranee declared the project finished October 4. [Current status](../status.md)
+owns the completion record and latest automated checks.
 
 ## Before deployment
 
@@ -52,7 +67,7 @@ deployment, then repeat the health and accepted/rejected checks. The Hobby
 plan may only roll back to the immediately previous production deployment.
 Record the failing deployment URL and error logs before rebuilding a fix.
 
-## Deployment record
+## First deployment record — October 2 (historical)
 
 | Field | Verified value |
 | --- | --- |
@@ -63,6 +78,6 @@ Record the failing deployment URL and error logs before rebuilding a fix.
 
 The initial site build loads about 68.6 KiB of compressed JavaScript and 4.6
 KiB of compressed CSS; the team page is loaded only when opened. The About
-page still contains a 1.76 MB portrait, so that route has a performance
-follow-up. The October 2 production dependency audit found no advisories;
+page then contained a 1.76 MB portrait, recorded as a performance follow-up
+and subsequently replaced. The October 2 production dependency audit found no advisories;
 the full development-tool audit found two moderate and one high advisory.
