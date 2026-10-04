@@ -1,5 +1,10 @@
 # Four-week roadmap
 
+**Development complete:** Ranee declared the project finished October 4, 2026.
+This roadmap preserves the original schedule and dependencies, not an active
+backlog. The October 6 presentation remains scheduled. See
+[Current status](status.md) for completion evidence and academic milestones.
+
 The submission deadline is **September 29, 2026**; the final presentation is
 **October 6, 2026**. The compressed four-phase schedule retains its original
 build and submission checkpoints. Defense preparation continues after upload.
@@ -68,6 +73,8 @@ Members begin every task that the locked files already allow. A dependency block
 - At sprint review, close completed active issues, move unfinished work deliberately, and then open the next phase’s issues.
 - Do not create all four weeks of member issues in advance.
 
-The active phase and evidence are recorded in [Current status](status.md). GitHub contains the live issue state; this file defines the schedule and activation rule.
+No development phase is active. [Current status](status.md) records completion
+and verification; GitHub contains the live issue state. The activation rules
+above describe the historical project workflow.
 
 Phase 2 onward issues use the [Independent work-package template](work-package-template.md). Phase 1 issues are preserved as completed project history.

@@ -1,5 +1,10 @@
 # Phase 4 — Independent release and defense packages
 
+**Project closure:** Ranee declared development complete October 4, 2026.
+The packages below preserve the original assignments, not new active tasks.
+See [Current status](../status.md) for the completed application and the
+separately scheduled October 6 presentation.
+
 **Dates:** September 26–October 6, 2026. Submit on September 29; present on
 October 6. The original September 26–28 release window is retained as planned
 history. Phase 4 opens only after Ranee records the Phase 3 freeze decision.

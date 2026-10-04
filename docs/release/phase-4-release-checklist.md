@@ -1,5 +1,12 @@
 # Phase 4 release-control checklist
 
+> Historical verification record: the checks below describe September 29
+> and its frozen revision. Ranee declared the project complete October 4.
+> Hosting, portrait optimization and later application changes have shipped.
+> Use [Current status](../status.md) and [Vercel deployment](vercel-deployment.md)
+> for current evidence. Preserve the original observations below rather than
+> treating them as current open blockers.
+
 **Owner:** Ranee Mikaella V. Gutierrez
 
 **Issue:** [#78](https://github.com/seavens3nt/url-pattern-recognition/issues/78)
